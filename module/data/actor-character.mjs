@@ -12,10 +12,18 @@ export default class lwfCharacter extends lwfActorBase {
       degree: new fields.SchemaField({
         value: new fields.NumberField({ ...requiredInteger, initial: 1 })
       }),
-      aura: new fields.NumberField({ ...requiredInteger, initial: 1, min: 0}),
-      effortless: new fields.NumberField({ ...requiredInteger, initial: 1}),
-      foci: new fields.NumberField({ ...requiredInteger, initial: 1}),
-      masteries: new fields.NumberField({ ...requiredInteger, initial: 1})
+      aura: new fields.SchemaField({
+        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+      }),
+      effortless:new fields.SchemaField({
+        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+      }),
+      foci: new fields.SchemaField({
+        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+      }),
+      masteries: new fields.SchemaField({
+        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+      }),
     });
 
     // All the relevant datafields relating to chakras and Prana generation
@@ -46,7 +54,7 @@ export default class lwfCharacter extends lwfActorBase {
 
     schema.armor = new fields.NumberField({ ...requiredInteger, initial: 0});
     schema.weapon = new fields.ArrayField({element: fields.StringField()});
-    schema.archetype = new fields.StringField(),
+    schema.archetype = new fields.StringField();
 
     return schema;
   }
