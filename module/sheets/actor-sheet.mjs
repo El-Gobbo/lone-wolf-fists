@@ -18,7 +18,7 @@ export class lwfActorSheet extends ActorSheet {
         {
           navSelector: '.sheet-tabs',
           contentSelector: '.sheet-body',
-          initial: 'features',
+          initial: 'core',
         },
       ],
     });
@@ -104,18 +104,13 @@ export class lwfActorSheet extends ActorSheet {
   _prepareItems(context) {
     // Initialize containers.
     const gear = [];
-    const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: [],
+    const guptKala = [];
+    const techniques = {
+      "form": [],
+      "attack": [],
+      "defense": [],
+      "balance": [],
+      "mudra": [],
     };
 
     // Iterate through items, allocating to containers
@@ -125,22 +120,22 @@ export class lwfActorSheet extends ActorSheet {
       if (i.type === 'item') {
         gear.push(i);
       }
-      // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
+      // Append to gupt kala.
+      else if (i.type === 'guptKala') {
+        guptKala.push(i);
       }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.system.spellLevel != undefined) {
-          spells[i.system.spellLevel].push(i);
+      // Append to techniques.
+      else if (i.type === 'technique') {
+        if (i.system.techniqueType != undefined) {
+          techniques[i.system.techniqueType].push(i);
         }
       }
     }
 
     // Assign and return
     context.gear = gear;
-    context.features = features;
-    context.spells = spells;
+    context.guptKala = guptKala;
+    context.techniques = techniques;
   }
 
   /* -------------------------------------------- */

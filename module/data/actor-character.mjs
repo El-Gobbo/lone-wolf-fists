@@ -3,58 +3,58 @@ import lwfActorBase from "./base-actor.mjs";
 export default class lwfCharacter extends lwfActorBase {
 
   static defineSchema() {
-    const fields = foundry.data.fields;
+    const { SchemaField, NumberField, StringField, ArrayField, HTMLField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
     // All attributes specific to Lone WOlf fists, affected by levelling up, and not covered by the other categories
-    schema.attributes = new fields.SchemaField({
-      degree: new fields.SchemaField({
-        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+    schema.attributes = new SchemaField({
+      degree: new SchemaField({
+        value: new NumberField({ ...requiredInteger, initial: 1 })
       }),
-      aura: new fields.SchemaField({
-        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+      aura: new SchemaField({
+        value: new NumberField({ ...requiredInteger, initial: 1 })
       }),
-      effortless:new fields.SchemaField({
-        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+      effortless:new SchemaField({
+        value: new NumberField({ ...requiredInteger, initial: 1 })
       }),
-      foci: new fields.SchemaField({
-        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+      foci: new SchemaField({
+        value: new NumberField({ ...requiredInteger, initial: 1 })
       }),
-      masteries: new fields.SchemaField({
-        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+      masteries: new SchemaField({
+        value: new NumberField({ ...requiredInteger, initial: 1 })
       }),
     });
 
     // All the relevant datafields relating to chakras and Prana generation
-    schema.chakra = new fields.SchemaField({
-      prana: new fields.SchemaField ({
-        value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100})
+    schema.chakra = new SchemaField({
+      prana: new SchemaField ({
+        value: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100})
       }),
-      active: new fields.SchemaField ({
-        value: new fields.NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
-        initial: new fields.NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
+      active: new SchemaField ({
+        value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
+        initial: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
       }),
-      recovery: new fields.NumberField({ ...requiredInteger, initial: 3})
+      recovery: new NumberField({ ...requiredInteger, initial: 3})
     });
 
-    schema.karma = new fields.SchemaField({
-      current: new fields.NumberField({ ...requiredInteger, initial: 0}),
-      next: new fields.NumberField({ ...requiredInteger, initial: 200}),
-      spent: new fields.NumberField({ ...requiredInteger, initial: 120})
+    schema.karma = new SchemaField({
+      current: new NumberField({ ...requiredInteger, initial: 0}),
+      next: new NumberField({ ...requiredInteger, initial: 200}),
+      spent: new NumberField({ ...requiredInteger, initial: 120})
     });
 
-    schema.bio = new fields.SchemaField({
-      clan: new fields.StringField(),
-      deed: new fields.HTMLField(),
-      landmark: new fields.HTMLField(),
-      vice: new fields.HTMLField(),
-      rep: new fields.HTMLField()
+    schema.bio = new SchemaField({
+      clan: new StringField(),
+      deed: new HTMLField(),
+      landmark: new HTMLField(),
+      vice: new HTMLField(),
+      rep: new HTMLField()
     })
 
-    schema.armor = new fields.NumberField({ ...requiredInteger, initial: 0});
-    schema.weapon = new fields.ArrayField({element: fields.StringField()});
-    schema.archetype = new fields.StringField();
+    schema.armor = new NumberField({ ...requiredInteger, initial: 0});
+    schema.weapon = new ArrayField(new StringField());
+    schema.archetype = new StringField();
 
     return schema;
   }
