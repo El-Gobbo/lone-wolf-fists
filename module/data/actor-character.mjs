@@ -28,13 +28,25 @@ export default class lwfCharacter extends lwfActorBase {
         initial: new fields.NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
       }),
       recovery: new fields.NumberField({ ...requiredInteger, initial: 3})
-    })
+    });
 
     schema.karma = new fields.SchemaField({
       current: new fields.NumberField({ ...requiredInteger, initial: 0}),
       next: new fields.NumberField({ ...requiredInteger, initial: 200}),
       spent: new fields.NumberField({ ...requiredInteger, initial: 120})
+    });
+
+    schema.bio = new fields.SchemaField({
+      clan: new fields.StringField(),
+      deed: new fields.HTMLField(),
+      landmark: new fields.HTMLField(),
+      vice: new fields.HTMLField(),
+      rep: new fields.HTMLField()
     })
+
+    schema.armor = new fields.NumberField({ ...requiredInteger, initial: 0});
+    schema.weapon = new fields.ArrayField({element: fields.StringField()});
+    schema.archetype = new fields.StringField(),
 
     return schema;
   }
