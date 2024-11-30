@@ -1,3 +1,3 @@
-import LoneWolfFistsItemBase from "./base-item.mjs";
+import lwfItemBase from "./base-item.mjs";
 
-export default class LoneWolfFistsFeature extends LoneWolfFistsItemBase {}
+export default class lwfFeature extends lwfItemBase {}

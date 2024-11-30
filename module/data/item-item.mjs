@@ -1,6 +1,6 @@
-import LoneWolfFistsItemBase from "./base-item.mjs";
+import lwfItemBase from "./base-item.mjs";
 
-export default class LoneWolfFistsItem extends LoneWolfFistsItemBase {
+export default class lwfItem extends lwfItemBase {
 
   static defineSchema() {
     const fields = foundry.data.fields;

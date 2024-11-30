@@ -1,4 +1,4 @@
-export default class LoneWolfFistsDataModel extends foundry.abstract.TypeDataModel {
+export default class lwfDataModel extends foundry.abstract.TypeDataModel {
   /**
    * Convert the schema to a plain object.
    * 

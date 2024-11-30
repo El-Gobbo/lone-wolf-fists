@@ -1,5 +1,5 @@
 {
-  "LONE_WOLF_FISTS": {
+  "LWF": {
     "Ability": {
       "Str": { "long": "Strength", "abbr": "str" },
       "Con": { "long": "Constitution", "abbr": "con" },
@@ -9,8 +9,8 @@
       "Cha": { "long": "Charisma", "abbr": "cha" }
     },
     "SheetLabels": {
-      "Actor": "LoneWolfFists Actor Sheet",
-      "Item": "LoneWolfFists Item Sheet"
+      "Actor": "lwf Actor Sheet",
+      "Item": "lwf Item Sheet"
     },
     "Item": {
       "Spell": {

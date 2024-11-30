@@ -1,8 +1,34 @@
 {
   "Actor": {
-    "types": ["character", "npc"]
+    "types": [
+      "character", 
+      "monster",
+      "squad",
+      "platoon",
+      "vehicle",
+      "titan",
+      "domain"
+    ]
   },
   "Item": {
-    "types": ["item", "feature", "spell"]
+    "types": [
+      "item", 
+      "weapon", 
+      "armor",
+      "archetype",
+      "clan",
+      "technique",
+      "artifact",
+      "move",
+      "gupt-kala"
+      ]
+  },
+  "JournalEntryPage": {
+    "types": [
+      "artifact",
+      "technique",
+      "gupt-kala",
+      "move"
+    ]
   }
 }

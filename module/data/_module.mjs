@@ -1,10 +1,10 @@
 // Export Actors
-export {default as LoneWolfFistsActorBase} from "./base-actor.mjs";
-export {default as LoneWolfFistsCharacter} from "./actor-character.mjs";
-export {default as LoneWolfFistsNPC} from "./actor-npc.mjs";
+export {default as lwfActorBase} from "./base-actor.mjs";
+export {default as lwfCharacter} from "./actor-character.mjs";
+export {default as lwfNPC} from "./actor-npc.mjs";
 
 // Export Items
-export {default as LoneWolfFistsItemBase} from "./base-item.mjs";
-export {default as LoneWolfFistsItem} from "./item-item.mjs";
-export {default as LoneWolfFistsFeature} from "./item-feature.mjs";
-export {default as LoneWolfFistsSpell} from "./item-spell.mjs";
+export {default as lwfItemBase} from "./base-item.mjs";
+export {default as lwfItem} from "./item-item.mjs";
+export {default as lwfFeature} from "./item-feature.mjs";
+export {default as lwfSpell} from "./item-spell.mjs";

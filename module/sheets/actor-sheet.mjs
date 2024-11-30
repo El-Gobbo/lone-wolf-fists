@@ -7,7 +7,7 @@ import {
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class LoneWolfFistsActorSheet extends ActorSheet {
+export class lwfActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -46,8 +46,8 @@ export class LoneWolfFistsActorSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
 
-    // Adding a pointer to CONFIG.LONE_WOLF_FISTS
-    context.config = CONFIG.LONE_WOLF_FISTS;
+    // Adding a pointer to CONFIG.LWF
+    context.config = CONFIG.LWF;
 
     // Prepare character data and items.
     if (actorData.type == 'character') {

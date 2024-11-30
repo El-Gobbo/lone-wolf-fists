@@ -43,17 +43,17 @@ export function prepareActiveEffectCategories(effects) {
   const categories = {
     temporary: {
       type: 'temporary',
-      label: game.i18n.localize('LONE_WOLF_FISTS.Effect.Temporary'),
+      label: game.i18n.localize('LWF.Effect.Temporary'),
       effects: [],
     },
     passive: {
       type: 'passive',
-      label: game.i18n.localize('LONE_WOLF_FISTS.Effect.Passive'),
+      label: game.i18n.localize('LWF.Effect.Passive'),
       effects: [],
     },
     inactive: {
       type: 'inactive',
-      label: game.i18n.localize('LONE_WOLF_FISTS.Effect.Inactive'),
+      label: game.i18n.localize('LWF.Effect.Inactive'),
       effects: [],
     },
   };

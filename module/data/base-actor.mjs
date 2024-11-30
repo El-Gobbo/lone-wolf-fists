@@ -1,6 +1,6 @@
-import LoneWolfFistsDataModel from "./base-model.mjs";
+import lwfDataModel from "./base-model.mjs";
 
-export default class LoneWolfFistsActorBase extends LoneWolfFistsDataModel {
+export default class lwfActorBase extends lwfDataModel {
 
   static defineSchema() {
     const fields = foundry.data.fields;

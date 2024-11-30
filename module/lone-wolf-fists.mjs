@@ -1,12 +1,12 @@
 // Import document classes.
-import { LoneWolfFistsActor } from './documents/actor.mjs';
-import { LoneWolfFistsItem } from './documents/item.mjs';
+import { lwfActor } from './documents/actor.mjs';
+import { lwfItem } from './documents/item.mjs';
 // Import sheet classes.
-import { LoneWolfFistsActorSheet } from './sheets/actor-sheet.mjs';
-import { LoneWolfFistsItemSheet } from './sheets/item-sheet.mjs';
+import { lwfActorSheet } from './sheets/actor-sheet.mjs';
+import { lwfItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
-import { LONE_WOLF_FISTS } from './helpers/config.mjs';
+import { LWF } from './helpers/config.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 
@@ -18,13 +18,13 @@ Hooks.once('init', function () {
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.lonewolffists = {
-    LoneWolfFistsActor,
-    LoneWolfFistsItem,
+    lwfActor,
+    lwfItem,
     rollItemMacro,
   };
 
   // Add custom constants for configuration.
-  CONFIG.LONE_WOLF_FISTS = LONE_WOLF_FISTS;
+  CONFIG.LWF = LWF;
 
   /**
    * Set an initiative formula for the system
@@ -36,20 +36,20 @@ Hooks.once('init', function () {
   };
 
   // Define custom Document and DataModel classes
-  CONFIG.Actor.documentClass = LoneWolfFistsActor;
+  CONFIG.Actor.documentClass = lwfActor;
 
   // Note that you don't need to declare a DataModel
   // for the base actor/item classes - they are included
   // with the Character/NPC as part of super.defineSchema()
   CONFIG.Actor.dataModels = {
-    character: models.LoneWolfFistsCharacter,
-    npc: models.LoneWolfFistsNPC
+    character: models.lwfCharacter,
+    npc: models.lwfNPC
   }
-  CONFIG.Item.documentClass = LoneWolfFistsItem;
+  CONFIG.Item.documentClass = lwfItem;
   CONFIG.Item.dataModels = {
-    item: models.LoneWolfFistsItem,
-    feature: models.LoneWolfFistsFeature,
-    spell: models.LoneWolfFistsSpell
+    item: models.lwfItem,
+    feature: models.lwfFeature,
+    spell: models.lwfSpell
   }
 
   // Active Effects are never copied to the Actor,
@@ -59,14 +59,14 @@ Hooks.once('init', function () {
 
   // Register sheet application classes
   Actors.unregisterSheet('core', ActorSheet);
-  Actors.registerSheet('lone-wolf-fists', LoneWolfFistsActorSheet, {
+  Actors.registerSheet('lone-wolf-fists', lwfActorSheet, {
     makeDefault: true,
-    label: 'LONE_WOLF_FISTS.SheetLabels.Actor',
+    label: 'LWF.SheetLabels.Actor',
   });
   Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('lone-wolf-fists', LoneWolfFistsItemSheet, {
+  Items.registerSheet('lone-wolf-fists', lwfItemSheet, {
     makeDefault: true,
-    label: 'LONE_WOLF_FISTS.SheetLabels.Item',
+    label: 'LWF.SheetLabels.Item',
   });
 
   // Preload Handlebars templates.

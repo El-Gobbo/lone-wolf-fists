@@ -1,6 +1,6 @@
-import LoneWolfFistsActorBase from "./base-actor.mjs";
+import lwfActorBase from "./base-actor.mjs";
 
-export default class LoneWolfFistsNPC extends LoneWolfFistsActorBase {
+export default class lwfNPC extends lwfActorBase {
 
   static defineSchema() {
     const fields = foundry.data.fields;

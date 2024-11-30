@@ -7,7 +7,7 @@ import {
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
-export class LoneWolfFistsItemSheet extends ItemSheet {
+export class lwfItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -65,8 +65,8 @@ export class LoneWolfFistsItemSheet extends ItemSheet {
     context.system = itemData.system;
     context.flags = itemData.flags;
 
-    // Adding a pointer to CONFIG.LONE_WOLF_FISTS
-    context.config = CONFIG.LONE_WOLF_FISTS;
+    // Adding a pointer to CONFIG.LWF
+    context.config = CONFIG.LWF;
 
     // Prepare active effects for easier access
     context.effects = prepareActiveEffectCategories(this.item.effects);

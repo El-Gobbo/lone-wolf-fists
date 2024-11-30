@@ -1,6 +1,6 @@
-import LoneWolfFistsActorBase from "./base-actor.mjs";
+import lwfActorBase from "./base-actor.mjs";
 
-export default class LoneWolfFistsCharacter extends LoneWolfFistsActorBase {
+export default class lwfCharacter extends lwfActorBase {
 
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -14,7 +14,7 @@ export default class LoneWolfFistsCharacter extends LoneWolfFistsActorBase {
     });
 
     // Iterate over ability names and create a new SchemaField for each.
-    schema.abilities = new fields.SchemaField(Object.keys(CONFIG.LONE_WOLF_FISTS.abilities).reduce((obj, ability) => {
+    schema.abilities = new fields.SchemaField(Object.keys(CONFIG.LWF.abilities).reduce((obj, ability) => {
       obj[ability] = new fields.SchemaField({
         value: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 }),
       });
@@ -30,7 +30,7 @@ export default class LoneWolfFistsCharacter extends LoneWolfFistsActorBase {
       // Calculate the modifier using d20 rules.
       this.abilities[key].mod = Math.floor((this.abilities[key].value - 10) / 2);
       // Handle ability label localization.
-      this.abilities[key].label = game.i18n.localize(CONFIG.LONE_WOLF_FISTS.abilities[key]) ?? key;
+      this.abilities[key].label = game.i18n.localize(CONFIG.LWF.abilities[key]) ?? key;
     }
   }
 
