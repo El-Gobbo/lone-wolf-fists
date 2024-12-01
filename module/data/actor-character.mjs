@@ -61,20 +61,13 @@ export default class lwfCharacter extends lwfActorBase {
   prepareDerivedData() {
     // Initialise all derived data from the LWFARCH const
     let degree = this.degree.value;
-    console.log(typeof degree);
     let archetype = this.archetype;
     // exits if no archetype has yet been set
     if (!(archetype in LWFARCH))
       return;
     // iterates over LWFARCH and assigns the attributes contained within. For more info, see archetypes.mjs
     for (const key in LWFARCH[archetype])
-    {
-      console.log(LWFARCH[archetype]);
-      console.log(LWFARCH[archetype][key]);
-      console.log(LWFARCH[archetype][key][degree]);
       this[key].value = LWFARCH[archetype][key][degree];
-    }
-
   }
 
   getRollData() {
