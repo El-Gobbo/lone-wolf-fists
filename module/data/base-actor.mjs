@@ -9,7 +9,8 @@ export default class lwfActorBase extends lwfDataModel {
 
     schema.health = new fields.SchemaField({
       value: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 }),
-      max: new fields.NumberField({ ...requiredInteger, initial: 10 })
+      max: new fields.NumberField({ ...requiredInteger, initial: 10 }),
+      levels: new fields.NumberField({ ...requiredInteger, initial: 1})
     });
     schema.power = new fields.SchemaField({
       value: new fields.NumberField({ ...requiredInteger, initial: 5, min: 0 }),
