@@ -1,4 +1,5 @@
 import lwfActorBase from "./base-actor.mjs";
+import { LWFARCH } from "./archetypes.mjs";
 
 export default class lwfCharacter extends lwfActorBase {
 
@@ -8,48 +9,48 @@ export default class lwfCharacter extends lwfActorBase {
     const schema = super.defineSchema();
 
     // All attributes specific to Lone WOlf fists, affected by levelling up, and not covered by the other categories
-    schema.attributes = new SchemaField({
-      degree: new SchemaField({
+    schema.degree = new SchemaField({
         value: new NumberField({ ...requiredInteger, initial: 1 })
-      }),
-      aura: new SchemaField({
-        value: new NumberField({ ...requiredInteger, initial: 10 }),
+      });
+    schema.aura = new SchemaField({
+        value: new NumberField({ ...requiredInteger, initial: 1}),
         max: new NumberField({ ...requiredInteger, initial: 10}),
-        level: new NumberField({ ...requiredInteger, initial: 1 })
-      }),
-      effortless:new SchemaField({
+        current: new NumberField({ ...requiredInteger, initial: 10})
+      });
+    schema.effortless = new SchemaField({
         value: new NumberField({ ...requiredInteger, initial: 1 })
-      }),
-      foci: new NumberField({ ...requiredInteger, initial: 1 }),
-      masteries: new NumberField({ ...requiredInteger, initial: 1 }),
+      });
+    schema.foci = new SchemaField({
+      value: new NumberField({ ...requiredInteger, initial: 1 })
+    });
+    schema.masteries = new SchemaField({
+      value: new NumberField({ ...requiredInteger, initial: 1 })
     });
 
     // All the relevant datafields relating to chakras and Prana generation
-    schema.chakra = new SchemaField({
-      prana: new SchemaField ({
-        value: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100})
-      }),
-      active: new SchemaField ({
-        value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
-        initial: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
-      }),
-      recovery: new NumberField({ ...requiredInteger, initial: 3})
+    schema.prana = new SchemaField({
+      value: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100}),
     });
+    schema.pool = new SchemaField({
+      value: new NumberField({ ...requiredInteger, initial: 0, min: 0 })
+    })
+    schema.chakras = new SchemaField ({
+        active: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
+        value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
+      }),
     // All datafields relating to karma
     schema.karma = new SchemaField({
       current: new NumberField({ ...requiredInteger, initial: 0}),
-      next: new NumberField({ ...requiredInteger, initial: 200}),
+      value: new NumberField({ ...requiredInteger, initial: 200}),
       spent: new NumberField({ ...requiredInteger, initial: 120})
     });
     // All datafields relating to background or roleplay informmation about the character
-    schema.bio = new SchemaField({
-      archetype: new StringField(),
-      clan: new StringField(),
-      deed: new HTMLField(),
-      landmark: new HTMLField(),
-      vice: new HTMLField(),
-      rep: new HTMLField()
-    })
+    schema.archetype = new StringField({initial: "none"});
+    schema.clan = new StringField();
+    schema.deed = new HTMLField();
+    schema.landmark = new HTMLField();
+    schema.vice = new HTMLField();
+    schema.rep = new HTMLField();
 
     schema.armor = new NumberField({ ...requiredInteger, initial: 0});
     schema.weapon = new ArrayField(new StringField());
@@ -58,36 +59,16 @@ export default class lwfCharacter extends lwfActorBase {
   }
 
   prepareDerivedData() {
-    // Calculate all the variables that change with level ups.
-    // This is a baseline, which will be modified by the archetype
-    // The strong hero is the baseline here.
-    let degree = this.degree.value
-    let attributes = this.attributes;
-    this.health.max = (4 + degree * 2) * 10;
-    this.power.value = 5 + degree;
-    attributes.aura.max = degree * 10;
-    attributes.foci = Math.ceil(degree / 2);
-    attributes.masteries = Math.floor((degree / 3) + 1);
-    if (degree < 4)
-    {
-      this.chakra.active.initial = degree;
-      attributes.effortless = 1;
-    }
-    if (degree >= 4 && degree < 7)
-    {
-      this.chakra.initial = degree
-      attributes.effortless = 2
-    }
+    // Initialise all derived data from the LWFARCH const
+    let degree = this.degree;
+    let archetype = this.archetype;
+    // exits if no archetype has yet been set
+    if (!(archetype in LWFARCH))
+      return;
+    // iterates over LWFARCH and assigns the attributes contained within. For more info, see archetypes.mjs
+    for (const key in LWFARCH[archetype])
+      this[key].value = LWFARCH[archetype][degree][key];
 
-    
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    /*
-    for (const key in this.abilities) {
-      // Calculate the modifier using d20 rules.
-      this.abilities[key].mod = Math.floor((this.abilities[key].value - 10) / 2);
-      // Handle ability label localization.
-      this.abilities[key].label = game.i18n.localize(CONFIG.LWF.abilities[key]) ?? key;
-    }*/
   }
 
   getRollData() {
