@@ -45,7 +45,7 @@ export default class lwfCharacter extends lwfActorBase {
       spent: new NumberField({ ...requiredInteger, initial: 120})
     });
     // All datafields relating to background or roleplay informmation about the character
-    schema.archetype = new StringField({initial: "none"});
+    schema.archetype = new StringField({initial: "cunning"});
     schema.clan = new StringField();
     schema.deed = new HTMLField();
     schema.landmark = new HTMLField();
@@ -60,14 +60,20 @@ export default class lwfCharacter extends lwfActorBase {
 
   prepareDerivedData() {
     // Initialise all derived data from the LWFARCH const
-    let degree = this.degree;
+    let degree = this.degree.value;
+    console.log(typeof degree);
     let archetype = this.archetype;
     // exits if no archetype has yet been set
     if (!(archetype in LWFARCH))
       return;
     // iterates over LWFARCH and assigns the attributes contained within. For more info, see archetypes.mjs
     for (const key in LWFARCH[archetype])
-      this[key].value = LWFARCH[archetype][degree][key];
+    {
+      console.log(LWFARCH[archetype]);
+      console.log(LWFARCH[archetype][key]);
+      console.log(LWFARCH[archetype][key][degree]);
+      this[key].value = LWFARCH[archetype][key][degree];
+    }
 
   }
 
