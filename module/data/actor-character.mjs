@@ -13,17 +13,15 @@ export default class lwfCharacter extends lwfActorBase {
         value: new NumberField({ ...requiredInteger, initial: 1 })
       }),
       aura: new SchemaField({
-        value: new NumberField({ ...requiredInteger, initial: 1 })
+        value: new NumberField({ ...requiredInteger, initial: 10 }),
+        max: new NumberField({ ...requiredInteger, initial: 10}),
+        level: new NumberField({ ...requiredInteger, initial: 1 })
       }),
       effortless:new SchemaField({
         value: new NumberField({ ...requiredInteger, initial: 1 })
       }),
-      foci: new SchemaField({
-        value: new NumberField({ ...requiredInteger, initial: 1 })
-      }),
-      masteries: new SchemaField({
-        value: new NumberField({ ...requiredInteger, initial: 1 })
-      }),
+      foci: new NumberField({ ...requiredInteger, initial: 1 }),
+      masteries: new NumberField({ ...requiredInteger, initial: 1 }),
     });
 
     // All the relevant datafields relating to chakras and Prana generation
@@ -37,14 +35,15 @@ export default class lwfCharacter extends lwfActorBase {
       }),
       recovery: new NumberField({ ...requiredInteger, initial: 3})
     });
-
+    // All datafields relating to karma
     schema.karma = new SchemaField({
       current: new NumberField({ ...requiredInteger, initial: 0}),
       next: new NumberField({ ...requiredInteger, initial: 200}),
       spent: new NumberField({ ...requiredInteger, initial: 120})
     });
-
+    // All datafields relating to background or roleplay informmation about the character
     schema.bio = new SchemaField({
+      archetype: new StringField(),
       clan: new StringField(),
       deed: new HTMLField(),
       landmark: new HTMLField(),
@@ -54,12 +53,33 @@ export default class lwfCharacter extends lwfActorBase {
 
     schema.armor = new NumberField({ ...requiredInteger, initial: 0});
     schema.weapon = new ArrayField(new StringField());
-    schema.archetype = new StringField();
 
     return schema;
   }
 
   prepareDerivedData() {
+    // Calculate all the variables that change with level ups.
+    // This is a baseline, which will be modified by the archetype
+    // The strong hero is the baseline here.
+    let degree = this.degree.value
+    let attributes = this.attributes;
+    this.health.max = (4 + degree * 2) * 10;
+    this.power.value = 5 + degree;
+    attributes.aura.max = degree * 10;
+    attributes.foci = Math.ceil(degree / 2);
+    attributes.masteries = Math.floor((degree / 3) + 1);
+    if (degree < 4)
+    {
+      this.chakra.active.initial = degree;
+      attributes.effortless = 1;
+    }
+    if (degree >= 4 && degree < 7)
+    {
+      this.chakra.initial = degree
+      attributes.effortless = 2
+    }
+
+    
     // Loop through ability scores, and add their modifiers to our sheet output.
     /*
     for (const key in this.abilities) {
