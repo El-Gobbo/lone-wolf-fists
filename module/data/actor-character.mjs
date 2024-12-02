@@ -52,7 +52,6 @@ export default class lwfCharacter extends lwfActorBase {
     schema.vice = new HTMLField();
     schema.rep = new HTMLField();
 
-    schema.armor = new NumberField({ ...requiredInteger, initial: 0});
     schema.weapon = new ArrayField(new StringField());
 
     return schema;
@@ -60,7 +59,7 @@ export default class lwfCharacter extends lwfActorBase {
 
   prepareDerivedData() {
     // Initialise all derived data from the LWFARCH const
-    let degree = this.degree.value;
+    let degree = this.degree.value - 1;
     let archetype = this.archetype;
     // exits if no archetype has yet been set
     if (!(archetype in LWFARCH))
@@ -68,6 +67,8 @@ export default class lwfCharacter extends lwfActorBase {
     // iterates over LWFARCH and assigns the attributes contained within. For more info, see archetypes.mjs
     for (const key in LWFARCH[archetype])
       this[key].value = LWFARCH[archetype][key][degree];
+    this.health.max = this.health.value * 10;
+    this.aura.max = this.health.value * 10;
   }
 
   getRollData() {

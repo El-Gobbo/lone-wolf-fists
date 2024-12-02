@@ -1,7 +1,7 @@
 // Export Actors
 export {default as lwfActorBase} from "./base-actor.mjs";
 export {default as lwfCharacter} from "./actor-character.mjs";
-export {default as lwfNPC} from "./actor-npc.mjs";
+export {default as lwfMonster} from "./actor-monster.mjs";
 
 // Export Items
 export {default as lwfItemBase} from "./base-item.mjs";

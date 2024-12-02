@@ -42,8 +42,8 @@ Hooks.once('init', function () {
   // for the base actor/item classes - they are included
   // with the Character/NPC as part of super.defineSchema()
   CONFIG.Actor.dataModels = {
-    character: models.lwfCharacter,
-    npc: models.lwfNPC
+    Character: models.lwfCharacter,
+    monster: models.lwfMonster,
   }
   CONFIG.Item.documentClass = lwfItem;
   CONFIG.Item.dataModels = {
