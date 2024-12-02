@@ -1,7 +1,7 @@
-import lwfActorBase from "./base-actor.mjs";
+import lwfWeaponUser from "./base-weaponuser.mjs";
 import { LWFARCH } from "./archetypes.mjs";
 
-export default class lwfCharacter extends lwfActorBase {
+export default class lwfCharacter extends lwfWeaponUser {
 
   static defineSchema() {
     const { SchemaField, NumberField, StringField, ArrayField, HTMLField } = foundry.data.fields;
@@ -51,8 +51,6 @@ export default class lwfCharacter extends lwfActorBase {
     schema.landmark = new HTMLField();
     schema.vice = new HTMLField();
     schema.rep = new HTMLField();
-
-    schema.weapon = new ArrayField(new StringField());
 
     return schema;
   }
