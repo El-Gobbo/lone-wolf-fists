@@ -44,6 +44,7 @@ Hooks.once('init', function () {
   CONFIG.Actor.dataModels = {
     Character: models.lwfCharacter,
     monster: models.lwfMonster,
+    squad: models.lwfSquad
   }
   CONFIG.Item.documentClass = lwfItem;
   CONFIG.Item.dataModels = {

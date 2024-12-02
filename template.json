@@ -3,6 +3,7 @@
     "types": [
       "Character", 
       "monster",
+      "mortal",
       "squad",
       "platoon",
       "vehicle",
