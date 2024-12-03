@@ -1,7 +1,7 @@
 {
   "Actor": {
     "types": [
-      "Character", 
+      "character", 
       "monster",
       "mortal",
       "squad",
@@ -20,8 +20,10 @@
       "clan",
       "technique",
       "artifact",
-      "move",
-      "gupt-kala"
+      "ability",
+      "gupt-kala",
+      "node",
+      "imbalance"
       ]
   },
   "JournalEntryPage": {

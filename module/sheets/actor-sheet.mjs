@@ -131,11 +131,11 @@ export class lwfActorSheet extends ActorSheet {
         }
       }
     }
-
     // Assign and return
     context.gear = gear;
     context.guptKala = guptKala;
     context.techniques = techniques;
+    return context;
   }
 
   /* -------------------------------------------- */
