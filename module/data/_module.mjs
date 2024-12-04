@@ -9,3 +9,4 @@ export {default as lwfItemBase} from "./base-item.mjs";
 export {default as lwfItem} from "./item-item.mjs";
 export {default as lwfFeature} from "./item-feature.mjs";
 export {default as lwfSpell} from "./item-spell.mjs";
+export {default as lwfImbalance} from "./item-imbalance.mjs";

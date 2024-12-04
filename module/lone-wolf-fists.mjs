@@ -6,7 +6,6 @@ import { lwfActorSheet } from './sheets/actor-sheet.mjs';
 import { lwfItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
-import { LWF } from './helpers/config.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 
@@ -24,7 +23,6 @@ Hooks.once('init', function () {
   };
 
   // Add custom constants for configuration.
-  CONFIG.LWF = LWF;
 
   /**
    * Set an initiative formula for the system
@@ -50,7 +48,8 @@ Hooks.once('init', function () {
   CONFIG.Item.dataModels = {
     item: models.lwfItem,
     feature: models.lwfFeature,
-    spell: models.lwfSpell
+    spell: models.lwfSpell,
+    imbalance: models.lwfImbalance
   }
 
   // Active Effects are never copied to the Actor,

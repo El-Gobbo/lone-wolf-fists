@@ -112,6 +112,8 @@ export class lwfActorSheet extends ActorSheet {
       "balance": [],
       "mudra": [],
     };
+    const imbalances = [];
+
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -130,11 +132,15 @@ export class lwfActorSheet extends ActorSheet {
           techniques[i.system.techniqueType].push(i);
         }
       }
+      else if (i.type === 'imbalance'){
+        imbalances.push(i);
+      }
     }
     // Assign and return
     context.gear = gear;
     context.guptKala = guptKala;
     context.techniques = techniques;
+    context.imbalances = imbalances;
     return context;
   }
 

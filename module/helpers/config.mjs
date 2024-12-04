@@ -4,20 +4,18 @@ export const LWF = {};
  * The set of Ability Scores used within the system.
  * @type {Object}
  */
-LWF.abilities = {
-  str: 'LWF.Ability.Str.long',
-  dex: 'LWF.Ability.Dex.long',
-  con: 'LWF.Ability.Con.long',
-  int: 'LWF.Ability.Int.long',
-  wis: 'LWF.Ability.Wis.long',
-  cha: 'LWF.Ability.Cha.long',
-};
+LWF.effect = [
+  "physical",
+  "spiritual",
+  "emotional"
+];
 
-LWF.abilityAbbreviations = {
-  str: 'LWF.Ability.Str.abbr',
-  dex: 'LWF.Ability.Dex.abbr',
-  con: 'LWF.Ability.Con.abbr',
-  int: 'LWF.Ability.Int.abbr',
-  wis: 'LWF.Ability.Wis.abbr',
-  cha: 'LWF.Ability.Cha.abbr',
-};
+LWF.bodyParts = [
+  "head",
+  "torso",
+  "lArm",
+  "rArm",
+  "lLeg",
+  "rLeg",
+  "internal"
+];
