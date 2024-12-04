@@ -4,6 +4,7 @@
     <th>Type</th>
     <th>Stat</th>
     <th>Rank</th>
+    <th>Aggravation</th>
     <th class='item-controls'>
         <a
           class='item-control item-create'
@@ -18,9 +19,24 @@
   {{#each imbalances as |item id|}}
   <tr class='item' data-item-id='{{item._id}}'>
     <td class="item-location">{{item.system.location}}</td>
-    <td class="item-effect">{{item.system.effect}}</td>
-    <td class="item-stat">{{item.system.stat}}</td>
+    <td class="item-source">
+      <select name='item.system.source'>
+        {{#each ../imbalanceSources}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+    </td>
+    <td class="item-stat">
+      <select class="item-stat" name='item.system.stat'>
+        {{#each ../imbalanceStats}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+    </td>
     <td class="item-rank">{{item.system.rank}}</td>
+    <td class="item-agg">
+      <input type="text" name="item.system.agg" value="{{item.system.agg}}" data-dtype="Number"/>
+    </td>
     <td class="item-controls">
       <a
           class='item-control item-edit'

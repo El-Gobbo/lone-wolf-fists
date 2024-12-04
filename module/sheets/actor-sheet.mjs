@@ -3,6 +3,8 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
+import { LWF } from '../helpers/config.mjs';
+
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -92,8 +94,10 @@ export class lwfActorSheet extends ActorSheet {
    * @param {object} context The context object to mutate
    */
   _prepareCharacterData(context) {
-    // This is where you can enrich character-specific editor fields
-    // or setup anything else that's specific to this type
+    // Add data about imbalances to the character sheet
+    context.imbalanceSources = LWF.source;
+    context.imbalanceStats = LWF.stat;
+    return context;
   }
 
   /**
@@ -161,15 +165,24 @@ export class lwfActorSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
+    html.on('change', '.item-stat', (ev) =>{
+      const tr = $(ev.currentTarget).parents('.item').data("itemId");
+      const item = this.actor.items.get(tr);
+      const stat = $(ev.currentTarget).find(":selected").text();
+      item.system.stat = stat;
+      console.log(item);
+      console.log(item.system.stat);
+    })
+
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
 
     // Delete Inventory Item
     html.on('click', '.item-delete', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
+      const tr = $(ev.currentTarget).parents('.item');
+      const item = this.actor.items.get(tr.data('itemId'));
       item.delete();
-      li.slideUp(200, () => this.render(false));
+      tr.slideUp(200, () => this.render(false));
     });
 
     // Active Effect management
