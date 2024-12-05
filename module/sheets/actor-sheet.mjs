@@ -97,6 +97,7 @@ export class lwfActorSheet extends ActorSheet {
     // Add data about imbalances to the character sheet
     context.imbalanceSources = LWF.source;
     context.imbalanceStats = LWF.stat;
+    context.bodyParts = LWF.bodyParts;
     return context;
   }
 
@@ -178,11 +179,7 @@ export class lwfActorSheet extends ActorSheet {
       else
         update = $(ev.currentTarget).find(":selected").text();
       const target = ev.currentTarget.parentElement.dataset.imbtype;
-      item.system[target] = update;
       item.update({ [`system.${target}`]: update});
-      if (target == "agg")
-        
-        item.system.rank = Math.floor(update / 10);
     })
 
     // Add Inventory Item

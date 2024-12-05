@@ -5,23 +5,23 @@ export const LWF = {};
  * @type {Object}
  */
 LWF.source = [
-  "physical",
-  "spiritual",
-  "emotional"
+  "Physical",
+  "Spiritual",
+  "Emotional"
 ];
 
 LWF.bodyParts = [
-  "head",
-  "torso",
-  "lArm",
-  "rArm",
-  "lLeg",
-  "rLeg",
-  "internal"
+  "Head",
+  "Torso",
+  "Left arm",
+  "Right arm",
+  "Left leg",
+  "Right leg",
+  "Internal"
 ];
 
 LWF.stat = [
-  "effort",
-  "prana",
-  "focus"
+  "Effort",
+  "Prana",
+  "Focus"
 ]

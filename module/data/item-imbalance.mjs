@@ -7,9 +7,9 @@ export default class lwfImbalance extends lwfItemBase {
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
-    schema.location = new StringField();
-    schema.source = new StringField();
-    schema.stat = new StringField({initial: "physical"});
+    schema.bodyPart = new StringField();
+    schema.source = new StringField({initial: "Physical"});
+    schema.stat = new StringField({initial: "Effort"});
     schema.rank = new NumberField({...requiredInteger, initial: 1});
     schema.agg = new NumberField({...requiredInteger, initial: 10});
     // if active is true, then the dramatic effect is applied
