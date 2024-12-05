@@ -165,13 +165,23 @@ export class lwfActorSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
-    html.on('change', '.item-stat', (ev) =>{
+    // Change imbalance data when the data is altered on the sheet
+    html.on('change', '.item-choice', (ev) =>{
       const tr = $(ev.currentTarget).parents('.item').data("itemId");
       const item = this.actor.items.get(tr);
-      const stat = $(ev.currentTarget).find(":selected").text();
-      item.system.stat = stat;
-      console.log(item);
-      console.log(item.system.stat);
+      
+      // The following if statement is used to detect if the chosen element is select or not
+      // If there is a better way to do this, lmk
+      let update;
+      if (ev.currentTarget[1] === undefined)
+        update = ev.currentTarget.value;
+      else
+        update = $(ev.currentTarget).find(":selected").text();
+      const target = ev.currentTarget.parentElement.dataset.imbtype;
+      item.system[target] = update;
+      if (target == "agg")
+        
+        item.system.rank = Math.floor(update / 10);
     })
 
     // Add Inventory Item
