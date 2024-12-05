@@ -179,6 +179,7 @@ export class lwfActorSheet extends ActorSheet {
         update = $(ev.currentTarget).find(":selected").text();
       const target = ev.currentTarget.parentElement.dataset.imbtype;
       item.system[target] = update;
+      item.update({ [`system.${target}`]: update});
       if (target == "agg")
         
         item.system.rank = Math.floor(update / 10);
