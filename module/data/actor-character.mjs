@@ -86,7 +86,6 @@ export default class lwfCharacter extends lwfWeaponUser {
     let foci = this.foci.value;
     let currentSlots = this.foci.slots.length;
     if (currentSlots < foci){
-      currentSlots = currentSlots - 1;
       for (let i = currentSlots; i < foci; i++){
         this.foci.slots.push(0);
       }
