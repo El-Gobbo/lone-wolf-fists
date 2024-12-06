@@ -84,7 +84,11 @@ Handlebars.registerHelper('toLowerCase', function (str) {
 
 Handlebars.registerHelper('comparison', function(var1, var2) {
   return var1 === var2;
-})
+});
+
+Handlebars.registerHelper('lessThan', function(index, limit) {
+  return index < limit;
+});
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */

@@ -23,7 +23,16 @@ export default class lwfCharacter extends lwfWeaponUser {
     });
     schema.foci = new SchemaField({
       value: new NumberField({ ...requiredInteger, initial: 1 }),
-      slots: new ArrayField(new NumberField()),
+      // Visibility of focus slots is controlled at the character sheet level
+      slots: new SchemaField({
+        0: new NumberField({ integer: true, initial: 0 }),
+        1: new NumberField({ integer: true, initial: 0 }),
+        2: new NumberField({ integer: true, initial: 0 }),
+        3: new NumberField({ integer: true, initial: 0 }),
+        4: new NumberField({ integer: true, initial: 0 }),
+        5: new NumberField({ integer: true, initial: 0 }),
+        6: new NumberField({ integer: true, initial: 0 }),
+      })
     });
     schema.masteries = new SchemaField({
       value: new NumberField({ ...requiredInteger, initial: 1 })
@@ -78,18 +87,13 @@ export default class lwfCharacter extends lwfWeaponUser {
     
     // calculate max health and aura from health and aura levels respectively
     this.health.max     = this.health.value * 10;
+    if(this.health.max < this.health.current)
+      this.health.current = this.health.max;
     this.aura.max       = this.health.value * 10;
+    if(this.aura.max < this.aura.current)
+      this.aura.current = this.aura.max;
     this.pool.recovery  = this.pool.value * 2;
     this.prana.gen      = this.pool.value * this.chakras.active;
-
-    // Check focus slots. If there are not enough, add blank slots until there are.
-    let foci = this.foci.value;
-    let currentSlots = this.foci.slots.length;
-    if (currentSlots < foci){
-      for (let i = currentSlots; i < foci; i++){
-        this.foci.slots.push(0);
-      }
-    } 
   }
 
   getRollData() {

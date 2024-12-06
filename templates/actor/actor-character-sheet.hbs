@@ -36,6 +36,15 @@
           </div>
         </div>
       </div>
+      <div class="resources grid grid-8col">
+      
+      {{! display focus slots up to the value determined by level, hide all subsequent slots}}
+      {{#each system.foci.slots}}
+        <div {{#unless (lessThan @index ../system.foci.value )}} hidden {{/unless}} class="resource flex-group-center">
+          <input type="text" id="focus-{{@index}}" class="focusSlot" data-findex="{{@index}}" name="system.foci.slots.{{@index}}" value="{{this}}" data-dtype="Number">
+        </div>
+      {{/each}}
+      </div>
     </div>
   </header>
 
