@@ -10,7 +10,7 @@ My current goal is to get a fully functional sheet for player characters. From t
 ## List of intended changes before alpha
 Character sheet
  - Implement archetypes - 
- - - Make sure there can be only one, and any ones added after the first are ignored - unique item
+ -- Make sure there can be only one, and any ones added after the first are ignored - unique item
 Zero all character sheet data until an archetype is chosen
 Implement clan
 Make sure there can be only one, and any ones added after the first are ignored - unique item
