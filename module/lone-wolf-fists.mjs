@@ -49,7 +49,8 @@ Hooks.once('init', function () {
     item: models.lwfItem,
     feature: models.lwfFeature,
     spell: models.lwfSpell,
-    imbalance: models.lwfImbalance
+    imbalance: models.lwfImbalance,
+    archetype: models.lwfArchetype,
   }
 
   // Active Effects are never copied to the Actor,

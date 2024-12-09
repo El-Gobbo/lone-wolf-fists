@@ -19,10 +19,10 @@ export default class lwfCharacter extends lwfWeaponUser {
       current: new NumberField({ ...requiredInteger, initial: 10})
     });
     schema.effortless = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 1 })
+      value: new NumberField({ ...requiredInteger, initial: 0 })
     });
     schema.foci = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 1 }),
+      value: new NumberField({ ...requiredInteger, initial: 0 }),
       // Visibility of focus slots is controlled at the character sheet level
       slots: new SchemaField({
         0: new NumberField({ integer: true, initial: 0 }),
@@ -35,7 +35,7 @@ export default class lwfCharacter extends lwfWeaponUser {
       })
     });
     schema.masteries = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 1 })
+      value: new NumberField({ ...requiredInteger, initial: 0 })
     });
 
     // All the relevant datafields relating to chakras and Prana generation
@@ -59,8 +59,8 @@ export default class lwfCharacter extends lwfWeaponUser {
       spent: new NumberField({ ...requiredInteger, initial: 120})
     });
     // All datafields relating to background or roleplay informmation about the character
-    schema.archetype = new StringField({initial: "cunning"});
-    schema.clan = new StringField();
+    schema.archetype = new StringField({initial: "tbd"});
+    schema.clan = new StringField({initial: "tbd"});
     schema.deed = new HTMLField();
     schema.landmark = new HTMLField();
     schema.vice = new HTMLField();

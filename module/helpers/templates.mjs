@@ -8,7 +8,7 @@ export const preloadHandlebarsTemplates = async function () {
     // Actor partials.
     'systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs',
-    'systems/lone-wolf-fists/templates/actor/parts/actor-spells.hbs',
+    'systems/lone-wolf-fists/templates/actor/parts/actor-dharma.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-effects.hbs',
     // Item partials
     'systems/lone-wolf-fists/templates/item/parts/item-effects.hbs',

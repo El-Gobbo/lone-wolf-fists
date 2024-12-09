@@ -1,0 +1,38 @@
+<div class="grid grid-3col">
+  <div class="dharma">
+    <label>Heroic Deed</label>
+      <div class="tab">
+      {{editor
+        system.deed
+        target='system.deed'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+      </div>
+  </div>
+  <div class="dharma">
+    <label>Cultural Landmark</label>
+      <div class="tab">
+      {{editor
+        system.landmark
+        target='system.landmark'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+      </div>
+  </div>
+  <div class="dharma">
+    <label>Vice</label>
+      <div class="tab">
+      {{editor
+        system.vice
+        target='system.deed'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+      </div>
+  </div>
+</div>

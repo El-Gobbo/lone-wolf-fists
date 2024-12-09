@@ -34,7 +34,17 @@
       "path": "lang/en.json"
     }
   ],
-  "packs": [],
+  "packs": [
+    {
+      "name": "archetypes",
+      "label": "Archetypes",
+      "system": "lone-wolf-fists",
+      "path": "packs/archetypes",
+      "type": "Item",
+      "private": false,
+      "flags": {}
+    }
+  ],
   "packFolders": [],
   "socket": false,
   "manifest": "https://github.com/El-Gobbo/lone-wolf-fists/blob/main/system.json",

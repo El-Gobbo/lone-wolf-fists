@@ -78,6 +78,7 @@ export class lwfActorSheet extends ActorSheet {
       }
     );
 
+
     // Prepare active effects
     context.effects = prepareActiveEffectCategories(
       // A generator that returns all effects stored on the actor
@@ -119,27 +120,52 @@ export class lwfActorSheet extends ActorSheet {
       "mudra": [],
     };
     const imbalances = [];
+    const archetype = [];
+    const clan = [];
 
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || Item.DEFAULT_ICON;
       // Append to gear.
-      if (i.type === 'item') {
-        gear.push(i);
-      }
+      switch (i.type) {
+        case 'item': 
+          gear.push(i);
+          break;
+
       // Append to gupt kala.
-      else if (i.type === 'guptKala') {
-        guptKala.push(i);
-      }
+        case 'guptKala':
+          guptKala.push(i);
+          break;
+
       // Append to techniques.
-      else if (i.type === 'technique') {
-        if (i.system.techniqueType != undefined) {
-          techniques[i.system.techniqueType].push(i);
-        }
-      }
-      else if (i.type === 'imbalance'){
-        imbalances.push(i);
+        case 'technique':
+          if (i.system.techniqueType != undefined) {
+            techniques[i.system.techniqueType].push(i);
+          }
+          break;
+
+        case 'imbalance':
+          imbalances.push(i);
+          break;
+      
+        case 'archetype':
+          if (archetype.length < 1){
+            archetype.push(i);
+          }
+          else {
+            let target = this.actor.items.get(i._id);
+            target.delete();
+          }
+          break;
+        case 'clan':
+          if (clan.length < 1){
+            clan.push(i);
+          }
+          else {
+            let target = this.actor.items.get(i._id);
+            target.delete();
+          }
       }
     }
     // Assign and return

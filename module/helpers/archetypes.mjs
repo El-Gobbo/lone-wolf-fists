@@ -2,6 +2,7 @@ export const LWFARCH = {
     // Used to record the various class abilities by level.
     // If you are adding extra classes, make sure to record the value at every level
             //degree: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    
     "strong": {
         "power":     [6, 7, 8, 9,10,11,12,13,14],
         "effortless": [1, 1, 1, 2, 2, 2, 2, 3, 3],
