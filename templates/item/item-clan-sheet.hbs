@@ -1,0 +1,66 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Clan Description</a>
+    <a class="item" data-tab="deed">Deed</a>
+    <a class="item" data-tab="vice">Vice</a>
+    <a class="item" data-tab="landmark">Landmark</a>
+    <a class="item" data-tab="effects">Effects</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
+      {{editor enrichedDescription target="system.description" engine="prosemirror" button=true editable=editable}}
+    </div>
+
+    {{!-- Clan effects Tab --}}
+    <div class="tab" data-group="primary" data-tab="deed">
+      {{editor
+        system.deed
+        target='system.deed'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="vice">
+      {{editor
+        system.vice
+        target='system.vice'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="landmark">
+      {{editor
+        system.landmark
+        target='system.landmark'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+    </div>
+
+
+
+    {{!-- Effects Tab --}}
+    <div class="tab effects" data-group="primary" data-tab="effects">
+      {{> "systems/lone-wolf-fists/templates/item/parts/item-effects.hbs"}}
+    </div>
+  </section>
+
+</form>

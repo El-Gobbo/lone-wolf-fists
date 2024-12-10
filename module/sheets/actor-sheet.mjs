@@ -99,7 +99,9 @@ export class lwfActorSheet extends ActorSheet {
     context.imbalanceSources = LWF.source;
     context.imbalanceStats = LWF.stat;
     context.bodyParts = LWF.bodyParts;
-    const slots = context.system.foci.value;
+    if (context.clan.length > 0) {
+      context.system.deed = context.clan[0].system.deed;
+    }
     return context;
   }
 
@@ -173,6 +175,7 @@ export class lwfActorSheet extends ActorSheet {
     context.guptKala = guptKala;
     context.techniques = techniques;
     context.imbalances = imbalances;
+    context.clan = clan;
     return context;
   }
 
@@ -208,14 +211,6 @@ export class lwfActorSheet extends ActorSheet {
       const target = ev.currentTarget.parentElement.dataset.imbtype;
       item.update({ [`system.${target}`]: update});
     })
-
-  // Update contents of focus slot array
-   /* html.on('change', '.focusSlot', (ev) => {
-      const index = parseInt(ev.currentTarget.dataset.focusindex);
-      const update = ev.currentTarget.value;
-      const target = system.foci.slots[index]
-      this.actor.update({target: update});
-    })*/
 
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));

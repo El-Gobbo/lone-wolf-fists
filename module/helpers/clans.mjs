@@ -1,4 +1,4 @@
-export const LWFARCH = {
+export const LWFCLAN = {
     "freaks": {
         "deed": "Give sanctuary to a fellow mutant; you must feed, cloth, protect and provide for them for at least a day and until they are able to thrive without your help.",
         "landmark": "Food bank, water purifier or hospital",

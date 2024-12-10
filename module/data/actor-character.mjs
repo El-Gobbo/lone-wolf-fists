@@ -1,5 +1,6 @@
 import lwfWeaponUser from "./base-weaponuser.mjs";
 import { LWFARCH } from "../helpers/archetypes.mjs";
+import { LWFCLAN } from "../helpers/clans.mjs";
 
 export default class lwfCharacter extends lwfWeaponUser {
 
@@ -94,6 +95,10 @@ export default class lwfCharacter extends lwfWeaponUser {
       this.aura.current = this.aura.max;
     this.pool.recovery  = this.pool.value * 2;
     this.prana.gen      = this.pool.value * this.chakras.active;
+
+    let clan = this.clan;
+    if (!(clan in LWFCLAN))
+      return;
   }
 
   getRollData() {
