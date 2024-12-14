@@ -61,6 +61,8 @@
     <a class="item" data-tab="items">Items</a>
     <a class="item" data-tab="dharma">Dharma</a>
     <a class="item" data-tab="spells">Techniques</a>
+    {{! Hidden final tab where the GM can change around character options}}
+    <a class="item" data-tab="config" {{#unless isGM}} hidden {{/unless}}>Config</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -83,6 +85,9 @@
     {{!-- Owned Spells Tab --}}
     <div class="tab techniques" data-group="primary" data-tab="techniques">
 
+    </div>
+    <div class="tab config" data-group="primary" data-tab="config">
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs"}}
     </div>
 
   </section>

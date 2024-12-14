@@ -102,6 +102,8 @@ export class lwfActorSheet extends ActorSheet {
     if (context.clan.length > 0) {
       context.system.deed = context.clan[0].system.deed;
     }
+    context.isGM = game.user.isGM;
+
     return context;
   }
 
@@ -124,6 +126,7 @@ export class lwfActorSheet extends ActorSheet {
     const imbalances = [];
     const archetype = [];
     const clan = [];
+    const uniques = [];
 
 
     // Iterate through items, allocating to containers
