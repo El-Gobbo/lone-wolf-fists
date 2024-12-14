@@ -45,6 +45,19 @@
         </div>
       {{/each}}
       </div>
+    {{! If the player does not have enough masteries, prompt them to add more}}
+    {{#if (lessThan 0 mastery.difference)}}
+    <div>
+      <h3>Choose {{mastery.difference}} new masteries.</h3>
+      <form class="mastery">
+        {{#each mastery.missing}}
+          <input type="checkbox" id="{{this}}mastery" class="mastery" name="{{this}}" value="{{this}}">
+          <label for="{{this}}mastery">{{this}} mastery</label><br>
+        {{/each}}
+        <button type="submit" class="mastery">Submit</button>
+      </form>
+    </div>
+    {{/if}}
     </div>
   </header>
   {{! if no archetype has been chosen yet, prompt the player to choose one}}

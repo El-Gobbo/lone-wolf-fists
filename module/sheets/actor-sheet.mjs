@@ -4,6 +4,7 @@ import {
 } from '../helpers/effects.mjs';
 
 import { LWF } from '../helpers/config.mjs';
+import { LWFSKILLS } from '../helpers/skills.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -103,7 +104,7 @@ export class lwfActorSheet extends ActorSheet {
       context.system.deed = context.clan[0].system.deed;
     }
     context.isGM = game.user.isGM;
-
+    context.skills = LWFSKILLS;
     return context;
   }
 
@@ -126,7 +127,7 @@ export class lwfActorSheet extends ActorSheet {
     const imbalances = [];
     const archetype = [];
     const clan = [];
-    const uniques = [];
+    const mastery = [];
 
 
     // Iterate through items, allocating to containers
@@ -136,11 +137,6 @@ export class lwfActorSheet extends ActorSheet {
       switch (i.type) {
         case 'item': 
           gear.push(i);
-          break;
-
-      // Append to gupt kala.
-        case 'guptKala':
-          guptKala.push(i);
           break;
 
       // Append to techniques.
@@ -153,7 +149,12 @@ export class lwfActorSheet extends ActorSheet {
         case 'imbalance':
           imbalances.push(i);
           break;
-      
+
+        // Append to gupt kala.
+        case 'guptKala':
+          guptKala.push(i);
+          break;
+        // Check if the player already has an archetype or clan, if they do, delete any new ones added
         case 'archetype':
           if (archetype.length < 1){
             archetype.push(i);
@@ -171,6 +172,16 @@ export class lwfActorSheet extends ActorSheet {
             let target = this.actor.items.get(i._id);
             target.delete();
           }
+          break;
+        // Check if the player has enough masteries. If they don't, allow new ones to be added on. If they do, delete any subsequent masteries
+        case 'masteries':
+          if (this.actor.system.masteries.value < mastery.length) {
+            mastery.push(i);
+          }
+          else {
+            let target = this.actor.items.get(i_id);
+            target.delete();
+          }
       }
     }
     // Assign and return
@@ -179,6 +190,10 @@ export class lwfActorSheet extends ActorSheet {
     context.techniques = techniques;
     context.imbalances = imbalances;
     context.clan = clan;
+    context.mastery = mastery;
+    // Work out the difference between the number of masteries they should have, and the number of masteries they do have
+    context.mastery.difference = this.actor.system.masteries.value - mastery.length;
+    context.mastery.missing = LWFSKILLS.filter(x => !mastery.includes(x))
     return context;
   }
 
@@ -213,6 +228,11 @@ export class lwfActorSheet extends ActorSheet {
         update = $(ev.currentTarget).find(":selected").text();
       const target = ev.currentTarget.parentElement.dataset.imbtype;
       item.update({ [`system.${target}`]: update});
+    })
+
+    // Add a new mmastery when it is chosen
+    html.on('submit', '.mastery', (ev) => {
+      return;
     })
 
     // Add Inventory Item

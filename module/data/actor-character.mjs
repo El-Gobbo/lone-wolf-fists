@@ -5,7 +5,7 @@ import { LWFCLAN } from "../helpers/clans.mjs";
 export default class lwfCharacter extends lwfWeaponUser {
 
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, ArrayField, HTMLField } = foundry.data.fields;
+    const { SchemaField, NumberField, StringField, ArrayField, BooleanField, HTMLField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
@@ -36,7 +36,16 @@ export default class lwfCharacter extends lwfWeaponUser {
       })
     });
     schema.masteries = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 0 })
+      value: new NumberField({ ...requiredInteger, initial: 0 }),
+      types: new SchemaField({
+        power: new BooleanField({initial: false}),
+        agility: new BooleanField({initial: false}),
+        endurance: new BooleanField({initial: false}),
+        intellect: new BooleanField({initial: false}),
+        senses: new BooleanField({initial: false}),
+        heart: new BooleanField({initial: false}),
+        spirit: new BooleanField({initial: false}),
+      })
     });
 
     // All the relevant datafields relating to chakras and Prana generation
