@@ -45,21 +45,22 @@
         </div>
       {{/each}}
       </div>
-    {{! If the player does not have enough masteries, prompt them to add more}}
-    {{#if mastery.missing}}
-    <div>
-      <h3>Choose {{mastery.difference}} new masteries.</h3>
-      <form class="mastery">
-        {{#each mastery.missing}}
-          <input type="checkbox" id="{{this.name}}mastery" class="mastery" name="{{this.name}}" value="{{this.name}}">
-          <label for="{{this.name}}mastery">{{this.name}} mastery</label><br>
-        {{/each}}
-        <button type="submit" class="mastery">Submit</button>
-      </form>
-    </div>
-    {{/if}}
-    </div>
   </header>
+  {{! If the player does not have enough masteries, prompt them to add more}}
+  {{#if mastery.missing}}
+  <div>
+    <h3>Choose {{mastery.difference}} new {{#if (comparison mastery.difference 1)}}skill{{else}}skills{{/if}} to master.</h3>
+    <div>
+      {{#each mastery.missing}}
+        <input type="checkbox" id="{{this}}-mastery" class="mastery" name="{{this}}" value="{{this}}">
+        <img src="systems/lone-wolf-fists/assets/{{this}}-mastery.svg" width="24" height="24">
+        <label for="{{this}}mastery">{{this}} Mastery</label><br>
+      {{/each}}
+      <button type="submit" class="mastery" id="masterySelect">Master</button>
+    </div>
+  </div>
+  {{/if}}
+  </div>
   {{! if no archetype has been chosen yet, prompt the player to choose one}}
   {{#if (comparison system.archetype "tbd")}}
   <section>

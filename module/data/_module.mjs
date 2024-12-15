@@ -12,3 +12,4 @@ export {default as lwfSpell} from "./item-spell.mjs";
 export {default as lwfImbalance} from "./item-imbalance.mjs";
 export {default as lwfArchetype} from "./item-archetype.mjs";
 export {default as lwfClan} from "./item-clan.mjs";
+export {default as lwfMasteries} from "./item-masteries.mjs"

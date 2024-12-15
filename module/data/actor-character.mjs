@@ -38,13 +38,13 @@ export default class lwfCharacter extends lwfWeaponUser {
     schema.masteries = new SchemaField({
       value: new NumberField({ ...requiredInteger, initial: 0 }),
       types: new SchemaField({
-        power: new BooleanField({initial: false}),
-        agility: new BooleanField({initial: false}),
-        endurance: new BooleanField({initial: false}),
-        intellect: new BooleanField({initial: false}),
-        senses: new BooleanField({initial: false}),
-        heart: new BooleanField({initial: false}),
-        spirit: new BooleanField({initial: false}),
+        Power: new BooleanField({initial: false}),
+        Agility: new BooleanField({initial: false}),
+        Endurance: new BooleanField({initial: false}),
+        Intellect: new BooleanField({initial: false}),
+        Senses: new BooleanField({initial: false}),
+        Heart: new BooleanField({initial: false}),
+        Spirit: new BooleanField({initial: false}),
       })
     });
 

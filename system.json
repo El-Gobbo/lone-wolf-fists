@@ -50,7 +50,7 @@
       "system": "lone-wolf-fists",
       "path": "packs/masteries",
       "type": "Item",
-      "private": false,
+      "private": true,
       "flags": {}
     }
   ],

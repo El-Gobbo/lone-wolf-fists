@@ -197,11 +197,13 @@ export class lwfActorSheet extends ActorSheet {
     if(context.mastery.difference > 0){
       // Generate an array of the names of masteries the player currently has
       let playerMasteries = [];
-      for (let i in mastery){
-        playerMasteries.push(mastery[i].name);
+      // Only initiate the for loop if mastery has a length greater than 0
+      if (mastery.length > 0) {
+        for (let i in mastery){
+            playerMasteries.push(mastery[i].system.skill);
+        }
       }
-      const pack = Array.from(game.packs.get("lone-wolf-fists.masteries").index);
-      context.mastery.missing = pack.filter(({ name }) => !playerMasteries.includes(name))
+      context.mastery.missing = LWFSKILLS.filter(x => !playerMasteries.includes(x))
     }
 
     return context;
@@ -241,8 +243,26 @@ export class lwfActorSheet extends ActorSheet {
     })
 
     // Add a new mmastery when it is chosen
-    html.on('click', '.mastery', (ev) => {
-      return `systems/lone-wolf-fists/templates/item/item-test.hbs`;
+    html.on('click', '#masterySelect', async (ev) => {
+      const mc = Array.from($(ev.currentTarget).siblings(':checked'));
+      const parent = this.actor;
+      for (let i of mc){
+        let itemName = i.name.concat(" Mastery");
+        let effectName = i.name.concat(" effect");
+        const newMastery = await Item.create({
+          name: itemName,
+          type: "masteries",
+          img: `systems/lone-wolf-fists/assets/${i.name}-mastery.svg`,
+          system:
+          {
+            skill: `${i.name}`
+          }
+          },
+          {
+          parent: parent
+        })
+
+    }
     })
 
     // Add Inventory Item
