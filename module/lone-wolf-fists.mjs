@@ -52,6 +52,7 @@ Hooks.once('init', function () {
     imbalance: models.lwfImbalance,
     archetype: models.lwfArchetype,
     clan: models.lwfClan,
+    masteries: models.lwfItemBase,
   }
 
   // Active Effects are never copied to the Actor,

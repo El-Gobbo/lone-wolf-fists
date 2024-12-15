@@ -46,13 +46,13 @@
       {{/each}}
       </div>
     {{! If the player does not have enough masteries, prompt them to add more}}
-    {{#if (lessThan 0 mastery.difference)}}
+    {{#if mastery.missing}}
     <div>
       <h3>Choose {{mastery.difference}} new masteries.</h3>
       <form class="mastery">
         {{#each mastery.missing}}
-          <input type="checkbox" id="{{this}}mastery" class="mastery" name="{{this}}" value="{{this}}">
-          <label for="{{this}}mastery">{{this}} mastery</label><br>
+          <input type="checkbox" id="{{this.name}}mastery" class="mastery" name="{{this.name}}" value="{{this.name}}">
+          <label for="{{this.name}}mastery">{{this.name}} mastery</label><br>
         {{/each}}
         <button type="submit" class="mastery">Submit</button>
       </form>

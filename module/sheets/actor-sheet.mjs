@@ -175,11 +175,11 @@ export class lwfActorSheet extends ActorSheet {
           break;
         // Check if the player has enough masteries. If they don't, allow new ones to be added on. If they do, delete any subsequent masteries
         case 'masteries':
-          if (this.actor.system.masteries.value < mastery.length) {
+          if (this.actor.system.masteries.value > mastery.length) {
             mastery.push(i);
           }
           else {
-            let target = this.actor.items.get(i_id);
+            let target = this.actor.items.get(i._id);
             target.delete();
           }
       }
@@ -191,9 +191,19 @@ export class lwfActorSheet extends ActorSheet {
     context.imbalances = imbalances;
     context.clan = clan;
     context.mastery = mastery;
-    // Work out the difference between the number of masteries they should have, and the number of masteries they do have
+    // Work out the difference between the number of masteries they should have, and the number of masteries they do have.
+    // If they have fewer masteries than they should, check the masteries compendium, and see which the player doesn't have
     context.mastery.difference = this.actor.system.masteries.value - mastery.length;
-    context.mastery.missing = LWFSKILLS.filter(x => !mastery.includes(x))
+    if(context.mastery.difference > 0){
+      // Generate an array of the names of masteries the player currently has
+      let playerMasteries = [];
+      for (let i in mastery){
+        playerMasteries.push(mastery[i].name);
+      }
+      const pack = Array.from(game.packs.get("lone-wolf-fists.masteries").index);
+      context.mastery.missing = pack.filter(({ name }) => !playerMasteries.includes(name))
+    }
+
     return context;
   }
 
@@ -231,8 +241,8 @@ export class lwfActorSheet extends ActorSheet {
     })
 
     // Add a new mmastery when it is chosen
-    html.on('submit', '.mastery', (ev) => {
-      return;
+    html.on('click', '.mastery', (ev) => {
+      return `systems/lone-wolf-fists/templates/item/item-test.hbs`;
     })
 
     // Add Inventory Item

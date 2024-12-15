@@ -1,0 +1,7 @@
+2024/12/15-14:03:58.806 adf4 Recovering log #13
+2024/12/15-14:03:58.820 adf4 Delete type=0 #13
+2024/12/15-14:03:58.820 adf4 Delete type=3 #12
+2024/12/15-14:25:58.454 83e0 Level-0 table #17: started
+2024/12/15-14:25:58.467 83e0 Level-0 table #17: 3235 bytes OK
+2024/12/15-14:25:58.472 83e0 Delete type=0 #15
+2024/12/15-14:25:58.491 83e0 Manual compaction at level-0 from '!items!0s7QBfVoWywdsfZC' @ 72057594037927935 : 1 .. '!items.effects!wefgw9wNhJ16gxu4.idK8ScdmNwhaKzAI' @ 0 : 0; will stop at (end)
