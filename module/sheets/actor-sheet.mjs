@@ -203,9 +203,10 @@ export class lwfActorSheet extends ActorSheet {
             playerMasteries.push(mastery[i].system.skill);
         }
       }
-      context.mastery.missing = LWFSKILLS.filter(x => !playerMasteries.includes(x))
+      const pack = game.packs.get("lone-wolf-fists.masteries").index;
+      context.mastery.missing = LWFSKILLS.filter(x => !playerMasteries.includes(x));
+      mastery.pack = pack;
     }
-
     return context;
   }
 
@@ -245,25 +246,31 @@ export class lwfActorSheet extends ActorSheet {
     // Add a new mmastery when it is chosen
     html.on('click', '#masterySelect', async (ev) => {
       const mc = Array.from($(ev.currentTarget).siblings(':checked'));
-      const parent = this.actor;
-      for (let i of mc){
-        let itemName = i.name.concat(" Mastery");
-        let effectName = i.name.concat(" effect");
-        const newMastery = await Item.create({
-          name: itemName,
-          type: "masteries",
-          img: `systems/lone-wolf-fists/assets/${i.name}-mastery.svg`,
-          system:
-          {
-            skill: `${i.name}`
-          }
-          },
-          {
-          parent: parent
+      for (const item of mc) {
+        let id = item.id;
+        const mastery = await game.packs.get("lone-wolf-fists.masteries").getDocument(id);
+        const effect = Array.from(mastery.effects)[0];
+        const newMastery = await Item.create ({
+          name: mastery.name,
+          type: mastery.type,
+          img: mastery.img,
+        },
+        {
+          parent: this.actor
         })
-
+        await ActiveEffect.create ({
+          name: effect.name,
+          changes: effect.changes,
+          transfer: effect.transfer,
+          duration: effect.duration,
+          disabled: false
+        },
+      {
+        parent: newMastery
+      })
+      }
     }
-    })
+    )
 
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
