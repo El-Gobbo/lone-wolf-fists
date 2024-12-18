@@ -53,6 +53,8 @@ Hooks.once('init', function () {
     archetype: models.lwfArchetype,
     clan: models.lwfClan,
     masteries: models.lwfMasteries,
+    armour: models.lwfArmour,
+    weapon: models.lwfWeapon
   }
 
   // Active Effects are never copied to the Actor,
