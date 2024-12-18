@@ -200,11 +200,11 @@ export class lwfActorSheet extends ActorSheet {
       // Only initiate the for loop if mastery has a length greater than 0
       if (mastery.length > 0) {
         for (let i in mastery){
-            playerMasteries.push(mastery[i].system.skill);
+            playerMasteries.push(mastery[i].name);
         }
       }
       const pack = game.packs.get("lone-wolf-fists.masteries").index;
-      context.mastery.missing = LWFSKILLS.filter(x => !playerMasteries.includes(x));
+      context.mastery.missing = pack.filter(({name}) => !playerMasteries.includes(name));
       mastery.pack = pack;
     }
     return context;
