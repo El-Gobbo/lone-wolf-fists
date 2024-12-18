@@ -196,16 +196,7 @@ export class lwfActorSheet extends ActorSheet {
     context.mastery.difference = this.actor.system.masteries.value - mastery.length;
     if(context.mastery.difference > 0){
       // Generate an array of the names of masteries the player currently has
-      let playerMasteries = [];
-      // Only initiate the for loop if mastery has a length greater than 0
-      if (mastery.length > 0) {
-        for (let i in mastery){
-            playerMasteries.push(mastery[i].name);
-        }
-      }
-      const pack = game.packs.get("lone-wolf-fists.masteries").index;
-      context.mastery.missing = pack.filter(({name}) => !playerMasteries.includes(name));
-      mastery.pack = pack;
+      context.mastery.missing = true;
     }
     return context;
   }
@@ -243,6 +234,28 @@ export class lwfActorSheet extends ActorSheet {
       item.update({ [`system.${target}`]: update});
     })
 
+    html.on('click', '#newMasteries', async (ev) => {
+      const mastery = this.actor.items.filter(({type}) => type == "masteries");
+      const names = [];
+      for (let i in mastery){
+        names.push(mastery[i].name)
+      }
+      const pack = game.packs.get("lone-wolf-fists.masteries").index;
+      const missing = pack.filter(({name}) => !names.includes(name));
+      console.log("Stall");
+      const masteryHTML = await renderTemplate('systems/lone-wolf-fists/templates/popups/popup-masteries.hbs', missing)
+      new Dialog ({
+        title: "Choose your mastery",
+        content: masteryHTML,
+        buttons:{
+          submit: {
+            label: "Master"
+          }
+        }
+      }).render(true)
+
+    })
+    
     // Add a new mmastery when it is chosen
     html.on('click', '#masterySelect', async (ev) => {
       const mc = Array.from($(ev.currentTarget).siblings(':checked'));
