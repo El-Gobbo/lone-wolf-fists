@@ -1,8 +1,8 @@
-# lwf System
+# LWF System
 
 ![Foundry v11](https://img.shields.io/badge/foundry-v11-green)
 
-This is a system to play the post-apocalyptic anime inspired ttrpg Lone Wolf Fists using Foundry vtt. It has been built starting from the boilerplate system, and is currently very not ready for wider use.
+This is a system to play the post-apocalyptic anime inspired ttrpg Lone Wolf Fists using Foundry vtt. It has been built starting from the boilerplate system, and is currently not ready for wider use.
 
 ## To do
 My current goal is to get a fully functional sheet for player characters. From there, I intend to put together sheets for all other actor classes (seriously, theres a lot of them), at which point this system should be at an alpha stage, and able to be used. I have not thought much beyond that, but I have a few initial ideas i'd like to explore
@@ -38,6 +38,5 @@ Character sheet
   - Use game-icons.net to download appropriately coloured Icons
 - Set up character sheet
   - All variables displayed
-  - See sandbox implementation for aesthetic considerations. NOTE! There were limitations on sandbox, esp around space. A 
-  - custom sheet has the possibility for a lot more space, which should be used.
+  - See sandbox implementation for aesthetic considerations. NOTE! There were limitations on sandbox, esp around space. A custom sheet has the possibility for a lot more space, which should be used.
   - Non-customisable cells prevented from being customised
