@@ -11,13 +11,13 @@ export default class lwfCharacter extends lwfWeaponUser {
 
     // All attributes specific to Lone WOlf fists, affected by levelling up, and not covered by the other categories
     schema.degree = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 1 })
+      value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 9 })
     });
     schema.aura = new SchemaField({
       // value == aura levels  
-      value: new NumberField({ ...requiredInteger, initial: 1}),
-      max: new NumberField({ ...requiredInteger, initial: 10}),
-      current: new NumberField({ ...requiredInteger, initial: 10})
+      value: new NumberField({ ...requiredInteger, initial: 1 }),
+      max: new NumberField({ ...requiredInteger, initial: 10 }),
+      current: new NumberField({ ...requiredInteger, initial: 10, min: 0 })
     });
     schema.effortless = new SchemaField({
       value: new NumberField({ ...requiredInteger, initial: 0 })
@@ -35,6 +35,7 @@ export default class lwfCharacter extends lwfWeaponUser {
         6: new NumberField({ integer: true, initial: 0 }),
       })
     });
+    // TODO Try to change the capital letters to lower case by using .tolowercase()
     schema.masteries = new SchemaField({
       value: new NumberField({ ...requiredInteger, initial: 0 }),
       types: new SchemaField({
@@ -50,18 +51,22 @@ export default class lwfCharacter extends lwfWeaponUser {
 
     // All the relevant datafields relating to chakras and Prana generation
     schema.prana = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100}),
-      gen: new NumberField({...requiredInteger, initial: 0}),
+      value: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100 }),
+      gen: new SchemaField({
+        slumbering: new NumberField({...requiredInteger, initial: 0}),
+        flare: new NumberField({...requiredInteger, initial: 0 }),
+      }),
     });
+
     schema.pool = new SchemaField({
       value: new NumberField({ ...requiredInteger, initial: 0, min: 0 }),
-      recovery: new NumberField({ ...requiredInteger, initial: 0, min: 0})
-    })
+      recovery: new NumberField({ ...requiredInteger, initial: 0, min: 0 })
+    });
     schema.chakras = new SchemaField ({
-        //value == initial chakras
-      value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
-      active: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7}),
-    }),
+     //value == initial chakras
+      value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
+      active: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
+    });
     // All datafields relating to karma
     schema.karma = new SchemaField({
       current: new NumberField({ ...requiredInteger, initial: 0}),
@@ -99,11 +104,12 @@ export default class lwfCharacter extends lwfWeaponUser {
     this.health.max     = this.health.value * 10;
     if(this.health.max < this.health.current)
       this.health.current = this.health.max;
-    this.aura.max       = this.health.value * 10;
+    this.aura.max       = this.aura.value * 10;
     if(this.aura.max < this.aura.current)
       this.aura.current = this.aura.max;
     this.pool.recovery  = this.pool.value * 2;
-    this.prana.gen      = this.pool.value * this.chakras.active;
+    this.prana.gen.slumbering      = this.pool.value * this.chakras.active;
+    this.prana.gen.flare = this.pool.recovery * this.chakras.active;
 
     let clan = this.clan;
     if (!(clan in LWFCLAN))
