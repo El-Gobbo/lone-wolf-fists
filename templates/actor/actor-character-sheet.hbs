@@ -1,53 +1,81 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
   {{!-- Sheet Header --}}
-  <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+  <header class="sheet-top">
+    <div class="header-left">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+      <div class="core-stats">
+        <label for="system.degree.value" class="resource-label">Degree</label>
+        <div class="stat-input">
+          <input type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>
+        </div>
+      </div>
+      <div class="core-stats">
+        <label for="system.power.value" class="resource-label">Effort</label>
+        <div class="stat-input">
+          <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number" readonly/>
+        </div>
+      </div>
+      <div class="core-stats">
+        <label for="system.effortless.value" class="resource-label">Effortless</label>
+        <div class="stat-input">
+          <input type="text" name="system.effortless.value" value="{{system.effortless.value}}" data-dtype="Number" readonly/>
+        </div>
+      </div>
+    </div> 
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
       {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
       use both the "grid" and "grid-Ncol" class where "N" can be any number
       from 1 to 12 and will create that number of columns.  --}}
-      <div class="resources grid grid-3col">
+      <div class="health-prana">
+        <div class="damage resources grid grid-3col">
 
-        {{!-- "flex-group-center" is also defined in the _grid.scss file
-        and it will add a small amount of padding, a border, and will
-        center all of its child elements content and text. --}}
-        <div class="resource flex-group-center">
-          <label for="system.health.current" class="resource-label">Health</label>
-          <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
-          <span> / </span>
-          <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+          {{!-- "flex-group-center" is also defined in the _grid.scss file
+          and it will add a small amount of padding, a border, and will
+          center all of its child elements content and text. --}}
+          <div class="resource flex-group-center grid-span-2">
+            <label for="system.health.current" class="resource-label">Health</label>
+            <div class="resource-content max-min flexrow flex-center flex-between">
+            <input type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+            </div>
+          </div>
+
+          <div class="resource flex-group-center">
+            <label for="system.aura.current" class="resource-label">Aura</label>
+            <div class="resource-content max-min flexrow flex-center flex-between">
+            <input type="text" name="system.aura.current" value="{{system.aura.current}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="system.aura.max" value="{{system.aura.max}}" data-dtype="Number"/>
+            </div>
           </div>
         </div>
-
-        <div class="resource flex-group-center">
-          <label for="system.power.value" class="resource-label">Effort</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number"/>
-          </div>
-        </div>
-        
-        <div class="resource flex-group-center">
-          <label for="system.degree.value" class="resource-label">Degree</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>
+        <div class="prana resources">
+          <div class="resource flex-group-center">
+            <label for="system.prana.current" class="resource-label">Prana</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.prana.gen.slumbering" value="{{system.prana.gen.slumbering}}" data-dtype="Number" readonly/>
+              <input type="text" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
+              <input type="text" name="system.prana.gen.flare" value="{{system.prana.gen.flare}}" data-dtype="Number" readonly/>
+            </div>
           </div>
         </div>
       </div>
       <div class="resources grid grid-8col">
       
-      {{! display focus slots up to the value determined by level, hide all subsequent slots}}
-      {{#each system.foci.slots}}
-        <div {{#unless (lessThan @index ../system.foci.value )}} hidden {{/unless}} class="resource flex-group-center">
-          <input type="text" id="focus-{{@index}}" class="focusSlot" data-findex="{{@index}}" name="system.foci.slots.{{@index}}" value="{{this}}" data-dtype="Number">
+        {{! display focus slots up to the value determined by level, hide all subsequent slots}}
+        {{#each system.foci.slots}}
+          <div {{#unless (lessThan @index ../system.foci.value )}} hidden {{/unless}} class="resource flex-group-center">
+            <input type="text" id="focus-{{@index}}" class="focusSlot" data-findex="{{@index}}" name="system.foci.slots.{{@index}}" value="{{this}}" data-dtype="Number">
+          </div>
+        {{/each}}
         </div>
-      {{/each}}
+          {{#if mastery.missing}}
+      <button type="submit" id="newMasteries">Choose your masteries</button>
+      {{/if}}
       </div>
-        {{#if mastery.missing}}
-    <button type="submit" id="newMasteries">Choose your masteries</button>
-  {{/if}}
   </header>
   {{! If the player does not have enough masteries, prompt them to add more}}
 
