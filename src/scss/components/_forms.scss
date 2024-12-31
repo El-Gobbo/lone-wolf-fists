@@ -2,19 +2,54 @@
   font-family: $font-primary;
 }
 
-.sheet-header {
+.sheet-top {
   flex: 0 auto;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  align-items: top !important;
   margin-bottom: 10px;
 
+  .header-left {
+    flex: 0 0 110px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  .health-prana {
+    display: flex;
+  }
+
+  .damage {
+    flex: 2 1 auto; 
+  }
+
+  .prana {
+    flex: 1 1 auto;
+    margin: 10px;
+  }
+
+  .core-stats {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stat-input {
+    flex: 0 0 25px;
+  }
+
   .profile-img {
-    flex: 0 0 100px;
+    flex: 0 0 $img-width;
     height: 100px;
     margin-right: 10px;
+    justify-content: flex-start;
+    margin-bottom: 13px;
   }
 
   .header-fields {

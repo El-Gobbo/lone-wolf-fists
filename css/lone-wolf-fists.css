@@ -207,30 +207,59 @@
 .lone-wolf-fists .item-form {
   font-family: "Roboto", sans-serif;
 }
-.lone-wolf-fists .sheet-header {
+.lone-wolf-fists .sheet-top {
   flex: 0 auto;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  align-items: top !important;
   margin-bottom: 10px;
 }
-.lone-wolf-fists .sheet-header .profile-img {
+.lone-wolf-fists .sheet-top .header-left {
+  flex: 0 0 110px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+.lone-wolf-fists .sheet-top .health-prana {
+  display: flex;
+}
+.lone-wolf-fists .sheet-top .damage {
+  flex: 2 1 auto;
+}
+.lone-wolf-fists .sheet-top .prana {
+  flex: 1 1 auto;
+  margin: 10px;
+}
+.lone-wolf-fists .sheet-top .core-stats {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3px;
+  justify-content: space-between;
+  align-items: center;
+}
+.lone-wolf-fists .sheet-top .stat-input {
+  flex: 0 0 25px;
+}
+.lone-wolf-fists .sheet-top .profile-img {
   flex: 0 0 100px;
   height: 100px;
   margin-right: 10px;
+  justify-content: flex-start;
+  margin-bottom: 13px;
 }
-.lone-wolf-fists .sheet-header .header-fields {
+.lone-wolf-fists .sheet-top .header-fields {
   flex: 1;
 }
-.lone-wolf-fists .sheet-header h1.charname {
+.lone-wolf-fists .sheet-top h1.charname {
   height: 50px;
   padding: 0px;
   margin: 5px 0;
   border-bottom: 0;
 }
-.lone-wolf-fists .sheet-header h1.charname input {
+.lone-wolf-fists .sheet-top h1.charname input {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -251,6 +280,14 @@
 }
 .lone-wolf-fists .resource-label {
   font-weight: bold;
+  text-align: center;
+  padding-right: auto;
+  letter-spacing: 2px;
+  color: #d4af37;
+  background-color: #640d0d;
+}
+.lone-wolf-fists input {
+  text-align: center;
 }
 .lone-wolf-fists .items-header {
   height: 28px;
@@ -364,3 +401,5 @@
 .lone-wolf-fists .effects .item .effect-controls {
   border: none;
 }
+
+/*# sourceMappingURL=lone-wolf-fists.css.map */
