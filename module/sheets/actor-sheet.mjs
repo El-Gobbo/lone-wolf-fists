@@ -15,7 +15,7 @@ export class lwfActorSheet extends ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['lone-wolf-fists', 'sheet', 'actor'],
-      width: 600,
+      width: 770,
       height: 600,
       tabs: [
         {
@@ -244,15 +244,19 @@ export class lwfActorSheet extends ActorSheet {
       const missing = pack.filter(({name}) => !names.includes(name));
       console.log("Stall");
       const masteryHTML = await renderTemplate('systems/lone-wolf-fists/templates/popups/popup-masteries.hbs', missing)
-      new Dialog ({
+      const choices = await Dialog.wait ({
         title: "Choose your mastery",
         content: masteryHTML,
         buttons:{
           submit: {
-            label: "Master"
+            label: "Master",
+            callback: (html) => {
+              html
+            }
           }
         }
-      }).render(true)
+      });
+      console.log(choices)
 
     })
     
