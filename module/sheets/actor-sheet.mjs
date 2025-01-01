@@ -223,7 +223,7 @@ export class lwfActorSheet extends ActorSheet {
       const tr = $(ev.currentTarget).parents('.item').data("itemId");
       const item = this.actor.items.get(tr);
       
-      // The following if statement is used to detect if the chosen element is select or not
+      // The following if statement is used to detect if the chosen element is selected or not
       // If there is a better way to do this, lmk
       let update;
       if (ev.currentTarget[1] === undefined)
@@ -234,6 +234,7 @@ export class lwfActorSheet extends ActorSheet {
       item.update({ [`system.${target}`]: update});
     })
 
+    // Choose masteries to add on level up TODO: pass the data back to the original character sheet
     html.on('click', '#newMasteries', async (ev) => {
       const mastery = this.actor.items.filter(({type}) => type == "masteries");
       const names = [];
@@ -259,8 +260,24 @@ export class lwfActorSheet extends ActorSheet {
       console.log(choices)
 
     })
+
+    // Prana flare when click the prana flare button
+    html.on('click', '#prana-flare', async () => {
+      let newActive = this.actor.system.chakras.active + 1;
+      let increase = this.actor.system.pool.recovery * newActive;
+      increase = increase + this.actor.system.prana.current;
+      this.actor.update({['system.chakras.active']: newActive, ['system.prana.current']: increase});
+    })
+
+    // Reduce
+    html.on('click', '#end-combat', async () => {
+      let newActive = this.actor.system.chakras.value;
+      let reset = this.actor.system.pool.value * newActive;
+      let aura = this.actor.system.aura.max;
+      this.actor.update({['system.chakras.active']: newActive, ['system.prana.current']: reset, ['system.aura.current']: aura});
+    })
     
-    // Add a new mmastery when it is chosen
+    // Add a new mmastery when it is chosen TODO: delete this once sure its safe, as I don't think anything uses this atm
     html.on('click', '#masterySelect', async (ev) => {
       const mc = Array.from($(ev.currentTarget).siblings(':checked'));
       for (const item of mc) {

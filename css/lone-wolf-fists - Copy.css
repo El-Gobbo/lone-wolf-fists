@@ -164,6 +164,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  flex: 0 0 0;
 }
 
 .flex-group-left {
@@ -204,121 +205,65 @@
 }
 
 /* Styles limited to lone-wolf-fists sheets */
-.lone-wolf-fists table {
-  table-layout: fixed;
-}
 .lone-wolf-fists .item-form {
   font-family: "Roboto", sans-serif;
 }
-.lone-wolf-fists .main {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: flex-start;
-}
-.lone-wolf-fists .sheet {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-}
-.lone-wolf-fists .sidebar {
-  flex: 0 0 150px;
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-}
-.lone-wolf-fists .skill-image {
-  margin-top: 5px;
-}
-.lone-wolf-fists .full-size {
-  width: 100%;
-}
-.lone-wolf-fists .skill {
-  margin-bottom: 0px !important;
-}
-.lone-wolf-fists .main-body {
-  display: flex;
-  width: 100%;
-  flex: 5 1 auto;
-  align-items: top;
-  margin: 5px;
-}
-.lone-wolf-fists .sheet-top {
+
+.lone-wolf-fists .sheet-header {
   flex: 0 auto;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: top !important;
   margin-bottom: 10px;
 }
-.lone-wolf-fists .sheet-top .health-prana {
-  display: flex;
-}
-.lone-wolf-fists .sheet-top .damage {
-  flex: 2 1 auto;
-}
-.lone-wolf-fists .sheet-top .prana {
-  flex: 1 1 auto;
-  margin: 10px;
-}
-.lone-wolf-fists .sheet-top .core-stats {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 3px;
-  justify-content: space-between;
-  align-items: center;
-}
-.lone-wolf-fists .sheet-top .stat-input {
-  flex: 0 0 25px;
-}
-.lone-wolf-fists .sheet-top .profile-img {
+
+.lone-wolf-fists .sheet-header .profile-img {
   flex: 0 0 100px;
   height: 100px;
   margin-right: 10px;
-  justify-content: flex-start;
-  margin-bottom: 13px;
 }
-.lone-wolf-fists .sheet-top .header-fields {
+
+.lone-wolf-fists .sheet-header .header-fields {
   flex: 1;
 }
-.lone-wolf-fists .sheet-top h1.charname {
+
+.lone-wolf-fists .sheet-header h1.charname {
   height: 50px;
   padding: 0px;
   margin: 5px 0;
   border-bottom: 0;
 }
-.lone-wolf-fists .sheet-top h1.charname input {
+
+.lone-wolf-fists .sheet-header h1.charname input {
   width: 100%;
   height: 100%;
   margin: 0;
 }
+
 .lone-wolf-fists .sheet-tabs {
   flex: 0;
 }
+
 .lone-wolf-fists .sheet-body,
 .lone-wolf-fists .sheet-body .tab,
 .lone-wolf-fists .sheet-body .tab .editor {
   height: 100%;
 }
+
 .lone-wolf-fists .tox .tox-editor-container {
   background: #fff;
 }
+
 .lone-wolf-fists .tox .tox-edit-area {
   padding: 0 8px;
 }
+
 .lone-wolf-fists .resource-label {
   font-weight: bold;
-  text-align: center;
-  padding-right: auto;
-  letter-spacing: 2px;
-  color: #d4af37;
-  background-color: #640d0d;
 }
-.lone-wolf-fists input {
-  text-align: center;
-}
+
 .lone-wolf-fists .items-header {
   height: 28px;
   margin: 2px 0;
@@ -328,16 +273,19 @@
   border: 2px groove #eeede0;
   font-weight: bold;
 }
+
 .lone-wolf-fists .items-header > * {
   font-size: 14px;
   text-align: center;
 }
+
 .lone-wolf-fists .items-header .item-name {
   font-weight: bold;
   padding-left: 5px;
   text-align: left;
   display: flex;
 }
+
 .lone-wolf-fists .items-list {
   list-style: none;
   margin: 0;
@@ -346,11 +294,13 @@
   scrollbar-width: thin;
   color: #444;
 }
+
 .lone-wolf-fists .items-list .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 .lone-wolf-fists .items-list .item-name {
   flex: 2;
   margin: 0;
@@ -360,46 +310,54 @@
   align-items: center;
   display: flex;
 }
+
 .lone-wolf-fists .items-list .item-name h3, .lone-wolf-fists .items-list .item-name h4 {
   margin: 0;
   white-space: nowrap;
   overflow-x: hidden;
 }
+
 .lone-wolf-fists .items-list .item-controls {
   display: flex;
   flex: 0 0 100px;
   justify-content: flex-end;
 }
+
 .lone-wolf-fists .items-list .item-controls a {
   font-size: 12px;
   text-align: center;
   margin: 0 6px;
 }
+
 .lone-wolf-fists .items-list .item {
   align-items: center;
   padding: 0 2px;
   border-bottom: 1px solid #c9c7b8;
 }
+
 .lone-wolf-fists .items-list .item:last-child {
   border-bottom: none;
 }
+
 .lone-wolf-fists .items-list .item .item-name {
   color: #191813;
 }
+
 .lone-wolf-fists .items-list .item .item-name .item-image {
   flex: 0 0 30px;
   height: 30px;
   background-size: 30px;
   border: none;
   margin-right: 5px;
-  margin-top: 2px;
 }
+
 .lone-wolf-fists .items-list .item-prop {
   text-align: center;
   border-left: 1px solid #c9c7b8;
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
+
 .lone-wolf-fists .items-list .items-header {
   height: 28px;
   margin: 2px 0;
@@ -409,18 +367,22 @@
   border: 2px groove #eeede0;
   font-weight: bold;
 }
+
 .lone-wolf-fists .items-list .items-header > * {
   font-size: 12px;
   text-align: center;
 }
+
 .lone-wolf-fists .items-list .items-header .item-name {
   padding-left: 5px;
   text-align: left;
 }
+
 .lone-wolf-fists .item-formula {
   flex: 0 0 200px;
   padding: 0 8px;
 }
+
 .lone-wolf-fists .effects .item .effect-source,
 .lone-wolf-fists .effects .item .effect-duration,
 .lone-wolf-fists .effects .item .effect-controls {
@@ -429,6 +391,7 @@
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
+
 .lone-wolf-fists .effects .item .effect-controls {
   border: none;
 }

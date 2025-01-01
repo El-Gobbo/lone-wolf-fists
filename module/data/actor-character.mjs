@@ -51,7 +51,7 @@ export default class lwfCharacter extends lwfWeaponUser {
 
     // All the relevant datafields relating to chakras and Prana generation
     schema.prana = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100 }),
+      current: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100 }),
       gen: new SchemaField({
         slumbering: new NumberField({...requiredInteger, initial: 0}),
         flare: new NumberField({...requiredInteger, initial: 0 }),

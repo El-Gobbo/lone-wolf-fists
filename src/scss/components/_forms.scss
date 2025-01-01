@@ -1,5 +1,49 @@
+table {
+  table-layout: fixed;
+}
+
 .item-form {
   font-family: $font-primary;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.sheet {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.sidebar {
+  flex: 0 0 150px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.skill-image {
+  margin-top: 5px;
+}
+
+.full-size {
+  width: 100%;
+}
+
+.skill {
+  margin-bottom: 0px !important;
+}
+
+.main-body {
+  display: flex;
+  width: 100%;
+  flex: 5 1 auto;
+  align-items: top;
+  margin: 5px;
 }
 
 .sheet-top {
@@ -12,12 +56,6 @@
   align-items: top !important;
   margin-bottom: 10px;
 
-  .header-left {
-    flex: 0 0 110px;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-  }
 
   .health-prana {
     display: flex;

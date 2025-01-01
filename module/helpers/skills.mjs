@@ -1,9 +1,9 @@
 export const LWFSKILLS = [
     "Power",
-    "Agility",
     "Endurance",
-    "Intellect",
+    "Agility",
+    "Spirit",
     "Senses",
     "Heart",
-    "Spirit"
+    "Intellect"
 ]

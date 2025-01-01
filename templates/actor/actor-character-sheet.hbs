@@ -1,34 +1,66 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-  {{!-- Sheet Header --}}
+  {{!-- Prana sidebar --}}
+  <div class="sheet">
+  <div class="sidebar">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="140" width="140"/>
+    <div class="prana resources">
+      <div class="resource flex-group-center">
+        <label for="system.prana.current" class="resource-label">Prana</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input class="stat-input" type="text" name="system.prana.gen.slumbering" value="{{system.prana.gen.slumbering}}" data-dtype="Number" readonly/>
+          <input type="text" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
+          <input class="stat-input" type="text" name="system.prana.gen.flare" value="{{system.prana.gen.flare}}" data-dtype="Number" readonly/>
+        </div>
+      </div>
+  </div>
+
+  <div class="resource flex-group-center">
+    <label for="system.chakras.active" class="resource-label">Active Chakras</label>
+    <div class="increase-decrease flexrow">
+      <button type="button" class="decrease">-</button>
+      <input type="number" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number"/>
+      <button type="button" class="increase">+</button>
+    </div>
+  </div>
+  <div class="resource flex-group-center">
+    <button type="button" id="prana-flare">Prana Flare</button>
+    <button type="button" id="end-combat">End of Combat</button>
+  </div>
+  </div>
+
+  {{!-- Main section of the sheet --}}
+  <div class="body">
   <header class="sheet-top">
-    <div class="header-left">
-      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-      <div class="core-stats">
-        <label for="system.degree.value" class="resource-label">Degree</label>
-        <div class="stat-input">
-          <input type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>
-        </div>
-      </div>
-      <div class="core-stats">
-        <label for="system.power.value" class="resource-label">Effort</label>
-        <div class="stat-input">
-          <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number" readonly/>
-        </div>
-      </div>
-      <div class="core-stats">
-        <label for="system.effortless.value" class="resource-label">Effortless</label>
-        <div class="stat-input">
-          <input type="text" name="system.effortless.value" value="{{system.effortless.value}}" data-dtype="Number" readonly/>
-        </div>
-      </div>
-    </div> 
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
       {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
       use both the "grid" and "grid-Ncol" class where "N" can be any number
       from 1 to 12 and will create that number of columns.  --}}
       <div class="health-prana">
+        <div class="resources">
+          <div class="core-stats">
+          <label for="system.degree.value" class="resource-label">Degree</label>
+          <div class="stat-input">
+            <input type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>
+          </div>
+          </div>
+
+          <div class="core-stats">
+          <label for="system.power.value" class="resource-label">Effort</label>
+          <div class="stat-input">
+            <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number" readonly/>
+          </div>
+          </div>
+
+          <div class="core-stats">
+          <label for="system.effortless.value" class="resource-label">Effortless</label>
+          <div class="stat-input">
+            <input type="text" name="system.effortless.value" value="{{system.effortless.value}}" data-dtype="Number" readonly/>
+          </div>
+          </div>
+
+        </div>
         <div class="damage resources grid grid-3col">
 
           {{!-- "flex-group-center" is also defined in the _grid.scss file
@@ -52,16 +84,7 @@
             </div>
           </div>
         </div>
-        <div class="prana resources">
-          <div class="resource flex-group-center">
-            <label for="system.prana.current" class="resource-label">Prana</label>
-            <div class="resource-content flexrow flex-center flex-between">
-              <input type="text" name="system.prana.gen.slumbering" value="{{system.prana.gen.slumbering}}" data-dtype="Number" readonly/>
-              <input type="text" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
-              <input type="text" name="system.prana.gen.flare" value="{{system.prana.gen.flare}}" data-dtype="Number" readonly/>
-            </div>
-          </div>
-        </div>
+
       </div>
       <div class="resources grid grid-8col">
       
@@ -71,15 +94,15 @@
             <input type="text" id="focus-{{@index}}" class="focusSlot" data-findex="{{@index}}" name="system.foci.slots.{{@index}}" value="{{this}}" data-dtype="Number">
           </div>
         {{/each}}
-        </div>
-          {{#if mastery.missing}}
+      </div>
+      {{#if mastery.missing}}
       <button type="submit" id="newMasteries">Choose your masteries</button>
       {{/if}}
       </div>
   </header>
   {{! If the player does not have enough masteries, prompt them to add more}}
 
-  </div>
+
   {{! if no archetype has been chosen yet, prompt the player to choose one}}
   {{#if (comparison system.archetype "tbd")}}
   <section>
@@ -100,7 +123,7 @@
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
-    <div class="tab core" data-group="primary" data-tab="core">
+    <div class="core main" data-group="primary" data-tab="core">
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
     </div>
 
@@ -125,4 +148,7 @@
 
   </section>
   {{/if}}
+  </div>
+  </div>
+
 </form>
