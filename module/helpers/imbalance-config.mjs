@@ -1,7 +1,7 @@
 export const LWFIMBALANCES = {};
 
 /**
- * The set of Ability Scores used within the system.
+ * The values used by imbalances within the system.
  * @type {Object}
  */
 LWFIMBALANCES.source = [
@@ -10,7 +10,7 @@ LWFIMBALANCES.source = [
   "Emotional"
 ];
 
-LWFIMBALANCES.bodyParts = [
+LWFIMBALANCES.bodyPart = [
   "Head",
   "Torso",
   "Left arm",

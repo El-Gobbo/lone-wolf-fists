@@ -1,4 +1,4 @@
-<div class="main">
+<div class="imb-main">
   <div class="sidebar">
   <ol class='items-list full-size'>
     <li class='item flexrow items-header'>
@@ -24,15 +24,15 @@
   </li>
   {{/each}}
 </div> 
-<div class="main-body">
+<div class="imbmain-body">
   <ol class="items-list full-size">
   <li class="item flexrow items-header">
     <div class="flex-group-center">Type</div>
     <div class="flex-group-center">Target</div>
     <div class="flex-group-center">Stat</div>
     <div class="flex-group-center">Rank</div>
-    <div class="flex-group-center">Aggravation</div>
-    <div class='item-controls'>
+    <div class="flex-group-center">Agg</div>
+    <div class='item-controls flex-group-center'>
         <a
           class='item-control item-create'
           title='Create item'
@@ -49,7 +49,7 @@
       <select class="item-choice" name='item.system.source'>
       
       {{! Iterates over the list of stats that imbalances can target to produce a select menu.}} 
-      {{! List can be edited at lone-wolf-fists\module\helpers\config.mjs}}
+      {{! List can be edited at lone-wolf-fists\module\helpers\imbalance-config.mjs}}
         {{#each ../imbalanceSources}}
         <option 
           {{! Makes sure that the default source shown is the one currently set on the imbalance}}
@@ -63,7 +63,7 @@
       <select class = "item-choice" name="item.system.bodyPart">
         
         {{! Iterates over the list of body parts that imbalances can target to produce a select menu.}} 
-        {{! List can be edited at lone-wolf-fists\module\helpers\config.mjs}}
+        {{! List can be edited at lone-wolf-fists\module\helpers\imbalance-config.mjs}}
         {{#each ../bodyParts}}
         <option 
           {{! Makes sure that the default source shown is the one currently set on the imbalance}}
@@ -77,7 +77,7 @@
       <select class="item-choice item-stat" name='item.system.stat'>
       
       {{! Iterates over the list of stats that imbalances can target to produce a select menu.}} 
-      {{! List can be edited at lone-wolf-fists\module\helpers\config.mjs}}
+      {{! List can be edited at lone-wolf-fists\module\helpers\imbalance-config.mjs}}
         {{#each ../imbalanceStats}}
         <option 
           {{! Makes sure that the default stat shown is the one currently set on the imbalance}}

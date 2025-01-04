@@ -6,7 +6,7 @@ table {
   font-family: $font-primary;
 }
 
-.main {
+.imb-main {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -19,12 +19,16 @@ table {
   height: 100%;
 }
 
+
+
 .sidebar {
   flex: 0 0 150px;
   display: flex;
   flex-direction: column;
   padding: 5px;
+  position: relative;
 }
+
 
 .skill-image {
   margin-top: 5px;
@@ -38,7 +42,7 @@ table {
   margin-bottom: 0px !important;
 }
 
-.main-body {
+.imbmain-body {
   display: flex;
   width: 100%;
   flex: 5 1 auto;

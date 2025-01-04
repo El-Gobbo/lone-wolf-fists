@@ -3,7 +3,7 @@ import lwfItemBase from "./base-item.mjs";
 export default class lwfTechnique extends lwfItemBase {
 
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, ArrayField, BooleanField, HTMLField } = foundry.data.fields;
+    const { SchemaField, NumberField, StringField, BooleanField, HTMLField } = foundry.data.fields;
     const schema = super.defineSchema();
 
     // The technique school to which the technique belongs
@@ -13,6 +13,8 @@ export default class lwfTechnique extends lwfItemBase {
     schema.techType = new StringField();
 
     schema.techLvl = new StringField();
+
+    schema.techReqs = new StringField();
 
     schema.techCost = new NumberField();
 
@@ -29,8 +31,6 @@ export default class lwfTechnique extends lwfItemBase {
     schema.techTags = new StringField();
 
     schema.techEffect = new HTMLField();
-
-    schema.test = new ArrayField(new StringField, {initial: ['test', 'next', 'value']});
 
     return schema;
   }

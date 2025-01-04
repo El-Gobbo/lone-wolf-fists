@@ -5,6 +5,7 @@ import {
 
 import { LWFIMBALANCES } from '../helpers/imbalance-config.mjs';
 import { LWFSKILLS } from '../helpers/skills.mjs';
+import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -99,7 +100,7 @@ export class lwfActorSheet extends ActorSheet {
     // Add data about imbalances to the character sheet
     context.imbalanceSources = LWFIMBALANCES.source;
     context.imbalanceStats = LWFIMBALANCES.stat;
-    context.bodyParts = LWFIMBALANCES.bodyParts;
+    context.bodyParts = LWFIMBALANCES.bodyPart;
     if (context.clan.length > 0) {
       context.system.deed = context.clan[0].system.deed;
     }
@@ -118,11 +119,7 @@ export class lwfActorSheet extends ActorSheet {
     const gear = [];
     const guptKala = [];
     const techniques = {
-      "form": [],
-      "attack": [],
-      "defense": [],
-      "balance": [],
-      "mudra": [],
+      ...LWFTECHNIQUES.techType
     };
     const imbalances = [];
     const archetype = [];
@@ -142,7 +139,7 @@ export class lwfActorSheet extends ActorSheet {
       // Append to techniques.
         case 'technique':
           if (i.system.techniqueType != undefined) {
-            techniques[i.system.techniqueType].push(i);
+            techniques[i.system.techType].push(i);
           }
           break;
 

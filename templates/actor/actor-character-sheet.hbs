@@ -4,6 +4,10 @@
   <div class="sheet">
   <div class="sidebar">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="140" width="140"/>
+      <div class="resource flex-group-center">
+    <button type="button" id="prana-flare">Prana Flare</button>
+    <button type="button" id="end-combat">End of Combat</button>
+  </div>
     <div class="prana resources">
       <div class="resource flex-group-center">
         <label for="system.prana.current" class="resource-label">Prana</label>
@@ -18,14 +22,10 @@
   <div class="resource flex-group-center">
     <label for="system.chakras.active" class="resource-label">Active Chakras</label>
     <div class="increase-decrease flexrow">
-      <button type="button" class="decrease">-</button>
+      <button type="button" class="chakra-decrease">-</button>
       <input type="number" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number"/>
-      <button type="button" class="increase">+</button>
+      <button type="button" class="chakra-increase">+</button>
     </div>
-  </div>
-  <div class="resource flex-group-center">
-    <button type="button" id="prana-flare">Prana Flare</button>
-    <button type="button" id="end-combat">End of Combat</button>
   </div>
   </div>
 
@@ -116,20 +116,21 @@
     <a class="item" data-tab="core">Core</a>
     <a class="item" data-tab="items">Items</a>
     <a class="item" data-tab="dharma">Dharma</a>
-    <a class="item" data-tab="spells">Techniques</a>
+    <a class="item" data-tab="techniques">Techniques</a>
     {{! Hidden final tab where the GM can change around character options}}
     <a class="item" data-tab="config" {{#unless isGM}} hidden {{/unless}}>Config</a>
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
-    <div class="core main" data-group="primary" data-tab="core">
+    <div class="tab core" data-group="primary" data-tab="core">
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
     </div>
 
     {{!-- Biography Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
       {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
       {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
     </div>
 
@@ -140,7 +141,7 @@
 
     {{!-- Owned Spells Tab --}}
     <div class="tab techniques" data-group="primary" data-tab="techniques">
-
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-techniques.hbs"}}
     </div>
     <div class="tab config" data-group="primary" data-tab="config">
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs"}}
