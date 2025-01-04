@@ -8,7 +8,7 @@ export {default as lwfSquad} from "./actor-squad.mjs";
 export {default as lwfItemBase} from "./base-item.mjs";
 export {default as lwfItem} from "./item-item.mjs";
 export {default as lwfFeature} from "./item-feature.mjs";
-export {default as lwfSpell} from "./item-spell.mjs";
+export {default as lwfTechnique} from "./item-technique.mjs";
 export {default as lwfImbalance} from "./item-imbalance.mjs";
 export {default as lwfArchetype} from "./item-archetype.mjs";
 export {default as lwfClan} from "./item-clan.mjs";

@@ -48,7 +48,7 @@ Hooks.once('init', function () {
   CONFIG.Item.dataModels = {
     item: models.lwfItem,
     feature: models.lwfFeature,
-    spell: models.lwfSpell,
+    technique: models.lwfTechnique,
     imbalance: models.lwfImbalance,
     archetype: models.lwfArchetype,
     clan: models.lwfClan,
