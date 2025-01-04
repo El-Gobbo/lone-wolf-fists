@@ -3,7 +3,7 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
-import { LWF } from '../helpers/config.mjs';
+import { LWFIMBALANCES } from '../helpers/imbalance-config.mjs';
 import { LWFSKILLS } from '../helpers/skills.mjs';
 
 /**
@@ -50,7 +50,7 @@ export class lwfActorSheet extends ActorSheet {
     context.flags = actorData.flags;
 
     // Adding a pointer to CONFIG.LWF
-    context.config = CONFIG.LWF;
+    context.config = CONFIG.LWFIMBALANCES;
 
     // Prepare character data and items.
     if (actorData.type == 'character') {
@@ -97,9 +97,9 @@ export class lwfActorSheet extends ActorSheet {
    */
   _prepareCharacterData(context) {
     // Add data about imbalances to the character sheet
-    context.imbalanceSources = LWF.source;
-    context.imbalanceStats = LWF.stat;
-    context.bodyParts = LWF.bodyParts;
+    context.imbalanceSources = LWFIMBALANCES.source;
+    context.imbalanceStats = LWFIMBALANCES.stat;
+    context.bodyParts = LWFIMBALANCES.bodyParts;
     if (context.clan.length > 0) {
       context.system.deed = context.clan[0].system.deed;
     }
@@ -261,6 +261,18 @@ export class lwfActorSheet extends ActorSheet {
 
     })
 
+    // Increase number of active chakras
+    html.on('click', '.chakra-increase', async () => {
+      let newActive = this.actor.system.chakras.active + 1;
+      this.actor.update({['system.chakras.active']: newActive})
+    })
+
+    // decrease number of active chakras
+    html.on('click', '.chakra-decrease', async () => {
+      let newActive = this.actor.system.chakras.active - 1;
+      this.actor.update({['system.chakras.active']: newActive});
+    })
+
     // Prana flare when click the prana flare button
     html.on('click', '#prana-flare', async () => {
       let newActive = this.actor.system.chakras.active + 1;
@@ -269,7 +281,7 @@ export class lwfActorSheet extends ActorSheet {
       this.actor.update({['system.chakras.active']: newActive, ['system.prana.current']: increase});
     })
 
-    // Reduce
+    // Reduce prana to normal levels
     html.on('click', '#end-combat', async () => {
       let newActive = this.actor.system.chakras.value;
       let reset = this.actor.system.pool.value * newActive;
@@ -277,7 +289,7 @@ export class lwfActorSheet extends ActorSheet {
       this.actor.update({['system.chakras.active']: newActive, ['system.prana.current']: reset, ['system.aura.current']: aura});
     })
     
-    // Add a new mmastery when it is chosen TODO: delete this once sure its safe, as I don't think anything uses this atm
+    // Add a new mastery when it is chosen TODO: delete this once sure its safe, as I don't think anything uses this atm
     html.on('click', '#masterySelect', async (ev) => {
       const mc = Array.from($(ev.currentTarget).siblings(':checked'));
       for (const item of mc) {
