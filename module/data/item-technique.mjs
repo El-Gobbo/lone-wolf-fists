@@ -7,12 +7,12 @@ export default class lwfTechnique extends lwfItemBase {
     const schema = super.defineSchema();
 
     // The technique school to which the technique belongs
-    schema.yuddhakala = new StringField();
+    schema.yuddhakala = new StringField({initial:"working"});
 
     //Choose if the technique is attack, defense, versatile, or mudra
-    schema.techType = new StringField();
+    schema.techType = new StringField({initial: "form"});
 
-    schema.techLvl = new StringField();
+    schema.techLvl = new StringField({initial: "form"});
 
     schema.techReqs = new StringField();
 
@@ -21,12 +21,12 @@ export default class lwfTechnique extends lwfItemBase {
     schema.techFacing = new SchemaField({
       min: new NumberField({min: 0, max: 9}),
       max: new NumberField({min: 0, max: 9}),
-      none: new BooleanField({initial: false})
+      none: new BooleanField({initial: false}),
     });
 
-    schema.techSkill = new StringField();
+    schema.techSkill = new StringField({initial: "Power"});
 
-    schema.techRank = new NumberField({min: 1, max: 7});
+    schema.techRank = new NumberField({min: 0, max: 7});
 
     schema.techTags = new StringField();
 

@@ -19,63 +19,92 @@
           type='text'
           name='system.yuddhakala'
           value='{{system.yuddhakala}}'
-          data-dtype='Number'
+          data-dtype='String'
         />
       </div>
     </div>
   </header>
-
-  {{! Sheet Tab Navigation }}
-  <nav class='sheet-tabs tabs' data-group='primary'>
-    <a class='item' data-tab='description'>Description</a>
-  </nav>
-
   {{! Sheet Body }}
   <section class='sheet-body'>
-      <div class='resource'>
-        <label class='resource-label'>Roll Formula:</label>
-        <span>{{system.formula}}</span>
-        <div class='grid grid-4col'>
-          <div class='grid-span-1'>
-            <label class='resource-label'>Number of Dice</label>
-            <input
-              type='text'
-              name='system.roll.diceNum'
-              value='{{system.roll.diceNum}}'
-              data-dtype='Number'
-            />
-          </div>
-          <div class='grid-span-1'>
-            <label class='resource-label'>Die Size</label>
-            <input
-              type='text'
-              name='system.roll.diceSize'
-              value='{{system.roll.diceSize}}'
-              data-dtype='String'
-            />
-          </div>
-          <div class='grid-span-2'>
-            <label class='resource-label'>Roll Modifier</label>
-            <input
-              type='text'
-              name='system.roll.diceBonus'
-              value='{{system.roll.diceBonus}}'
-              data-dtype='String'
-            />
-          </div>
-        </div>
+    <div class='resource'>
+      <label>Level:</label>
+      <select class="item-choice" name='techLvl' data-techstat="techLvl">
+    
+      {{! Iterates over the list of technique types to produce a select menu.}} 
+      {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
+      {{#each techLvl}}
+        <option 
+          {{! Makes sure that the default source shown is the one currently set on the imbalance}}
+          {{#if (comparison ../system.techLvl this)}} selected="selected" {{/if}} 
+          value="{{this}}">{{this}}</option>
+        {{/each}}
 
-      </div>
+      </select>
+    </div>
+    <div class='resource'>
+      <select class="item-choice" name='techType' data-techstat="techType">
+    
+      {{! Iterates over the list of technique types to produce a select menu.}} 
+      {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
+        {{#each techType}}
+        <option 
+          {{! Makes sure that the default source shown is the one currently set on the imbalance}}
+          {{#if (comparison ../system.techType this)}} selected="selected" {{/if}} 
+          value="{{this}}">{{this}}</option>
+        {{/each}}
+
+      </select>
+    </div>
+    <div class='resource'>
+      <label>Rank:</label>
+      <input type="text" class="inline-input small-box" name='system.techRank' value="{{system.techRank}}" data-dtype="Number">
+    </div>
+    <div class='resource'>
+      <label>Requirements:</label>
+      <input type="text" class="inline-input large-box" name='system.techReqs' value="{{system.techReqs}}" data-dtype="String">
+    </div>
+    <div class='resource'>
+      <label>Cost:</label>
+      <input type="text" class="inline-input small-box" name='system.techCost' value="{{system.techCost}}" data-dtype="Number">
+    </div>
+    <div class='resource flexrow flex-group-center'>
+      {{#unless system.techFacing.none}}
+      <label class="flex flexshrink margin-3">Facing:</label>
+      <input type="text" class="flex flexshrink medium-box margin-3" name='system.techFacing.min' value="{{system.techFacing.min}}" data-dtype="Number">
+      <span class="flex flexshrink margin-3">-</span>
+      <input type="text" class="flex flexshrink medium-box margin-3" name='system.techFacing.max' value="{{system.techFacing.max}}" data-dtype="Number">
+      {{/unless}}
+      <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
+      <label class="rightside flex">No facings</label>
+    </div>
+
+    <div class='resource'>
+    <label>Skill:</label>
+    <select class="item-choice" name='techSkill' data-techstat="techSkill">
+    
+      {{! Iterates over the list of skills to produce a select menu.}} 
+      {{! List can be edited at lone-wolf-fists\module\helpers\skills.mjs}}
+        {{#each skills}}
+        <option 
+          {{! Makes sure that the default source shown is the one currently set on the imbalance}}
+          {{#if (comparison ../system.techSkill this)}} selected="selected" {{/if}} 
+          value="{{this}}">{{this}}</option>
+        {{/each}}
+
+      </select>
+    </div>
     {{! Description Tab }}
-    <div class='tab' data-group='primary' data-tab='description'>
+    <h2>Effect:</h2>
+    <div class="tab" data-group="primary">
       {{! Editors must receive enriched text data from getData to properly handle rolls }}
       {{editor
-        enrichedDescription
-        target='system.description'
+        system.techEffect
+        target='system.techEffect'
         engine='prosemirror'
         button=true
         editable=editable
       }}
     </div>
+
   </section>
 </form>

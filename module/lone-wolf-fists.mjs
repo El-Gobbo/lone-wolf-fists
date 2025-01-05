@@ -95,6 +95,11 @@ Handlebars.registerHelper('lessThan', function(index, limit) {
   return index < limit;
 });
 
+Handlebars.registerHelper('capitalise', function(foo) {
+  let output = foo.charAt(0).toUpperCase() + foo.slice(1);
+  return output
+})
+
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */

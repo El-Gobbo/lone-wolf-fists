@@ -106,6 +106,8 @@ export class lwfActorSheet extends ActorSheet {
     }
     context.isGM = game.user.isGM;
     context.skills = LWFSKILLS;
+    context.techType = LWFTECHNIQUES.techType;
+    context.techLvl = LWFTECHNIQUES.techLvl
     return context;
   }
 
@@ -119,7 +121,11 @@ export class lwfActorSheet extends ActorSheet {
     const gear = [];
     const guptKala = [];
     const techniques = {
-      ...LWFTECHNIQUES.techType
+      "form": [],
+      "attack": [],
+      "defense": [],
+      "mudra": [],
+      "balance": []
     };
     const imbalances = [];
     const archetype = [];

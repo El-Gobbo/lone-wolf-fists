@@ -4,18 +4,19 @@ export const LWFTECHNIQUES = {};
  * The values used by imbalances within the system.
  * @type {Object}
  */
-LWFTECHNIQUES.techType = {
-    "attack": [],
-    "defense": [],
-    "mudra": [],
-    "balance": []
-};
+LWFTECHNIQUES.techType = [
+    "Form",
+    "Attack",
+    "Defense",
+    "Mudra",
+    "Balance"
+];
 
 LWFTECHNIQUES.techLvl = [
-    "form",
-    "novice",
-    "expert",
-    "master",
-    "supreme",
-    "ultimate"
+    "Form",
+    "Novice",
+    "Expert",
+    "Master",
+    "Supreme",
+    "Ultimate"
 ]

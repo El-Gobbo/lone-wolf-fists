@@ -188,8 +188,13 @@
   flex: 2;
 }
 
+.flex {
+  display: flex;
+}
+
 .align-left {
   justify-content: flex-start;
+  align-items: center;
   text-align: left;
 }
 
@@ -228,6 +233,21 @@
   padding: 5px;
   position: relative;
 }
+.lone-wolf-fists .inline-input {
+  display: inline-block;
+}
+.lone-wolf-fists .margin-3 {
+  margin: 0 3px;
+}
+.lone-wolf-fists .small-box {
+  width: 35px;
+}
+.lone-wolf-fists .medium-box {
+  width: 100px;
+}
+.lone-wolf-fists .large-box {
+  width: 200px;
+}
 .lone-wolf-fists .skill-image {
   margin-top: 5px;
 }
@@ -243,6 +263,9 @@
   flex: 5 1 auto;
   align-items: top;
   margin: 5px;
+}
+.lone-wolf-fists .resource {
+  margin-top: 3px;
 }
 .lone-wolf-fists .sheet-top {
   flex: 0 auto;

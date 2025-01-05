@@ -3,6 +3,9 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
+import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
+import { LWFSKILLS } from '../helpers/skills.mjs';
+
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
@@ -71,6 +74,13 @@ export class lwfItemSheet extends ItemSheet {
     // Prepare active effects for easier access
     context.effects = prepareActiveEffectCategories(this.item.effects);
 
+    if (itemData.type == "technique"){
+      context.techType = LWFTECHNIQUES.techType;
+      context.techLvl = LWFTECHNIQUES.techLvl;
+      context.skills = LWFSKILLS;
+
+    }
+
     return context;
   }
 
@@ -89,5 +99,22 @@ export class lwfItemSheet extends ItemSheet {
     html.on('click', '.effect-control', (ev) =>
       onManageActiveEffect(ev, this.item)
     );
+
+    // Change imbalance data when the data is altered on the sheet
+    html.on('change', '.item-choice', async (ev) =>{      
+      const tr = $(ev.currentTarget).parents('.sheet')[0].id.split("-")[2];
+      const item = game.items.get(tr);
+     // const item = this.actor.items.get(tr);
+      
+      // The following if statement is used to detect if the chosen element is selected or not
+      // If there is a better way to do this, lmk
+      let update;
+      if (ev.currentTarget[1] === undefined)
+        update = ev.currentTarget.value;
+      else
+        update = $(ev.currentTarget).find(":selected").text();
+      const target = ev.currentTarget.dataset.techstat;
+      item.update({ [`system.${target}`]: update});
+    })
   }
 }
