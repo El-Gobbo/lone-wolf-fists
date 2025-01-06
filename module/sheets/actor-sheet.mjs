@@ -246,8 +246,9 @@ export class lwfActorSheet extends ActorSheet {
       }
       const pack = game.packs.get("lone-wolf-fists.masteries").index;
       const missing = pack.filter(({name}) => !names.includes(name));
-      console.log("Stall");
-      const masteryHTML = await renderTemplate('systems/lone-wolf-fists/templates/popups/popup-masteries.hbs', missing)
+      const difference = parseInt(ev.currentTarget.dataset.missing);
+      const masteries = {"missing": missing, "difference": difference};
+      const masteryHTML = await renderTemplate('systems/lone-wolf-fists/templates/popups/popup-masteries.hbs', masteries)
       const choices = await Dialog.wait ({
         title: "Choose your mastery",
         content: masteryHTML,
@@ -255,7 +256,10 @@ export class lwfActorSheet extends ActorSheet {
           submit: {
             label: "Master",
             callback: (html) => {
-              html
+              const formElement = html[0].querySelector('form');
+              const formData = new FormDataExtended(formElement);
+              const formDataObject = formData.toObject();
+              return formDataObject;
             }
           }
         }
