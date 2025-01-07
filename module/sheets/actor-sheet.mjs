@@ -178,7 +178,7 @@ export class lwfActorSheet extends ActorSheet {
           break;
         // Check if the player has enough masteries. If they don't, allow new ones to be added on. If they do, delete any subsequent masteries
         case 'masteries':
-          if (this.actor.system.masteries.value > mastery.length) {
+          if ((this.actor.system.masteries.value + 7) > mastery.length) {
             mastery.push(i);
           }
           else {
@@ -195,22 +195,26 @@ export class lwfActorSheet extends ActorSheet {
     context.clan = clan;
     let present = [];
     let absent = [];
-    let comparison = [];
-    for(let i in mastery) {
-      let skillName = mastery[i].name.split(" ")[0]
-      comparison.push(skillName);
-    }
+    let skillObjects = Array.from(game.packs.get("lone-wolf-fists.masteries").index);
 
     // Create a pair of arrays listing the skills the player has mastered (present) and those the player has not (absent)
     // This is to allow for generating the skills list with masteries at the top, and unmastered skills underneath, while retaining the same order of skills
+    // TODO: make the datamodel passed to the sheet much simpler
     for(let i in LWFSKILLS) {
-      let skill = LWFSKILLS[i];
-      if(comparison.includes(skill)) {
-        skill = skill.concat("-mastery");
-        present.push(skill);
+      let skill = LWFSKILLS[i].concat(" Mastery");
+      let index = mastery.findIndex((temp) => temp["name"] === skill);
+      let add = {};
+      if(index >= 0) {
+        add = mastery[index];
+        add.skill = LWFSKILLS[i]
+        present.push(add);
       }
-      else
-        absent.push(skill);
+      else {
+        index = skillObjects.findIndex((temp) => temp["name"] === skill);
+        add = skillObjects[index];
+        add.skill = LWFSKILLS[i]
+        absent.push(add);
+      }
     }
 
     context.mastery = mastery;
@@ -317,35 +321,6 @@ export class lwfActorSheet extends ActorSheet {
       let aura = this.actor.system.aura.max;
       this.actor.update({['system.chakras.active']: newActive, ['system.prana.current']: reset, ['system.aura.current']: aura});
     })
-    
-    // Add a new mastery when it is chosen TODO: delete this once sure its safe, as I don't think anything uses this atm
-    html.on('click', '#masterySelect', async (ev) => {
-      const mc = Array.from($(ev.currentTarget).siblings(':checked'));
-      for (const item of mc) {
-        let id = item.id;
-        const mastery = await game.packs.get("lone-wolf-fists.masteries").getDocument(id);
-        const effect = Array.from(mastery.effects)[0];
-        const newMastery = await Item.create ({
-          name: mastery.name,
-          type: mastery.type,
-          img: mastery.img,
-        },
-        {
-          parent: this.actor
-        })
-        await ActiveEffect.create ({
-          name: effect.name,
-          changes: effect.changes,
-          transfer: effect.transfer,
-          duration: effect.duration,
-          disabled: false
-        },
-      {
-        parent: newMastery
-      })
-      }
-    }
-    )
 
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
