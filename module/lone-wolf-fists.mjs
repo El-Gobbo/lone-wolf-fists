@@ -47,12 +47,12 @@ Hooks.once('init', function () {
   CONFIG.Item.documentClass = lwfItem;
   CONFIG.Item.dataModels = {
     item: models.lwfItem,
-    feature: models.lwfFeature,
     technique: models.lwfTechnique,
     imbalance: models.lwfImbalance,
     archetype: models.lwfArchetype,
     clan: models.lwfClan,
     masteries: models.lwfMasteries,
+    skill: models.lwfSkill,
     armour: models.lwfArmour,
     weapon: models.lwfWeapon
   }
