@@ -3,7 +3,9 @@ import { LWFARCH } from "../helpers/archetypes.mjs";
 import { LWFCLAN } from "../helpers/clans.mjs";
 
 export default class lwfCharacter extends lwfWeaponUser {
-
+  async _preCreate(data,options,user){
+    console.log("we're in boys");
+  }
   static defineSchema() {
     const { SchemaField, NumberField, StringField, ArrayField, BooleanField, HTMLField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };

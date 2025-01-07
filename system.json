@@ -52,6 +52,15 @@
       "type": "Item",
       "private": true,
       "flags": {}
+    },
+    {
+      "name": "skills",
+      "label": "Skills",
+      "system": "lone-wolf-fists",
+      "path": "packs/skills",
+      "type": "Item",
+      "private": true,
+      "flags": {}
     }
   ],
   "packFolders": [],
