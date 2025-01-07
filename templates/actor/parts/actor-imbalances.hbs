@@ -4,7 +4,26 @@
     <li class='item flexrow items-header'>
       <div class="skill-name">{{localize 'Skill'}}</div>
     </li>
-  {{#each skills as | skill |}}
+  {{#each mastery.present as | skill |}}
+  <li class='item flex-group-center' id="">
+    <div class='item-image'>
+        <a
+          class='item-control item-edit'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <img
+          class="mastery-image"
+          src='systems/lone-wolf-fists/assets/{{this}}.svg'
+          title='{{this}}'
+          width='40'
+          height='40'
+        />
+      </a>
+    </div>
+    <h4 class="skill"><strong>{{this}}</strong></h4>
+  </li>
+  {{/each}}
+  {{#each mastery.absent as | skill |}}
   <li class='item flex-group-center'>
     <div class='item-image'>
         <a
@@ -23,6 +42,7 @@
     <h4 class="skill">{{this}}</h4>
   </li>
   {{/each}}
+
 </div> 
 <div class="imbmain-body">
   <ol class="items-list full-size">

@@ -21,6 +21,8 @@ export default class lwfWeapon extends lwfItemBase {
       grenade: new BooleanField({initial: false}),
       ordnance: new BooleanField({initial: false}),
     })
-    schema.unique = new BooleanField({initial: false})
+    schema.unique = new BooleanField({initial: false});
+    
+    return schema;
   }
 }

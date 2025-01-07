@@ -97,7 +97,12 @@ Handlebars.registerHelper('lessThan', function(index, limit) {
 
 Handlebars.registerHelper('capitalise', function(foo) {
   let output = foo.charAt(0).toUpperCase() + foo.slice(1);
-  return output
+  return output;
+})
+
+Handlebars.registerHelper('check', function (str1, str2) {
+  let output = str1[str2];
+  return output;
 })
 
 /* -------------------------------------------- */

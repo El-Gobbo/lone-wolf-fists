@@ -193,12 +193,34 @@ export class lwfActorSheet extends ActorSheet {
     context.techniques = techniques;
     context.imbalances = imbalances;
     context.clan = clan;
+    let present = [];
+    let absent = [];
+    let comparison = [];
+    for(let i in mastery) {
+      let skillName = mastery[i].name.split(" ")[0]
+      comparison.push(skillName);
+    }
+
+    // Create a pair of arrays listing the skills the player has mastered (present) and those the player has not (absent)
+    // This is to allow for generating the skills list with masteries at the top, and unmastered skills underneath, while retaining the same order of skills
+    for(let i in LWFSKILLS) {
+      let skill = LWFSKILLS[i];
+      if(comparison.includes(skill)) {
+        skill = skill.concat("-mastery");
+        present.push(skill);
+      }
+      else
+        absent.push(skill);
+    }
+
     context.mastery = mastery;
+    context.mastery.present = present;
+    context.mastery.absent = absent;
+    
     // Work out the difference between the number of masteries they should have, and the number of masteries they do have.
     // If they have fewer masteries than they should, check the masteries compendium, and see which the player doesn't have
     context.mastery.difference = this.actor.system.masteries.value - mastery.length;
     if(context.mastery.difference > 0){
-      // Generate an array of the names of masteries the player currently has
       context.mastery.missing = true;
     }
     return context;

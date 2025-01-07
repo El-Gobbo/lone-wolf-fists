@@ -121,6 +121,6 @@ export default class lwfCharacter extends lwfWeaponUser {
 
     // Copy effort to the top level, so it can be used by the standard rolls.
     data.effort = this.power.value;
-    return data
+    return data;
   }
 }

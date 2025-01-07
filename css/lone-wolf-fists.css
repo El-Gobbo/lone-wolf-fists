@@ -251,6 +251,12 @@
 .lone-wolf-fists .skill-image {
   margin-top: 5px;
 }
+.lone-wolf-fists .mastery-image {
+  margin-top: 3px;
+  border-style: groove;
+  border-width: 2px;
+  border-color: yellow;
+}
 .lone-wolf-fists .full-size {
   width: 100%;
 }
