@@ -5,7 +5,7 @@ export default class lwfSkill extends lwfItemBase {
         const { HTMLField, StringField } = foundry.data.fields;
         const schema = super.defineSchema();
         
-        schema.use = new StringField();
+        schema.use = new HTMLField({initial: ""});
         schema.effectChart = new HTMLField();
         schema.skill = new StringField();
     

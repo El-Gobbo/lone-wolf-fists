@@ -255,13 +255,15 @@ export class lwfActorSheet extends ActorSheet {
 
     // Choose masteries to add on level up TODO: pass the data back to the original character sheet
     html.on('click', '#newMasteries', async (ev) => {
-      const mastery = this.actor.items.filter(({type}) => type == "masteries");
       const names = [];
-      for (let i in mastery){
-        names.push(mastery[i].name)
+      for (let i in LWFSKILLS){
+        if(this.actor.system.masteries.types[LWFSKILLS[i]] !== true){
+          let newName = LWFSKILLS[i].concat(" Mastery");
+          names.push(newName);
+        }
       }
       const pack = game.packs.get("lone-wolf-fists.masteries").index;
-      const missing = pack.filter(({name}) => !names.includes(name));
+      const missing = pack.filter(({name}) => names.includes(name));
       const difference = parseInt(ev.currentTarget.dataset.missing);
       const masteries = {"missing": missing, "difference": difference};
       const masteryHTML = await renderTemplate('systems/lone-wolf-fists/templates/popups/popup-masteries.hbs', masteries)
@@ -274,15 +276,22 @@ export class lwfActorSheet extends ActorSheet {
             callback: (html) => {
               const formElement = html[0].querySelector('form');
               const formData = new FormDataExtended(formElement);
-              const formDataObject = formData.toObject();
-              return formDataObject;
+              return formData.object;
             }
           }
         }
       });
-      console.log(choices)
-
+      let items = this.actor.items.map(i => i.toObject());
+      for(let i in choices){
+        if (choices[i] !== null){
+          let obj = await game.packs.get('lone-wolf-fists.masteries').getDocument(choices[i]);
+          items.push(obj.toObject());
+        }
+      }
+      this.actor.update({ items });
     })
+
+
 
     // Increase number of active chakras
     html.on('click', '.chakra-increase', async () => {

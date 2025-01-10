@@ -2,9 +2,15 @@
     <h3>Choose {{difference}} new {{#if (comparison difference 1)}}skill{{else}}skills{{/if}} to master.</h3>
     <div>
     {{#each missing}}
-    <input type="checkbox" id="{{this._id}}" class="mastery" name="{{this.name}}" value="{{this.system.skill}}">
+    <input type="checkbox" id="{{this._id}}" class="mastery" name="{{this.name}}" value="{{this._id}}">
     <img src="{{this.img}}" width="24" height="24">
     <label for="{{this.name}}">{{this.name}}</label><br>
     {{/each}}
     </div>
+    <script>
+        
+        document.addEventListener('click', (e) => {
+            console.log('works');;
+        })
+    </script>
 </form>
