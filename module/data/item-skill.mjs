@@ -7,6 +7,7 @@ export default class lwfSkill extends lwfItemBase {
         
         schema.use = new StringField();
         schema.effectChart = new HTMLField();
+        schema.skill = new StringField();
     
         return schema;
       }

@@ -4,7 +4,7 @@
     <li class='item flexrow items-header'>
       <div class="skill-name">{{localize 'Skill'}}</div>
     </li>
-  {{#each mastery.present as | skill |}}
+  {{#each skill.mastered as | skill |}}
   <li class='item flex-group-center' data-item-id="{{skill._id}}">
     <div class='item-image'>
         <a
@@ -14,16 +14,16 @@
         <img
           class="mastery-image"
           src='{{skill.img}}'
-          title='{{this}}'
+          title='{{skill}}'
           width='40'
           height='40'
         />
       </a>
     </div>
-    <h4 class="skill"><strong>{{skill.skill}}</strong></h4>
+    <h4 class="skill"><strong>{{skill}}</strong></h4>
   </li>
   {{/each}}
-  {{#each mastery.absent as | skill |}}
+  {{#each skill.unmastered as | skill |}}
   <li class='item flex-group-center' data-item-id="{{skill._id}}">
     <div class='item-image'>
         <a
@@ -32,14 +32,14 @@
         >
         <img
           class="skill-image"
-          src='systems/lone-wolf-fists/assets/{{skill.skill}}.svg'
-          title='{{skill.skill}}'
+          src='{{skill.img}}'
+          title='{{skill}}'
           width='40'
           height='40'
         />
       </a>
     </div>
-    <h4 class="skill">{{skill.skill}}</h4>
+    <h4 class="skill">{{skill.name}}</h4>
   </li>
   {{/each}}
 

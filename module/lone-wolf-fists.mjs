@@ -51,7 +51,6 @@ Hooks.once('init', function () {
     imbalance: models.lwfImbalance,
     archetype: models.lwfArchetype,
     clan: models.lwfClan,
-    masteries: models.lwfMasteries,
     skill: models.lwfSkill,
     armour: models.lwfArmour,
     weapon: models.lwfWeapon

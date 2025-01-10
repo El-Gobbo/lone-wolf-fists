@@ -130,7 +130,7 @@ export class lwfActorSheet extends ActorSheet {
     const imbalances = [];
     const archetype = [];
     const clan = [];
-    const mastery = [];
+    const skills = [];
 
 
     // Iterate through items, allocating to containers
@@ -176,15 +176,9 @@ export class lwfActorSheet extends ActorSheet {
             target.delete();
           }
           break;
-        // Check if the player has enough masteries. If they don't, allow new ones to be added on. If they do, delete any subsequent masteries
-        case 'masteries':
-          if ((this.actor.system.masteries.value + 7) > mastery.length) {
-            mastery.push(i);
-          }
-          else {
-            let target = this.actor.items.get(i._id);
-            target.delete();
-          }
+        case 'skill':
+          skills.push(i);
+        
       }
     }
     // Assign and return
@@ -195,37 +189,33 @@ export class lwfActorSheet extends ActorSheet {
     context.clan = clan;
     let present = [];
     let absent = [];
-    let skillObjects = Array.from(game.packs.get("lone-wolf-fists.masteries").index);
 
     // Create a pair of arrays listing the skills the player has mastered (present) and those the player has not (absent)
     // This is to allow for generating the skills list with masteries at the top, and unmastered skills underneath, while retaining the same order of skills
     // TODO: make the datamodel passed to the sheet much simpler
     for(let i in LWFSKILLS) {
       let skill = LWFSKILLS[i].concat(" Mastery");
-      let index = mastery.findIndex((temp) => temp["name"] === skill);
-      let add = {};
+      let index = skills.findIndex((temp) => temp["name"] === skill);
       if(index >= 0) {
-        add = mastery[index];
-        add.skill = LWFSKILLS[i]
+        let add = skills[index];
         present.push(add);
       }
       else {
-        index = skillObjects.findIndex((temp) => temp["name"] === skill);
-        add = skillObjects[index];
-        add.skill = LWFSKILLS[i]
+        index = skills.findIndex((temp) => temp["name"] === LWFSKILLS[i]);
+        let add = skills[index];
         absent.push(add);
       }
     }
 
-    context.mastery = mastery;
-    context.mastery.present = present;
-    context.mastery.absent = absent;
+    context.skill = skills;
+    context.skill.mastered = present;
+    context.skill.unmastered = absent;
     
     // Work out the difference between the number of masteries they should have, and the number of masteries they do have.
     // If they have fewer masteries than they should, check the masteries compendium, and see which the player doesn't have
-    context.mastery.difference = this.actor.system.masteries.value - mastery.length;
-    if(context.mastery.difference > 0){
-      context.mastery.missing = true;
+    context.skill.difference = this.actor.system.masteries.value - present.length;
+    if(context.skill.difference > 0){
+      context.skill.missing = true;
     }
     return context;
   }
