@@ -4,7 +4,18 @@ import { LWFCLAN } from "../helpers/clans.mjs";
 
 export default class lwfCharacter extends lwfWeaponUser {
   async _preCreate(data,options,user){
-    console.log("we're in boys");
+    await super._preCreate(data, options, user);
+
+    const skills = await game.packs.get('lone-wolf-fists.skills').getDocuments();
+
+    const items = this.parent.items.map(i => i.toObject());
+  
+    for(let i in skills)
+      items.push(skills[i].toObject());
+  
+    this.parent.updateSource({ items });
+
+
   }
   static defineSchema() {
     const { SchemaField, NumberField, StringField, ArrayField, BooleanField, HTMLField } = foundry.data.fields;
