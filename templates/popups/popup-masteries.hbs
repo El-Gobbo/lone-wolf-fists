@@ -7,8 +7,11 @@
     <label for="{{this.name}}">{{this.name}}</label><br>
     {{/each}}
     </div>
+    <div id="error">
+    </div>
     <script>
 
+            // Prevent choosing more than the allotted number of masteries
             let difference = parseInt(document.querySelector("#difference").innerText);
             console.log(difference);
             let boxes = document.querySelectorAll('.mastery');
@@ -18,11 +21,10 @@
                     let checked = document.querySelectorAll('.mastery:checked');
                     if(checked.length > difference){
                         e.target.checked = false;
+                        document.querySelector('#error').innerText = "You must deselect a mastery to make a new choice";
                     }
                 })
             })   
-
-
 
     </script>
 </form>
