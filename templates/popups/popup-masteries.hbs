@@ -1,5 +1,5 @@
 <form>
-    <h3>Choose {{difference}} new {{#if (comparison difference 1)}}skill{{else}}skills{{/if}} to master.</h3>
+    <h3>Choose <span id="difference">{{difference}}</span> new {{#if (comparison difference 1)}}skill{{else}}skills{{/if}} to master.</h3>
     <div>
     {{#each missing}}
     <input type="checkbox" id="{{this._id}}" class="mastery" name="{{this.name}}" value="{{this._id}}">
@@ -8,9 +8,21 @@
     {{/each}}
     </div>
     <script>
-        
-        document.addEventListener('click', (e) => {
-            console.log('works');;
-        })
+
+            let difference = parseInt(document.querySelector("#difference").innerText);
+            console.log(difference);
+            let boxes = document.querySelectorAll('.mastery');
+            console.log(boxes);
+            boxes.forEach(box => {
+                box.addEventListener('change', (e) => {
+                    let checked = document.querySelectorAll('.mastery:checked');
+                    if(checked.length > difference){
+                        e.target.checked = false;
+                    }
+                })
+            })   
+
+
+
     </script>
 </form>
