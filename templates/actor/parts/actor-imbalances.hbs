@@ -1,49 +1,3 @@
-<div class="imb-main">
-  <div class="sidebar">
-  <ol class='items-list full-size'>
-    <li class='item flexrow items-header'>
-      <div class="skill-name">{{localize 'Skill'}}</div>
-    </li>
-  {{#each skill.mastered as | skill |}}
-  <li class='item flex-group-center' data-item-id="{{skill._id}}">
-    <div class='item-image'>
-        <a
-          class='item-control item-edit'
-          title='{{localize "DOCUMENT.Update" type='Item'}}'
-        >
-        <img
-          class="mastery-image"
-          src='{{skill.img}}'
-          title='{{skill}}'
-          width='40'
-          height='40'
-        />
-      </a>
-    </div>
-    <h4 class="skill"><strong>{{skill.name}}</strong></h4>
-  </li>
-  {{/each}}
-  {{#each skill.unmastered as | skill |}}
-  <li class='item flex-group-center' data-item-id="{{skill._id}}">
-    <div class='item-image'>
-        <a
-          class='item-control item-edit'
-          title='{{localize "DOCUMENT.Update" type='Item'}}'
-        >
-        <img
-          class="skill-image"
-          src='{{skill.img}}'
-          title='{{skill}}'
-          width='40'
-          height='40'
-        />
-      </a>
-    </div>
-    <h4 class="skill">{{skill.name}}</h4>
-  </li>
-  {{/each}}
-
-</div> 
 <div class="imbmain-body">
   <ol class="items-list full-size">
   <li class="item flexrow items-header">
@@ -131,5 +85,4 @@
   {{/each}}
 
 </ol>
-</div>
 </div>

@@ -15,7 +15,7 @@
   display: grid;
   grid-column: span 2/span 2;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 0 10px;
   margin: 10px 0;
   padding: 0;
 }
@@ -68,6 +68,20 @@
 .grid-12col {
   grid-column: span 12/span 12;
   grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.grid-16col {
+  grid-column: span 16/span 16;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+}
+
+.grid-close {
+  gap: 2px !important;
+}
+
+.grid-repeat {
+  grid-template-rows: repeat(auto-fill, 16px);
+  grid-auto-rows: auto;
 }
 
 .grid-start-2 {
@@ -188,6 +202,14 @@
   flex: 2;
 }
 
+.flex-5 {
+  flex: 5;
+}
+
+.flex-3 {
+  flex: 3;
+}
+
 .flex {
   display: flex;
 }
@@ -226,10 +248,66 @@
   flex-direction: row;
   height: 100%;
 }
+.lone-wolf-fists .font-small {
+  font-size: 10px;
+}
+.lone-wolf-fists #name {
+  flex: 3;
+}
+.lone-wolf-fists #clanName {
+  flex: 2;
+}
+.lone-wolf-fists .active-chakras {
+  position: relative;
+}
+.lone-wolf-fists .active-chakras img {
+  position: absolute;
+}
+.lone-wolf-fists .health-levels {
+  position: relative;
+}
+.lone-wolf-fists .health-levels .checkmark:after {
+  top: 2px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  background: rgb(0, 0, 0);
+}
+.lone-wolf-fists .health-levels input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+.lone-wolf-fists .health-levels input:checked ~ .checkmark {
+  background-color: #eee;
+}
+.lone-wolf-fists .health-levels input:checked ~ .checkmark:after {
+  display: block;
+}
+.lone-wolf-fists .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #eee;
+  border: 2px solid black;
+}
+.lone-wolf-fists .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.lone-wolf-fists .health-level input {
+  position: a;
+}
 .lone-wolf-fists .sidebar {
   flex: 0 0 150px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   padding: 5px;
   position: relative;
 }
@@ -281,7 +359,6 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: top !important;
-  margin-bottom: 10px;
 }
 .lone-wolf-fists .sheet-top .health-prana {
   display: flex;
@@ -305,9 +382,10 @@
 }
 .lone-wolf-fists .sheet-top .profile-img {
   flex: 0 0 100px;
-  height: 100px;
+  height: 120px;
   margin-right: 10px;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 13px;
 }
 .lone-wolf-fists .sheet-top .header-fields {
