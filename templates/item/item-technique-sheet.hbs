@@ -126,9 +126,9 @@
     <div class='resource flexrow flex-group-center'>
       {{#unless system.techFacing.none}}
       <label class="flex flexshrink margin-3">Facing:</label>
-      <input type="text" class="flex flexshrink medium-box margin-3" name='system.techFacing.min' value="{{system.techFacing.min}}" data-dtype="Number">
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.min' value="{{system.techFacing.min}}" data-dtype="Number">
       <span class="flex flexshrink margin-3">-</span>
-      <input type="text" class="flex flexshrink medium-box margin-3" name='system.techFacing.max' value="{{system.techFacing.max}}" data-dtype="Number">
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.max' value="{{system.techFacing.max}}" data-dtype="Number">
       {{/unless}}
       <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
       <label class="rightside flex">No facings</label>
@@ -149,6 +149,10 @@
         {{/each}}
 
       </select>
+    </div>
+    <div class="resource">
+      <label>Keywords: </label>
+      <input type="text" class="inline-input medium-box flex flexshrink" name="system.techTags" value="{{system.techTags}}" data-dtype="String">
     </div>
     {{! Description of the technique's effects}}
     <h2>Effect:</h2>
