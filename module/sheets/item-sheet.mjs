@@ -15,8 +15,8 @@ export class lwfItemSheet extends ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['lone-wolf-fists', 'sheet', 'item'],
-      width: 520,
-      height: 480,
+      width: 620,
+      height: 500,
       tabs: [
         {
           navSelector: '.sheet-tabs',
@@ -80,6 +80,8 @@ export class lwfItemSheet extends ItemSheet {
       context.skills = LWFSKILLS;
 
     }
+
+    context.isGM = game.user.isGM;
 
     return context;
   }

@@ -12,5 +12,6 @@ export {default as lwfTechnique} from "./item-technique.mjs";
 export {default as lwfImbalance} from "./item-imbalance.mjs";
 export {default as lwfArchetype} from "./item-archetype.mjs";
 export {default as lwfClan} from "./item-clan.mjs";
+export {default as lwfGuptKala} from "./item-gupt-kala.mjs";
 export {default as lwfArmour} from "./item-armour.mjs";
 export {default as lwfWeapon} from "./item-weapon.mjs";

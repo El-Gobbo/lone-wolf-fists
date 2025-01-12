@@ -47,6 +47,7 @@ Hooks.once('init', function () {
   CONFIG.Item.documentClass = lwfItem;
   CONFIG.Item.dataModels = {
     item: models.lwfItem,
+    "gupt-kala": models.lwfGuptKala,
     technique: models.lwfTechnique,
     imbalance: models.lwfImbalance,
     archetype: models.lwfArchetype,
