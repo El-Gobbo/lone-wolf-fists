@@ -121,12 +121,12 @@ export class lwfActorSheet extends ActorSheet {
     const gear = [];
     const guptKala = [];
     const techniques = {
-      "form": [],
       "attack": [],
       "defense": [],
       "mudra": [],
       "balance": []
     };
+    const form = [];
     const imbalances = [];
     const archetype = [];
     const clan = [];
@@ -148,12 +148,16 @@ export class lwfActorSheet extends ActorSheet {
           techniques[type].push(i);
           break;
 
+        case 'form':
+          form.push(i);
+          break;
+
         case 'imbalance':
           imbalances.push(i);
           break;
 
         // Append to gupt kala.
-        case 'guptKala':
+        case 'gupt-kala':
           guptKala.push(i);
           break;
         // Check if the player already has an archetype or clan, if they do, delete any new ones added
@@ -186,6 +190,7 @@ export class lwfActorSheet extends ActorSheet {
     context.techniques = techniques;
     context.imbalances = imbalances;
     context.clan = clan;
+    context.form = form;
     let present = [];
     let absent = [];
 

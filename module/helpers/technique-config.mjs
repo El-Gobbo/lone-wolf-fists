@@ -5,7 +5,6 @@ export const LWFTECHNIQUES = {};
  * @type {Object}
  */
 LWFTECHNIQUES.techType = [
-    "Form",
     "Attack",
     "Defense",
     "Mudra",
@@ -13,7 +12,6 @@ LWFTECHNIQUES.techType = [
 ];
 
 LWFTECHNIQUES.techLvl = [
-    "Form",
     "Novice",
     "Expert",
     "Master",

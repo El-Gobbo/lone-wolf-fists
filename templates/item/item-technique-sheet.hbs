@@ -28,18 +28,6 @@
       <div>
         <h2>{{system.techLvl}}</h2>
       </div>
-      {{#if (comparison system.techLvl "Form")}}
-      <div data-group="primary">
-        {{! Editors must receive enriched text data from getData to properly handle rolls }}
-        {{editor
-          system.techEffect
-          target='system.techEffect'
-          engine='prosemirror'
-          button=false
-          editable=false
-        }}
-      </div>
-      {{else}}
       <div>
         <i>{{system.techType}}</i>
       </div>
@@ -74,7 +62,6 @@
       <div>
         <strong>Keywords: </strong><span>{{system.techTags}}</span>
       </div>
-    {{/if}}
     </div>
 
     {{! Editing tab}}
@@ -104,44 +91,6 @@
 
       </select>
     </div>
-    {{! displays a different sheet for forms}}
-    {{#if (comparison system.techLvl "Form")}}
-    
-    {{! Facing/s that boost attacks with the form }}
-    <div class='resource flexrow flex-group-center'>
-      {{#unless system.isForm.attackBoost.none}}
-      <label class="flex flexshrink margin-3">Attack:</label>
-      <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.attackBoost.min' value="{{system.isForm.attackBoost.min}}" data-dtype="Number">
-      <span class="flex flexshrink margin-3"> - </span> 
-      <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.attackBoost.max' value="{{system.isForm.attackBoost.max}}" data-dtype="Number">
-      {{/unless}}
-      <input type="checkbox" class="flex" name="system.isForm.attackBoost.none"  {{#if system.isForm.attackBoost.none}}checked{{/if}} value=true>
-      <label class="rightside flex">No attack boost</label>
-    </div>
-
-    {{! Facing/s that boost defenses with the form}}
-    <div class='resource flexrow flex-group-center'>
-      {{#unless system.isForm.defenseBoost.none}}
-      <label class="flex flexshrink margin-3">Defense:</label>
-      <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.defenseBoost.min' value="{{system.isForm.defenseBoost.min}}" data-dtype="Number">
-      <span class="flex flexshrink margin-3"> - </span> 
-      <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.defenseBoost.max' value="{{system.isForm.defenseBoost.max}}" data-dtype="Number">
-      {{/unless}}
-      <input type="checkbox" class="flex" name="system.isForm.defenseBoost.none"  {{#if system.isForm.defenseBoost.none}}checked{{/if}} value=true>
-      <label class="rightside flex">No defense boost</label>
-    </div>
-
-    {{! Extra thing the form can boost and the facings it needs}}
-    <div class='resource flexrow flex-group-center'>
-      {{#unless system.isForm.otherBoost.none}}
-      <label class="flex flexshrink margin-3">Additional ability:</label>
-      <input type="text" class="inline-input large-box flex flexshrink" name='system.isForm.otherBoost.description' value="{{system.isForm.otherBoost.description}}" data-dtype="String">
-      with facing <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.otherBoost.facing' value="{{system.isForm.otherBoost.facing}}" data-dtype="String">
-      {{/unless}}
-      <input type="checkbox" class="flex" name="system.isForm.otherBoost.none"  {{#if system.isForm.otherBoost.none}}checked{{/if}} value=true>
-      <label class="rightside flex">No additional ability</label>
-    </div>
-    {{else}}
     <div class='resource'>
       <select class="item-choice" name='techType' data-techstat="techType">
     
@@ -201,8 +150,6 @@
 
       </select>
     </div>
-    {{/if}}
-
     {{! Description of the technique's effects}}
     <h2>Effect:</h2>
     <div class="tab" data-group="primary">

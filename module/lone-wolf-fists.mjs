@@ -49,11 +49,12 @@ Hooks.once('init', function () {
     item: models.lwfItem,
     "gupt-kala": models.lwfGuptKala,
     technique: models.lwfTechnique,
+    form: models.lwfForm,
     imbalance: models.lwfImbalance,
     archetype: models.lwfArchetype,
     clan: models.lwfClan,
     skill: models.lwfSkill,
-    armour: models.lwfArmour,
+    armor: models.lwfArmor,
     weapon: models.lwfWeapon
   }
 
@@ -100,9 +101,8 @@ Handlebars.registerHelper('capitalise', function(foo) {
   return output;
 })
 
-Handlebars.registerHelper('check', function (str1, str2) {
-  let output = str1[str2];
-  return output;
+Handlebars.registerHelper('arrayNotEmpty', function (arr1) {
+  return arr1.length !== 0;
 })
 
 /* -------------------------------------------- */

@@ -1,0 +1,103 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img
+      class='profile-img'
+      src='{{item.img}}'
+      data-edit='img'
+      title='{{item.name}}'
+    />
+    <div class='header-fields'>
+      <h1 class='charname'><input
+          name='name'
+          type='text'
+          value='{{item.name}}'
+          placeholder='Name'
+        /></h1>
+    </div>
+  </header>
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="overview">Overview</a>
+    {{#if isGM}}
+    <a class="item" data-tab="edit">Edit</a>
+    {{/if}}
+  </nav>
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+    {{! Overview tab}}
+    <div class="tab overview" data-group="primary" data-tab="overview">
+      <div data-group="primary">
+        {{! Editors must receive enriched text data from getData to properly handle rolls }}
+        {{editor
+          system.techEffect
+          target='system.techEffect'
+          engine='prosemirror'
+          button=false
+          editable=false
+        }}
+      </div>
+    </div>
+
+    {{! Editing tab}}
+    {{#if isGM}}
+    <div class="tab edit" data-group="primary" data-tab="edit">
+    <div class='resource'>
+      <label class='resource-label'>Yuddhakala</label>
+      <input
+        type='text'
+        name='system.yuddhakala'
+        value='{{system.yuddhakala}}'
+        data-dtype='String'
+      />
+    </div>
+    
+    {{! Facing/s that boost attacks with the form }}
+    <div class='resource flexrow flex-group-center'>
+      {{#unless system.attackBoost.none}}
+      <label class="flex flexshrink margin-3">Attack:</label>
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.attackBoost.min' value="{{system.attackBoost.min}}" data-dtype="Number">
+      <span class="flex flexshrink margin-3"> - </span> 
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.attackBoost.max' value="{{system.attackBoost.max}}" data-dtype="Number">
+      {{/unless}}
+      <input type="checkbox" class="flex" name="system.attackBoost.none"  {{#if system.attackBoost.none}}checked{{/if}} value=true>
+      <label class="rightside flex">No attack boost</label>
+    </div>
+
+    {{! Facing/s that boost defenses with the form}}
+    <div class='resource flexrow flex-group-center'>
+      {{#unless system.defenseBoost.none}}
+      <label class="flex flexshrink margin-3">Defense:</label>
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.defenseBoost.min' value="{{system.defenseBoost.min}}" data-dtype="Number">
+      <span class="flex flexshrink margin-3"> - </span> 
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.defenseBoost.max' value="{{system.defenseBoost.max}}" data-dtype="Number">
+      {{/unless}}
+      <input type="checkbox" class="flex" name="system.defenseBoost.none"  {{#if system.defenseBoost.none}}checked{{/if}} value=true>
+      <label class="rightside flex">No defense boost</label>
+    </div>
+
+    {{! Extra thing the form can boost and the facings it needs}}
+    <div class='resource flexrow flex-group-center'>
+      {{#unless system.otherBoost.none}}
+      <label class="flex flexshrink margin-3">Additional ability:</label>
+      <input type="text" class="inline-input large-box flex flexshrink" name='system.otherBoost.description' value="{{system.otherBoost.description}}" data-dtype="String">
+      with facing <input type="text" class="inline-input small-box flex flexshrink" name='system.otherBoost.facing' value="{{system.otherBoost.facing}}" data-dtype="String">
+      {{/unless}}
+      <input type="checkbox" class="flex" name="system.otherBoost.none"  {{#if system.otherBoost.none}}checked{{/if}} value=true>
+      <label class="rightside flex">No additional ability</label>
+    </div>
+
+    {{! Description of the technique's effects}}
+    <h2>Effect:</h2>
+    <div class="tab" data-group="primary">
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      {{editor
+        system.techEffect
+        target='system.techEffect'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+    </div>
+    </div>
+  {{/if}}
+  </section>
+</form>
