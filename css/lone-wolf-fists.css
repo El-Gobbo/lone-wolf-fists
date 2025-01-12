@@ -70,13 +70,31 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
+.grid-14col {
+  grid-column: span 14/span 14;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+}
+
 .grid-16col {
   grid-column: span 16/span 16;
   grid-template-columns: repeat(16, minmax(0, 1fr));
 }
 
+.grid-21col {
+  grid-column: span 21/span 21;
+  grid-template-columns: repeat(21, minmax(0, 1fr));
+}
+
 .grid-close {
   gap: 2px !important;
+}
+
+.grid-table {
+  margin: 0 !important;
+  border-bottom: 1px solid #c9c7b8;
+}
+.grid-table:last-child {
+  border-bottom: none;
 }
 
 .grid-repeat {
@@ -191,7 +209,7 @@
 }
 
 .flexshrink {
-  flex: 0;
+  flex: 0 0 auto;
 }
 
 .flex-between {
@@ -318,13 +336,15 @@
   margin: 0 3px;
 }
 .lone-wolf-fists .small-box {
-  width: 35px;
+  width: 27px;
+  margin: 0 3px;
 }
 .lone-wolf-fists .medium-box {
   width: 100px;
 }
 .lone-wolf-fists .large-box {
   width: 200px;
+  margin: 0 3px;
 }
 .lone-wolf-fists .skill-image {
   margin-top: 5px;
@@ -428,7 +448,7 @@
   text-align: center;
 }
 .lone-wolf-fists .items-header {
-  height: 28px;
+  height: 25px;
   margin: 2px 0;
   padding: 0;
   align-items: center;
@@ -509,7 +529,7 @@
   font-size: 12px;
 }
 .lone-wolf-fists .items-list .items-header {
-  height: 28px;
+  height: 25px;
   margin: 2px 0;
   padding: 0;
   align-items: center;

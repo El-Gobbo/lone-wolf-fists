@@ -1,49 +1,142 @@
-<ol class="items-list full-size">
-  <li class="item flexrow items-header">
-    <div class="flex-group-center">Name</div>
-    <div class="flex-group-center">Requirements</div>
-    <div class="flex-group-center">Cost : facing</div>
-    <div class="flex-group-center">Skill</div>
-    <div class="flex-group-center"></div>
-
-  {{#each techniques.attack as |item id|}}
-  <li class='item flexrow' data-item-id='{{item._id}}'>
-    <div class='item-name'>
-      <div class='item-image'>
-        <a class='rollable' data-roll-type='item'>
-          <img
-            src='{{item.img}}'
-            title='{{item.name}}'
-            width='24'
-            height='24'
-          />
+<div class="items-list full-size grid grid-3col">
+  <div class="items-list full-size grid-span-2">
+    <div class="item flexrow items-header grid grid-8col">
+      <div class="flex-group-center grid-span-5">Form</div>
+      <div class="flex-group-center">A</div>
+      <div class="flex-group-center">D</div>
+      <div class="flex-group-center"></div>
+    </div>
+    {{#each techniques.form as | item id |}}
+    <div class='item flexrow grid grid-8col grid-table' data-item-id='{{item._id}}'>
+      <div class="item-name flex-group-center grid-span-5">
+        <div class='item-image'>
+        <img
+          src='{{item.img}}'
+          title='{{item.name}}'
+          width='24'
+          height='24'
+        />
+        </div>
+        <a
+          class='item-control item-edit'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <h4>{{item.name}}</h4>
         </a>
       </div>
-      <h4>{{item.name}}</h4>
+      <div class="flex-group-center">
+        {{!-- Check the following possibilites: there is only one facing the form applies to; there are 2 facings the form applies to; there are no facings the form applies to. Set the vallue accordingly. --}}
+        <input class="item-choice" type="text" name="item.system.isForm.attack"
+        {{#if item.system.isForm.attackBoost.none}} value="--" {{else}}
+        {{#if (comparison item.system.isForm.attackBoost.min item.system.isForm.attackBoost.max)}} value="{{item.system.isForm.attackBoost.min}}" {{else}}
+        value="{{item.system.isForm.attackBoost.min}} - {{item.system.isForm.attackBoost.max}}"
+        {{/if}}
+        {{/if}}
+        readonly>
+      </div>
+      <div class="flex-group-center">
+        <input class="item-choice" type="text" name="item.system.isForm.defense"
+        {{#if item.system.isForm.defenseBoost.none}} value="--" {{else}}
+        {{#if (comparison item.system.isForm.defenseBoost.min item.system.isForm.defenseBoost.max)}} value="{{item.system.isForm.defenseBoost.min}}" {{else}}
+        value="{{item.system.isForm.defenseBoost.min}} - {{item.system.isForm.defenseBoost.max}}"
+        {{/if}}
+        {{/if}} readonly>
+      </div>
+      <div class="item-controls">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='Item'}}'
+        >
+        <i class='fas fa-trash'></i>
+        </a>
+      </div>
     </div>
-    <div class="item-requirements">
+    {{/each}}
+  </div>
+  <div class="items-list full-size">
+    <div class="item flexrow items-header grid grid-6col">
+      <div class="flex-group-center grid-span-5">Gupt Kala</div>
+      <div class="flex-group-center"></div>
+    </div>
+    {{#each guptKala as | item id |}}
+    <div class="item-name flex-group-center grid-span-5">
+      <div class='item-image'>
+        <img
+          src='{{item.img}}'
+          title='{{item.name}}'
+          width='24'
+          height='24'
+        />
+      </div>
+      <a
+        class='item-control item-edit'
+        title='{{localize "DOCUMENT.Update" type='Item'}}'
+      >
+      <h4>{{item.name}}</h4>
+      </a>
+    </div>
+    <div class="item-controls">
+      <a
+        class='item-control item-delete'
+        title='{{localize "DOCUMENT.Delete" type='Item'}}'
+      >
+        <i class='fas fa-trash'></i>
+      </a>
+    </div>
+    {{/each}}
+  </div>
+</div>
+<div class="items-list full-size">
+  <div class="item flexrow items-header grid grid-21col">
+    <div class="flex-group-center grid-span-8">Name</div>
+    <div class="flex-group-center grid-span-6">Requirements</div>
+    <div class="flex-group-center grid-span-2">Cost</div>
+    <div class="flex-group-center grid-span-2">Facing</div>
+    <div class="flex-group-center grid-span-2">Skill</div>
+    <div class="flex-group-center"></div>
+  </div>
+  {{#each techniques.attack as |item id|}}
+  <div class='item flexrow grid grid-21col grid-table' data-item-id='{{item._id}}'>
+    <div class='item-name flex-group-center grid-span-8'>
+      <div class='item-image'>
+        <img
+          src='{{item.img}}'
+          title='{{item.name}}'
+          width='24'
+          height='24'
+        />
+      </div>
+      <a
+        class='item-control item-edit'
+        title='{{localize "DOCUMENT.Update" type='Item'}}'
+      >
+      <h4>{{item.name}}</h4>
+      </a>
+    </div>
+    <div class="item-requirements grid-span-6 flex-group-center">
       <input class="item-choice" type="text" name="item.system.techReqs" value="{{item.system.techReqs}}" readonly>
     </div>
 
-    <div class="item-cost-facing">
+    <div class="item-cost-facing grid-span-2 flex-group-center">
       <input class="item-choice" type="text" name="item.system.techCost" value="{{item.system.techCost}}" readonly>
-      <span> : </span>
-      <input class="item-choice" type="text" name="item.system.techReqs" value="{{item.system.techFacing.min}} - {{item.system.techFacing.max}}" readonly>
+    </div>
+    <div class="item-cost-facing grid-span-2 flex-group-center">
+      <input class="item-choice" type="text" name="item.system.techFacing" value="{{item.system.techFacing.min}} - {{item.system.techFacing.max}}" readonly>
     </div>
 
-    <div class="item-skill">
+    <div class="item-skill flex-group-center grid-span-2">
       <input class="item-choice" type="text" name="item.system.techSkill" value="{{item.system.techSkill}}" readonly>
     </div>
     <div class="item-controls">
       <a
         class='item-control item-delete'
-        title='{{localize "DOCUMENT.Delete" type='imbalance'}}'
+        title='{{localize "DOCUMENT.Delete" type='Item'}}'
       >
         <i class='fas fa-trash'></i>
       </a>
     </div>
   
-  </li>
+  </div>
   {{/each}}
 
-</ol>
+</div>

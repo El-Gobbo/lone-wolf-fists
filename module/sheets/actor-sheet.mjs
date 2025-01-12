@@ -144,9 +144,8 @@ export class lwfActorSheet extends ActorSheet {
 
       // Append to techniques.
         case 'technique':
-          if (i.system.techniqueType != undefined) {
-            techniques[i.system.techType].push(i);
-          }
+          let type = i.system.techType.toLowerCase();
+          techniques[type].push(i);
           break;
 
         case 'imbalance':

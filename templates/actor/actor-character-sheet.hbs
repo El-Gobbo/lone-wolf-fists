@@ -126,7 +126,7 @@
 
 
   {{! if no archetype has been chosen yet, prompt the player to choose one}}
-  {{#if (comparison system.archetype "tbd")}}
+  {{#if (comparison system.archetype "")}}
   <section>
     <h1 class="flex-group-centre">Choose an archetype</h1>
   
@@ -153,7 +153,6 @@
     <div class="tab items" data-group="primary" data-tab="items">
       {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
-      {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
     </div>
 
     {{!-- Owned Items Tab --}}
@@ -162,7 +161,7 @@
     </div>
 
     {{!-- Owned Spells Tab --}}
-    <div class="tab techniques flexrow" data-group="primary" data-tab="techniques">
+    <div class="tab techniques" data-group="primary" data-tab="techniques">
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-techniques.hbs"}}
     </div>
     <div class="tab config" data-group="primary" data-tab="config">

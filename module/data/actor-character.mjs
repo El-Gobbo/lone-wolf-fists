@@ -87,8 +87,8 @@ export default class lwfCharacter extends lwfWeaponUser {
       spent: new NumberField({ ...requiredInteger, initial: 120})
     });
     // All datafields relating to background or roleplay informmation about the character
-    schema.archetype = new StringField({initial: "tbd"});
-    schema.clan = new StringField({initial: "tbd"});
+    schema.archetype = new StringField({initial: ""});
+    schema.clan = new StringField({initial: ""});
     schema.deed = new HTMLField();
     schema.landmark = new HTMLField();
     schema.vice = new HTMLField();

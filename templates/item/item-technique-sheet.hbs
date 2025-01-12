@@ -13,19 +13,82 @@
           value='{{item.name}}'
           placeholder='Name'
         /></h1>
-      <div class='resource'>
-        <label class='resource-label'>Yuddhakala</label>
-        <input
-          type='text'
-          name='system.yuddhakala'
-          value='{{system.yuddhakala}}'
-          data-dtype='String'
-        />
-      </div>
     </div>
   </header>
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="overview">Overview</a>
+    {{#if isGM}}
+    <a class="item" data-tab="edit">Edit</a>
+    {{/if}}
+  </nav>
   {{! Sheet Body }}
   <section class='sheet-body'>
+    {{! Overview tab}}
+    <div class="tab overview" data-group="primary" data-tab="overview">
+      <div>
+        <h2>{{system.techLvl}}</h2>
+      </div>
+      {{#if (comparison system.techLvl "Form")}}
+      <div data-group="primary">
+        {{! Editors must receive enriched text data from getData to properly handle rolls }}
+        {{editor
+          system.techEffect
+          target='system.techEffect'
+          engine='prosemirror'
+          button=false
+          editable=false
+        }}
+      </div>
+      {{else}}
+      <div>
+        <i>{{system.techType}}</i>
+      </div>
+      <div>
+        <strong>Requires: </strong><span>{{system.techReqs}}</span>
+      </div>
+      <div>
+        <strong>Cost: </strong><span>{{system.techCost}}</span>
+      </div>
+      <div>
+        <strong>Rank: </strong><span>{{system.techRank}}</span>
+      </div>
+      <div>
+        <strong>Facing: </strong><span>{{#if system.techFacing.none}} -- {{else}}{{system.techFacing.min}} - {{system.techFacing.max}}{{/if}}</span>
+      </div>
+      <div>
+        <strong>Effect: </strong>
+        <div data-group="primary">
+          {{! Editors must receive enriched text data from getData to properly handle rolls }}
+          {{editor
+            system.techEffect
+            target='system.techEffect'
+            engine='prosemirror'
+            button=false
+            editable=false
+          }}
+        </div>
+      </div>
+      <div>
+        <strong>Skill: </strong><span>{{system.techSkill}}</span>
+      </div>
+      <div>
+        <strong>Keywords: </strong><span>{{system.techTags}}</span>
+      </div>
+    {{/if}}
+    </div>
+
+    {{! Editing tab}}
+    {{#if isGM}}
+    <div class="tab edit" data-group="primary" data-tab="edit">
+    <div class='resource'>
+      <label class='resource-label'>Yuddhakala</label>
+      <input
+        type='text'
+        name='system.yuddhakala'
+        value='{{system.yuddhakala}}'
+        data-dtype='String'
+      />
+    </div>
     <div class='resource'>
       <label>Level:</label>
       <select class="item-choice" name='techLvl' data-techstat="techLvl">
@@ -41,32 +104,76 @@
 
       </select>
     </div>
+    {{! displays a different sheet for forms}}
+    {{#if (comparison system.techLvl "Form")}}
+    
+    {{! Facing/s that boost attacks with the form }}
+    <div class='resource flexrow flex-group-center'>
+      {{#unless system.isForm.attackBoost.none}}
+      <label class="flex flexshrink margin-3">Attack:</label>
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.attackBoost.min' value="{{system.isForm.attackBoost.min}}" data-dtype="Number">
+      <span class="flex flexshrink margin-3"> - </span> 
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.attackBoost.max' value="{{system.isForm.attackBoost.max}}" data-dtype="Number">
+      {{/unless}}
+      <input type="checkbox" class="flex" name="system.isForm.attackBoost.none"  {{#if system.isForm.attackBoost.none}}checked{{/if}} value=true>
+      <label class="rightside flex">No attack boost</label>
+    </div>
+
+    {{! Facing/s that boost defenses with the form}}
+    <div class='resource flexrow flex-group-center'>
+      {{#unless system.isForm.defenseBoost.none}}
+      <label class="flex flexshrink margin-3">Defense:</label>
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.defenseBoost.min' value="{{system.isForm.defenseBoost.min}}" data-dtype="Number">
+      <span class="flex flexshrink margin-3"> - </span> 
+      <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.defenseBoost.max' value="{{system.isForm.defenseBoost.max}}" data-dtype="Number">
+      {{/unless}}
+      <input type="checkbox" class="flex" name="system.isForm.defenseBoost.none"  {{#if system.isForm.defenseBoost.none}}checked{{/if}} value=true>
+      <label class="rightside flex">No defense boost</label>
+    </div>
+
+    {{! Extra thing the form can boost and the facings it needs}}
+    <div class='resource flexrow flex-group-center'>
+      {{#unless system.isForm.otherBoost.none}}
+      <label class="flex flexshrink margin-3">Additional ability:</label>
+      <input type="text" class="inline-input large-box flex flexshrink" name='system.isForm.otherBoost.description' value="{{system.isForm.otherBoost.description}}" data-dtype="String">
+      with facing <input type="text" class="inline-input small-box flex flexshrink" name='system.isForm.otherBoost.facing' value="{{system.isForm.otherBoost.facing}}" data-dtype="String">
+      {{/unless}}
+      <input type="checkbox" class="flex" name="system.isForm.otherBoost.none"  {{#if system.isForm.otherBoost.none}}checked{{/if}} value=true>
+      <label class="rightside flex">No additional ability</label>
+    </div>
+    {{else}}
     <div class='resource'>
       <select class="item-choice" name='techType' data-techstat="techType">
     
       {{! Iterates over the list of technique types to produce a select menu.}} 
       {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
-        {{#each techType}}
-        <option 
-          {{! Makes sure that the default source shown is the one currently set on the imbalance}}
-          {{#if (comparison ../system.techType this)}} selected="selected" {{/if}} 
-          value="{{this}}">{{this}}</option>
-        {{/each}}
-
-      </select>
+      {{#each techType}}
+      <option 
+        {{! Makes sure that the default source shown is the one currently set on the imbalance}}
+        {{#if (comparison ../system.techType this)}} selected="selected" {{/if}} 
+        value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
     </div>
+    {{! Ranks added}}
     <div class='resource'>
       <label>Rank:</label>
       <input type="text" class="inline-input small-box" name='system.techRank' value="{{system.techRank}}" data-dtype="Number">
     </div>
+
+    {{! Technique requirements }}
     <div class='resource'>
       <label>Requirements:</label>
       <input type="text" class="inline-input large-box" name='system.techReqs' value="{{system.techReqs}}" data-dtype="String">
     </div>
+
+    {{! Prana cost }}
     <div class='resource'>
       <label>Cost:</label>
       <input type="text" class="inline-input small-box" name='system.techCost' value="{{system.techCost}}" data-dtype="Number">
     </div>
+
+    {{! Facings }}
     <div class='resource flexrow flex-group-center'>
       {{#unless system.techFacing.none}}
       <label class="flex flexshrink margin-3">Facing:</label>
@@ -77,7 +184,8 @@
       <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
       <label class="rightside flex">No facings</label>
     </div>
-
+    
+    {{! Skill that can be improved }}
     <div class='resource'>
     <label>Skill:</label>
     <select class="item-choice" name='techSkill' data-techstat="techSkill">
@@ -93,7 +201,9 @@
 
       </select>
     </div>
-    {{! Description Tab }}
+    {{/if}}
+
+    {{! Description of the technique's effects}}
     <h2>Effect:</h2>
     <div class="tab" data-group="primary">
       {{! Editors must receive enriched text data from getData to properly handle rolls }}
@@ -105,6 +215,7 @@
         editable=editable
       }}
     </div>
-
+    </div>
+  {{/if}}
   </section>
 </form>
