@@ -108,6 +108,16 @@ export class lwfActorSheet extends ActorSheet {
     context.skills = LWFSKILLS;
     context.techType = LWFTECHNIQUES.techType;
     context.techLvl = LWFTECHNIQUES.techLvl
+
+    const activeTags = [];
+
+    for(let i in context.weaponTags){
+      if(context.weaponTags[i] === true)
+          activeTags.push(context.weaponTags[i]);
+    }
+    
+    context.activeTags = activeTags;
+
     return context;
   }
 
