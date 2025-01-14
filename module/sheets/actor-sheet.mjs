@@ -254,7 +254,10 @@ export class lwfActorSheet extends ActorSheet {
       else
         update = $(ev.currentTarget).find(":selected").text();
       const target = ev.currentTarget.parentElement.dataset.imbtype;
-      item.update({ [`system.${target}`]: update});
+      if (target === "name")
+        item.update({ [ "name" ]: update});
+      else
+        item.update({ [`system.${target}`]: update});
     })
 
     // Choose masteries to add on level up TODO: pass the data back to the original character sheet

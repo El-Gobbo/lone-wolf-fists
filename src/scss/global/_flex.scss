@@ -41,6 +41,11 @@
   display: flex;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 // Alignment styles.
 .align-left {
   justify-content: flex-start;

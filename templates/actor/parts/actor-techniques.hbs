@@ -94,57 +94,205 @@
   </div>
   {{/if}}
 </div>
-<div class="items-list full-size">
+<div class="items-list full-size flex-column">
   <div class="item flexrow items-header grid grid-21col">
-    <div class="flex-group-center grid-span-8">Name</div>
+    <div class="flex-group-center"></div>
+    <div class="flex-group-center grid-span-7">Name</div>
     <div class="flex-group-center grid-span-6">Requirements</div>
     <div class="flex-group-center grid-span-2">Cost</div>
     <div class="flex-group-center grid-span-2">Facing</div>
     <div class="flex-group-center grid-span-2">Skill</div>
     <div class="flex-group-center"></div>
   </div>
+  {{!-- This code is identical instances of iterating over lists of different types of technique. TODO: find a better way to do this --}}
   {{#each techniques.attack as |item id|}}
-  <div class='item flexrow grid grid-21col grid-table' data-item-id='{{item._id}}'>
-    <div class='item-name flex-group-center grid-span-8'>
+    {{#if (comparison @index 0)}}
+    <div class="full-size flex-group-center tech-label attacks">
+      <h4><i>Attacks</i></h4>
+    </div>
+    {{/if}}
+    <div class='item flexrow grid grid-21col grid-table' data-item-id='{{item._id}}'>
       <div class='item-image'>
-        <img
-          src='{{item.img}}'
-          title='{{item.name}}'
-          width='24'
-          height='24'
-        />
+          <img
+            src='{{item.img}}'
+            title='{{item.name}}'
+            width='24'
+            height='24'
+          />
       </div>
-      <a
-        class='item-control item-edit'
-        title='{{localize "DOCUMENT.Update" type='Item'}}'
-      >
-      <h4>{{item.name}}</h4>
-      </a>
-    </div>
-    <div class="item-requirements grid-span-6 flex-group-center">
-      <input class="item-choice" type="text" name="item.system.techReqs" value="{{item.system.techReqs}}" readonly>
-    </div>
+      <div class='item-name flex-group-center grid-span-7'>
+        <a
+          class='item-control item-edit'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <h4>{{item.system.techRank}} - {{item.name}}</h4>
+        </a>
+      </div>
+      <div class="item-requirements grid-span-6 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techReqs" value="{{item.system.techReqs}}" readonly>
+      </div>
 
-    <div class="item-cost-facing grid-span-2 flex-group-center">
-      <input class="item-choice" type="text" name="item.system.techCost" value="{{item.system.techCost}}" readonly>
-    </div>
-    <div class="item-cost-facing grid-span-2 flex-group-center">
-      <input class="item-choice" type="text" name="item.system.techFacing" value="{{item.system.techFacing.min}} - {{item.system.techFacing.max}}" readonly>
-    </div>
+      <div class="item-cost-facing grid-span-2 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techCost" value="{{item.system.techCost}}" readonly>
+      </div>
+      <div class="item-cost-facing grid-span-2 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techFacing" value="{{item.system.techFacing.min}} - {{item.system.techFacing.max}}" readonly>
+      </div>
 
-    <div class="item-skill flex-group-center grid-span-2">
-      <input class="item-choice" type="text" name="item.system.techSkill" value="{{item.system.techSkill}}" readonly>
+      <div class="item-skill flex-group-center grid-span-2">
+        <input class="item-choice" type="text" name="item.system.techSkill" value="{{item.system.techSkill}}" readonly>
+      </div>
+      <div class="item-controls">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='Item'}}'
+        >
+          <i class='fas fa-trash'></i>
+        </a>
+      </div>
     </div>
-    <div class="item-controls">
-      <a
-        class='item-control item-delete'
-        title='{{localize "DOCUMENT.Delete" type='Item'}}'
-      >
-        <i class='fas fa-trash'></i>
-      </a>
-    </div>
-  
-  </div>
   {{/each}}
+  {{#each techniques.defense as |item id|}}
+    {{#if (comparison @index 0)}}
+    <div class="full-size flex-group-center tech-label defense">
+      <h4><i>Defenses</i></h4>
+    </div>
+    {{/if}}
+    <div class='item flexrow grid grid-21col grid-table' data-item-id='{{item._id}}'>
+      <div class='item-image'>
+          <img
+            src='{{item.img}}'
+            title='{{item.name}}'
+            width='24'
+            height='24'
+          />
+      </div>
+      <div class='item-name flex-group-center grid-span-7'>
+        <a
+          class='item-control item-edit'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <h4>{{item.system.techRank}} - {{item.name}}</h4>
+        </a>
+      </div>
+      <div class="item-requirements grid-span-6 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techReqs" value="{{item.system.techReqs}}" readonly>
+      </div>
+
+      <div class="item-cost-facing grid-span-2 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techCost" value="{{item.system.techCost}}" readonly>
+      </div>
+      <div class="item-cost-facing grid-span-2 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techFacing" value="{{item.system.techFacing.min}} - {{item.system.techFacing.max}}" readonly>
+      </div>
+
+      <div class="item-skill flex-group-center grid-span-2">
+        <input class="item-choice" type="text" name="item.system.techSkill" value="{{item.system.techSkill}}" readonly>
+      </div>
+      <div class="item-controls">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='Item'}}'
+        >
+          <i class='fas fa-trash'></i>
+        </a>
+      </div>
+    </div>
+  {{/each}}
+  {{#each techniques.balance as |item id|}}
+    {{#if (comparison @index 0)}}
+    <div class="full-size flex-group-center tech-label balances">
+      <h4><i>Balances</i></h4>
+    </div>
+    {{/if}}
+    <div class='item flexrow grid grid-21col grid-table' data-item-id='{{item._id}}'>
+      <div class='item-image'>
+          <img
+            src='{{item.img}}'
+            title='{{item.name}}'
+            width='24'
+            height='24'
+          />
+      </div>
+      <div class='item-name flex-group-center grid-span-7'>
+        <a
+          class='item-control item-edit'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <h4>{{item.system.techRank}} - {{item.name}}</h4>
+        </a>
+      </div>
+      <div class="item-requirements grid-span-6 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techReqs" value="{{item.system.techReqs}}" readonly>
+      </div>
+
+      <div class="item-cost-facing grid-span-2 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techCost" value="{{item.system.techCost}}" readonly>
+      </div>
+      <div class="item-cost-facing grid-span-2 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techFacing" value="{{item.system.techFacing.min}} - {{item.system.techFacing.max}}" readonly>
+      </div>
+
+      <div class="item-skill flex-group-center grid-span-2">
+        <input class="item-choice" type="text" name="item.system.techSkill" value="{{item.system.techSkill}}" readonly>
+      </div>
+      <div class="item-controls">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='Item'}}'
+        >
+          <i class='fas fa-trash'></i>
+        </a>
+      </div>
+    </div>
+  {{/each}}
+  {{#each techniques.mudra as |item id|}}
+    {{#if (comparison @index 0)}}
+    <div class="full-size flex-group-center tech-label mudra">
+      <h4><i>Mudra</i></h4>
+    </div>
+    {{/if}}
+    <div class='item flexrow grid grid-21col grid-table' data-item-id='{{item._id}}'>
+      <div class='item-image'>
+          <img
+            src='{{item.img}}'
+            title='{{item.name}}'
+            width='24'
+            height='24'
+          />
+      </div>
+      <div class='item-name flex-group-center grid-span-7'>
+        <a
+          class='item-control item-edit'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <h4>{{item.system.techRank}} - {{item.name}}</h4>
+        </a>
+      </div>
+      <div class="item-requirements grid-span-6 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techReqs" value="{{item.system.techReqs}}" readonly>
+      </div>
+
+      <div class="item-cost-facing grid-span-2 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techCost" value="{{item.system.techCost}}" readonly>
+      </div>
+      <div class="item-cost-facing grid-span-2 flex-group-center">
+        <input class="item-choice" type="text" name="item.system.techFacing" value="{{item.system.techFacing.min}} - {{item.system.techFacing.max}}" readonly>
+      </div>
+
+      <div class="item-skill flex-group-center grid-span-2">
+        <input class="item-choice" type="text" name="item.system.techSkill" value="{{item.system.techSkill}}" readonly>
+      </div>
+      <div class="item-controls">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='Item'}}'
+        >
+          <i class='fas fa-trash'></i>
+        </a>
+      </div>
+    </div>
+  {{/each}}
+
 
 </div>
