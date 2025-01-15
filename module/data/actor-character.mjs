@@ -62,22 +62,6 @@ export default class lwfCharacter extends lwfWeaponUser {
       })
     });
 
-    schema.weaponTags = new SchemaField ({
-      unarmed: new BooleanField({initial: false}),
-      reflexive: new BooleanField({initial: false}),
-      balanced: new BooleanField({initial: false}),
-      reach: new BooleanField({initial: false}),
-      heavy: new BooleanField({initial: false}),
-      ranged: new BooleanField({initial: false}),
-      flexible: new BooleanField({initial: false}),
-      subtle: new BooleanField({initial: false}),
-      improvised: new BooleanField({initial: false}),
-      warfighter: new BooleanField({initial: false}),
-      grenade: new BooleanField({initial: false}),
-      ordnance: new BooleanField({initial: false}),
-      unique: new BooleanField({initial: false})
-    });
-
     // All the relevant datafields relating to chakras and Prana generation
     schema.prana = new SchemaField({
       current: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100 }),

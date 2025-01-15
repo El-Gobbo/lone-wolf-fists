@@ -19,29 +19,104 @@
   </header>
 
   {{! Sheet Tab Navigation }}
-  <nav class='sheet-tabs tabs' data-group='primary'>
-    <a class='item' data-tab='description'>Description</a>
-    <a class='item' data-tab='attributes'>Attributes</a>
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="overview">Overview</a>
+    {{#if isGM}}
+    <a class="item" data-tab="edit">Edit</a>
+    {{/if}}
   </nav>
-
   {{! Sheet Body }}
   <section class='sheet-body'>
 
     {{! Description Tab }}
-    <div class='tab' data-group='primary' data-tab='description'>
+    <div class='tab' data-group='primary' data-tab='overview'>
+      {{#if system.unique}}
+      <div>
+        <strong>Tags: </strong><span>{{system.tag1}} and {{system.tag2}}</span>
+      </div>
+      {{else}}
+      <div>
+        <strong>Tag: </strong><span>{{system.tag1}}</span>
+      </div>
+      {{/if}}
+      
       {{! Editors must receive enriched text data from getData to properly handle rolls }}
-      {{editor
-        enrichedDescription
-        target='system.description'
-        engine='prosemirror'
-        button=true
-        editable=editable
-      }}
+      <h3>Weapon Description</h3>
+      {{#if system.unique}}
+      <div class="tab">
+        {{editor
+          system.history
+          target='system.history'
+          engine='prosemirror'
+          button=true
+          editable=editable
+
+        }}
+      </div>
+      {{else}}
+      <div class="tab">
+        {{editor
+          system.history
+          target='system.history'
+          engine='prosemirror'
+          button=true
+          editable=editable
+
+        }}
+      </div>
+      {{/if}}
     </div>
 
     {{! Attributes Tab }}
-    <div class='tab attributes' data-group='primary' data-tab='attributes'>
-      {{! As you add new fields, add them in here! }}
+    <div class='tab edit' data-group='primary' data-tab='edit'>
+      <div class='resource'>
+      <select class="" name='system.tag1' data-techstat="tag1">
+      {{#unless system.unorthodox}}
+      {{! Iterates over the list of technique types to produce a select menu.}} 
+      {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
+      {{#each tagsCore}}
+      <option 
+        {{#if (comparison ../system.tag1 this)}} selected="selected" {{/if}} 
+        value="{{this}}">{{this}}</option>
+      {{/each}}
+      {{else}}
+      {{#each tagsExtra}}
+      <option 
+        {{#if (comparison ../system.tag1 this)}} selected="selected" {{/if}} 
+        value="{{this}}">{{this}}</option>
+      {{/each}}
+      {{/unless}}
+    </select>
+    </div>
+
+    {{!-- show extra tag selection if there is more than 1 tag --}}
+    {{#unless system.unorthodox}}
+    <div class='resource flexrow flex-group-center'>
+      <input type="checkbox" class="flex" name="system.unique"  {{#if system.unique}}checked{{/if}} value=true>
+      <label class="rightside flex">Weapon has two tags</label>
+    </div>
+    {{/unless}}
+    {{#if system.unique}}
+    <div class='resource'>
+      <select class="" name='system.tag2' data-techstat="tag2">
+    
+      {{! Iterates over the list of technique types to produce a select menu.}} 
+      {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
+      {{#each tagsCore}}
+      <option 
+        {{! Makes sure that the default source shown is the one currently set on the imbalance}}
+        {{#if (comparison ../system.tag2 this)}} selected="selected" {{/if}} 
+        value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+    </div>
+    {{/if}}
+    {{#unless system.unique}}
+    <div class='resource flexrow flex-group-center'>
+      <input type="checkbox" class="flex" name="system.unorthodox"  {{#if system.unorthodox}}checked{{/if}} value=true>
+      <label class="rightside flex">Weapon uses one of the following tags: improvised, warfighter, grenade, ordnance</label>
+    </div>
+    {{/unless}}
     </div>
   </section>
 </form>

@@ -129,6 +129,8 @@ export class lwfActorSheet extends ActorSheet {
   _prepareItems(context) {
     // Initialize containers.
     const gear = [];
+    const weapon = [];
+    const armor = [];
     const guptKala = [];
     const techniques = {
       "attack": [],
@@ -150,6 +152,14 @@ export class lwfActorSheet extends ActorSheet {
       switch (i.type) {
         case 'item': 
           gear.push(i);
+          break;
+        
+        case 'armor':
+          armor.push(i);
+          break;
+
+        case 'weapon':
+          weapon.push(i);
           break;
 
       // Append to techniques.
@@ -196,6 +206,8 @@ export class lwfActorSheet extends ActorSheet {
     }
     // Assign and return
     context.gear = gear;
+    context.weapon = weapon;
+    context.armor = armor;
     context.guptKala = guptKala;
     context.techniques = techniques;
     context.imbalances = imbalances;

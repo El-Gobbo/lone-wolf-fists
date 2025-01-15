@@ -5,6 +5,7 @@ import {
 
 import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
 import { LWFSKILLS } from '../helpers/skills.mjs';
+import { LWFWEAPONTAGS } from '../helpers/weapon-tags.mjs'
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
@@ -81,6 +82,11 @@ export class lwfItemSheet extends ItemSheet {
 
     }
 
+    if(itemData.type == "weapon"){
+      context.tagsCore = LWFWEAPONTAGS.core;
+      context.tagsExtra = LWFWEAPONTAGS.extra;
+    }
+
     context.isGM = game.user.isGM;
 
     return context;
@@ -106,17 +112,46 @@ export class lwfItemSheet extends ItemSheet {
     html.on('change', '.item-choice', async (ev) =>{      
       const tr = $(ev.currentTarget).parents('.sheet')[0].id.split("-")[2];
       const item = game.items.get(tr);
-     // const item = this.actor.items.get(tr);
       
       // The following if statement is used to detect if the chosen element is selected or not
       // If there is a better way to do this, lmk
       let update;
-      if (ev.currentTarget[1] === undefined)
+      if (ev.currentTarget.nodeName !== "SELECT")
         update = ev.currentTarget.value;
       else
         update = $(ev.currentTarget).find(":selected").text();
       const target = ev.currentTarget.dataset.techstat;
       item.update({ [`system.${target}`]: update});
+    })
+
+    html.on('change', '#armorValue', async (ev) => {
+      
+      let toDelete = Array.from(this.item.effects);
+      // Check to see if the effect is currently disabed, and make the new effect disabled if it is
+      // This assumes that there is only one effect
+      let isDisabled = toDelete[0]?.disabled;
+      if(isDisabled === undefined)
+        isDisabled = true;
+
+      for(let i in toDelete){
+        this.item.deleteEmbeddedDocuments('ActiveEffect', [`${toDelete[i]._id}`])
+      }
+
+      this.item.createEmbeddedDocuments('ActiveEffect', [{
+        name: "set armor value",
+        origin: this.item.uuid,
+        disabled: isDisabled,
+        changes: [{
+          key: "system.armor",
+          mode: 2,
+          value: ev.currentTarget.value,
+          }]
+        }]
+      );
+
+
+
+      console.log('end');
     })
   }
 }

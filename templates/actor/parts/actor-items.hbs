@@ -1,9 +1,95 @@
-<ol class='items-list'>
-  <li class='item flexrow items-header'>
-    <div class='item-name'>Weapon</div>
-    <div class='item-formula'>Tags</div>
-    <div class='item-controls'>Held</div>
-  </li>
+<div class="items-list full-size grid grid-2col grid-close">
+  {{!-- Weapon table--}}
+  <div class="items-list full-size">
+    <div class='item flexrow items-header grid grid-5col'>
+      <div class='flex-group-center item-name grid-span-2'>Weapon</div>
+      <div class='flex-group-center item-formula grid-span-2'>Tags</div>
+      <div></div>
+    </div>
+    {{#each weapon as |item id |}}
+    <div class='item flexrow grid grid-5col grid-table' data-item-id='{{item._id}}'>
+      <div class="item-name flex-group-center grid-span-2">
+        <div class='item-image'>
+        <img
+          src='{{item.img}}'
+          title='{{item.name}}'
+          width='24'
+          height='24'
+        />
+        </div>
+        <a
+          class='item-control item-edit'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <h4>{{item.name}}</h4>
+        </a>
+      </div>
+      {{#if item.system.unique}}
+      <div class="flex-group-center grid-span-2">
+        <h4>{{item.system.tag1}} and {{item.system.tag2}}</h4>
+      </div>
+      {{else}}
+      <div class="flex-group-center grid-span-2">
+        <h4>{{item.system.tag1}}</h4>
+      </div>
+      {{/if}}
+      <div class="item-controls">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='Item'}}'
+        >
+        <i class='fas fa-trash'></i>
+        </a>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{!-- Armor table--}}
+  <div class="items-list full-size">
+    <div class='item flexrow items-header grid grid-5col'>
+      <div class='flex-group-center item-name grid-span-2'>Armor</div>
+      <div class='flex-group-center item-formula'>Rating</div>
+      <div class="flex-group-center">Worn</div>
+      <div></div>
+    </div>
+    {{#each armor as |item id |}}
+    <div class='item flexrow grid grid-5col grid-table' data-item-id='{{item._id}}'>
+      <div class="item-name flex-group-center grid-span-2">
+        <div class='item-image'>
+        <img
+          src='{{item.img}}'
+          title='{{item.name}}'
+          width='24'
+          height='24'
+        />
+        </div>
+        <a
+          class='item-control item-edit'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <h4>{{item.name}}</h4>
+        </a>
+      </div>
+      <div class="flex-group-center">
+        <h4>{{item.system.armor}}</h4>
+      </div>
+      {{!TODO: get this to toggle the active effect in the item on and off}}
+      <div class='resource flexrow flex-group-center'>
+        <input type="checkbox" class="flex item-choice" name="enabled"  {{#unless item.disabled}}checked{{/unless}} value=true>
+      </div>
+      <div class="item-controls">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='Item'}}'
+        >
+        <i class='fas fa-trash'></i>
+        </a>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+<div>
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize 'Name'}}</div>
@@ -51,4 +137,5 @@
       </div>
     </li>
   {{/each}}
-</ol>
+  </ol>
+</div>
