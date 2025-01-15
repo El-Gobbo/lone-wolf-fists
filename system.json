@@ -61,6 +61,24 @@
       "type": "Item",
       "private": true,
       "flags": {}
+    },
+    {
+      "name": "weapons",
+      "label": "Weapons",
+      "system": "lone-wolf-fists",
+      "path": "packs/weapons",
+      "type": "Item",
+      "private": true,
+      "flags": {}
+    },
+    {
+      "name": "armor",
+      "label": "Armor",
+      "system": "lone-wolf-fists",
+      "path": "packs/armor",
+      "type": "Item",
+      "private": true,
+      "flags": {}
     }
   ],
   "packFolders": [],
