@@ -71,11 +71,11 @@
         </a>
       </div>
       <div class="flex-group-center">
-        <h4>{{item.system.armor}}</h4>
+        <h4>{{item.system.armorValue}}</h4>
       </div>
       {{!TODO: get this to toggle the active effect in the item on and off}}
-      <div class='resource flexrow flex-group-center'>
-        <input type="checkbox" class="flex item-choice" name="enabled"  {{#unless item.disabled}}checked{{/unless}} value=true>
+      <div class='resource flexrow flex-group-center' data-imbtype="worn">
+        <input type="checkbox" class="flex item-choice" name="isWorn"  {{#if item.system.worn}}checked{{/if}} value=true>
       </div>
       <div class="item-controls">
         <a

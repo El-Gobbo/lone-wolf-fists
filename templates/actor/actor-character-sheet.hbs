@@ -1,7 +1,9 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-  {{!-- Prana sidebar --}}
+
   <div class="sheet">
+  {{!-- Prana sidebar --}}
+  
   {{!-- Main section of the sheet --}}
   <div class="body">
   <header class="sheet-top">
@@ -57,18 +59,25 @@
             <div class="resource flex-group-center grid-span-2">
               <label for="system.aura.current" class="resource-label">Aura</label>
               <div class="resource-content max-min flexrow flex-center flex-between">
-              <input type="text" name="system.aura.current" value="{{system.aura.current}}" data-dtype="Number"/>
-              <span> / </span>
-              <input type="text" name="system.aura.max" value="{{system.aura.max}}" readonly  data-dtype="Number"/>
-              </div>
-            <div class="resource flex-group-center">
-              <label for="system.armor" class="resource-label">Armor</label>
-              <div class="resource-content max-min flexrow flex-center flex-between">
-              <input type="text" name="system.armor" value="{{system.armor}}" data-dtype="Number" readonly/>
+                <input type="text" name="system.aura.current" value="{{system.aura.current}}" data-dtype="Number"/>
+                <span> / </span>
+                <input type="text" name="system.aura.max" value="{{system.aura.max}}" readonly  data-dtype="Number"/>
               </div>
             </div>
+          </div>
+          <div class="damage resources grid grid-6col">
+            <div class="resource-content max-min flexrow flex-group-center flex-between armor-display grid-start-3 grid-span-2">
+              <label for="system.armorValue" class="resource-label">Armor</label>
+              <div class="armor-icon">
+                <img
+                src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
+                title='Armor symbol'
+                width='36'
+                height='36'
+                />
+                <h4 class="armor-value">{{armorValue}}</h4>
+              </div>
             </div>
-
           </div>
 
           <div class="resources grid grid-9col grid-close">
@@ -172,6 +181,7 @@
   {{/if}}
   </div>
   <div class="sidebar">
+
   <ol class='items-list full-size'>
   {{#each skill.mastered as | skill |}}
   <li class='item flex-group-center' data-item-id="{{skill._id}}">

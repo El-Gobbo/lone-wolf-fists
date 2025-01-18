@@ -32,16 +32,16 @@
     <div class='tab' data-group='primary' data-tab='overview'>
       {{#if system.unique}}
       <div>
-        <strong>Tags: </strong><span>{{system.tag1}} and {{system.tag2}}</span>
+        <h3><strong>Tags: </strong><span>{{system.tag1}} and {{system.tag2}}</span></h3>
       </div>
       {{else}}
       <div>
-        <strong>Tag: </strong><span>{{system.tag1}}</span>
+        <h3><strong>Tag: </strong><span>{{system.tag1}}</span></h3>
       </div>
       {{/if}}
       
       {{! Editors must receive enriched text data from getData to properly handle rolls }}
-      <h3>Weapon Description</h3>
+
       {{#if system.unique}}
       <div class="tab">
         {{editor
