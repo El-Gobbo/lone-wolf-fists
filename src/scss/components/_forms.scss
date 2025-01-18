@@ -38,51 +38,26 @@ table {
   }
 }
 
-.health-levels {
+.armor-display {
   position: relative;
 
-  .checkmark:after {
-    top: 2px;
-    left: 2px;
-    width: 8px;
-    height: 8px;
-    background: rgb(0, 0, 0);
+  .armor-icon {
+    position: relative;
+    width: 100%;
+    top: -8px;
+    left: 90px;
+    border: none;
   }
 
-  input {
+  .armor-value{
+    width: 100%;
     position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
+    text-align: center;
+    top: 1px;
+    left: 66px;
+    z-index: 1;
   }
 
-  input:checked ~ .checkmark {
-    background-color: #eee;
-  }
-
-  input:checked ~ .checkmark:after {
-    display: block;
-  }
-}
-
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 16px;
-  width: 16px;
-  background-color: #eee;
-  border: 2px solid black;
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-.health-level input {
-  position: a
 }
 
 .sidebar {

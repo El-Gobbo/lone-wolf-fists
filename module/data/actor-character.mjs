@@ -79,6 +79,17 @@ export default class lwfCharacter extends lwfWeaponUser {
      //value == initial chakras
       value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
       active: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
+      hellToggle: new BooleanField({initial: false}),
+      awakened: new SchemaField({
+        Heaven: new BooleanField({initial: false}),
+        Hell: new BooleanField({initial: false}),
+        Metal: new BooleanField({initial: false}),
+        Wood: new BooleanField({initial: false}),
+        Air: new BooleanField({initial: false}),
+        Fire: new BooleanField({initial: false}),
+        Water: new BooleanField({initial: false}),
+        Earth: new BooleanField({initial: false}),
+      })
     });
     // All datafields relating to karma
     schema.karma = new SchemaField({

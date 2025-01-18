@@ -131,6 +131,7 @@ export class lwfActorSheet extends ActorSheet {
     const gear = [];
     const weapon = [];
     const armor = [];
+    let armorValue = 0;
     const guptKala = [];
     const techniques = {
       "attack": [],
@@ -155,6 +156,9 @@ export class lwfActorSheet extends ActorSheet {
           break;
         
         case 'armor':
+          if(i.system.worn === true){
+            armorValue += i.system.armorValue;
+          }
           armor.push(i);
           break;
 
@@ -208,6 +212,7 @@ export class lwfActorSheet extends ActorSheet {
     context.gear = gear;
     context.weapon = weapon;
     context.armor = armor;
+    context.armorValue = armorValue;
     context.guptKala = guptKala;
     context.techniques = techniques;
     context.imbalances = imbalances;
@@ -271,11 +276,17 @@ export class lwfActorSheet extends ActorSheet {
       // The following if statement is used to detect if the chosen element is selected or not
       // If there is a better way to do this, lmk
       let update;
-      if (ev.currentTarget[1] === undefined)
+      if(ev.currentTarget.type === "checkbox")
+        update = $(ev.currentTarget).prop('checked');
+      else if (ev.currentTarget.nodeName !== "SELECT")
         update = ev.currentTarget.value;
       else
         update = $(ev.currentTarget).find(":selected").text();
       const target = ev.currentTarget.parentElement.dataset.imbtype;
+      
+      //Check to see if the target is newly de-selected checkbox. If it is, set  update to false
+      if(update === undefined)
+        update = false;
       if (target === "name")
         item.update({ [ "name" ]: update});
       else

@@ -116,7 +116,9 @@ export class lwfItemSheet extends ItemSheet {
       // The following if statement is used to detect if the chosen element is selected or not
       // If there is a better way to do this, lmk
       let update;
-      if (ev.currentTarget.nodeName !== "SELECT")
+      if(ev.currentTarget.type === "checkbox")
+        update = $(ev.currentTarget).prop('checked');
+      else if (ev.currentTarget.nodeName !== "SELECT")
         update = ev.currentTarget.value;
       else
         update = $(ev.currentTarget).find(":selected").text();
@@ -124,7 +126,8 @@ export class lwfItemSheet extends ItemSheet {
       item.update({ [`system.${target}`]: update});
     })
 
-    html.on('change', '#armorValue', async (ev) => {
+    // Leaving this here as an example of creating an active effect
+    /*html.on('change', '#armorValue', async (ev) => {
       
       let toDelete = Array.from(this.item.effects);
       // Check to see if the effect is currently disabed, and make the new effect disabled if it is
@@ -138,9 +141,9 @@ export class lwfItemSheet extends ItemSheet {
       }
 
       this.item.createEmbeddedDocuments('ActiveEffect', [{
-        name: "set armor value",
+        name: "setArmor",
         origin: this.item.uuid,
-        disabled: isDisabled,
+        disabled: false,
         changes: [{
           key: "system.armor",
           mode: 2,
@@ -148,10 +151,6 @@ export class lwfItemSheet extends ItemSheet {
           }]
         }]
       );
-
-
-
-      console.log('end');
-    })
+    })*/
   }
 }

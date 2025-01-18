@@ -292,44 +292,23 @@
 .lone-wolf-fists .active-chakras img {
   position: absolute;
 }
-.lone-wolf-fists .health-levels {
+.lone-wolf-fists .armor-display {
   position: relative;
 }
-.lone-wolf-fists .health-levels .checkmark:after {
-  top: 2px;
-  left: 2px;
-  width: 8px;
-  height: 8px;
-  background: rgb(0, 0, 0);
+.lone-wolf-fists .armor-display .armor-icon {
+  position: relative;
+  width: 100%;
+  top: -8px;
+  left: 90px;
+  border: none;
 }
-.lone-wolf-fists .health-levels input {
+.lone-wolf-fists .armor-display .armor-value {
+  width: 100%;
   position: absolute;
-  opacity: 0;
-  height: 0;
-  width: 0;
-}
-.lone-wolf-fists .health-levels input:checked ~ .checkmark {
-  background-color: #eee;
-}
-.lone-wolf-fists .health-levels input:checked ~ .checkmark:after {
-  display: block;
-}
-.lone-wolf-fists .checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 16px;
-  width: 16px;
-  background-color: #eee;
-  border: 2px solid black;
-}
-.lone-wolf-fists .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-.lone-wolf-fists .health-level input {
-  position: a;
+  text-align: center;
+  top: 1px;
+  left: 66px;
+  z-index: 1;
 }
 .lone-wolf-fists .sidebar {
   flex: 0 0 150px;
