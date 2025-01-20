@@ -16,3 +16,4 @@ export {default as lwfClan} from "./item-clan.mjs";
 export {default as lwfGuptKala} from "./item-gupt-kala.mjs";
 export {default as lwfArmor} from "./item-armor.mjs";
 export {default as lwfWeapon} from "./item-weapon.mjs";
+export {default as lwfArtifact} from "./item-artifact.mjs";

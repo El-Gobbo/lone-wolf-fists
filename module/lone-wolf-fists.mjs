@@ -55,7 +55,8 @@ Hooks.once('init', function () {
     clan: models.lwfClan,
     skill: models.lwfSkill,
     armor: models.lwfArmor,
-    weapon: models.lwfWeapon
+    weapon: models.lwfWeapon,
+    artifact: models.lwfArtifact
   }
 
   // Active Effects are never copied to the Actor,
@@ -84,12 +85,16 @@ Hooks.once('init', function () {
 /* -------------------------------------------- */
 
 // If you need to add Handlebars helpers, here is a useful example:
-Handlebars.registerHelper('toLowerCase', function (str) {
-  return str.toLowerCase();
-});
-
 Handlebars.registerHelper('comparison', function(var1, var2) {
   return var1 === var2;
+});
+
+Handlebars.registerHelper('equalOrAll', function(savedTab, currentTab) {
+  return (savedTab === currentTab || savedTab === "all");
+});
+
+Handlebars.registerHelper('kalaOrForm', function(savedTab) {
+  return (savedTab === "forms" || savedTab === "guptKala");
 });
 
 Handlebars.registerHelper('lessThan', function(index, limit) {
