@@ -14,9 +14,8 @@ export default class lwfCharacter extends lwfWeaponUser {
       items.push(skills[i].toObject());
   
     this.parent.updateSource({ items });
-
-
   }
+
   static defineSchema() {
     const { SchemaField, NumberField, StringField, ArrayField, BooleanField, HTMLField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
@@ -66,11 +65,13 @@ export default class lwfCharacter extends lwfWeaponUser {
     schema.prana = new SchemaField({
       current: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100 }),
       gen: new SchemaField({
-        slumbering: new NumberField({...requiredInteger, initial: 0}),
-        flare: new NumberField({...requiredInteger, initial: 0 }),
+        outOfCombat: new NumberField({...requiredInteger, initial: 0}),
+        inCombat: new NumberField({...requiredInteger, initial: 0 }),
       }),
     });
 
+    // Datafields about amount of prana generated per chakra
+    // This is seperate from the prior category to make setting the default values easier
     schema.pool = new SchemaField({
       value: new NumberField({ ...requiredInteger, initial: 0, min: 0 }),
       recovery: new NumberField({ ...requiredInteger, initial: 0, min: 0 })
@@ -82,7 +83,6 @@ export default class lwfCharacter extends lwfWeaponUser {
       hellToggle: new BooleanField({initial: false}),
       awakened: new SchemaField({
         Heaven: new BooleanField({initial: false}),
-        Hell: new BooleanField({initial: false}),
         Metal: new BooleanField({initial: false}),
         Wood: new BooleanField({initial: false}),
         Air: new BooleanField({initial: false}),
@@ -118,22 +118,22 @@ export default class lwfCharacter extends lwfWeaponUser {
     
     // iterates over LWFARCH and assigns the attributes contained within. For more info, see archetypes.mjs
     for (const key in LWFARCH[archetype])
-      this[key].value   = LWFARCH[archetype][key][degree];
-    
-    // if too few chakras are active, bring them up to the minimum
-    if (this.chakras.active < this.chakras.value)
-      this.chakras.active = this.chakras.value;
+      this[key].value = LWFARCH[archetype][key][degree];
     
     // calculate max health and aura from health and aura levels respectively
-    this.health.max     = this.health.value * 10;
+    this.health.max = this.health.value * 10;
     if(this.health.max < this.health.current)
       this.health.current = this.health.max;
-    this.aura.max       = this.aura.value * 10;
+    this.aura.max = this.aura.value * 10;
     if(this.aura.max < this.aura.current)
       this.aura.current = this.aura.max;
-    this.pool.recovery  = this.pool.value * 2;
-    this.prana.gen.slumbering      = this.pool.value * this.chakras.active;
-    this.prana.gen.flare = this.pool.recovery * this.chakras.active;
+    this.pool.recovery = this.pool.value * 2;
+    this.prana.gen.outOfCombat = this.pool.value * this.chakras.active;
+    this.prana.gen.inCombat = this.pool.recovery * this.chakras.active;
+    // If the character is not flaring, set chakras.active to chakras.value, and prana.current to prana.gen.outOfCombat
+    if(!this.parent.inCombat){
+      this.prana.current = this.prana.gen.outOfCombat;
+    }
 
     let clan = this.clan;
     if (!(clan in LWFCLAN))

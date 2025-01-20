@@ -1,9 +1,74 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
-
   <div class="sheet">
   {{!-- Prana sidebar --}}
-  
+  <div class="sidebar-small">
+    <ol class='items-list full-size'>
+      <li class="prana resources">
+        <div class="resource flex-group-center">
+          <label for="system.prana.current" class="resource-label">Prana</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input {{#unless inCombat}} class="active-prana-gen stat-input" {{else}} class="prana-gen stat-input" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
+            <input type="text" class="flex-2" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
+            <input {{#if inCombat}} class="active-prana-gen stat-input" {{else}} class="prana-gen stat-input" {{/if}} type="text" name="system.prana.gen.inCombat" value="{{system.prana.gen.inCombat}}" data-dtype="Number" disabled/>
+          </div>
+        </div>
+        <div class="grid grid-2col grid-close">
+          <div class="resource flex-group-center">
+            <label for="system.pool.value" class="pool-label">Pool</label>
+            <input type="text" name="system.pool.value" value="{{system.pool.value}}" readonly disabled data-dtype="Number"/>
+          </div>
+          <div class="resource flex-group-center">
+            <label for="system.pool.recovery" class="pool-label">Recovery</label>
+            <input type="text" name="system.pool.recovery" value="{{system.pool.recovery}}" readonly disabled data-dtype="Number"/>
+          </div>
+        </div>
+      </li>
+
+      <li class="resource flex-group-center flex-column">
+        <label for="system.chakras.active" class="resource-label">Chakras</label>
+        <div class="active-chakras small-box">
+          <input type="number" class="full-size" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number"/>
+          <img
+            class="chakra-increase"
+            src="systems/lone-wolf-fists/assets/arrup.png"
+            title='Open Chakra'
+            width='10'
+            height='10'
+          />
+          <img
+            class="chakra-decrease"
+            src="systems/lone-wolf-fists/assets/arrdown.png"
+            title='Close Chakra'
+            width='10'
+            height='10'
+          />
+        </div>
+      </li>
+    {{#each chakras as | skill | }}
+    <li class='item flex-group-center'>
+      <div class='item-image' data-imbtype="{{skill}}">
+          <img
+            class="chakra-image"
+            {{#if (lookup ../system.chakras.awakened skill)}}
+            src='systems/lone-wolf-fists/assets/Chakras/{{skill}} Awakened.png'
+            {{else}}
+            src='systems/lone-wolf-fists/assets/Chakras/{{skill}}.png'
+            {{/if}}
+            title='{{skill}}'
+            width='40'
+            height='40'
+          />
+      </div>
+      <h4 class="skill">
+        {{#if (lookup ../system.chakras.awakened skill)}}<strong>{{skill}}</strong>
+        {{else}}{{skill}}
+        {{/if}}
+      </h4>
+    </li>
+    {{/each}}
+
+  </div> 
   {{!-- Main section of the sheet --}}
   <div class="body">
   <header class="sheet-top">
@@ -11,119 +76,76 @@
       <img class="profile-img flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120"/>
       <div class="resources">
         <div id="degree" class="resource flex-group-center">
-        <label for="system.degree.value" class="resource-label">Degree</label>
-        <div class="stat-input">
-          <input type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>
-        </div>
+          <label for="system.degree.value" class="resource-label">Degree</label>
+          <div class="stat-input">
+            <input type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>
+          </div>
         </div>
         <div class="grid grid-2col">
-        <div id="effort" class="resource flex-group-center">
-        <label for="system.power.value" class="resource-label">Effort</label>
-        <div class="stat-input">
-          <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number" readonly/>
-        </div>
-        </div>
-
-        <div id="effortless" class="resource flex-group-center">
-        <label for="system.effortless.value" class="resource-label font-small">Effortless</label>
-        <div class="stat-input">
-          <input type="text" name="effortless" value="Rank {{system.effortless.value}}" data-dtype="String" readonly/>
-        </div>
-        </div>
+          <div id="effort" class="resource flex-group-center">
+            <label for="system.power.value" class="resource-label">Effort</label>
+            <div class="stat-input">
+              <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number" readonly/>
+            </div>
+          </div>
+          <div id="effortless" class="resource flex-group-center">
+            <label for="system.effortless.value" class="resource-label">E-less</label>
+            <div class="stat-input">
+              <input type="text" name="effortless" value="Rank {{system.effortless.value}}" data-dtype="String" readonly/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="header-fields">
-      <div class="title grid grid-8col">
-      <h1 id="name" class="charname grid-span-5"><input name="actor.name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-      <h1 id="clanName" class="charname grid-span-3"><input name="system.clan" type="text" value="{{system.clan}}" placeholder="Clan"></h1>
+      <div class="title grid grid-8col grid-close">
+        <h1 id="name" class="charname grid-span-5"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+        <h1 id="archName" class="charname grid-span-3"><input name="system.archetype" type="text" value="{{system.archetype}}" placeholder="Archetype" readonly disabled></h1>
+        <h1 id="clanName" class="charname grid-span-8"><input name="system.clan" type="text" value="{{system.clan}}" placeholder="Clan"></h1>
       </div>
-      {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-      use both the "grid" and "grid-Ncol" class where "N" can be any number
-      from 1 to 12 and will create that number of columns.  --}}
-      <div class="flexrow">
-        <div class="flex-5">
-          <div class="damage resources grid grid-5col">
-
-              {{!-- "flex-group-center" is also defined in the _grid.scss file
-              and it will add a small amount of padding, a border, and will
-              center all of its child elements content and text. --}}
-            <div id="health" class="resource flex-group-center grid-span-3">
-              <label for="system.health.current" class="resource-label">Health</label>
-              <div class="resource-content max-min flexrow flex-center flex-between">
-              <input type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
-              <span> / </span>
-              <input type="text" name="system.health.max" value="{{system.health.max}}" readonly  data-dtype="Number"/>
-              </div>
-            </div>
-            <div class="resource flex-group-center grid-span-2">
-              <label for="system.aura.current" class="resource-label">Aura</label>
-              <div class="resource-content max-min flexrow flex-center flex-between">
-                <input type="text" name="system.aura.current" value="{{system.aura.current}}" data-dtype="Number"/>
-                <span> / </span>
-                <input type="text" name="system.aura.max" value="{{system.aura.max}}" readonly  data-dtype="Number"/>
-              </div>
+      <div class="flex-5">
+        <div class="damage resources grid grid-6col grid-close">
+          <div id="health" class="resource flex-group-center grid-span-3">
+            <label for="system.health.current" class="resource-label">Health</label>
+            <div class="resource-content max-min flexrow flex-group-center">
+            <input type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+            <span><strong>/</strong></span>
+            <input type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
             </div>
           </div>
-          <div class="damage resources grid grid-6col">
-            <div class="resource-content max-min flexrow flex-group-center flex-between armor-display grid-start-3 grid-span-2">
-              <label for="system.armorValue" class="resource-label">Armor</label>
-              <div class="armor-icon">
-                <img
-                src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
-                title='Armor symbol'
-                width='36'
-                height='36'
-                />
-                <h4 class="armor-value">{{armorValue}}</h4>
-              </div>
+          <div class="resource flex-group-center grid-span-2">
+            <label for="system.aura.current" class="resource-label">Aura</label>
+            <div class="resource-content max-min flexrow flex-group-center">
+              <input type="text" name="system.aura.current" value="{{system.aura.current}}" data-dtype="Number"/>
+              <span><strong>/</strong></span>
+              <input type="text" name="system.aura.max" value="{{system.aura.max}}" readonly disabled data-dtype="Number"/>
             </div>
           </div>
-
-          <div class="resources grid grid-9col grid-close">
-          
-            {{! display focus slots up to the value determined by level, hide all subsequent slots}}
-            <label for="system.foci.value" class="resource-label grid-span-2">Focus Slots</label>
-            {{#each system.foci.slots}}
-              <div {{#unless (lessThan @index ../system.foci.value )}} hidden {{/unless}} class="resource flex-group-center">
-                <input type="text" id="focus-{{@index}}" class="focusSlot" data-findex="{{@index}}" name="system.foci.slots.{{@index}}" value="{{this}}" data-dtype="Number">
+          <div class="resource-content max-min flexrow flex-group-center flex-between armor-display">
+            <label for="system.armorValue" class="resource-label">Armor</label>
+              <div class="flex-group-center flex">
+                <div class="armor-icon flex flex-group-center">
+                  <img
+                    class="full-size"
+                    src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
+                    title='Armor symbol'
+                    width='36'
+                    height='36'
+                  />
+                  <h4 class="armor-value full-size">{{armorValue}}</h4>
+                </div>
               </div>
-            {{/each}}
           </div>
         </div>
-        <div class="flex-3">
 
-          <div class="prana resources">
-            <div class="resource flex-group-center">
-              <label for="system.prana.current" class="resource-label">Prana</label>
-              <div class="resource-content flexrow flex-center flex-between">
-                <input class="stat-input" type="text" name="system.prana.gen.slumbering" value="{{system.prana.gen.slumbering}}" data-dtype="Number" disabled/>
-                <input type="text" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
-                <input class="stat-input" type="text" name="system.prana.gen.flare" value="{{system.prana.gen.flare}}" data-dtype="Number" disabled/>
-              </div>
+        <div class="resources grid grid-9col grid-close">
+          {{! display focus slots up to the value determined by level, hide all subsequent slots}}
+          <label for="system.foci.value" class="resource-label grid-span-2">Focus Slots</label>
+          {{#each system.foci.slots}}
+            <div {{#unless (lessThan @index ../system.foci.value )}} hidden {{/unless}} class="resource flex-group-center">
+              <input type="text" id="focus-{{@index}}" class="focusSlot" data-findex="{{@index}}" name="system.foci.slots.{{@index}}" value="{{this}}" data-dtype="Number">
             </div>
-          </div>
-
-          <div class="resource flex-group-center">
-            <label for="system.chakras.active" class="resource-label">Active Chakras</label>
-            <div class="active-chakras">
-              <input type="number" class="small-box" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number"/>
-              <img
-                class="chakra-increase"
-                src="systems/lone-wolf-fists/assets/arrup.png"
-                title='Arrow up'
-                width='10'
-                height='10'
-              />
-              <img
-                class="chakra-decrease"
-                src="systems/lone-wolf-fists/assets/arrdown.png"
-                title='Arrow down'
-                width='10'
-                height='10'
-              />
-            </div>
-          </div>
+          {{/each}}
         </div>
       </div>
       {{#if skill.missing}}
@@ -181,7 +203,6 @@
   {{/if}}
   </div>
   <div class="sidebar">
-
   <ol class='items-list full-size'>
   {{#each skill.mastered as | skill |}}
   <li class='item flex-group-center' data-item-id="{{skill._id}}">

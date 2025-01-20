@@ -94,6 +94,20 @@
   </div>
   {{/if}}
 </div>
+
+<nav class="sheet-tabs tabs" data-group="techhniques">
+  {{!-- Default tab is specified in actor-sheet.mjs --}}
+  <a class="item" data-tab="all">All</a>
+  <a class="item" data-tab="attacks">Attacks</a>
+  <a class="item" data-tab="defenses">Defenses</a>
+  <a class="item" data-tab="mudra">Mudra</a>
+  <a class="item" data-tab="balance">Balance</a>
+    <a class="item" data-tab="form">Form</a>
+  <a class="item" data-tab="gupt-kala">Gupt Kala</a>
+  {{! Hidden final tab where the GM can change around character options}}
+  <a class="item" data-tab="config" {{#unless isGM}} hidden {{/unless}}>Config</a>
+</nav>
+
 <div class="items-list full-size flex-column">
   <div class="item flexrow items-header grid grid-21col">
     <div class="flex-group-center"></div>

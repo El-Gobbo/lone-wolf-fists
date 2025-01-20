@@ -109,14 +109,13 @@ export class lwfActorSheet extends ActorSheet {
     context.techType = LWFTECHNIQUES.techType;
     context.techLvl = LWFTECHNIQUES.techLvl
 
-    const activeTags = [];
+    let chakraList = Object.keys(context.system.chakras.awakened);
+    // If the player has a hell chakra, replace heaven with hell
+    if(context.system.chakras.hellToggle === true)
+      chakraList.splice(0, 1, "Hell")
+    context.chakras = chakraList;
 
-    for(let i in context.weaponTags){
-      if(context.weaponTags[i] === true)
-          activeTags.push(context.weaponTags[i]);
-    }
-    
-    context.activeTags = activeTags;
+    context.inCombat = context.actor.inCombat;
 
     return context;
   }
@@ -291,6 +290,18 @@ export class lwfActorSheet extends ActorSheet {
         item.update({ [ "name" ]: update});
       else
         item.update({ [`system.${target}`]: update});
+    })
+
+    html.on('click', '.chakra-image',  (ev) => {
+      // Find the chakra type
+      const chakra = ev.currentTarget.parentElement.dataset.imbtype;
+      // Find the current value of the chakra
+      const awakened = this.actor.system.chakras.awakened;
+      let update = !(awakened[chakra]);
+     
+      // Update the actor with the inverted value
+      this.actor.update({[ `system.chakras.awakened.${chakra}` ]: update})
+
     })
 
     // Choose masteries to add on level up TODO: pass the data back to the original character sheet
