@@ -79,6 +79,7 @@ table {
 .tech-label {
   margin: 0 !important;
   height: 18px;
+  border-bottom: 1px solid #c9c7b8; 
 }
 
 .small-box {
@@ -102,7 +103,8 @@ table {
 .chakra-image {
   border: none;
   margin-top: 5px;
-  cursor: pointer;  
+  cursor: pointer;
+  object-fit: contain;
 }
 
 .mastery-image {
@@ -130,6 +132,11 @@ table {
 
 .resource {
   margin-top: 3px;
+}
+
+.inner-margin {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .sheet-top {

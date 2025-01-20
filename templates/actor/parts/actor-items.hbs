@@ -90,11 +90,12 @@
   </div>
 </div>
 <div>
-<ol class='items-list'>
-  <li class='item flexrow items-header'>
-    <div class='item-name'>{{localize 'Name'}}</div>
-    <div class='item-formula'>{{localize 'Roll Formula'}}</div>
-    <div class='item-controls'>
+<div class='items-list'>
+  <div class='item flexrow items-header grid grid-7col'>
+    <div class='item-name flex-group-center grid-span-4'>{{localize 'Name'}}</div>
+    <div class='flex-group-center'>Size</div>
+    <div class="flex-group-center">Quantity</div>
+    <div class='item-controls flex-group-center'>
       <a
         class='item-control item-create'
         title='{{localize "DOCUMENT.Create" type='Item'}}'
@@ -104,10 +105,10 @@
         {{localize 'DOCUMENT.New' type='item'}}
       </a>
     </div>
-  </li>
+  </div>
   {{#each gear as |item id|}}
-    <li class='item flexrow' data-item-id='{{item._id}}'>
-      <div class='item-name'>
+    <div class='item flexrow grid grid-7col' data-item-id='{{item._id}}'>
+      <div class='item-name grid-span-4'>
         <div class='item-image'>
           <a class='rollable' data-roll-type='item'>
             <img
@@ -120,7 +121,12 @@
         </div>
         <h4>{{item.name}}</h4>
       </div>
-      <div class='item-formula item-prop'>{{item.system.formula}}</div>
+      <div class="flex-group-center" data-imbtype="size"></div>
+        <input class="item-choice" type="text" name="item.system.size" value="{{item.system.size}}" data-dtype="Number"/>
+      </div>
+      <div class="flex-group-center" data-imbtype="quantity"></div>
+        <input class="item-choice" type="text" name="item.system.quantity" value="{{item.system.quantity}}" data-dtype="Number"/>
+      </div>
       <div class='item-controls'>
         <a
           class='item-control item-edit'
@@ -135,7 +141,7 @@
           <i class='fas fa-trash'></i>
         </a>
       </div>
-    </li>
+    </div>
   {{/each}}
-  </ol>
+  </div>
 </div>

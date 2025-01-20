@@ -1,38 +1,31 @@
+<div class="flexrow">
+  <div class="grid grid-3col">
+    <div class="dharma flex-group-center">
+      <h3>Heroic Deed</h3>
+      <textarea name="system.deed" rows="5">{{system.deed}}</textarea>
+    </div>
+    <div class="dharma flex-group-center">
+      <h3>Cultural Landmark</h3>
+      <textarea name="system.landmark" rows="5">{{system.landmark}}</textarea>
+    </div>
+    <div class="dharma flex-group-center">
+      <h3>Vice</h3>
+      <textarea name="system.vice" rows="5">{{system.vice}}</textarea>
+    </div>
+  </div>
+</div>
+<h3 class="full-size">KHARMA</h3>
 <div class="grid grid-3col">
-  <div class="dharma">
-    <label>Heroic Deed</label>
-      <div class="tab">
-      {{editor
-        system.deed
-        target='system.deed'
-        engine='prosemirror'
-        button=true
-        editable=editable
-      }}
-      </div>
+  <div class="resource-content flex-group-center">
+    <label for="system.kharma.current" class="resource-label">Earnt</label>
+    <input type="text" name="system.kharma.current" value="{{system.kharma.current}}" data-dtype="Number">
   </div>
-  <div class="dharma">
-    <label>Cultural Landmark</label>
-      <div class="tab">
-      {{editor
-        system.landmark
-        target='system.landmark'
-        engine='prosemirror'
-        button=true
-        editable=editable
-      }}
-      </div>
+  <div class="resource-content flex-group-center">
+    <label for="system.kharma.spent" class="resource-label">Spent</label>
+    <input type="text" name="system.kharma.spent" value="{{system.kharma.spent}}" data-dtype="Number">
   </div>
-  <div class="dharma">
-    <label>Vice</label>
-      <div class="tab">
-      {{editor
-        system.vice
-        target='system.deed'
-        engine='prosemirror'
-        button=true
-        editable=editable
-      }}
-      </div>
+  <div class="resource-content flex-group-center">
+    <label for="system.kharma.value" class="resource-label">Next Degree</label>
+    <input type="text" name="system.kharma.value" value="{{system.kharma.value}}" data-dtype="Number" disabled readonly>
   </div>
 </div>

@@ -91,8 +91,8 @@ export default class lwfCharacter extends lwfWeaponUser {
         Earth: new BooleanField({initial: false}),
       })
     });
-    // All datafields relating to karma
-    schema.karma = new SchemaField({
+    // All datafields relating to kharma
+    schema.kharma = new SchemaField({
       current: new NumberField({ ...requiredInteger, initial: 0}),
       value: new NumberField({ ...requiredInteger, initial: 200}),
       spent: new NumberField({ ...requiredInteger, initial: 120})
@@ -104,7 +104,7 @@ export default class lwfCharacter extends lwfWeaponUser {
     schema.landmark = new HTMLField();
     schema.vice = new HTMLField();
     schema.rep = new HTMLField();
-
+    schema.techTableFocus = new StringField({initial: 'all'});
     return schema;
   }
 
@@ -115,11 +115,13 @@ export default class lwfCharacter extends lwfWeaponUser {
     // exits if no archetype has yet been set
     if (!(archetype in LWFARCH))
       return;
-    
     // iterates over LWFARCH and assigns the attributes contained within. For more info, see archetypes.mjs
     for (const key in LWFARCH[archetype])
       this[key].value = LWFARCH[archetype][key][degree];
-    
+
+    // If too few chakras are active, activate up to the minimum
+    if(this.chakras.active < this.chakras.value)
+      this.chakras.active = this.chakras.value;
     // calculate max health and aura from health and aura levels respectively
     this.health.max = this.health.value * 10;
     if(this.health.max < this.health.current)
@@ -130,7 +132,7 @@ export default class lwfCharacter extends lwfWeaponUser {
     this.pool.recovery = this.pool.value * 2;
     this.prana.gen.outOfCombat = this.pool.value * this.chakras.active;
     this.prana.gen.inCombat = this.pool.recovery * this.chakras.active;
-    // If the character is not flaring, set chakras.active to chakras.value, and prana.current to prana.gen.outOfCombat
+
     if(!this.parent.inCombat){
       this.prana.current = this.prana.gen.outOfCombat;
     }

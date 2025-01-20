@@ -90,6 +90,11 @@
   grid-template-columns: repeat(21, minmax(0, 1fr));
 }
 
+.grid-23col {
+  grid-column: span 23/span 23;
+  grid-template-columns: repeat(23, minmax(0, 1fr));
+}
+
 .grid-close {
   gap: 2px !important;
 }
@@ -338,6 +343,7 @@
 .lone-wolf-fists .tech-label {
   margin: 0 !important;
   height: 18px;
+  border-bottom: 1px solid #c9c7b8;
 }
 .lone-wolf-fists .small-box {
   width: 27px;
@@ -357,6 +363,7 @@
   border: none;
   margin-top: 5px;
   cursor: pointer;
+  object-fit: contain;
 }
 .lone-wolf-fists .mastery-image {
   margin-top: 3px;
@@ -379,6 +386,10 @@
 }
 .lone-wolf-fists .resource {
   margin-top: 3px;
+}
+.lone-wolf-fists .inner-margin {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .lone-wolf-fists .sheet-top {
   flex: 0 auto;
@@ -464,8 +475,6 @@
   text-align: center;
   padding-right: auto;
   letter-spacing: 2px;
-  color: #d4af37;
-  background-color: #640d0d;
 }
 .lone-wolf-fists .pool-label {
   font-size: 10px;

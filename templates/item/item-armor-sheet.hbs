@@ -19,7 +19,9 @@
   {{! Sheet Tab Navigation }}
   <nav class='sheet-tabs tabs' data-group='primary'>
     <a class='item' data-tab='description'>Description</a>
+    {{#if isGM}}
     <a class='item' data-tab='attributes'>Attributes</a>
+    {{/if}}
   </nav>
 
   {{! Sheet Body }}
@@ -28,8 +30,7 @@
     {{! Description Tab }}
     <div class='tab' data-group='primary' data-tab='description'>
       <div class='resource'>
-        <label>Armor rating:</label>
-        <input id="armorValue" type="number" class="inline-input small-box" name='system.armorValue' value="{{system.armorValue}}" data-dtype="Number">
+        <h3><strong>Armor Value: </strong><i>{{system.armorValue}}</i></h3>
       </div>
       {{! Editors must receive enriched text data from getData to properly handle rolls }}
       {{editor
@@ -43,7 +44,10 @@
 
     {{! Attributes Tab }}
     <div class='tab attributes' data-group='primary' data-tab='attributes'>
-      {{! As you add new fields, add them in here! }}
+      <div class='resource'>
+        <label>Armor rating:</label>
+        <input id="armorValue" type="number" class="inline-input small-box" name='system.armorValue' value="{{system.armorValue}}" data-dtype="Number">
+      </div>
     </div>
   </section>
 </form>

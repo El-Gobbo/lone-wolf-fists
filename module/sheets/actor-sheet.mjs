@@ -372,6 +372,20 @@ export class lwfActorSheet extends ActorSheet {
       this.actor.update({['system.chakras.active']: newActive, ['system.prana.current']: reset, ['system.aura.current']: aura});
     })
 
+    html.on('change', '.techniqueDisplay', (ev) => {
+      let tables = $('.techniqueTable');
+      let update = $(ev.currentTarget)[0].value;
+      this.actor.update({[ 'system.techTableFocus' ]: update});
+      /*const target = '#'.concat(update);
+      if(target === '#all')
+        tables.show();
+      else{
+        tables.hide();
+        $('#all').show();
+        $(target).show();
+      };*/
+    })
+
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
 
