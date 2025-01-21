@@ -4,7 +4,7 @@ export default class lwfTechnique extends lwfYuddhakala {
   async _preCreate(data,options,user){
     await super._preCreate(data, options, user);
 
-    // Get a llist of currently hed items
+    // Get a list of currently held items
     const items = this.parent.parent?.items;
 
     // If the item is not embedded, exit precreate and create
@@ -23,7 +23,7 @@ export default class lwfTechnique extends lwfYuddhakala {
     const { SchemaField, NumberField, StringField, BooleanField, HTMLField } = foundry.data.fields;
     const schema = super.defineSchema();
 
-    //Choose if the technique is attack, defense, versatile, or mudra
+    //Choose if the technique is attack, defense, balance, or mudra
     schema.techType = new StringField({initial: "Attack"});
 
     schema.techLvl = new StringField({initial: "Novice"});

@@ -39,9 +39,11 @@
         <h3><strong>Tag: </strong><span>{{system.tag1}}</span></h3>
       </div>
       {{/if}}
-      
-      {{! Editors must receive enriched text data from getData to properly handle rolls }}
-
+      {{#unless (comparison system.size 0)}}
+      <div>
+        <h4><strong>Size: </strong><span>{{system.size}}</span></h4>
+      </div>
+      {{/unless}}
       {{#if system.unique}}
       <div class="tab">
         {{editor
@@ -70,53 +72,51 @@
     {{! Attributes Tab }}
     <div class='tab edit' data-group='primary' data-tab='edit'>
       <div class='resource'>
-      <select class="" name='system.tag1' data-techstat="tag1">
-      {{#unless system.unorthodox}}
-      {{! Iterates over the list of technique types to produce a select menu.}} 
-      {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
-      {{#each tagsCore}}
-      <option 
-        {{#if (comparison ../system.tag1 this)}} selected="selected" {{/if}} 
-        value="{{this}}">{{this}}</option>
-      {{/each}}
-      {{else}}
-      {{#each tagsExtra}}
-      <option 
-        {{#if (comparison ../system.tag1 this)}} selected="selected" {{/if}} 
-        value="{{this}}">{{this}}</option>
-      {{/each}}
-      {{/unless}}
-    </select>
-    </div>
+        <select class="" name='system.tag1' data-techstat="tag1">
+        {{#unless system.unorthodox}}
+          {{#each tagsCore}}
+          <option 
+            {{#if (comparison ../system.tag1 this)}} selected="selected" {{/if}} 
+            value="{{this}}">{{this}}</option>
+          {{/each}}
+          {{else}}
+          {{#each tagsExtra}}
+          <option 
+            {{#if (comparison ../system.tag1 this)}} selected="selected" {{/if}} 
+            value="{{this}}">{{this}}</option>
+          {{/each}}
+        {{/unless}}
+        </select>
+      </div>
 
-    {{!-- show extra tag selection if there is more than 1 tag --}}
-    {{#unless system.unorthodox}}
-    <div class='resource flexrow flex-group-center'>
-      <input type="checkbox" class="flex" name="system.unique"  {{#if system.unique}}checked{{/if}} value=true>
-      <label class="rightside flex">Weapon has two tags</label>
-    </div>
-    {{/unless}}
-    {{#if system.unique}}
-    <div class='resource'>
-      <select class="" name='system.tag2' data-techstat="tag2">
-    
-      {{! Iterates over the list of technique types to produce a select menu.}} 
-      {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
-      {{#each tagsCore}}
-      <option 
-        {{! Makes sure that the default source shown is the one currently set on the imbalance}}
-        {{#if (comparison ../system.tag2 this)}} selected="selected" {{/if}} 
-        value="{{this}}">{{this}}</option>
-      {{/each}}
-    </select>
-    </div>
-    {{/if}}
-    {{#unless system.unique}}
-    <div class='resource flexrow flex-group-center'>
-      <input type="checkbox" class="flex" name="system.unorthodox"  {{#if system.unorthodox}}checked{{/if}} value=true>
-      <label class="rightside flex">Weapon uses one of the following tags: improvised, warfighter, grenade, ordnance</label>
-    </div>
-    {{/unless}}
+      {{!-- show extra tag selection if there is more than 1 tag --}}
+      {{#unless system.unorthodox}}
+      <div class='resource flexrow flex-group-center'>
+        <input type="checkbox" class="flex" name="system.unique"  {{#if system.unique}}checked{{/if}} value=true>
+        <label class="rightside flex">Weapon has two tags</label>
+      </div>
+      {{/unless}}
+      {{#if system.unique}}
+      <div class='resource'>
+        <select class="" name='system.tag2' data-techstat="tag2">
+        {{#each tagsCore}}
+        <option 
+          {{#if (comparison ../system.tag2 this)}} selected="selected" {{/if}} 
+          value="{{this}}">{{this}}</option>
+        {{/each}}
+        </select>
+      </div>
+      {{/if}}
+      {{#unless system.unique}}
+      <div class='resource flexrow flex-group-center'>
+        <input type="checkbox" class="flex" name="system.unorthodox"  {{#if system.unorthodox}}checked{{/if}} value=true>
+        <label class="rightside flex">Weapon uses one of the following tags: improvised, warfighter, grenade, ordnance</label>
+      </div>
+      {{/unless}}
+      <div class='resource'>
+        <label>Size:</label>
+        <input type="text" class="inline-input small-box" name='system.size' value="{{system.size}}" data-dtype="Number">
+      </div>
     </div>
   </section>
 </form>

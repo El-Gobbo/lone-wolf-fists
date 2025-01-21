@@ -1,6 +1,6 @@
-import lwfItemBase from "./base-item.mjs";
+import lwfTechnique from "./item-technique.mjs";
 
-export default class lwfArtifact extends lwfItemBase {
+export default class lwfArtifact extends lwfTechnique {
 
   static defineSchema() {
     const { StringField, BooleanField, HTMLField, SchemaField, NumberField } = foundry.data.fields;
@@ -10,19 +10,30 @@ export default class lwfArtifact extends lwfItemBase {
     schema.tier = new StringField({initial: "Bauble"});
     schema.type = new StringField({initial: "Item"});
 
-    schema.Weapon = new SchemaField({
-      tag1: new StringField({initial: "Special"}),
-      tag2: new StringField({initial: "Special"}),
-      unique: new BooleanField({initial: false}),
-      unorthodox: new BooleanField({initial: false}),
-    });
+    // These tags are here to allow artifacts to display in the weapon table
+    schema.tag1 = new StringField({initial: "Balanced+"});
+    schema.tag1Effect = new StringField();
+    schema.tag2 = new StringField({initial: "Balanced+"});
+    schema.tag2Effect = new StringField();
+    schema.unique = new BooleanField({initial: false});
+    schema.size = new NumberField({ ...requiredInteger, initial: 0});
 
-    schema.Armor = new SchemaField({
-      armorValue: new NumberField({ ...requiredInteger, initial: 0}),
-      worn: new BooleanField({initial: false})
-    });
+    // These tags are here to allow artifacts to display in the armor table
+    schema.armorValue = new NumberField({ ...requiredInteger, initial: 0});
+    schema.worn = new BooleanField({initial: false});
 
-    schema.techniqueUUID = new StringField();
+    schema.chakra = new SchemaField({
+      hasChakra: new BooleanField({initial: false}),
+      description: new HTMLField(),
+    })
+
+    schema.soul = new SchemaField({
+      hasSoul: new BooleanField({initial: false}),
+      description: new HTMLField(),
+      dharma: new StringField(),
+    })
+
+    schema.hasTechnique = new BooleanField({initial: false});
 
     schema.history = new HTMLField({initial: ""});
     

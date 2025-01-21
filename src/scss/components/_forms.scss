@@ -31,6 +31,15 @@ table {
   flex: 2;
 }
 
+.indented-element {
+  border: 1px solid #6e6d63;
+  padding: 5px;
+  margin: 5px;
+  .indented-element {
+    border: 1px solid #979588;
+  }
+}
+
 .active-chakras {
   position: relative;
   img {
@@ -93,6 +102,11 @@ table {
 
 .large-box {
   width: 200px;
+  margin: 0 3px;
+}
+
+.very-large-box {
+  width: 400px;
   margin: 0 3px;
 }
 

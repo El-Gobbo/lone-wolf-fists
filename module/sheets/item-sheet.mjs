@@ -5,7 +5,8 @@ import {
 
 import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
 import { LWFSKILLS } from '../helpers/skills.mjs';
-import { LWFWEAPONTAGS } from '../helpers/weapon-tags.mjs'
+import { LWFWEAPONTAGS } from '../helpers/weapon-tags.mjs';
+import { LWFARTIFACTS } from '../helpers/artifact-config.mjs';
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
@@ -75,16 +76,21 @@ export class lwfItemSheet extends ItemSheet {
     // Prepare active effects for easier access
     context.effects = prepareActiveEffectCategories(this.item.effects);
 
-    if (itemData.type == "technique"){
+    if (itemData.type === "technique" || itemData.type === "artifact"){
       context.techType = LWFTECHNIQUES.techType;
       context.techLvl = LWFTECHNIQUES.techLvl;
       context.skills = LWFSKILLS;
-
     }
 
-    if(itemData.type == "weapon"){
+    if(itemData.type === "weapon" || itemData.type === "artifact"){
       context.tagsCore = LWFWEAPONTAGS.core;
       context.tagsExtra = LWFWEAPONTAGS.extra;
+    }
+
+    if(itemData.type === "artifact"){
+      context.artifactType = LWFARTIFACTS.type;
+      context.artifactTier = LWFARTIFACTS.tier;
+      context.artifactTags = LWFARTIFACTS.tag;
     }
 
     context.isGM = game.user.isGM;

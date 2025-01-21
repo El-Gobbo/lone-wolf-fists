@@ -15,3 +15,16 @@ LWFARTIFACTS.tier = [
     "Treasure",
     "Relic"
 ]
+
+LWFARTIFACTS.tag = [
+    "Unarmed+",
+    "Reflexive+",
+    "Balanced+",
+    "Reach+",
+    "Heavy+",
+    "Ranged+",
+    "Flexible+",
+    "Subtle+",
+    "Warfighter+",
+    "Special"
+];

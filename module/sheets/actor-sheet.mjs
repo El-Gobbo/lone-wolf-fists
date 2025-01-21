@@ -107,7 +107,7 @@ export class lwfActorSheet extends ActorSheet {
     context.isGM = game.user.isGM;
     context.skills = LWFSKILLS;
     context.techType = LWFTECHNIQUES.techType;
-    context.techLvl = LWFTECHNIQUES.techLvl
+    context.techLvl = LWFTECHNIQUES.techLvl;
 
     let chakraList = Object.keys(context.system.chakras.awakened);
     // If the player has a hell chakra, replace heaven with hell
@@ -130,6 +130,7 @@ export class lwfActorSheet extends ActorSheet {
     const gear = [];
     const weapon = [];
     const armor = [];
+    const artifactItems = [];
     let armorValue = 0;
     const guptKala = [];
     const techniques = {
@@ -147,6 +148,10 @@ export class lwfActorSheet extends ActorSheet {
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
+      function pushToTechnique(item, techArray){
+        let type = item.system.techType.toLowerCase();
+        techArray[type].push(item);
+      }
       i.img = i.img || Item.DEFAULT_ICON;
       // Append to gear.
       switch (i.type) {
@@ -165,10 +170,21 @@ export class lwfActorSheet extends ActorSheet {
           weapon.push(i);
           break;
 
+        case 'artifact':
+          if(i.system.type === "Weapon")
+            weapon.push(i);
+          else if(i.system.type === "Armor")
+            armor.push(i);
+          else
+            artifactItems.push(i);
+          if(i.system.hasTechnique)
+            pushToTechnique(i, techniques)
+          
+          break;
+
       // Append to techniques.
         case 'technique':
-          let type = i.system.techType.toLowerCase();
-          techniques[type].push(i);
+          pushToTechnique(i, techniques)
           break;
 
         case 'form':
@@ -212,6 +228,7 @@ export class lwfActorSheet extends ActorSheet {
     context.weapon = weapon;
     context.armor = armor;
     context.armorValue = armorValue;
+    context.artifacts = artifactItems;
     context.guptKala = guptKala;
     context.techniques = techniques;
     context.imbalances = imbalances;

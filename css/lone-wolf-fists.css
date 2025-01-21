@@ -303,6 +303,14 @@
 .lone-wolf-fists #archName {
   flex: 2;
 }
+.lone-wolf-fists .indented-element {
+  border: 1px solid #6e6d63;
+  padding: 5px;
+  margin: 5px;
+}
+.lone-wolf-fists .indented-element .indented-element {
+  border: 1px solid #979588;
+}
 .lone-wolf-fists .active-chakras {
   position: relative;
 }
@@ -354,6 +362,10 @@
 }
 .lone-wolf-fists .large-box {
   width: 200px;
+  margin: 0 3px;
+}
+.lone-wolf-fists .very-large-box {
+  width: 400px;
   margin: 0 3px;
 }
 .lone-wolf-fists .skill-image {
