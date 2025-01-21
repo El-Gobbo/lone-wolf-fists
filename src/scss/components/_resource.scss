@@ -21,3 +21,12 @@
 input {
   text-align: center;
 }
+
+input.left {
+  text-align: left;
+}
+
+textarea {
+  resize: none;
+  font-family: "Roboto", sans-serif;
+}

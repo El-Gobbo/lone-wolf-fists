@@ -34,8 +34,10 @@ export default class lwfArtifact extends lwfTechnique {
     })
 
     schema.hasTechnique = new BooleanField({initial: false});
+    schema.techniqueName = new StringField();
 
-    schema.history = new HTMLField({initial: ""});
+    schema.shakti = new HTMLField({initial: ""});
+    schema.artifactDescription = new HTMLField({initial: ""});
     
     return schema;
   }

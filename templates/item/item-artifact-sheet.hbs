@@ -8,10 +8,13 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="core">Core</a>
     {{#if isGM}}
     <a class="item" data-tab="edit">1. Set core stats</a>
-    <a class="item" data-tab="technique">2. Set technique</a>
+    <a class="item" data-tab="shakti">2. Shakti</a>
+      {{#if system.hasTechnique}}
+      <a class="item" data-tab="technique">3. Set technique</a>
+      {{/if}}
     {{/if}}
   </nav>
 
@@ -19,16 +22,71 @@
   <section class="sheet-body">
 
     {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
-      {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
-      {{editor enrichedDescription target="system.description" engine="prosemirror" button=true editable=editable}}
+    <div class="tab" data-group="primary" data-tab="core">
+      <div class="item-sheet-line">
+        <strong>Tier: </strong><span>{{system.tier}}</span>
+      </div>
+      <div class="item-sheet-line">
+        <strong>Type: </strong><span>{{system.type}}</span>
+      </div>
+      <div class="item-sheet-line">
+        <span><strong>Description: </strong>{{system.artifactDescription}}</span>
+      </div>
+      <div class="item-sheet-line">
+        <span>
+          <strong>Shakti: </strong>            
+            {{editor
+              system.shakti
+              target='system.shakti'
+              engine='prosemirror'
+              button=false
+              editable=false
+            }}
+        </span>
+      </div>
+      {{#if system.hasTechnique}}
+      <div class="indented-element">
+        <div class="item-sheet-line">
+          <h3>{{system.techniqueName}}</h3>
+        </div>
+        <div class="item-sheet-line">
+          <i>{{system.techType}}</i>
+        </div>
+        <div class="item-sheet-line">
+          <strong>Cost: </strong><span>{{system.techCost}}</span>
+        </div>
+        <div class="item-sheet-line">
+          <strong>Rank: </strong><span>{{system.techRank}}</span>
+        </div>
+        <div class="item-sheet-line">
+          <strong>Facing: </strong><span>{{#if system.techFacing.none}} -- {{else}}{{system.techFacing.min}} - {{system.techFacing.max}}{{/if}}</span>
+        </div>
+        <div class="item-sheet-line">
+          <strong>Effect: </strong>
+          <div data-group="primary">
+            {{! Editors must receive enriched text data from getData to properly handle rolls }}
+            {{editor
+              system.techEffect
+              target='system.techEffect'
+              engine='prosemirror'
+              button=false
+              editable=false
+            }}
+          </div>
+        </div>
+        <div>
+          <strong>Keywords: </strong><span>{{system.techTags}}</span>
+        </div>
+      </div>
+      {{/if}}
     </div>
+
     {{#if isGM}}
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="edit">
       <div class="resource">
         <label>Tier: </label>
-        <select class="" name='system.tier' data-techstat="tier">
+        <select name='system.tier' data-techstat="tier">
         {{#each artifactTier}}
         <option 
           {{#if (comparison ../system.tier this)}} selected="selected" {{/if}} 
@@ -38,7 +96,7 @@
       </div>
       <div class="resource">
         <label>Type: </label>
-        <select class="" name='system.type' data-techstat="type">
+        <select name='system.type' data-techstat="type">
         {{#each artifactType}}
         <option 
           {{#if (comparison ../system.type this)}} selected="selected" {{/if}} 
@@ -61,7 +119,7 @@
             </select>
             <div>
               <label>Tag Effect: </label>
-              <input type="text" class="very-large-box" name='system.tag1Effect' value="{{system.tag1Effect}}" data-dtype="String">
+              <input type="text" class="very-large-box left" name='system.tag1Effect' value="{{system.tag1Effect}}" data-dtype="String">
             </div>
           </div>
           <div class='resource flexrow flex-group-center'>
@@ -80,7 +138,7 @@
             </select>
             <div>
               <label>Tag Effect: </label>
-              <input type="text" class="very-large-box" name='system.tag2Effect' value="{{system.tag2Effect}}" data-dtype="String">
+              <input type="text" class="very-large-box left" name='system.tag2Effect' value="{{system.tag2Effect}}" data-dtype="String">
             </div>
           </div>
           {{/if}}
@@ -103,81 +161,108 @@
 
       {{!-- All artifacts --}}
       <div>
+        <div class="indented-element">
+          <label>Description: </label>
+          <textarea name="system.artifactDescription" rows="5">{{system.artifactDescription}}</textarea>
+        </div>
+        <div class='resource flexrow flex-group-center'>
+          <input type="checkbox" class="flex" name="system.hasTechnique"  {{#if system.hasTechnique}}checked{{/if}} value=true>
+          <label class="rightside flex">Artifact has attached technique</label>
+        </div>
         <div class='resource flexrow flex-group-center'>
           <input type="checkbox" class="flex" name="system.chakra.hasChakra"  {{#if system.chakra.hasChakra}}checked{{/if}} value=true>
           <label class="rightside flex">Artifact has chakra</label>
         </div>
+        {{#if system.chakra.hasChakra}}
+        <div>
+          <textarea name="system.chakra.description" rows="5">{{system.chakra.description}}</textarea>
+        </div>
+        {{/if}}
         <div class='resource flexrow flex-group-center'>
           <input type="checkbox" class="flex" name="system.soul.hasSoul"  {{#if system.soul.hasSoul}}checked{{/if}} value=true>
-          <label class="rightside flex">Artifact has chakra</label>
+          <label class="rightside flex">Artifact has a soul</label>
         </div>
+        {{#if system.soul.hasSoul}}
+        <div class="indented-element">
+          <label>Soul: </label>
+          <textarea name="system.soul.description" rows="2">{{system.soul.description}}</textarea>
+          <label>Dharma: </label>
+          <input type="text" class="inline-input large-box flex flexshrink" name="system.soul.dharma" value="{{system.soul.dharma}}" data-dtype="String">
+        </div>
+        {{/if}}
       </div>
+    </div>
 
+    {{!-- Shakti tab --}}
+    <div class="tab" data-group="primary" data-tab="shakti">
+      {{editor
+        system.shakti
+        target='system.shakti'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
     </div>
 
     {{!-- Attached Technique Tab --}}
+    {{#if system.hasTechnique}}
     <div class="tab effects" data-group="primary" data-tab="technique">
-      <div class='resource flexrow flex-group-center'>
-        <input type="checkbox" class="flex" name="system.hasTechnique"  {{#if system.hasTechnique}}checked{{/if}} value=true>
-        <label class="rightside flex">Artifact has attached technique</label>
+      <h2 class="charname"><input class="left" name="system.techniqueName" type="text" value="{{system.techniqueName}}" placeholder="Technique Name"></h2>
+      <div class='resource'>
+        <select class="item-choice" name='techType' data-techstat="techType">
+        {{! Iterates over the list of technique types to produce a select menu.}} 
+        {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
+        {{#each techType}}
+        <option 
+          {{! Makes sure that the default source shown is the one currently set on the imbalance}}
+          {{#if (comparison ../system.techType this)}} selected="selected" {{/if}} 
+          value="{{this}}">{{this}}</option>
+        {{/each}}
+        </select>
       </div>
-      {{#if system.hasTechnique}}
+      {{! Ranks added}}
+      <div class='resource'>
+        <label>Rank:</label>
+        <input type="text" class="inline-input small-box" name='system.techRank' value="{{system.techRank}}" data-dtype="Number">
+      </div>
 
-        <div class='resource'>
-          <select class="item-choice" name='techType' data-techstat="techType">
-          {{! Iterates over the list of technique types to produce a select menu.}} 
-          {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
-          {{#each techType}}
-          <option 
-            {{! Makes sure that the default source shown is the one currently set on the imbalance}}
-            {{#if (comparison ../system.techType this)}} selected="selected" {{/if}} 
-            value="{{this}}">{{this}}</option>
-          {{/each}}
-          </select>
-        </div>
-        {{! Ranks added}}
-        <div class='resource'>
-          <label>Rank:</label>
-          <input type="text" class="inline-input small-box" name='system.techRank' value="{{system.techRank}}" data-dtype="Number">
-        </div>
+      {{! Prana cost }}
+      <div class='resource'>
+        <label>Cost:</label>
+        <input type="text" class="inline-input small-box" name='system.techCost' value="{{system.techCost}}" data-dtype="Number">
+      </div>
 
-        {{! Prana cost }}
-        <div class='resource'>
-          <label>Cost:</label>
-          <input type="text" class="inline-input small-box" name='system.techCost' value="{{system.techCost}}" data-dtype="Number">
-        </div>
-
-      {{! Facings }}
-        <div class='resource flexrow flex-group-center'>
-          {{#unless system.techFacing.none}}
-          <label class="flex flexshrink margin-3">Facing:</label>
-          <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.min' value="{{system.techFacing.min}}" data-dtype="Number">
-          <span class="flex flexshrink margin-3">-</span>
-          <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.max' value="{{system.techFacing.max}}" data-dtype="Number">
-          {{/unless}}
-          <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
-          <label class="rightside flex">No facings</label>
-        </div>
-      
-        <div class="resource">
-          <label>Keywords: </label>
-          <input type="text" class="inline-input medium-box flex flexshrink" name="system.techTags" value="{{system.techTags}}" data-dtype="String">
-        </div>
-      {{! Description of the technique's effects}}
-        <h2>Effect:</h2>
-        <div class="tab" data-group="primary">
-          {{! Editors must receive enriched text data from getData to properly handle rolls }}
-          {{editor
-            system.techEffect
-            target='system.techEffect'
-            engine='prosemirror'
-            button=true
-            editable=editable
-          }}
-        </div>
-
-      {{/if}}
+    {{! Facings }}
+      <div class='resource flexrow flex-group-center'>
+        {{#unless system.techFacing.none}}
+        <label class="flex flexshrink margin-3">Facing:</label>
+        <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.min' value="{{system.techFacing.min}}" data-dtype="Number">
+        <span class="flex flexshrink margin-3">-</span>
+        <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.max' value="{{system.techFacing.max}}" data-dtype="Number">
+        {{/unless}}
+        <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
+        <label class="rightside flex">No facings</label>
+      </div>
+    
+    {{!-- Keywords --}}
+      <div class="resource">
+        <label>Keywords: </label>
+        <input type="text" class="inline-input large-box flex flexshrink" name="system.techTags" value="{{system.techTags}}" data-dtype="String">
+      </div>
+    {{! Description of the technique's effects}}
+      <h2>Effect:</h2>
+      <div class="tab" data-group="primary">
+        {{! Editors must receive enriched text data from getData to properly handle rolls }}
+        {{editor
+          system.techEffect
+          target='system.techEffect'
+          engine='prosemirror'
+          button=true
+          editable=editable
+        }}
+      </div>
     </div>
+    {{/if}}
     {{/if}}
   </section>
 

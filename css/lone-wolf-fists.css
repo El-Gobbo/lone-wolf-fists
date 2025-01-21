@@ -468,6 +468,9 @@
 .lone-wolf-fists .armor-icon img {
   border: none;
 }
+.lone-wolf-fists .item-sheet-line {
+  margin-bottom: 5px;
+}
 .lone-wolf-fists .sheet-tabs {
   flex: 0;
 }
@@ -500,6 +503,13 @@
 }
 .lone-wolf-fists input {
   text-align: center;
+}
+.lone-wolf-fists input.left {
+  text-align: left;
+}
+.lone-wolf-fists textarea {
+  resize: none;
+  font-family: "Roboto", sans-serif;
 }
 .lone-wolf-fists .items-header {
   height: 25px;
