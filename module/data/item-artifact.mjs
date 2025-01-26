@@ -41,4 +41,9 @@ export default class lwfArtifact extends lwfTechnique {
     
     return schema;
   }
+
+  prepareDerivedData() {
+    this.techReqs = this.parent.name;
+
+  }
 }

@@ -10,6 +10,10 @@
   cursor: pointer;
 }
 
+.initiative-input {
+  color: white !important;
+}
+
 .grid,
 .grid-2col {
   display: grid;
@@ -93,6 +97,11 @@
 .grid-23col {
   grid-column: span 23/span 23;
   grid-template-columns: repeat(23, minmax(0, 1fr));
+}
+
+.grid-24col {
+  grid-column: span 24/span 24;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
 }
 
 .grid-close {
@@ -484,6 +493,9 @@
 }
 .lone-wolf-fists .tox .tox-edit-area {
   padding: 0 8px;
+}
+.lone-wolf-fists h4 {
+  margin: 0px;
 }
 .lone-wolf-fists .resource-label {
   font-weight: bold;

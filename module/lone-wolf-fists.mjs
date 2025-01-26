@@ -127,6 +127,54 @@ Hooks.once('ready', function () {
 /*  Initiative hooks                            */
 /* -------------------------------------------- */
 
+Hooks.on('renderCombatTracker', async (combatTracker, html, combatData) => {
+  console.log('active');
+  // Get a list of the elements that display initiative
+  const combatants = html.find('.combatant');
+
+  // For each of these elements
+  for(const fighterQuery of combatants) {
+    // Get the combatant from their userID
+    const combatantId = fighterQuery.dataset.combatantId;
+    const fighter = await game.combat.combatants.get(combatantId);
+
+    // If initiative hasn't been set, exit
+    if(fighter.initiative == null)
+      return;
+
+    // Find the initiative display
+    const initiativeDiv = fighterQuery.getElementsByClassName('token-initiative')[0];
+
+    // Remove the content of the initiative display
+    initiativeDiv.innerHTML = "";
+
+    // Create HTML for a new, editable input display
+    let input = document.createElement('input');
+    input.type = "number";
+    input.setAttribute('min', 0);
+    input.setAttribute('value', fighter.initiative);
+    input.setAttribute('class', 'initiative-input');
+    
+    // When the input is changed
+    input.addEventListener("change", async (e) => {
+      // Find the character's id
+      const playerId = e.target.closest('.combatant').dataset.combatantId;
+
+      // Get the character
+      const player = game.combat.combatants.get(playerId);
+
+      // Find the new initiative value
+      const newInit = e.target.value;
+
+      // Update the stored initiative value to match the input
+      player.update({["initiative"]: newInit});
+    })
+    // Add the html to the initiative display
+    initiativeDiv.appendChild(input);
+  }
+});
+
+// Re-roll initiative each round
 Hooks.on('preUpdateCombat', (combat, update, options, userID) => {
   // Check that the player in question is a gm - if they aren't, return
   const isGM = game.users.get(userID);
@@ -154,7 +202,7 @@ Hooks.on('updateCombat', async (combat, updateData, options, userID) => {
   // reroll initiative
   await combat.rollInitiative(combatantIDs);
 
-  // Make sure the turnn is set to 0
+  // Make sure the turn is set to 0
   await combat.update({["turn"]: 0})
 });
 
