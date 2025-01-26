@@ -124,6 +124,41 @@ Hooks.once('ready', function () {
 });
 
 /* -------------------------------------------- */
+/*  Initiative hooks                            */
+/* -------------------------------------------- */
+
+Hooks.on('preUpdateCombat', (combat, update, options, userID) => {
+  // Check that the player in question is a gm - if they aren't, return
+  const isGM = game.users.get(userID);
+  if(!isGM?.isGM)
+    return;
+
+  // Check that this update is creatingg a new round. If it isn't, return
+  // Check that the update is going to a higher-numbered round. If it isn't, return
+  if(update.round <= combat.round)
+    return;
+  
+  // If all these tests are passed, create the rerollInit property on options and set it to true
+  options.rerollInit = true;
+});
+
+Hooks.on('updateCombat', async (combat, updateData, options, userID) => {
+  // If rerollInit is absent or false, return
+  const rerollInit = options?.rerollInit;
+  if(!rerollInit)
+    return;
+  
+  // Create an iterable object of combatant IDs
+  const combatantIDs = combat.combatants.map(c => c.id);
+
+  // reroll initiative
+  await combat.rollInitiative(combatantIDs);
+
+  // Make sure the turnn is set to 0
+  await combat.update({["turn"]: 0})
+});
+
+/* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
 
