@@ -11,7 +11,7 @@
     <a class="item" data-tab="core">Core</a>
     {{#if isGM}}
     <a class="item" data-tab="edit">1. Set core stats</a>
-    <a class="item" data-tab="shakti">2. Shakti</a>
+    <a class="item" data-tab="shakti">2. Additional effects</a>
       {{#if system.hasTechnique}}
       <a class="item" data-tab="technique">3. Set technique</a>
       {{/if}}
@@ -82,7 +82,7 @@
     </div>
 
     {{#if isGM}}
-    {{!-- Attributes Tab --}}
+    {{!-- Set core stats Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="edit">
       <div class="resource">
         <label>Tier: </label>
@@ -175,6 +175,7 @@
         </div>
         {{#if system.chakra.hasChakra}}
         <div>
+          <label>Chakra: </label>
           <textarea name="system.chakra.description" rows="5">{{system.chakra.description}}</textarea>
         </div>
         {{/if}}
@@ -187,7 +188,7 @@
           <label>Soul: </label>
           <textarea name="system.soul.description" rows="2">{{system.soul.description}}</textarea>
           <label>Dharma: </label>
-          <input type="text" class="inline-input large-box flex flexshrink" name="system.soul.dharma" value="{{system.soul.dharma}}" data-dtype="String">
+          <input type="text" class="inline-input very-large-box flex flexshrink" name="system.soul.dharma" value="{{system.soul.dharma}}" data-dtype="String">
         </div>
         {{/if}}
       </div>

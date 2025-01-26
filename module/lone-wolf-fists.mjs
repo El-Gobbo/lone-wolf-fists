@@ -127,6 +127,7 @@ Hooks.once('ready', function () {
 /*  Initiative hooks                            */
 /* -------------------------------------------- */
 
+// Alllow initiative to be edited
 Hooks.on('renderCombatTracker', async (combatTracker, html, combatData) => {
   console.log('active');
   // Get a list of the elements that display initiative

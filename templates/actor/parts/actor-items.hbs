@@ -10,12 +10,12 @@
     <div class='item flexrow grid grid-5col grid-table' data-item-id='{{item._id}}'>
       <div class="item-name flex-group-center grid-span-2">
         <div class='item-image'>
-        <img
-          src='{{item.img}}'
-          title='{{item.name}}'
-          width='24'
-          height='24'
-        />
+          <img
+            src='{{item.img}}'
+            title='{{item.name}}'
+            width='24'
+            height='24'
+          />
         </div>
         <a
           class='item-control item-edit'
@@ -102,7 +102,6 @@
         data-type='item'
       >
         <i class='fas fa-plus'></i>
-        {{localize 'DOCUMENT.New' type='item'}}
       </a>
     </div>
   </div>
@@ -121,10 +120,10 @@
         </div>
         <h4>{{item.name}}</h4>
       </div>
-      <div class="flex-group-center" data-imbtype="size"></div>
+      <div class="flex-group-center" data-imbtype="size">
         <input class="item-choice" type="text" name="item.system.size" value="{{item.system.size}}" data-dtype="Number"/>
       </div>
-      <div class="flex-group-center" data-imbtype="quantity"></div>
+      <div class="flex-group-center" data-imbtype="quantity">
         <input class="item-choice" type="text" name="item.system.quantity" value="{{item.system.quantity}}" data-dtype="Number"/>
       </div>
       <div class='item-controls'>

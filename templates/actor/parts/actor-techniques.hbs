@@ -124,8 +124,8 @@
   </div>
   
   {{#unless (kalaOrForm system.techTableFocus)}}
-  <div class="item flexrow items-header grid grid-23col">
-    <div class="flex-group-center"></div>
+  <div class="item flexrow items-header grid grid-24col">
+    <div class="flex-group-center grid-span-2"></div>
     <div class="flex-group-center grid-span-7">Technique</div>
     <div class="flex-group-center grid-span-6">Requirements</div>
     <div class="flex-group-center grid-span-2">Cost</div>
@@ -146,21 +146,31 @@
     </div>
     {{/if}}
     {{/if}}
-    <div class='item flexrow grid grid-23col grid-table' data-item-id='{{item._id}}'>
-      <div class='item-image'>
-          <img
-            src='{{item.img}}'
-            title='{{item.name}}'
-            width='24'
-            height='24'
-          />
+    <div class='item flexrow grid grid-24col grid-table' data-item-id='{{item._id}}'>
+      <div class='item-image grid-span-2'>
+        <img
+          src='{{item.img}}'
+          {{#if (comparison item.type "artifact")}}
+          title='{{item.system.techniqueName}}'
+          {{else}}
+          title='{{item.name}}'
+          {{/if}}
+          width='24'
+          height='24'
+        />
       </div>
       <div class='item-name flex-group-center grid-span-7'>
         <a
           class='item-control item-edit'
           title='{{localize "DOCUMENT.Update" type='Item'}}'
         >
-        <h4>{{item.name}}</h4>
+        <h4>
+          {{#if (comparison item.type "artifact")}}
+          {{item.system.techniqueName}}
+          {{else}}
+          {{item.name}}
+          {{/if}}
+          </h4>
         </a>
       </div>
       <div class="item-requirements grid-span-6 flex-group-center">
@@ -194,6 +204,8 @@
   {{/each}}
   </div>
   {{/if}}
+
+  {{! Defenses table }}
   {{#if (equalOrAll system.techTableFocus "defenses")}}
   <div id="defenses" class="full-size techniqueTable items-list">
   {{#each techniques.defense as |item id|}}
@@ -204,11 +216,15 @@
     </div>
     {{/if}}
     {{/if}}
-    <div class='item flexrow grid grid-23col grid-table' data-item-id='{{item._id}}'>
-      <div class='item-image'>
+    <div class='item flexrow grid grid-24col grid-table' data-item-id='{{item._id}}'>
+      <div class='item-image grid-span-2'>
           <img
             src='{{item.img}}'
+            {{#if (comparison item.type "artifact")}}
+            title='{{item.system.techniqueName}}'
+            {{else}}
             title='{{item.name}}'
+            {{/if}}
             width='24'
             height='24'
           />
@@ -218,7 +234,13 @@
           class='item-control item-edit'
           title='{{localize "DOCUMENT.Update" type='Item'}}'
         >
-        <h4>{{item.name}}</h4>
+        <h4>
+          {{#if (comparison item.type "artifact")}}
+          {{item.system.techniqueName}}
+          {{else}}
+          {{item.name}}
+          {{/if}}
+          </h4>
         </a>
       </div>
       <div class="item-requirements grid-span-6 flex-group-center">
@@ -234,7 +256,7 @@
       </div>
 
       <div class="item-cost-facing grid-span-2 flex-group-center">
-        <h4>{{item.system.techFacing.min}} - {{item.system.techFacing.max}}</h4>
+        <h4>{{item.system.techFacing.min}}-{{item.system.techFacing.max}}</h4>
       </div>
 
       <div class="item-skill flex-group-center grid-span-2">
@@ -252,6 +274,8 @@
   {{/each}}
   </div>
   {{/if}}
+
+  {{! Balance Table }}
   {{#if (equalOrAll system.techTableFocus "balance")}}
   <div id="balance" class="full-size techniqueTable items-list">
   {{#each techniques.balance as |item id|}}
@@ -262,21 +286,31 @@
     </div>
     {{/if}}
     {{/if}}
-    <div class='item flexrow grid grid-23col grid-table' data-item-id='{{item._id}}'>
-      <div class='item-image'>
-          <img
-            src='{{item.img}}'
-            title='{{item.name}}'
-            width='24'
-            height='24'
-          />
+    <div class='item flexrow grid grid-24col grid-table' data-item-id='{{item._id}}'>
+      <div class='item-image grid-span-2'>
+        <img
+          src='{{item.img}}'
+          {{#if (comparison item.type "artifact")}}
+          title='{{item.system.techniqueName}}'
+          {{else}}
+          title='{{item.name}}'
+          {{/if}}
+          width='24'
+          height='24'
+        />
       </div>
       <div class='item-name flex-group-center grid-span-7'>
         <a
           class='item-control item-edit'
           title='{{localize "DOCUMENT.Update" type='Item'}}'
         >
-        <h4>{{item.name}}</h4>
+        <h4>
+          {{#if (comparison item.type "artifact")}}
+          {{item.system.techniqueName}}
+          {{else}}
+          {{item.name}}
+          {{/if}}
+          </h4>
         </a>
       </div>
       <div class="item-requirements grid-span-6 flex-group-center">
@@ -292,7 +326,7 @@
       </div>
 
       <div class="item-cost-facing grid-span-2 flex-group-center">
-        <h4>{{item.system.techFacing.min}} - {{item.system.techFacing.max}}</h4>
+        <h4>{{item.system.techFacing.min}}-{{item.system.techFacing.max}}</h4>
       </div>
 
       <div class="item-skill flex-group-center grid-span-2">
@@ -310,6 +344,8 @@
   {{/each}}
   </div>
   {{/if}}
+
+  {{! Mudra table }}
   {{#if (equalOrAll system.techTableFocus "mudra")}}
   <div id="mudra" class="full-size techniqueTable items-list">
   {{#each techniques.mudra as |item id|}}
@@ -320,21 +356,31 @@
     </div>
     {{/if}}
     {{/if}}
-    <div class='item flexrow grid grid-23col grid-table' data-item-id='{{item._id}}'>
-      <div class='item-image'>
-          <img
-            src='{{item.img}}'
-            title='{{item.name}}'
-            width='24'
-            height='24'
-          />
+    <div class='item flexrow grid grid-24col grid-table' data-item-id='{{item._id}}'>
+      <div class='item-image grid-span-2'>
+        <img
+          src='{{item.img}}'
+          {{#if (comparison item.type "artifact")}}
+          title='{{item.system.techniqueName}}'
+          {{else}}
+          title='{{item.name}}'
+          {{/if}}
+          width='24'
+          height='24'
+        />
       </div>
       <div class='item-name flex-group-center grid-span-7'>
         <a
           class='item-control item-edit'
           title='{{localize "DOCUMENT.Update" type='Item'}}'
         >
-        <h4>{{item.name}}</h4>
+        <h4>
+          {{#if (comparison item.type "artifact")}}
+          {{item.system.techniqueName}}
+          {{else}}
+          {{item.name}}
+          {{/if}}
+          </h4>
         </a>
       </div>
       <div class="item-requirements grid-span-6 flex-group-center">
@@ -350,7 +396,7 @@
       </div>
 
       <div class="item-cost-facing grid-span-2 flex-group-center">
-        <h4>{{item.system.techFacing.min}} - {{item.system.techFacing.max}}</h4>
+        <h4>{{item.system.techFacing.min}}-{{item.system.techFacing.max}}</h4>
       </div>
 
       <div class="item-skill flex-group-center grid-span-2">
