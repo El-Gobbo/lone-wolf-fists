@@ -1,6 +1,7 @@
 // Import document classes.
 import { lwfActor } from './documents/actor.mjs';
 import { lwfItem } from './documents/item.mjs';
+import { lwfCombatant } from './documents/combatant.mjs';
 // Import sheet classes.
 import { lwfActorSheet } from './sheets/actor-sheet.mjs';
 import { lwfItemSheet } from './sheets/item-sheet.mjs';
@@ -44,6 +45,9 @@ Hooks.once('init', function () {
     monster: models.lwfMonster,
     squad: models.lwfSquad
   }
+
+  CONFIG.Combatant.documentClass = lwfCombatant;
+
   CONFIG.Item.documentClass = lwfItem;
   CONFIG.Item.dataModels = {
     item: models.lwfItem,
