@@ -9,6 +9,7 @@ import { lwfItemSheet } from './sheets/item-sheet.mjs';
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
+import { extractDiceNumber, effortRoll } from './helpers/dice-roll.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -119,6 +120,29 @@ Handlebars.registerHelper('lookup', function (obj, key) {
 });
 
 /* -------------------------------------------- */
+/*  Dice rolling                                */
+/* -------------------------------------------- */
+
+// Accept input from chat to trigger roll
+Hooks.on('chatMessage', (_, messageText, data) => {
+  if (messageText !== undefined && messageText.startsWith(`/effort`)) {
+    extractDiceNumber(messageText, data)
+    return false
+  } else {
+    return true
+  }
+})
+
+// Dashed outline of sets when clicked
+Hooks.on('renderChatLog', () => {
+  $('#chat-log').on('click', '.dice-set', (ev) => {
+    const targetDiv = ev.currentTarget;
+    targetDiv.classList.toggle('selected-set')
+  })
+})
+
+
+/* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
@@ -127,13 +151,13 @@ Hooks.once('ready', function () {
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
 });
 
+
 /* -------------------------------------------- */
 /*  Initiative hooks                            */
 /* -------------------------------------------- */
 
 // Alllow initiative to be edited
 Hooks.on('renderCombatTracker', async (combatTracker, html, combatData) => {
-  console.log('active');
   // Get a list of the elements that display initiative
   const combatants = html.find('.combatant');
 

@@ -17,7 +17,10 @@ export default class lwfActorBase extends lwfDataModel {
     });
     schema.armor = new fields.NumberField({ ...requiredInteger, initial: 0});
     schema.biography = new fields.StringField({ required: true, blank: true }); // equivalent to passing ({initial: ""}) for StringFields
-
+    schema.initiative = new fields.SchemaField({
+      advantage: new fields.BooleanField({ required: true, initial: false }),
+      modifiers: new fields.StringField({ required: true, initial: "" }),
+    })
     return schema;
   }
 

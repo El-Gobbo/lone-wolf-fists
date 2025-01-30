@@ -7,6 +7,8 @@ import { LWFIMBALANCES } from '../helpers/imbalance-config.mjs';
 import { LWFSKILLS } from '../helpers/skills.mjs';
 import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
 
+import { effortRoll } from '../helpers/dice-roll.mjs';
+
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -283,6 +285,13 @@ export class lwfActorSheet extends ActorSheet {
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
+
+    // Roll effort when effort clicked
+    html.on('click', '#effort', (ev) => {
+      const data = { "speaker": { "actor": this.actor.id } };
+      const diceNumber = this.system.actor.power.value;
+      effortRoll(diceNumber, data)
+    });
 
     // Change imbalance data when the data is altered on the sheet
     html.on('change', '.item-choice', (ev) =>{

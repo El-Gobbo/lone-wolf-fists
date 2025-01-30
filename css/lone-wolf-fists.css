@@ -14,6 +14,20 @@
   color: white !important;
 }
 
+.inline-grid {
+  display: inline-grid;
+  box-sizing: border-box;
+}
+.inline-grid .individual-dice {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.selected-set {
+  outline-style: solid;
+}
+
 .grid,
 .grid-2col {
   display: grid;
@@ -311,6 +325,9 @@
 }
 .lone-wolf-fists #archName {
   flex: 2;
+}
+.lone-wolf-fists #effort {
+  cursor: pointer;
 }
 .lone-wolf-fists .indented-element {
   border: 1px solid #6e6d63;

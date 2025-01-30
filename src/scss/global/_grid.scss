@@ -1,4 +1,19 @@
 // Grid.
+.inline-grid {
+  display: inline-grid;
+  box-sizing: border-box;
+
+  .individual-dice {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+  }
+}
+
+.selected-set {
+  outline-style: solid;
+}
+
 .grid,
 .grid-2col {
   display: grid;

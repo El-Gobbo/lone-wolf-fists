@@ -2,4 +2,5 @@ Need to flesh out credits for:
 - Boilerplate
 - Combat tracker extensions for editable initiative
 - Combat utiity belt for initiative reroll
+- One roll engine for the way to display the dice
 - game-icons for the icons

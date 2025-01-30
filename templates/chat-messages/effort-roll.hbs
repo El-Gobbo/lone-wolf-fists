@@ -1,0 +1,11 @@
+<div>
+    {{#each sets}}
+    <div id="dice-set-{{this}}" class="inline-grid dice-set" data-facing="{{this}}">
+        {{#each this}}
+        <div class="individual-dice">
+            {{this}}
+        </div>
+        {{/each}}
+    </div>
+    {{/each}}
+</div>
