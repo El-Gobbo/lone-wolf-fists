@@ -289,7 +289,7 @@ export class lwfActorSheet extends ActorSheet {
     // Roll effort when effort clicked
     html.on('click', '#effort', (ev) => {
       const data = { "speaker": { "actor": this.actor.id } };
-      const diceNumber = this.system.actor.power.value;
+      const diceNumber = this.actor.system.power.value;
       effortRoll(diceNumber, data)
     });
 

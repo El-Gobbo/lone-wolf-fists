@@ -82,10 +82,10 @@
           </div>
         </div>
         <div class="grid grid-2col">
-          <div id="effort" class="resource flex-group-center">
+          <div id="effort" class="resource flex-group-center flex-column">
             <label for="system.power.value" class="resource-label">Effort</label>
-            <div class="stat-input">
-              <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number" readonly/>
+            <div id="effort-display" class="stat-input flex-group-center flex">
+              <h4>{{system.power.value}}</h4>
             </div>
           </div>
           <div id="effortless" class="resource flex-group-center">

@@ -1,0 +1,21 @@
+// Grid.
+.inline-grid {
+  display: inline-grid;
+  box-sizing: border-box;
+
+  .individual-dice {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+  }
+}
+
+.selected-set {
+  outline-style: solid;
+}
+
+.dice-image {
+  border: none;
+  height: 30px;
+  width: 30px;
+}

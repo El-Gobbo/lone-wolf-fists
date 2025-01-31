@@ -123,6 +123,10 @@ Handlebars.registerHelper('lookup', function (obj, key) {
 /*  Dice rolling                                */
 /* -------------------------------------------- */
 
+Hooks.on('endCombat', () => {
+  console.log('test')
+})
+
 // Accept input from chat to trigger roll
 Hooks.on('chatMessage', (_, messageText, data) => {
   if (messageText !== undefined && messageText.startsWith(`/effort`)) {

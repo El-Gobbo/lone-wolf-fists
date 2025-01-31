@@ -31,8 +31,21 @@ table {
   flex: 2;
 }
 
-#effort {
+#effort-display {
   cursor: pointer;
+  background-image: url("../assets/dice/d10-default.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+}
+
+#effort-display:hover {
+  background-image: url("../assets/dice/d10-hover.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .indented-element {
@@ -186,10 +199,6 @@ table {
     margin-bottom: 3px;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .stat-input {
-    flex: 0 0 25px;
   }
 
   .profile-img {

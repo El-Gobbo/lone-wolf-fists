@@ -14,20 +14,6 @@
   color: white !important;
 }
 
-.inline-grid {
-  display: inline-grid;
-  box-sizing: border-box;
-}
-.inline-grid .individual-dice {
-  height: 40px;
-  width: 40px;
-  cursor: pointer;
-}
-
-.selected-set {
-  outline-style: solid;
-}
-
 .grid,
 .grid-2col {
   display: grid;
@@ -299,6 +285,26 @@
   text-align: center;
 }
 
+.inline-grid {
+  display: inline-grid;
+  box-sizing: border-box;
+}
+.inline-grid .individual-dice {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.selected-set {
+  outline-style: solid;
+}
+
+.dice-image {
+  border: none;
+  height: 30px;
+  width: 30px;
+}
+
 /* Styles limited to lone-wolf-fists sheets */
 .lone-wolf-fists table {
   table-layout: fixed;
@@ -326,8 +332,20 @@
 .lone-wolf-fists #archName {
   flex: 2;
 }
-.lone-wolf-fists #effort {
+.lone-wolf-fists #effort-display {
   cursor: pointer;
+  background-image: url("../assets/dice/d10-default.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+}
+.lone-wolf-fists #effort-display:hover {
+  background-image: url("../assets/dice/d10-hover.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .lone-wolf-fists .indented-element {
   border: 1px solid #6e6d63;
@@ -454,9 +472,6 @@
   margin-bottom: 3px;
   justify-content: space-between;
   align-items: center;
-}
-.lone-wolf-fists .sheet-top .stat-input {
-  flex: 0 0 25px;
 }
 .lone-wolf-fists .sheet-top .profile-img {
   flex: 0 0 100px;
