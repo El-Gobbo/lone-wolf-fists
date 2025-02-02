@@ -33,7 +33,7 @@
       <li class="resource flex-group-center flex-column">
         <label for="system.chakras.active" class="resource-label">Chakras</label>
         <div class="active-chakras small-box">
-          <input type="number" class="full-size" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number"/>
+          <input id="chakra-display" type="number" class="full-size" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number" readonly/>
           {{#if inCombat}}
           {{#unless (comparison system.chakras.active 7)}}
           <img

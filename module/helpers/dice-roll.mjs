@@ -34,10 +34,14 @@ export async function effortRoll(diceNumber, data) {
 
 export async function extractDiceNumber(message, data) {
   let command = message.split(" ");
-  if(Number(command[1]) === NaN)
-    //TODO: create proper error message, using htm in the command:
-    // ui.notifications.error(html)
+  if(Number(command[1]) === NaN) {
+    ui.notifications.error(
+      `<div>Your command could not be parsed:</div>
+      <div>${message}</div>
+      <div>Rolls should look like: /effort 7</div>`
+    )
     return;
+  }
   
   await effortRoll(command[1], data)
   return null;

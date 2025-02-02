@@ -1,3 +1,8 @@
-2025/01/19-19:39:52.045 a6f0 Recovering log #234
-2025/01/19-19:39:52.056 a6f0 Delete type=0 #234
-2025/01/19-19:39:52.056 a6f0 Delete type=3 #233
+2025/02/02-09:26:39.329 20cc Recovering log #276
+2025/02/02-09:26:39.360 20cc Delete type=0 #276
+2025/02/02-09:26:39.369 20cc Delete type=3 #275
+2025/02/02-09:29:02.043 4ea4 Level-0 table #280: started
+2025/02/02-09:29:02.043 4ea4 Level-0 table #280: 0 bytes OK
+2025/02/02-09:29:02.054 4ea4 Delete type=0 #278
+2025/02/02-09:29:02.081 4ea4 Manual compaction at level-0 from '!items!RmcMamwZMCPKGfMR' @ 72057594037927935 : 1 .. '!items.effects!ef18myu1JjlUzv3I.hPede2HWGwC82D7v' @ 0 : 0; will stop at (end)
+2025/02/02-09:29:02.081 4ea4 Manual compaction at level-1 from '!items!RmcMamwZMCPKGfMR' @ 72057594037927935 : 1 .. '!items.effects!ef18myu1JjlUzv3I.hPede2HWGwC82D7v' @ 0 : 0; will stop at (end)

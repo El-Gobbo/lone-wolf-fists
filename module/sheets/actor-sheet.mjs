@@ -56,7 +56,7 @@ export class lwfActorSheet extends ActorSheet {
     context.config = CONFIG.LWFIMBALANCES;
 
     // Prepare character data and items.
-    if (actorData.type == 'character') {
+    if (actorData.type == 'character' || actorData.type == 'monster') {
       this._prepareItems(context);
       this._prepareCharacterData(context);
     }
@@ -236,6 +236,22 @@ export class lwfActorSheet extends ActorSheet {
     context.imbalances = imbalances;
     context.clan = clan;
     context.form = form;
+    context.skill = skills;
+
+    if(this.actor.type == 'character')
+      this._prepareSkills(context);
+    return context;
+  }
+
+    /**
+   * Further organise skills for Character sheets.
+   *
+   * @param {object} context The context object to mutate
+   */
+
+  /* -------------------------------------------- */
+
+  _prepareSkills(context) {
     let present = [];
     let absent = [];
 
@@ -244,19 +260,19 @@ export class lwfActorSheet extends ActorSheet {
     // TODO: make the datamodel passed to the sheet much simpler
     for(let i in LWFSKILLS) {
       let skill = LWFSKILLS[i].concat(" Mastery");
-      let index = skills.findIndex((temp) => temp["name"] === skill);
+      let index = context.skill.findIndex((temp) => temp["name"] === skill);
       if(index >= 0) {
-        let add = skills[index];
+        let add = context.skill[index];
         present.push(add);
       }
       else {
-        index = skills.findIndex((temp) => temp["name"] === LWFSKILLS[i]);
-        let add = skills[index];
+        index = context.skill.findIndex((temp) => temp["name"] === LWFSKILLS[i]);
+        let add = context.skill[index];
         absent.push(add);
       }
     }
 
-    context.skill = skills;
+
     context.skill.mastered = present;
     context.skill.unmastered = absent;
     
@@ -266,10 +282,9 @@ export class lwfActorSheet extends ActorSheet {
     if(context.skill.difference > 0){
       context.skill.missing = true;
     }
+
     return context;
   }
-
-  /* -------------------------------------------- */
 
   /** @override */
   activateListeners(html) {

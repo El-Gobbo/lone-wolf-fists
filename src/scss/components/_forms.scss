@@ -101,12 +101,18 @@ position: relative;
   }
 }
 
-#cultural-landmark {
-  font-size: 16px;
+.settings-button {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 #degree {
   font-size: 20px;
+}
+
+#cultural-landmark {
+  font-size: 16px;
 }
 
 .imbalance {
@@ -302,6 +308,11 @@ position: relative;
     top: 10px;
     left: 0px;
     text-align: center;
+  }
+
+  &.monster-sheet {
+    width: 50px;
+    height: 50px;
   }
 
   img {

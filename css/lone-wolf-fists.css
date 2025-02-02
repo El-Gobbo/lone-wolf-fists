@@ -14,6 +14,10 @@
   cursor: pointer;
 }
 
+.position-relative {
+  position: relative;
+}
+
 .initiative-input {
   color: white !important;
 }
@@ -424,11 +428,16 @@
 .lone-wolf-fists .rest-container #rest-button:hover {
   background-image: url("../assets/rest/night-sleep-hover.svg");
 }
-.lone-wolf-fists #cultural-landmark {
-  font-size: 16px;
+.lone-wolf-fists .settings-button {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 .lone-wolf-fists #degree {
   font-size: 20px;
+}
+.lone-wolf-fists #cultural-landmark {
+  font-size: 16px;
 }
 .lone-wolf-fists .imbalance input,
 .lone-wolf-fists .imbalance select {
@@ -587,6 +596,10 @@
   top: 10px;
   left: 0px;
   text-align: center;
+}
+.lone-wolf-fists .armor-icon.monster-sheet {
+  width: 50px;
+  height: 50px;
 }
 .lone-wolf-fists .armor-icon img {
   border: none;
