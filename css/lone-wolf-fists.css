@@ -357,6 +357,12 @@
 .lone-wolf-fists .item-form {
   font-family: "Alley-Oop", "Roboto", sans-serif;
 }
+.lone-wolf-fists .edit-container {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
 .lone-wolf-fists .imb-main {
   display: flex;
   flex-direction: row;
@@ -598,11 +604,15 @@
   text-align: center;
 }
 .lone-wolf-fists .armor-icon.monster-sheet {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 .lone-wolf-fists .armor-icon img {
   border: none;
+}
+.lone-wolf-fists .damage.monster-sheet {
+  align-items: flex-end;
+  flex-grow: 0;
 }
 .lone-wolf-fists .item-sheet-line {
   margin-bottom: 5px;

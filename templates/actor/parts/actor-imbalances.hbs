@@ -1,24 +1,22 @@
-<div class="grid grid-4col">
-  <div>Hell</div>
 <div class="imbmain-body grid-span-3">
   <div class="items-list full-size">
-    <div id="imbalance-header" class="item flexrow items-header grid grid-12col">
-      <div class="flex-group-center grid-span-3">Imbalance</div>
-      <div class="flex-group-center grid-span-2">Type</div>
-      <div class="flex-group-center grid-span-2">Target</div>
-      <div class="flex-group-center grid-span-2">Stat</div>
-      <div class="flex-group-center">Rank</div>
-      <div class="flex-group-center">Agg</div>
-      <div class='item-controls flex-group-center'>
-          <a
-            class='item-control item-create'
-            title='Create item'
-            data-type='imbalance'
-          >
-            <i class='fas fa-plus'></i>
-          </a>
-      </div>
+  <div id="imbalance-header" class="item flexrow items-header grid grid-12col">
+    <div class="flex-group-center grid-span-3">Imbalance</div>
+    <div class="flex-group-center grid-span-2">Type</div>
+    <div class="flex-group-center grid-span-2">Target</div>
+    <div class="flex-group-center grid-span-2">Stat</div>
+    <div class="flex-group-center">Rank</div>
+    <div class="flex-group-center">Agg</div>
+    <div class='item-controls flex-group-center'>
+        <a
+          class='item-control item-create'
+          title='Create item'
+          data-type='imbalance'
+        >
+          <i class='fas fa-plus'></i>
+        </a>
     </div>
+  </div>
 
   {{#each imbalances as |item id|}}
   <div class='item flexrow grid grid-12col grid-table imbalance' data-item-id='{{item._id}}'>
@@ -83,6 +81,5 @@
       </div>
   </div>
   {{/each}}
-</div>
 </div>
 </div>

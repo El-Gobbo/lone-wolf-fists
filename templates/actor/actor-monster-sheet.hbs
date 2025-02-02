@@ -90,11 +90,11 @@
         </div>
       </div>
     </div>
-    <div class="header-fields position-relative">
+    <div class="header-fields position-relative flex-column">
       <div class="title">
         <h1 id="name" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
       </div>
-      <div class="damage resources flexrow">
+      <div class="damage resources flexrow monster-sheet">
         <div id="health" class="flex-4 resource flex-group-center inner-margin">
           <div class="flex-4">
             <label for="health-current" class="resource-label">Health</label>
@@ -118,15 +118,17 @@
                   class="full-size"
                   src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
                   title='Armor symbol'
-                  width='50'
-                  height='50'
+                  width='40'
+                  height='40'
                 />
                 <h4 class="armor-value full-size">{{armorValue}}</h4>
               </div>
             </div>
         </div>
       </div>
-      <i class="fa-solid fa-gear fa-2x settings-button"></i>
+      <div class="full-size edit-container">
+      <i class="fa-solid fa-gear">Edit mode</i>
+      </div>
     </div>
   </header>
 
