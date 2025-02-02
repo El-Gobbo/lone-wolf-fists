@@ -438,14 +438,6 @@ export class lwfActorSheet extends ActorSheet {
       this.actor.update({['system.chakras.active']: newActive, ['system.prana.current']: increase});
     })
 
-    // Reduce prana to normal levels
-    html.on('click', '#end-combat', async () => {
-      let newActive = this.actor.system.chakras.value;
-      let reset = this.actor.system.pool.value * newActive;
-      let aura = this.actor.system.aura.max;
-      this.actor.update({['system.chakras.active']: newActive, ['system.prana.current']: reset, ['system.aura.current']: aura});
-    })
-
     html.on('change', '.techniqueDisplay', (ev) => {
       let tables = $('.techniqueTable');
       let update = $(ev.currentTarget)[0].value;
@@ -458,6 +450,11 @@ export class lwfActorSheet extends ActorSheet {
         $('#all').show();
         $(target).show();
       };*/
+    })
+
+    html.on('click', '#edit-mode', (ev) => {
+      const editMode = !this.actor.system.editMode
+      this.actor.update({[ 'system.editMode' ]: editMode})
     })
 
     // Add Inventory Item

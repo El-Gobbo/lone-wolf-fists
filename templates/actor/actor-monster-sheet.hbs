@@ -83,10 +83,14 @@
       <img class="profile-img flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120"/>
       <div class="resources">
         <div id="effort" class="resource flex-group-center flex-column">
-          <label for="system.power.value" class="resource-label">Ferocity</label>
+          <label for="power-input" class="resource-label">Ferocity</label>
+          {{#if system.editMode}}
+          <input id="power-input" class="small-box" type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number">
+          {{else}}
           <div id="effort-display" class="flex-group-center flex">
-            <h4><strong>{{system.power.value}}</strong></h4>
+            <h4 id="power-input"><strong>{{system.power.value}}</strong></h4>
           </div>
+          {{/if}}
         </div>
       </div>
     </div>
@@ -113,6 +117,9 @@
         <div class="flex-2 resource-content flex-group-center flex-between inner-margin">
           <label for="system.armorValue" class="resource-label">Armor</label>
             <div class="flex-group-center flex">
+              {{#if system.editMode}}
+              <input id="power-input" class="small-box" type="text" name="system.armorValue" value="{{system.armorValue}}" data-dtype="Number">
+              {{else}}
               <div class="armor-icon monster-sheet flex flex-group-center">
                 <img
                   class="full-size"
@@ -123,11 +130,16 @@
                 />
                 <h4 class="armor-value full-size">{{armorValue}}</h4>
               </div>
+              {{/if}}
             </div>
         </div>
       </div>
       <div class="full-size edit-container">
-      <i class="fa-solid fa-gear">Edit mode</i>
+      {{#if system.editMode}}
+      <i id="edit-mode" class="fa-solid fa-gear">Play</i>
+      {{else}}
+      <i id="edit-mode" class="fa-solid fa-gear">Edit</i>
+      {{/if}}
       </div>
     </div>
   </header>
