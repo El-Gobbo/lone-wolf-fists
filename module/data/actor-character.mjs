@@ -122,6 +122,7 @@ export default class lwfCharacter extends lwfWeaponUser {
     // If too few chakras are active, activate up to the minimum
     if(this.chakras.active < this.chakras.value)
       this.chakras.active = this.chakras.value;
+
     // calculate max health and aura from health and aura levels respectively
     this.health.max = this.health.value * 10;
     if(this.health.max < this.health.current)
@@ -130,13 +131,16 @@ export default class lwfCharacter extends lwfWeaponUser {
     if(this.aura.max < this.aura.current)
       this.aura.current = this.aura.max;
     this.pool.recovery = this.pool.value * 2;
-    this.prana.gen.outOfCombat = this.pool.value * this.chakras.active;
-    this.prana.gen.inCombat = this.pool.recovery * this.chakras.active;
 
     if(!this.parent.inCombat){
+      this.chakras.active = this.chakras.value;
+      this.prana.gen.outOfCombat = this.pool.value * this.chakras.active;
       this.prana.current = this.prana.gen.outOfCombat;
     }
+    else
+      this.prana.gen.outOfCombat = this.pool.value * this.chakras.active;
 
+    this.prana.gen.inCombat = this.pool.recovery * this.chakras.active;
     let clan = this.clan;
     if (!(clan in LWFCLAN))
       return;

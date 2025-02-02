@@ -318,6 +318,39 @@ export class lwfActorSheet extends ActorSheet {
         item.update({ [`system.${target}`]: update});
     })
 
+    html.on('click', '#rest-button', async () => {
+      const restHTML = await renderTemplate('systems/lone-wolf-fists/templates/popups/popup-rest.hbs');
+      const restData = await Dialog.wait({
+        title: "How long would you like to rest?",
+        content: restHTML,
+        buttons:{
+          submit: {
+            label: "Rest",
+            callback: (html) => {
+              const formElement = html[0].querySelector('form');
+              const formData = new FormDataExtended(formElement);
+              return formData.object;
+            }
+          }
+        }
+      });
+
+      if(isNaN(parseInt(restData["hours-rested"]))){
+        const errorHtml = "<div>Hours rested must be a whole number</div>";
+        ui.notifications.error(errorHtml);
+        return;
+      }
+      if(restData["full-rest"] === "true"){
+        this.actor.update({[ `system.health.current` ]: this.actor.system.health.max })
+        return;
+      }
+      else {
+        const rolls = await new Roll(`${restData["hours-rested"]}d10`).evaluate();
+        const newHealth = rolls._total + this.actor.system.health.current;
+        this.actor.update({[ `system.health.current` ]: newHealth})
+      }
+    })
+
     html.on('click', '.chakra-image',  (ev) => {
       // Find the chakra type
       const chakra = ev.currentTarget.parentElement.dataset.imbtype;

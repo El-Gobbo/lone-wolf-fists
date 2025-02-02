@@ -9,6 +9,7 @@ export default class lwfWeapon extends lwfItemBase {
 
     schema.tag1 = new StringField({initial: "Balanced"});
     schema.tag2 = new StringField({initial: "Balanced"});
+    schema.held = new StringField({initial: false});
     schema.unique = new BooleanField({initial: false});
     schema.unorthodox = new BooleanField({initial: false});
     schema.size = new NumberField({ ...requiredInteger, initial: 0});

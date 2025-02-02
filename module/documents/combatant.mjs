@@ -12,23 +12,6 @@ export class lwfCombatant extends Combatant {
     super.prepareData();
   }
 
-  /** @override */
-  prepareBaseData() {
-    // Data modifications in this step occur before processing embedded
-    // documents or derived data.
-  }
-
-  /**
-   * @override
-   * Augment the actor source data with additional dynamic data that isn't 
-   * handled by the actor's DataModel. Data calculated in this step should be
-   * available both inside and outside of character sheets (such as if an actor
-   * is queried and has a roll executed directly from it).
-   */
-  prepareDerivedData() {
-
-  }
-
   getInitiativeRoll(){
     let dice;
     const rollData = this.actor?.getRollData() || {};
