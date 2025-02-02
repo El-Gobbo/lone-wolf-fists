@@ -6,11 +6,16 @@
     <ol class='items-list full-size'>
       <li class="prana resources">
         <div class="resource flex-group-center">
+          {{#if inCombat}}
+          <div>
+            <button type="button" id="prana-flare">Prana Flare</button>
+          </div>
+          {{/if}}
           <label for="system.prana.current" class="resource-label">Prana</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input {{#unless inCombat}} class="active-prana-gen stat-input" {{else}} class="prana-gen stat-input" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
+            <input {{#unless inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
             <input type="text" class="flex-2" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
-            <input {{#if inCombat}} class="active-prana-gen stat-input" {{else}} class="prana-gen stat-input" {{/if}} type="text" name="system.prana.gen.inCombat" value="{{system.prana.gen.inCombat}}" data-dtype="Number" disabled/>
+            <input {{#if inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/if}} type="text" name="system.prana.gen.inCombat" value="{{system.prana.gen.inCombat}}" data-dtype="Number" disabled/>
           </div>
         </div>
         <div class="grid grid-2col grid-close">
@@ -19,7 +24,7 @@
             <input type="text" name="system.pool.value" value="{{system.pool.value}}" readonly disabled data-dtype="Number"/>
           </div>
           <div class="resource flex-group-center">
-            <label for="system.pool.recovery" class="pool-label">Recovery</label>
+            <label for="system.pool.recovery" class="pool-label">Recover</label>
             <input type="text" name="system.pool.recovery" value="{{system.pool.recovery}}" readonly disabled data-dtype="Number"/>
           </div>
         </div>
@@ -29,6 +34,8 @@
         <label for="system.chakras.active" class="resource-label">Chakras</label>
         <div class="active-chakras small-box">
           <input type="number" class="full-size" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number"/>
+          {{#if inCombat}}
+          {{#unless (comparison system.chakras.active 7)}}
           <img
             class="chakra-increase"
             src="systems/lone-wolf-fists/assets/arrup.png"
@@ -36,6 +43,8 @@
             width='10'
             height='10'
           />
+          {{/unless}}
+          {{#unless (comparison system.chakras.active system.chakras.value)}}
           <img
             class="chakra-decrease"
             src="systems/lone-wolf-fists/assets/arrdown.png"
@@ -43,6 +52,8 @@
             width='10'
             height='10'
           />
+          {{/unless}}
+          {{/if}}
         </div>
       </li>
     {{#each chakras as | skill | }}
@@ -77,20 +88,20 @@
       <div class="resources">
         <div id="degree" class="resource flex-group-center">
           <label for="system.degree.value" class="resource-label">Degree</label>
-          <div class="stat-input">
-            <input type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>
+          <div class="">
+            <input id="degree-input" class="small-box" type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>
           </div>
         </div>
         <div class="grid grid-2col">
           <div id="effort" class="resource flex-group-center flex-column">
             <label for="system.power.value" class="resource-label">Effort</label>
-            <div id="effort-display" class="stat-input flex-group-center flex">
-              <h4>{{system.power.value}}</h4>
+            <div id="effort-display" class="flex-group-center flex">
+              <h4><strong>{{system.power.value}}</strong></h4>
             </div>
           </div>
           <div id="effortless" class="resource flex-group-center">
             <label for="system.effortless.value" class="resource-label">E-less</label>
-            <div class="stat-input">
+            <div class="">
               <input type="text" name="effortless" value="Rank {{system.effortless.value}}" data-dtype="String" readonly/>
             </div>
           </div>
@@ -103,25 +114,31 @@
         <h1 id="archName" class="charname grid-span-3"><input name="system.archetype" type="text" value="{{system.archetype}}" placeholder="Archetype" readonly disabled></h1>
         <h1 id="clanName" class="charname grid-span-8"><input name="system.clan" type="text" value="{{system.clan}}" placeholder="Clan"></h1>
       </div>
-      <div class="flex-5">
+      <div class="flex-5 tall-box flex-column">
         <div class="damage resources flexrow">
-          <div id="health" class="resource flex-group-center inner-margin">
-            <label for="system.health.current" class="resource-label">Health</label>
-            <div class="resource-content max-min flexrow flex-group-center">
-            <input type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
-            <span><strong>/</strong></span>
-            <input type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
+          <div id="health" class="flex-4 resource flex-group-center inner-margin">
+            <div class="flex-4">
+              <label for="system.health.current" class="resource-label">Health</label>
+              <div id="health" class="resource-content max-min flexrow flex-group-center">
+                <input id="health-current" class="stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+                <input id="health-max" class="stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
+              </div>
             </div>
           </div>
-          <div class="resource flex-group-center inner-margin">
+          <div class="rest-container flex flex-group-center">
+            <div id="rest-button" class=" flex-group-center flexshrink" title="Rest and recover health">
+            </div>
+          </div>
+          <div class="flex-4 resource flex-group-center inner-margin">
+            <div>
             <label for="system.aura.current" class="resource-label">Aura</label>
-            <div class="resource-content max-min flexrow flex-group-center">
-              <input type="text" name="system.aura.current" value="{{system.aura.current}}" data-dtype="Number"/>
-              <span><strong>/</strong></span>
-              <input type="text" name="system.aura.max" value="{{system.aura.max}}" readonly disabled data-dtype="Number"/>
+              <div id="aura" class="resource-content max-min flexrow flex-group-center">
+                <input id="aura-current" class="stat-current" type="text" name="system.aura.current" value="{{system.aura.current}}" data-dtype="Number"/>
+                <input id="aura-max" class="stat-max" type="text" name="system.aura.max" value="{{system.aura.max}}" readonly disabled data-dtype="Number"/>
+              </div>
             </div>
           </div>
-          <div class="resource-content flex-group-center flex-between inner-margin">
+          <div class="flex-2 resource-content flex-group-center flex-between inner-margin">
             <label for="system.armorValue" class="resource-label">Armor</label>
               <div class="flex-group-center flex">
                 <div class="armor-icon flex flex-group-center">
@@ -203,47 +220,47 @@
   {{/if}}
   </div>
   <div class="sidebar">
-  <ol class='items-list full-size'>
-  {{#each skill.mastered as | skill |}}
-  <li class='item flex-group-center' data-item-id="{{skill._id}}">
-    <div class='item-image'>
-        <a
-          class='item-control item-edit'
-          title='{{localize "DOCUMENT.Update" type='Item'}}'
-        >
-        <img
-          class="mastery-image"
-          src='{{skill.img}}'
-          title='{{skill}}'
-          width='40'
-          height='40'
-        />
-      </a>
-    </div>
-    <h4 class="skill"><strong>{{skill.name}}</strong></h4>
-  </li>
-  {{/each}}
-  {{#each skill.unmastered as | skill |}}
-  <li class='item flex-group-center' data-item-id="{{skill._id}}">
-    <div class='item-image'>
-        <a
-          class='item-control item-edit'
-          title='{{localize "DOCUMENT.Update" type='Item'}}'
-        >
-        <img
-          class="skill-image"
-          src='{{skill.img}}'
-          title='{{skill}}'
-          width='40'
-          height='40'
-        />
-      </a>
-    </div>
-    <h4 class="skill">{{skill.name}}</h4>
-  </li>
-  {{/each}}
-
-</div> 
+    <ol class='items-list full-size'>
+      {{#each skill.mastered as | skill |}}
+      <li class='item flex-group-center' data-item-id="{{skill._id}}">
+        <div class='item-image'>
+            <a
+              class='item-control item-edit'
+              title='{{localize "DOCUMENT.Update" type='Item'}}'
+            >
+            <img
+              class="mastery-image"
+              src='{{skill.img}}'
+              title='{{skill.name}}'
+              width='40'
+              height='40'
+            />
+          </a>
+        </div>
+        <h4 class="skill"><strong>{{skill.name}}</strong></h4>
+      </li>
+      {{/each}}
+      {{#each skill.unmastered as | skill |}}
+      <li class='item flex-group-center' data-item-id="{{skill._id}}">
+        <div class='item-image'>
+            <a
+              class='item-control item-edit'
+              title='{{localize "DOCUMENT.Update" type='Item'}}'
+            >
+            <img
+              class="skill-image"
+              src='{{skill.img}}'
+              title='{{skill.name}}'
+              width='40'
+              height='40'
+            />
+          </a>
+        </div>
+        <h4 class="skill">{{skill.name}}</h4>
+      </li>
+      {{/each}}
+    </ol>
+  </div> 
 </div>
 
 </form>

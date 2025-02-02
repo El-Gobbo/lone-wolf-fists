@@ -1,6 +1,8 @@
-<div class="imbmain-body">
+<div class="grid grid-4col">
+  <div>Hell</div>
+<div class="imbmain-body grid-span-3">
   <div class="items-list full-size">
-    <div class="item flexrow items-header grid grid-12col">
+    <div id="imbalance-header" class="item flexrow items-header grid grid-12col">
       <div class="flex-group-center grid-span-3">Imbalance</div>
       <div class="flex-group-center grid-span-2">Type</div>
       <div class="flex-group-center grid-span-2">Target</div>
@@ -19,7 +21,7 @@
     </div>
 
   {{#each imbalances as |item id|}}
-  <div class='item flexrow grid grid-12col grid-table' data-item-id='{{item._id}}'>
+  <div class='item flexrow grid grid-12col grid-table imbalance' data-item-id='{{item._id}}'>
     <div class='item-name flex-group-center grid-span-3' data-imbtype="name">
       <input class="item-choice" type="text" name="item.name" value="{{item.name}}">
     </div> 
@@ -66,7 +68,7 @@
       </select>
     </div>
     <div class="item-rank rank flex-group-center">
-      <input class="item-choice" type="text" name="item.system.rank" value="{{item.system.rank}}" data-dtype="Number" readonly/>
+      <input class="item-choice" type="text" name="item.system.rank" value="{{item.system.rank}}" data-dtype="Number" readonly disabled/>
     </div>
     <div class="item-agg flex-group-center" data-imbtype="agg">
       <input class="item-choice" type="text" name="item.system.agg" value="{{item.system.agg}}" data-dtype="Number"/>
@@ -81,5 +83,6 @@
       </div>
   </div>
   {{/each}}
+</div>
 </div>
 </div>

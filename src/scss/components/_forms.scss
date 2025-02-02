@@ -2,6 +2,14 @@ table {
   table-layout: fixed;
 }
 
+button {
+  font-family: $font-primary;
+  
+  &#prana-flare {
+    font-size: 12px;
+  }
+}
+
 .item-form {
   font-family: $font-primary;
 }
@@ -39,13 +47,80 @@ table {
   background-size: cover;
   height: 40px;
   width: 40px;
+
+  &:hover {
+    background-image: url("../assets/dice/d10-hover.svg");
+  
+    > h4 {
+      color: white;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+      font-size: $effort-font-size;
+    }
+  }
+
+  > h4 {
+    text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+    font-size: $effort-font-size;
+  }
 }
 
-#effort-display:hover {
-  background-image: url("../assets/dice/d10-hover.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+#health-max {
+  background-color: rgba(255, 0, 0, 0.226);
+}
+
+#health-current {
+  background-color: rgba(255, 0, 0, 0.404);
+}
+
+#aura-max {
+  background-color: rgba(0, 0, 255, 0.226);
+}
+
+#aura-current {
+  background-color: rgba(0, 0, 255, 0.404);
+}
+
+.rest-container {
+position: relative;
+
+  #rest-button {
+    cursor: pointer;
+    position: absolute;
+    top: 21px;
+    left: 0px;
+    background-image: url("../assets/rest/night-sleep.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 25px;
+    width: 25px;
+
+    &:hover {
+      background-image: url("../assets/rest/night-sleep-hover.svg");
+    }
+  }
+}
+
+#cultural-landmark {
+  font-size: 16px;
+}
+
+#degree {
+  font-size: 20px;
+}
+
+.imbalance {
+  
+  input,
+  select {
+    font-size: 11px;
+  }
+}
+
+#imbalance-header {
+  div {
+    font-size: 10px;
+  }
 }
 
 .indented-element {
@@ -57,24 +132,33 @@ table {
   }
 }
 
+.stat-current {
+  border-radius: 5px 0 0 5px;
+}
+
+.stat-max {
+  border-radius: 0 5px 5px 0;
+  border: 1px solid rgb(192, 192, 192);
+}
+
 .active-chakras {
   position: relative;
   img {
     position: absolute;
     height: 13px;
-    width: 17px;
+    width: 15px;
     border: none;
     cursor: pointer;
   }
 
   .chakra-increase {
     top: -2px;
-    left: 26px;
+    left: 28px;
   }
 
   .chakra-decrease {
     top: 13px;
-    left: 26px;
+    left: 28px;
   }
 }
 
@@ -91,11 +175,11 @@ table {
 }
 
 .sidebar-small {
-  flex: 0 0 95px;
+  flex: 0 0 105px;
 }
 
-.inline-input {
-  display: inline-block;
+.tall-box {
+  height: 130px;
 }
 
 .margin-3 {
@@ -106,25 +190,6 @@ table {
   margin: 0 !important;
   height: 18px;
   border-bottom: 1px solid #c9c7b8; 
-}
-
-.small-box {
-  width: 27px;
-  margin: 0 3px;
-}
-
-.medium-box {
-  width: 100px;
-}
-
-.large-box {
-  width: 200px;
-  margin: 0 3px;
-}
-
-.very-large-box {
-  width: 400px;
-  margin: 0 3px;
 }
 
 .skill-image {

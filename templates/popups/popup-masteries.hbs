@@ -13,9 +13,7 @@
 
             // Prevent choosing more than the allotted number of masteries
             let difference = parseInt(document.querySelector("#difference").innerText);
-            console.log(difference);
             let boxes = document.querySelectorAll('.mastery');
-            console.log(boxes);
             boxes.forEach(box => {
                 box.addEventListener('change', (e) => {
                     let checked = document.querySelectorAll('.mastery:checked');

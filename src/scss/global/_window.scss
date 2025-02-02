@@ -14,3 +14,30 @@
 .initiative-input {
   color: white !important;
 }
+
+.inline-input {
+  display: inline-block;
+}
+
+.small-box {
+  width: 27px !important;
+  margin: 0 3px;
+}
+
+.smallish-box {
+  width: 35px !important;
+}
+
+.medium-box {
+  width: 100px !important;
+}
+
+.large-box {
+  width: 200px;
+  margin: 0 3px;
+}
+
+.very-large-box {
+  width: 400px;
+  margin: 0 3px;
+}

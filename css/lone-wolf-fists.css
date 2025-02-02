@@ -1,7 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@font-face {
+  font-family: "Alley-Oop";
+  src: url("fonts/Alley-Oop.ttf");
+}
 /* Global styles */
 .window-app {
-  font-family: "Roboto", sans-serif;
+  font-family: "Alley-Oop", "Roboto", sans-serif;
 }
 
 .rollable:hover, .rollable:focus {
@@ -12,6 +16,33 @@
 
 .initiative-input {
   color: white !important;
+}
+
+.inline-input {
+  display: inline-block;
+}
+
+.small-box {
+  width: 27px !important;
+  margin: 0 3px;
+}
+
+.smallish-box {
+  width: 35px !important;
+}
+
+.medium-box {
+  width: 100px !important;
+}
+
+.large-box {
+  width: 200px;
+  margin: 0 3px;
+}
+
+.very-large-box {
+  width: 400px;
+  margin: 0 3px;
 }
 
 .grid,
@@ -240,6 +271,10 @@
   flex: 2;
 }
 
+.flex-half {
+  flex: 0.5;
+}
+
 .flex-1 {
   flex: 1;
 }
@@ -309,8 +344,14 @@
 .lone-wolf-fists table {
   table-layout: fixed;
 }
+.lone-wolf-fists button {
+  font-family: "Alley-Oop", "Roboto", sans-serif;
+}
+.lone-wolf-fists button#prana-flare {
+  font-size: 12px;
+}
 .lone-wolf-fists .item-form {
-  font-family: "Roboto", sans-serif;
+  font-family: "Alley-Oop", "Roboto", sans-serif;
 }
 .lone-wolf-fists .imb-main {
   display: flex;
@@ -343,9 +384,58 @@
 }
 .lone-wolf-fists #effort-display:hover {
   background-image: url("../assets/dice/d10-hover.svg");
+}
+.lone-wolf-fists #effort-display:hover > h4 {
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  font-size: 20px;
+}
+.lone-wolf-fists #effort-display > h4 {
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+  font-size: 20px;
+}
+.lone-wolf-fists #health-max {
+  background-color: rgba(255, 0, 0, 0.226);
+}
+.lone-wolf-fists #health-current {
+  background-color: rgba(255, 0, 0, 0.404);
+}
+.lone-wolf-fists #aura-max {
+  background-color: rgba(0, 0, 255, 0.226);
+}
+.lone-wolf-fists #aura-current {
+  background-color: rgba(0, 0, 255, 0.404);
+}
+.lone-wolf-fists .rest-container {
+  position: relative;
+}
+.lone-wolf-fists .rest-container #rest-button {
+  cursor: pointer;
+  position: absolute;
+  top: 21px;
+  left: 0px;
+  background-image: url("../assets/rest/night-sleep.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  height: 25px;
+  width: 25px;
+}
+.lone-wolf-fists .rest-container #rest-button:hover {
+  background-image: url("../assets/rest/night-sleep-hover.svg");
+}
+.lone-wolf-fists #cultural-landmark {
+  font-size: 16px;
+}
+.lone-wolf-fists #degree {
+  font-size: 20px;
+}
+.lone-wolf-fists .imbalance input,
+.lone-wolf-fists .imbalance select {
+  font-size: 11px;
+}
+.lone-wolf-fists #imbalance-header div {
+  font-size: 10px;
 }
 .lone-wolf-fists .indented-element {
   border: 1px solid #6e6d63;
@@ -355,23 +445,30 @@
 .lone-wolf-fists .indented-element .indented-element {
   border: 1px solid #979588;
 }
+.lone-wolf-fists .stat-current {
+  border-radius: 5px 0 0 5px;
+}
+.lone-wolf-fists .stat-max {
+  border-radius: 0 5px 5px 0;
+  border: 1px solid rgb(192, 192, 192);
+}
 .lone-wolf-fists .active-chakras {
   position: relative;
 }
 .lone-wolf-fists .active-chakras img {
   position: absolute;
   height: 13px;
-  width: 17px;
+  width: 15px;
   border: none;
   cursor: pointer;
 }
 .lone-wolf-fists .active-chakras .chakra-increase {
   top: -2px;
-  left: 26px;
+  left: 28px;
 }
 .lone-wolf-fists .active-chakras .chakra-decrease {
   top: 13px;
-  left: 26px;
+  left: 28px;
 }
 .lone-wolf-fists .sidebar,
 .lone-wolf-fists .sidebar-small {
@@ -384,10 +481,10 @@
   position: relative;
 }
 .lone-wolf-fists .sidebar-small {
-  flex: 0 0 95px;
+  flex: 0 0 105px;
 }
-.lone-wolf-fists .inline-input {
-  display: inline-block;
+.lone-wolf-fists .tall-box {
+  height: 130px;
 }
 .lone-wolf-fists .margin-3 {
   margin: 0 3px;
@@ -396,21 +493,6 @@
   margin: 0 !important;
   height: 18px;
   border-bottom: 1px solid #c9c7b8;
-}
-.lone-wolf-fists .small-box {
-  width: 27px;
-  margin: 0 3px;
-}
-.lone-wolf-fists .medium-box {
-  width: 100px;
-}
-.lone-wolf-fists .large-box {
-  width: 200px;
-  margin: 0 3px;
-}
-.lone-wolf-fists .very-large-box {
-  width: 400px;
-  margin: 0 3px;
 }
 .lone-wolf-fists .skill-image {
   margin-top: 5px;
@@ -539,7 +621,6 @@
   font-size: 10px;
 }
 .lone-wolf-fists .active-prana-gen {
-  font-weight: bold;
   color: green;
 }
 .lone-wolf-fists .prana-gen {
@@ -562,14 +643,12 @@
   align-items: center;
   background: rgba(0, 0, 0, 0.05);
   border: 2px groove #eeede0;
-  font-weight: bold;
 }
 .lone-wolf-fists .items-header > * {
   font-size: 14px;
   text-align: center;
 }
 .lone-wolf-fists .items-header .item-name {
-  font-weight: bold;
   padding-left: 5px;
   text-align: left;
   display: flex;
@@ -643,7 +722,6 @@
   align-items: center;
   background: rgba(0, 0, 0, 0.05);
   border: 2px groove #eeede0;
-  font-weight: bold;
 }
 .lone-wolf-fists .items-list .items-header > * {
   font-size: 12px;
