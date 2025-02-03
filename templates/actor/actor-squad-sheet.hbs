@@ -1,45 +1,47 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
   {{!-- Sheet Header --}}
-  <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-      {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-      use both the "grid" and "grid-Ncol" class where "N" can be any number
-      from 1 to 12 and will create that number of columns.  --}}
-      <div class="resources grid grid-3col">
-
-        {{!-- "flex-group-center" is also defined in the _grid.scss file
-        and it will add a small amount of padding, a border, and will
-        center all of its child elements content and text. --}}
-        <div class="resource flex-group-center">
-          <label for="system.health.value" class="resource-label">Health</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
-            <span> / </span>
-            <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+  <header class="sheet-top">
+    <div class="sidebar-small flex-group-center">
+      <img class="profile-img monster flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="80" width="80"/>
+      <div class="resources">
+        <div id="effort" class="resource flex-group-center flex-column">
+          <label for="power-input" class="resource-label">Ferocity</label>
+          <div id="effort-display" class="flex-group-center flex">
+            <h4 id="power-input"><strong>{{system.power.value}}</strong></h4>
           </div>
         </div>
-
-        <div class="resource flex-group-center">
-          <label for="system.power.value" class="resource-label">Power</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number"/>
-            <span> / </span>
-            <input type="text" name="system.power.max" value="{{system.power.max}}" data-dtype="Number"/>
+      </div>
+    </div>
+    <div class="header-fields position-relative flex-column">
+      <div class="title">
+        <h1 id="name" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+      </div>
+      <div class="damage resources flexrow monster-sheet">
+        <div id="health" class="flex-4 resource flex-group-center inner-margin">
+          <div class="flex-4">
+            <label for="health-current" class="resource-label">Health</label>
+            <div id="health" class="resource-content max-min flexrow flex-group-center">
+              <input id="health-current" class="stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+              <input id="health-max" class="stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
+            </div>
           </div>
         </div>
-
-        <div class="resource flex-group-center">
-          <label for="system.cr" class="resource-label">CR / XP</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.cr" value="{{system.cr}}" data-dtype="Number"/>
-            <span> / </span>
-            <input type="text" disabled="true" name="system.xp" value="{{system.xp}}" data-dtype="Number"/>
+        <div class="flex-2 resource-content flex-group-center flex-between inner-margin">
+          <label for="armor-input" class="resource-label">Armor</label>
+          <div class="flex-group-center flex">
+            <div class="armor-icon monster-sheet flex flex-group-center">
+              <img
+                class="full-size"
+                src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
+                title='Armor symbol'
+                width='40'
+                height='40'
+              />
+              <h4 class="armor-value full-size">{{system.armor}}</h4>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </header>
@@ -57,8 +59,45 @@
 
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
-      {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
-      {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
+      <div id="imbalance-header" class="item flexrow items-header grid grid-7col">
+        <div class="flex-group-center grid-span-3">Creature</div>
+        <div class="flex-group-center">Effort</div>
+        <div class="flex-group-center">Health</div>
+        <div class="flex-group-center">Numbers</div>
+        <div class='item-controls flex-group-center'>
+          <a
+            class='member-create'
+            title='Create member'
+            data-type='imbalance'
+          >
+            <i class='fas fa-plus'></i>
+          </a>
+        </div>
+      </div>
+      {{#each members}}
+      <div class='item flexrow grid grid-7col grid-table squad-members' data-id='{{this.id}}'>
+        <div class='item-name flex-group-center grid-span-3' data-imbtype="creature">
+          <input class="member-choice" type="text" name="this.creature" value="{{this.creature}}">
+        </div> 
+        <div class='item-name flex-group-center' data-imbtype="effort">
+          <input class="member-choice" type="text" name="this.effort" value="{{this.effort}}">
+        </div>
+        <div class='item-name flex-group-center' data-imbtype="health">
+          <input class="member-choice" type="text" name="this.health" value="{{this.health}}">
+        </div>
+        <div class='item-name flex-group-center' data-imbtype="quantity">
+          <input class="member-choice" type="text" name="this.quantity" value="{{this.quantity}}">
+        </div>
+        <div class="member-controls">
+          <a
+            class='member-delete'
+            title='{{localize "DOCUMENT.Delete" type='Item'}}'
+          >
+          <i class='fas fa-trash'></i>
+          </a>
+        </div>
+      </div>
+      {{/each}}
     </div>
 
     {{!-- Owned Items Tab --}}

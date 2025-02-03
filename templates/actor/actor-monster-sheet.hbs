@@ -2,15 +2,14 @@
 
   {{!-- Sheet Header --}}
   <div class="sheet">
+  {{#if system.chakras.hasChakra}}
   <div class="sidebar-small">
     <ol class='items-list full-size'>
       <li class="prana resources">
         <div class="resource flex-group-center">
-          {{#if inCombat}}
           <div>
             <button type="button" id="prana-flare">Prana Flare</button>
           </div>
-          {{/if}}
           <label for="system.prana.current" class="resource-label">Prana</label>
           <div class="resource-content flexrow flex-center flex-between">
             <input {{#unless inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
@@ -77,15 +76,16 @@
     </li>
     {{/each}}
   </div> 
+  {{/if}}
   <div class="body">
   <header class="sheet-top">
-    <div class="sidebar flex-group-center">
-      <img class="profile-img flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120"/>
+    <div class="sidebar-small flex-group-center">
+      <img class="profile-img monster flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="80" width="80"/>
       <div class="resources">
         <div id="effort" class="resource flex-group-center flex-column">
           <label for="power-input" class="resource-label">Ferocity</label>
           {{#if system.editMode}}
-          <input id="power-input" class="small-box" type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number">
+          <input id="power-input" class="smallish-box short-box" type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number">
           {{else}}
           <div id="effort-display" class="flex-group-center flex">
             <h4 id="power-input"><strong>{{system.power.value}}</strong></h4>
@@ -115,30 +115,48 @@
           </div>
         </div>
         <div class="flex-2 resource-content flex-group-center flex-between inner-margin">
-          <label for="system.armorValue" class="resource-label">Armor</label>
-            <div class="flex-group-center flex">
-              {{#if system.editMode}}
-              <input id="power-input" class="small-box" type="text" name="system.armorValue" value="{{system.armorValue}}" data-dtype="Number">
-              {{else}}
-              <div class="armor-icon monster-sheet flex flex-group-center">
-                <img
-                  class="full-size"
-                  src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
-                  title='Armor symbol'
-                  width='40'
-                  height='40'
-                />
-                <h4 class="armor-value full-size">{{armorValue}}</h4>
-              </div>
-              {{/if}}
+          <label for="armor-input" class="resource-label">Armor</label>
+          <div class="flex-group-center flex">
+            {{#if system.editMode}}
+            <input id="armor-input" class="small-box" type="text" name="system.armor" value="{{system.armor}}" data-dtype="Number">
+            {{else}}
+            <div class="armor-icon monster-sheet flex flex-group-center">
+              <img
+                class="full-size"
+                src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
+                title='Armor symbol'
+                width='40'
+                height='40'
+              />
+              <h4 class="armor-value full-size">{{system.armor}}</h4>
             </div>
+            {{/if}}
+          </div>
+        </div>
+        <div id="size" class="flex-column flex-group-center">
+          <label class="resource-label">Size</label>
+          <div id="health-level-input" class=" flex-group-center flexshrink">
+            <input id="size-input" class="smallish-box" type="text" name="system.size" value="{{system.size}}" data-dtype="Number">
+          </div>
         </div>
       </div>
+      {{#if system.editMode}}
+      <div>
+        <div class="flexrow flex-group-center">
+          <input type="checkbox" class="flex inline-input" name="system.hasTechniques"  {{#if system.hasTechniques}}checked{{/if}} value=true>
+          <label class="rightside flex">Monster has techniques</label>
+        </div>
+        <div class="flexrow flex-group-center">
+          <input type="checkbox" class="flex" name="system.chakras.hasChakra"  {{#if system.chakras.hasChakra}}checked{{/if}} value=true>
+          <label class="rightside flex">Monster has chakra</label>
+        </div>
+      </div>
+      {{/if}}
       <div class="full-size edit-container">
       {{#if system.editMode}}
-      <i id="edit-mode" class="fa-solid fa-gear">Play</i>
+      <i id="edit-mode" class="fa-solid fa-gear edit-mode-on">Play</i>
       {{else}}
-      <i id="edit-mode" class="fa-solid fa-gear">Edit</i>
+      <i id="edit-mode" class="fa-solid fa-gear edit-mode-off">Edit</i>
       {{/if}}
       </div>
     </div>
@@ -147,13 +165,30 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item" data-tab="core">Core</a>
     <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="items">Abilities</a>
     <a class="item" data-tab="effects">Config</a>
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
+
+    {{! Core tab }}
+    <div class="tab items" data-group="primary" data-tab="core">
+      <div class="grid grid-5col">
+        <div class="grid-span-2 flex-column flex-group-center">
+          <h4 id="capabilities" class="full-size section-header">Capabilities</h4>
+          <textarea name="system.description" rows="10">{{system.description}}</textarea>
+        </div>
+        <div class="grid-span-3 flex-column flex-group-center">
+          <h4 id="imbalance-heading" class="full-size section-header">Imbalances</h4>
+          {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
+        </div>
+      </div>
+      {{#if system.hasTechniques}}
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-techniques.hbs"}}
+      {{/if}}
+    </div>
 
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
@@ -161,22 +196,9 @@
       {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
     </div>
 
-    {{!-- Owned Items Tab --}}
-    <div class="tab items" data-group="primary" data-tab="items">
-       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
-       {{#if hasTechniques}}
-       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-techniques.hbs"}}
-       {{/if}}
-    </div>
-
-    {{!-- Config tab --}}
+    {{!-- Effects tab --}}
     <div class="tab effects flexcol" data-group="primary" data-tab="effects">
-      <input type="checkbox" class="flex" name="system.editMode"  {{#if system.editMode}}checked{{/if}} value=true>
-      <label class="rightside flex">Edit core stats</label>
-      <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
-      <label class="rightside flex">No facings</label>
-      <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
-      <label class="rightside flex">No facings</label>
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-effects.hbs"}}
     </div>
 
   </section>

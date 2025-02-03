@@ -61,6 +61,10 @@ export class lwfActorSheet extends ActorSheet {
       this._prepareCharacterData(context);
     }
 
+    if(actorData.type == 'squad') {
+      this._prepareMembers(context);
+    }
+
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
       this._prepareItems(context);
@@ -271,18 +275,44 @@ export class lwfActorSheet extends ActorSheet {
         absent.push(add);
       }
     }
-
-
     context.skill.mastered = present;
-    context.skill.unmastered = absent;
-    
+    context.skill.unmastered = absent; 
     // Work out the difference between the number of masteries they should have, and the number of masteries they do have.
     // If they have fewer masteries than they should, check the masteries compendium, and see which the player doesn't have
     context.skill.difference = this.actor.system.masteries.value - present.length;
     if(context.skill.difference > 0){
       context.skill.missing = true;
     }
+    return context;
+  }
 
+    /**
+   * Organise and find data for individual squad members.
+   *
+   * @param {object} context The context object to mutate
+   */
+  _prepareMembers(context) {
+    const members = [];
+    for(let m of context.system.namedMembers) {
+      const member = game.actors?.get(m);
+      const memberData = {
+        "creature": member.name,
+        "effort": member.system.power.value,
+        "health": member.system.health.value,
+        "quantity": 1,
+        "editable": false,
+        "id": `actor-${m}`
+      }
+      members.push(memberData);
+    }
+    for(let m in context.system.members) {
+      let current = context.system.members[m]
+      current["editable"] = true;
+      current["id"] = m;
+      members.push(current);
+    }
+
+    context.members = members;
     return context;
   }
 
@@ -350,16 +380,16 @@ export class lwfActorSheet extends ActorSheet {
         }
       });
 
-      if(isNaN(parseInt(restData["hours-rested"]))){
-        const errorHtml = "<div>Hours rested must be a whole number</div>";
-        ui.notifications.error(errorHtml);
-        return;
-      }
       if(restData["full-rest"] === "true"){
         this.actor.update({[ `system.health.current` ]: this.actor.system.health.max })
         return;
       }
       else {
+        if(isNaN(parseInt(restData["hours-rested"]))){
+          const errorHtml = "<div>Hours rested must be a whole number</div>";
+          ui.notifications.error(errorHtml);
+          return;
+        }
         const rolls = await new Roll(`${restData["hours-rested"]}d10`).evaluate();
         const newHealth = rolls._total + this.actor.system.health.current;
         this.actor.update({[ `system.health.current` ]: newHealth})
@@ -457,6 +487,56 @@ export class lwfActorSheet extends ActorSheet {
       this.actor.update({[ 'system.editMode' ]: editMode})
     })
 
+    // Add squad member
+    html.on('click', '.member-create', () => {
+      // Get a copy of the squad member array
+      const members = this.actor.system.members;
+
+      // Add a blank SquadField to the copy
+      const newMember = {
+        "creature": "",
+        "effort": 1,
+        "health": 1,
+        "quantity": 1
+      };
+      members.push(newMember);
+
+      // Update the current Squad member array with the new values
+      this.actor.update({[ `system.members` ]: members})
+    })
+
+    html.on('change', '.member-choice', (ev) => {
+      // Get a copy of the squad member array
+      const members = this.actor.system.members;
+      // Get the new value
+      const newValue = ev.currentTarget.value;
+
+      // Get the stat being modified
+      const target = ev.currentTarget.parentElement.dataset.imbtype;
+
+      // Get the array index of the member
+      const index = ev.currentTarget.parentElement.parentElement.dataset.index;
+
+      // Change the relvant index
+      members[index][target] = newValue;
+      this.actor.update({[ `system.members` ]: members });
+    })
+
+    html.on('click', '.member-delete', (ev) => {
+      const location = parseInt(ev.currentTarget.parentElement.parentElement.dataset.id)
+      if(isNaN(location)) {
+        const newMembers = this.actor.system.namedMembers;
+        const index = newMembers.indexOf(ev.currentTarget.parentElement.parentElement.dataset.id.split("-")[1]);
+        newMembers.splice(index, 1);
+        this.actor.update({[ `system.namedMembers`]: newMembers});
+      }
+      else {
+        const newMembers = this.actor.system.members;
+        newMembers.splice(location, 1);
+        this.actor.update({[ `system.members`]: newMembers});
+      }
+    })
+
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
 
@@ -549,5 +629,21 @@ export class lwfActorSheet extends ActorSheet {
       });
       return roll;
     }
+  }
+
+  async _onDropActor(event, data) {
+    if (!this.actor.isOwner || (this.actor.isOwner && this.actor.type !=='squad'))
+      return false;
+    // Get a copy of the squad member array
+    const members = this.actor.system.namedMembers;
+
+    // Get the id of the dropped creature
+    const id = data.uuid.split(".")[1];
+    if(id in members)
+      return false;
+    members.push(id);
+
+    // Update the current Squad member array with the new values
+    this.actor.update({[ `system.namedMembers` ]: members})
   }
 }

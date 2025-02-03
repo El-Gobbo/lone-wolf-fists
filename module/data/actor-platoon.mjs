@@ -7,12 +7,10 @@ export default class lwfSquad extends lwfWeaponUser {
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
-    schema.weapons = new ArrayField(new StringField());
-    
-    // Members of a squad form part of an array, each part of which has it's own power and health. This is to allow more complex squads
-
-
-
+    schema.platoonType = new StringField();
+    schema.membership = new NumberField({ ...requiredInteger, min: 0, max: 100 });
+    schema.description = new HTMLField();
+    schema.tactics = new HTMLField();
     
     return schema
   }

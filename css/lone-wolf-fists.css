@@ -404,6 +404,10 @@
   text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
   font-size: 20px;
 }
+.lone-wolf-fists input#power-input {
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+  font-size: 20px;
+}
 .lone-wolf-fists #health-max {
   background-color: rgba(255, 0, 0, 0.226);
 }
@@ -448,6 +452,9 @@
 .lone-wolf-fists .imbalance input,
 .lone-wolf-fists .imbalance select {
   font-size: 11px;
+}
+.lone-wolf-fists #imbalance-header {
+  margin: 0 0 2px 0;
 }
 .lone-wolf-fists #imbalance-header div {
   font-size: 10px;
@@ -498,6 +505,9 @@
 .lone-wolf-fists .sidebar-small {
   flex: 0 0 105px;
 }
+.lone-wolf-fists .short-box {
+  height: 40px;
+}
 .lone-wolf-fists .tall-box {
   height: 130px;
 }
@@ -514,7 +524,7 @@
 }
 .lone-wolf-fists .chakra-image {
   border: none;
-  margin-top: 5px;
+  margin-top: 3px;
   cursor: pointer;
   object-fit: contain;
 }
@@ -529,13 +539,14 @@
 }
 .lone-wolf-fists .skill {
   margin-bottom: 0px !important;
+  font-size: 12px;
 }
 .lone-wolf-fists .imbmain-body {
   display: flex;
   width: 100%;
   flex: 5 1 auto;
   align-items: top;
-  margin: 5px;
+  margin: 0 5px 5px 5px;
 }
 .lone-wolf-fists .resource {
   margin-top: 3px;
@@ -577,6 +588,9 @@
   align-items: center;
   margin-bottom: 13px;
 }
+.lone-wolf-fists .sheet-top .profile-img.monster {
+  height: 80px;
+}
 .lone-wolf-fists .sheet-top .header-fields {
   flex: 1;
 }
@@ -610,6 +624,10 @@
 .lone-wolf-fists .armor-icon img {
   border: none;
 }
+.lone-wolf-fists #edit-mode:hover {
+  text-shadow: 0 0 10px #ff0000;
+  cursor: pointer;
+}
 .lone-wolf-fists .damage.monster-sheet {
   align-items: flex-end;
   flex-grow: 0;
@@ -633,6 +651,9 @@
 }
 .lone-wolf-fists h4 {
   margin: 0px;
+}
+.lone-wolf-fists .section-header {
+  margin: 0 0 3px 0;
 }
 .lone-wolf-fists .resource-label {
   font-weight: bold;

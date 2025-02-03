@@ -41,6 +41,7 @@ export default class lwfMonster extends lwfActorBase {
 
     schema.editMode = new BooleanField({initial: false})
     schema.hasTechniques = new BooleanField({initial: false});
+    schema.description = new HTMLField();
 
     schema.size = new NumberField({ ...requiredInteger, initial: 1});
     schema.abilities = new HTMLField();
