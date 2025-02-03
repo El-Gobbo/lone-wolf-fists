@@ -1,0 +1,100 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-top">
+    <div class="sidebar-small flex-group-center">
+      <img class="profile-img monster flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="80" width="80"/>
+      <div class="resources">
+        <div id="effort" class="resource flex-group-center flex-column">
+          <label for="power-input" class="resource-label">Ferocity</label>
+          {{#if system.editMode}}
+          <input id="power-input" class="smallish-box short-box" type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number">
+          {{else}}
+          <div id="effort-display" class="flex-group-center flex">
+            <h4 id="power-input"><strong>{{system.power.value}}</strong></h4>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <div class="header-fields position-relative flex-column">
+      <div class="title">
+        <h1 id="name" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+        <h1 id="archName" class="charname grid-span-3"><input name="system.platoonType" type="text" value="{{system.PlatoonType}}" placeholder="Platoon Type" readonly disabled></h1>
+      </div>
+      <div class="damage resources flexrow monster-sheet">
+        <div id="health" class="flex-4 resource flex-group-center inner-margin">
+          <div class="flex-4">
+            <label for="health-current" class="resource-label">Health</label>
+            <div id="health" class="resource-content max-min flexrow flex-group-center">
+              <input id="health-current" class="stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+              <input id="health-max" class="stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
+            </div>
+          </div>
+        </div>
+        <div id="membership" class="membership flex-column flex-group-center">
+          <label class="resource-label">Membership</label>
+          <div id="membership-container" class=" flex-group-center flexshrink">
+            {{#if system.editMode}}
+            <input id="membership-input" type="text" name="system.membership" value="{{system.membership}}" data-dtype="Number">
+            {{else}}
+            <h4>{{system.membership}}</h4>
+            {{/if}}
+          </div>
+        </div>
+        <div class="flex-2 resource-content flex-group-center flex-between inner-margin">
+          <label for="armor-input" class="resource-label">Armor</label>
+          <div class="flex-group-center flex">
+            <div class="armor-icon npc monster-sheet flex flex-group-center">
+              <img
+                class="full-size"
+                src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
+                title='Armor symbol'
+                width='40'
+                height='40'
+              />
+              <h4 class="armor-value full-size">{{system.armor}}</h4>
+            </div>
+          </div>
+        </div>
+        <div id="size" class="flex-column flex-group-center">
+          <label class="resource-label">Size</label>
+          <div id="health-level-input" class=" flex-group-center flexshrink">
+            <input id="size-input" class="smallish-box" type="text" name="system.size" value="{{system.size}}" data-dtype="Number">
+          </div>
+        </div>
+      </div>
+      <div class="full-size edit-container">
+      {{#if system.editMode}}
+      <i id="edit-mode" class="fa-solid fa-gear edit-mode-on">Play</i>
+      {{else}}
+      <i id="edit-mode" class="fa-solid fa-gear edit-mode-off">Edit</i>
+      {{/if}}
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <div class="flex flexrow">
+    <div id="size" class="flex-column flex-group-center">
+      <label class="resource-label">Defense</label>
+      <div id="health-level-input" class=" flex-group-center flexshrink">
+        <input id="size-input" class="smallish-box" type="text" name="system.defense" value="{{system.defense}}" data-dtype="Number">
+      </div>
+    </div>
+    <div id="size" class="flex-column flex-group-center">
+      <label class="resource-label">Bonuses</label>
+      <div id="health-level-input" class=" flex-group-center flexshrink">
+        <input id="size-input" class="smallish-box" type="text" name="system.bonus" value="{{system.bonus}}" data-dtype="Number">
+      </div>
+    </div>
+    <div id="size" class="flex-column flex-group-center">
+      <label class="resource-label">Size</label>
+      <div id="health-level-input" class=" flex-group-center flexshrink">
+        <input id="size-input" class="smallish-box" type="text" name="system.size" value="{{system.size}}" data-dtype="Number">
+      </div>
+    </div>
+
+  </div>
+</form>
+

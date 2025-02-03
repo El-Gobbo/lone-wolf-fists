@@ -1,24 +1,13 @@
 <div>
-  <input class="techniqueDisplay" type="radio" id="selection1" name="techniqueDisplay" value="all" {{#if (comparison system.techTableFocus "all")}} checked="checked" {{/if}}>
-  <label for="selection1">All</label>
-
-  <input class="techniqueDisplay" type="radio" id="selection2" name="techniqueDisplay" value="attacks" {{#if (comparison system.techTableFocus "attacks")}} checked="checked" {{/if}}>
-  <label for="selection2">Attacks</label>
-
-  <input class="techniqueDisplay" type="radio" id="selection3" name="techniqueDisplay" value="defenses" {{#if (comparison system.techTableFocus "defenses")}} checked="checked" {{/if}}>
-  <label for="selection3">Defenses</label>
-
-  <input class="techniqueDisplay" type="radio" id="selection4" name="techniqueDisplay" value="mudra" {{#if (comparison system.techTableFocus "mudra")}} checked="checked" {{/if}}>
-  <label for="selection4">Mudra</label>
-
-  <input class="techniqueDisplay" type="radio" id="selection5" name="techniqueDisplay" value="balance" {{#if (comparison system.techTableFocus "balance")}} checked="checked" {{/if}}>
-  <label for="selection5">Balance</label>
-
-  <input class="techniqueDisplay" type="radio" id="selection6" name="techniqueDisplay" value="forms" {{#if (comparison system.techTableFocus "forms")}} checked="checked" {{/if}}>
-  <label for="selection6">Forms</label>
-
-  <input class="techniqueDisplay" type="radio" id="selection7" name="techniqueDisplay" value="guptKala" {{#if (comparison system.techTableFocus "guptKala")}} checked="checked" {{/if}}>
-  <label for="selection7">Gupt Kala</label>
+  <select name="techniqueDisplay" id="techniqueDisplay" class="techniqueDisplay">
+    <option value="all" {{#if (comparison system.techTableFocus "all")}} selected {{/if}}>All</option>
+    <option value="attacks" {{#if (comparison system.techTableFocus "attacks")}} selected {{/if}}>Attacks</option>
+    <option value="defenses" {{#if (comparison system.techTableFocus "defenses")}} selected {{/if}}>Defenses</option>
+    <option value="mudra" {{#if (comparison system.techTableFocus "mudra")}} selected {{/if}}>Mudra</option>
+    <option value="balance" {{#if (comparison system.techTableFocus "balance")}} selected {{/if}}>Balance</option>
+    <option value="forms" {{#if (comparison system.techTableFocus "forms")}} selected {{/if}}>Forms</option>
+    <option value="guptKala" {{#if (comparison system.techTableFocus "guptKala")}} selected {{/if}}>Gupt Kala</option>
+  </select>
 </div>
 
 <div id="all" class="items-list full-size flex-column techniqueTable">

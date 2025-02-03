@@ -11,8 +11,9 @@ export default class lwfMonster extends lwfActorBase {
       value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
       hasChakra: new BooleanField({initial: false}),
       active: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
-      hellToggle: new BooleanField({initial: false}),
+      hellToggle: new BooleanField({initial: true}),
       awakened: new SchemaField({
+        Hell: new BooleanField({initial: false}),
         Heaven: new BooleanField({initial: false}),
         Metal: new BooleanField({initial: false}),
         Wood: new BooleanField({initial: false}),
@@ -39,7 +40,7 @@ export default class lwfMonster extends lwfActorBase {
       recovery: new NumberField({ ...requiredInteger, initial: 0, min: 0 })
     });
 
-    schema.editMode = new BooleanField({initial: false})
+
     schema.hasTechniques = new BooleanField({initial: false});
     schema.description = new HTMLField();
 

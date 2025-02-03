@@ -1,0 +1,35 @@
+<div class="item flexrow items-header grid grid-13col">
+  <div class="grid-span-8">Capabilities</div>
+  <div class="flex-group-center grid-span-2">Ranks</div>
+  <div class="flex-group-center grid-span-2">Frequency</div>
+  <div class="flex-group-center"></div>
+</div>
+
+<div id="abilities" class="full-size techniqueTable items-list">
+{{#each ability as |item id|}}
+  <div class='item flexrow grid grid-13col grid-table' data-item-id='{{item._id}}'>
+    <a
+      class='item-control item-edit'
+      title='{{localize "DOCUMENT.Update" type='Item'}}'
+    >
+    <div class='item-name grid-span-8'>
+      <h4>{{item.name}}</h4>
+    </div>
+    <div class="item-ranks item-requirements grid-span-2 flex-group-center">
+      <h4>{{item.system.ranks}}</h4>
+    </div>
+    <div class="item-frequency grid-span-2 flex-group-center">
+      <h4><strong>{{item.system.frequency}}</strong></h4>
+    </div>
+    </a>
+    <div class="item-controls">
+      <a
+        class='item-control item-delete'
+        title='{{localize "DOCUMENT.Delete" type='Item'}}'
+      >
+        <i class='fas fa-trash'></i>
+      </a>
+    </div>
+  </div>
+{{/each}}
+</div>

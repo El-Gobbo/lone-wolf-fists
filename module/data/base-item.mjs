@@ -23,7 +23,7 @@ export default class lwfItemBase extends lwfDataModel {
     const schema = {};
 
     schema.description = new fields.StringField({ required: true, blank: true });
-
+    schema.editMode = new fields.BooleanField({initial: false})
     return schema;
   }
 

@@ -116,9 +116,11 @@ export class lwfActorSheet extends ActorSheet {
     context.techLvl = LWFTECHNIQUES.techLvl;
 
     let chakraList = Object.keys(context.system.chakras.awakened);
-    // If the player has a hell chakra, replace heaven with hell
+    // Remove either the hell or heaven Chakra
     if(context.system.chakras.hellToggle === true)
-      chakraList.splice(0, 1, "Hell")
+      chakraList.splice(1, 1);
+    else
+      chakraList.splice(0, 1);
     context.chakras = chakraList;
 
     context.inCombat = context.actor.inCombat;
@@ -150,6 +152,7 @@ export class lwfActorSheet extends ActorSheet {
     const archetype = [];
     const clan = [];
     const skills = [];
+    const ability = [];
 
 
     // Iterate through items, allocating to containers
@@ -186,6 +189,10 @@ export class lwfActorSheet extends ActorSheet {
           if(i.system.hasTechnique)
             pushToTechnique(i, techniques)
           
+          break;
+
+        case 'ability':
+          ability.push(i);
           break;
 
       // Append to techniques.
@@ -241,6 +248,7 @@ export class lwfActorSheet extends ActorSheet {
     context.clan = clan;
     context.form = form;
     context.skill = skills;
+    context.ability = ability;
 
     if(this.actor.type == 'character')
       this._prepareSkills(context);
@@ -396,18 +404,6 @@ export class lwfActorSheet extends ActorSheet {
       }
     })
 
-    html.on('click', '.chakra-image',  (ev) => {
-      // Find the chakra type
-      const chakra = ev.currentTarget.parentElement.dataset.imbtype;
-      // Find the current value of the chakra
-      const awakened = this.actor.system.chakras.awakened;
-      let update = !(awakened[chakra]);
-     
-      // Update the actor with the inverted value
-      this.actor.update({[ `system.chakras.awakened.${chakra}` ]: update})
-
-    })
-
     // Choose masteries to add on level up TODO: pass the data back to the original character sheet
     html.on('click', '#newMasteries', async (ev) => {
       const names = [];
@@ -446,7 +442,18 @@ export class lwfActorSheet extends ActorSheet {
       this.actor.update({ items });
     })
 
+    html.on('click', '.chakra-image',  (ev) => {
+      // Find the chakra type
+      let chakra = ev.currentTarget.parentElement.dataset.imbtype;
 
+      // Find the current value of the chakra
+      const awakened = this.actor.system.chakras.awakened;
+      let update = !(awakened[chakra]);
+     
+      // Update the actor with the inverted value
+      this.actor.update({[ `system.chakras.awakened.${chakra}` ]: update})
+
+    })
 
     // Increase number of active chakras
     html.on('click', '.chakra-increase', async () => {
@@ -472,14 +479,6 @@ export class lwfActorSheet extends ActorSheet {
       let tables = $('.techniqueTable');
       let update = $(ev.currentTarget)[0].value;
       this.actor.update({[ 'system.techTableFocus' ]: update});
-      /*const target = '#'.concat(update);
-      if(target === '#all')
-        tables.show();
-      else{
-        tables.hide();
-        $('#all').show();
-        $(target).show();
-      };*/
     })
 
     html.on('click', '#edit-mode', (ev) => {

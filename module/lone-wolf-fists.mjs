@@ -64,7 +64,8 @@ Hooks.once('init', function () {
     skill: models.lwfSkill,
     armor: models.lwfArmor,
     weapon: models.lwfWeapon,
-    artifact: models.lwfArtifact
+    artifact: models.lwfArtifact,
+    ability: models.lwfAbility,
   }
 
   // Active Effects are never copied to the Actor,

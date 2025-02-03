@@ -12,17 +12,17 @@ export default class lwfTechnique extends lwfYuddhakala {
 
     schema.techReqs = new StringField();
 
-    schema.techCost = new NumberField();
+    schema.techCost = new NumberField({integer: true, initial: 3, min: 0, max: 100});
 
     schema.techFacing = new SchemaField({
-      min: new NumberField({min: 0, max: 9}),
-      max: new NumberField({min: 0, max: 9}),
+      min: new NumberField({integer: true, initial: 0, min: 0, max: 9}),
+      max: new NumberField({integer: true, initial: 9, min: 0, max: 9}),
       none: new BooleanField({initial: false}),
     });
 
     schema.techSkill = new StringField({initial: "Power"});
 
-    schema.techRank = new NumberField({min: 0, max: 7});
+    schema.techRank = new NumberField({integer: true, initial: 1, min: 0, max: 7});
 
     schema.techTags = new StringField();
 

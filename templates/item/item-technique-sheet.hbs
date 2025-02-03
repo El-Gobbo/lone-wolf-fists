@@ -15,162 +15,119 @@
         /></h1>
     </div>
   </header>
+  <div class="full-size edit-container">
+    {{#if isGM}}
+      {{#if system.editMode}}
+        <i id="edit-mode" class="fa-solid fa-gear edit-mode-on">Play</i>
+        {{else}}
+        <i id="edit-mode" class="fa-solid fa-gear edit-mode-off">Edit</i>
+      {{/if}}
+    {{/if}}
+  </div>
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="overview">Overview</a>
     {{#if isGM}}
-    <a class="item" data-tab="edit">Edit</a>
-    <a class="item" data-tab="effects">Effects</a>
+      <a class="item" data-tab="effects">Effects</a>
     {{/if}}
   </nav>
   {{! Sheet Body }}
   <section class='sheet-body'>
     {{! Overview tab}}
     <div class="tab overview" data-group="primary" data-tab="overview">
-      <div>
-        <h2>{{system.techLvl}}</h2>
+      <div class="item-sheet-line">
+        {{#if system.editMode}}
+          <h2><select class="item-choice" name='techLvl' data-techstat="techLvl">
+          {{#each techLvl}}
+            <option {{#if (comparison ../system.techLvl this)}} selected="selected" {{/if}} 
+              value="{{this}}">{{this}}</option>
+          {{/each}}
+          </select></h2>
+        {{else}}
+          <h2>{{system.techLvl}}</h2>
+        {{/if}}
       </div>
-      <div>
-        <i>{{system.techType}}</i>
+      <div class="item-sheet-line">
+        {{#if system.editMode}}
+          <i><select class="item-choice" name='techType' data-techstat="techType">
+          {{#each techType}}
+            <option {{#if (comparison ../system.techType this)}} selected="selected" {{/if}} 
+              value="{{this}}">{{this}}</option>
+          {{/each}}
+          </select></i>
+        {{else}}
+          <i>{{system.techType}}</i>
+        {{/if}}
       </div>
-      <div>
-        <strong>Requires: </strong><span>{{system.techReqs}}</span>
+      <div class="item-sheet-line">
+        <strong>Requires: </strong><span>{{#if system.editMode}}<input type="text" class="inline-input" name='system.techReqs' value="{{system.techReqs}}" data-dtype="String">{{else}}{{system.techReqs}}{{/if}}</span>
       </div>
-      <div>
-        <strong>Cost: </strong><span>{{system.techCost}}</span>
+      <div class="item-sheet-line">
+        <strong>Cost: </strong><span>{{#if system.editMode}}<input type="text" class="inline-input smallish-box" name='system.techCost' value="{{system.techCost}}" data-dtype="String">{{else}}{{system.techCost}}{{/if}}</span>
       </div>
-      <div>
-        <strong>Rank: </strong><span>{{system.techRank}}</span>
+      <div class="item-sheet-line">
+        <strong>Rank: </strong><span>{{#if system.editMode}}<input type="text" class="inline-input small-box" name='system.techRank' value="{{system.techRank}}" data-dtype="String">{{else}}{{system.techRank}}{{/if}}</span>
       </div>
-      <div>
-        <strong>Facing: </strong><span>{{#if system.techFacing.none}} -- {{else}}{{system.techFacing.min}} - {{system.techFacing.max}}{{/if}}</span>
+      <div <div class="item-sheet-line flex-inline flex-group-center">
+        <strong class="margin-3-right">Facing: </strong>
+        <span class="flexrow flex-group-left">
+          {{#if system.editMode}}
+            {{#unless system.techFacing.none}}
+              <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.min' value="{{system.techFacing.min}}" data-dtype="Number">
+              <span class="flex flexshrink margin-3">-</span>
+              <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.max' value="{{system.techFacing.max}}" data-dtype="Number">
+            {{else}}
+              None
+            {{/unless}}
+            <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
+            <label class="rightside flex">No facings</label>
+          {{else}}
+            {{#if system.techFacing.none}} -- {{else}}{{system.techFacing.min}} - {{system.techFacing.max}}{{/if}}
+          {{/if}}
+        </span>
       </div>
-      <div>
+      <div class="item-sheet-line">
         <strong>Effect: </strong>
-        <div data-group="primary">
-          {{! Editors must receive enriched text data from getData to properly handle rolls }}
-          {{editor
-            system.techEffect
-            target='system.techEffect'
-            engine='prosemirror'
-            button=false
-            editable=false
-          }}
-        </div>
+        {{#if system.editMode}}
+          <div class="full-size" data-group="primary">
+            <textarea name="system.techEffect" rows="5">{{system.techEffect}}</textarea>
+          </div>
+        {{else}}
+          <span>{{{techEffect}}}</span>
+        {{/if}}
       </div>
-      <div>
-        <strong>Skill: </strong><span>{{system.techSkill}}</span>
+      <div class="item-sheet-line">
+        <strong>Skill: </strong>
+        <span>
+          {{#if system.editMode}}
+            <select class="item-choice" name='techSkill' data-techstat="techSkill">
+            {{#each skills}}
+            <option 
+              {{#if (comparison ../system.techSkill this)}} selected="selected" {{/if}} 
+              value="{{this}}">{{this}}</option>
+            {{/each}}
+            </select>
+          {{else}}
+            {{system.techSkill}}
+          {{/if}}
+        </span>
       </div>
-      <div>
-        <strong>Keywords: </strong><span>{{system.techTags}}</span>
+      <div class="item-sheet-line">
+        <strong>Keywords: </strong>
+        <span>
+          {{#if system.editMode}}
+            <input type="text" class="inline-input" name="system.techTags" value="{{system.techTags}}" data-dtype="String">
+          {{else}}
+            {{system.techTags}}
+          {{/if}}
+        </span>
       </div>
     </div>
 
     {{! Editing tab}}
     {{#if isGM}}
-    <div class="tab edit" data-group="primary" data-tab="edit">
-      <div class='resource'>
-        <label class='resource-label'>Yuddhakala</label>
-        <input
-          type='text'
-          name='system.yuddhakala'
-          value='{{system.yuddhakala}}'
-          data-dtype='String'
-        />
+      <div class="tab effects" data-group="primary" data-tab="effects">
+        {{> "systems/lone-wolf-fists/templates/item/parts/item-effects.hbs"}}
       </div>
-      <div class='resource'>
-        <label>Level:</label>
-        <select class="item-choice" name='techLvl' data-techstat="techLvl">
-      
-        {{! Iterates over the list of technique types to produce a select menu.}} 
-        {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
-        {{#each techLvl}}
-          <option 
-            {{! Makes sure that the default source shown is the one currently set on the imbalance}}
-            {{#if (comparison ../system.techLvl this)}} selected="selected" {{/if}} 
-            value="{{this}}">{{this}}</option>
-          {{/each}}
-
-        </select>
-      </div>
-      <div class='resource'>
-        <select class="item-choice" name='techType' data-techstat="techType">
-      
-        {{! Iterates over the list of technique types to produce a select menu.}} 
-        {{! List can be edited at lone-wolf-fists\module\helpers\technique-config.mjs}}
-        {{#each techType}}
-        <option 
-          {{! Makes sure that the default source shown is the one currently set on the imbalance}}
-          {{#if (comparison ../system.techType this)}} selected="selected" {{/if}} 
-          value="{{this}}">{{this}}</option>
-        {{/each}}
-        </select>
-      </div>
-      {{! Ranks added}}
-      <div class='resource'>
-        <label>Rank:</label>
-        <input type="text" class="inline-input small-box" name='system.techRank' value="{{system.techRank}}" data-dtype="Number">
-      </div>
-
-      {{! Technique requirements }}
-      <div class='resource'>
-        <label>Requirements:</label>
-        <input type="text" class="inline-input large-box" name='system.techReqs' value="{{system.techReqs}}" data-dtype="String">
-      </div>
-
-      {{! Prana cost }}
-      <div class='resource'>
-        <label>Cost:</label>
-        <input type="text" class="inline-input small-box" name='system.techCost' value="{{system.techCost}}" data-dtype="Number">
-      </div>
-
-     {{! Facings }}
-      <div class='resource flexrow flex-group-center'>
-        {{#unless system.techFacing.none}}
-        <label class="flex flexshrink margin-3">Facing:</label>
-        <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.min' value="{{system.techFacing.min}}" data-dtype="Number">
-        <span class="flex flexshrink margin-3">-</span>
-        <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.max' value="{{system.techFacing.max}}" data-dtype="Number">
-        {{/unless}}
-        <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
-        <label class="rightside flex">No facings</label>
-      </div>
-    
-      {{! Skill that can be improved }}
-      <div class='resource'>
-        <label>Skill:</label>
-        <select class="item-choice" name='techSkill' data-techstat="techSkill">
-      
-        {{! Iterates over the list of skills to produce a select menu.}} 
-        {{! List can be edited at lone-wolf-fists\module\helpers\skills.mjs}}
-          {{#each skills}}
-          <option 
-            {{! Makes sure that the default source shown is the one currently set on the imbalance}}
-            {{#if (comparison ../system.techSkill this)}} selected="selected" {{/if}} 
-            value="{{this}}">{{this}}</option>
-          {{/each}}
-
-        </select>
-      </div>
-      <div class="resource">
-        <label>Keywords: </label>
-        <input type="text" class="inline-input large-box flex flexshrink" name="system.techTags" value="{{system.techTags}}" data-dtype="String">
-      </div>
-    {{! Description of the technique's effects}}
-      <h2>Effect:</h2>
-      <div class="tab" data-group="primary">
-        {{! Editors must receive enriched text data from getData to properly handle rolls }}
-        {{editor
-          system.techEffect
-          target='system.techEffect'
-          engine='prosemirror'
-          button=true
-          editable=editable
-        }}
-      </div>
-    </div>
-    <div class="tab effects" data-group="primary" data-tab="effects">
-      {{> "systems/lone-wolf-fists/templates/item/parts/item-effects.hbs"}}
-    </div>
-  {{/if}}
+    {{/if}}
   </section>
 </form>

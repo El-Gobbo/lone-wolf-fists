@@ -2,11 +2,12 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
-
+import { sanitiseAndBreak } from '../helpers/strings.mjs';
 import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
 import { LWFSKILLS } from '../helpers/skills.mjs';
 import { LWFWEAPONTAGS } from '../helpers/weapon-tags.mjs';
 import { LWFARTIFACTS } from '../helpers/artifact-config.mjs';
+import { LWFABILITYTYPES } from '../helpers/ability-types.mjs';
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
@@ -17,8 +18,8 @@ export class lwfItemSheet extends ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['lone-wolf-fists', 'sheet', 'item'],
-      width: 620,
-      height: 500,
+      width: 400,
+      height: 600,
       tabs: [
         {
           navSelector: '.sheet-tabs',
@@ -80,6 +81,7 @@ export class lwfItemSheet extends ItemSheet {
       context.techType = LWFTECHNIQUES.techType;
       context.techLvl = LWFTECHNIQUES.techLvl;
       context.skills = LWFSKILLS;
+      context.techEffect = sanitiseAndBreak(context.system.techEffect);
     }
 
     if(itemData.type === "weapon" || itemData.type === "artifact"){
@@ -91,6 +93,11 @@ export class lwfItemSheet extends ItemSheet {
       context.artifactType = LWFARTIFACTS.type;
       context.artifactTier = LWFARTIFACTS.tier;
       context.artifactTags = LWFARTIFACTS.tag;
+      context.artifactDescription = sanitiseAndBreak(context.system.artifactDescription);
+    }
+
+    if(itemData.type === "ability") {
+      context.abilityType = LWFABILITYTYPES;
     }
 
     context.isGM = game.user.isGM;
@@ -130,6 +137,11 @@ export class lwfItemSheet extends ItemSheet {
         update = $(ev.currentTarget).find(":selected").text();
       const target = ev.currentTarget.dataset.techstat;
       item.update({ [`system.${target}`]: update});
+    });
+
+    html.on('click', '#edit-mode', (ev) => {
+      const editMode = !this.item.system.editMode
+      this.item.update({[ 'system.editMode' ]: editMode})
     })
 
     // Leaving this here as an example of creating an active effect

@@ -82,6 +82,7 @@ export default class lwfCharacter extends lwfWeaponUser {
       active: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
       hellToggle: new BooleanField({initial: false}),
       awakened: new SchemaField({
+        Hell: new BooleanField({initial: false}),
         Heaven: new BooleanField({initial: false}),
         Metal: new BooleanField({initial: false}),
         Wood: new BooleanField({initial: false}),

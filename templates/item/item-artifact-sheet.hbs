@@ -31,18 +31,12 @@
         <strong>Type: </strong><span>{{system.type}}</span>
       </div>
       <div class="item-sheet-line">
-        <span><strong>Description: </strong>{{system.artifactDescription}}</span>
+        <span><strong>Description: </strong>{{{artifactDescription}}}</span>
       </div>
       <div class="item-sheet-line">
         <span>
           <strong>Shakti: </strong>            
-            {{editor
-              system.shakti
-              target='system.shakti'
-              engine='prosemirror'
-              button=false
-              editable=false
-            }}
+          <span>{{system.shakti}}</span>
         </span>
       </div>
       {{#if system.hasTechnique}}
@@ -105,6 +99,10 @@
         {{/each}}
         </select>
       </div>
+      <div class="indented-element">
+        <label>Description: </label>
+        <textarea name="system.artifactDescription" rows="5">{{system.artifactDescription}}</textarea>
+      </div>
 
       {{!-- Only show if weapon-type artifact --}}
       {{#if (comparison system.type "Weapon")}}
@@ -162,10 +160,6 @@
 
       {{!-- All artifacts --}}
       <div>
-        <div class="indented-element">
-          <label>Description: </label>
-          <textarea name="system.artifactDescription" rows="5">{{system.artifactDescription}}</textarea>
-        </div>
         <div class='resource flexrow flex-group-center'>
           <input type="checkbox" class="flex" name="system.hasTechnique"  {{#if system.hasTechnique}}checked{{/if}} value=true>
           <label class="rightside flex">Artifact has attached technique</label>
@@ -235,12 +229,14 @@
       </div>
 
     {{! Facings }}
-      <div class='resource flexrow flex-group-center'>
-        {{#unless system.techFacing.none}}
+      <div class='resource flexrow flex-group-left'>
         <label class="flex flexshrink margin-3">Facing:</label>
+        {{#unless system.techFacing.none}}
         <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.min' value="{{system.techFacing.min}}" data-dtype="Number">
         <span class="flex flexshrink margin-3">-</span>
         <input type="text" class="inline-input small-box flex flexshrink" name='system.techFacing.max' value="{{system.techFacing.max}}" data-dtype="Number">
+        {{else}}
+        None
         {{/unless}}
         <input type="checkbox" class="flex" name="system.techFacing.none"  {{#if system.techFacing.none}}checked{{/if}} value=true>
         <label class="rightside flex">No facings</label>

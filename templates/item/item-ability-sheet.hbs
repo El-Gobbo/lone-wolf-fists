@@ -33,7 +33,6 @@
         <h3><strong>Armor Value: </strong><i>{{system.armorValue}}</i></h3>
       </div>
       {{! Editors must receive enriched text data from getData to properly handle rolls }}
-      <div class="full-size prosemirror">
       {{editor
         enrichedDescription
         target='system.description'
@@ -41,14 +40,22 @@
         button=true
         editable=editable
       }}
-      </div>
     </div>
 
     {{! Attributes Tab }}
     <div class='tab attributes' data-group='primary' data-tab='attributes'>
+      <div class="resource">
+        <label>Type: </label>
+        <select name='system.type' data-techstat="type">
+        {{#each abilityType}}
+        <option 
+          {{#if (comparison ../system.type this)}} selected="selected" {{/if}} 
+          value="{{this}}">{{this}}</option>
+        {{/each}}
+        </select>
+      </div>
       <div class='resource'>
-        <label>Armor rating:</label>
-        <input id="armorValue" type="number" class="inline-input small-box" name='system.armorValue' value="{{system.armorValue}}" data-dtype="Number">
+        <h3><strong>Armor Value: </strong> <input type="text" class="" name="system.ranks" value="{{system.tag1Effect}}" data-dtype="String"></h3>
       </div>
     </div>
   </section>
