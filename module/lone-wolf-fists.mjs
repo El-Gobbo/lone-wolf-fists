@@ -98,12 +98,8 @@ Handlebars.registerHelper('comparison', function(var1, var2) {
   return var1 === var2;
 });
 
-Handlebars.registerHelper('equalOrAll', function(savedTab, currentTab) {
-  return (savedTab === currentTab || savedTab === "all");
-});
-
-Handlebars.registerHelper('kalaOrForm', function(savedTab) {
-  return (savedTab === "forms" || savedTab === "guptKala");
+Handlebars.registerHelper('comparisonOr', function(base, opt1, opt2) {
+  return (base === opt1 || base === opt2);
 });
 
 Handlebars.registerHelper('lessThan', function(index, limit) {

@@ -94,11 +94,12 @@
   // Section Header
   .items-header {
     height: 25px;
-    margin: 2px 0;
+    margin: 0;
     padding: 0;
     align-items: center;
     background: rgba(0, 0, 0, 0.05);
     border: $border-groove;
+    border-color: rgba(180, 180, 180, 0.5);
     > * {
       font-size: 12px;
       text-align: center;
@@ -107,6 +108,15 @@
       padding-left: 5px;
       text-align: left;
       // font-size: 16px;
+    }
+  }
+
+  .list-item {
+    &:nth-child(odd) {
+      background-color: rgba(180, 180, 180, 0.5);
+    }
+    &:nth-child(even) {
+      background-color: rgba(119, 119, 119, 0.5);
     }
   }
 }

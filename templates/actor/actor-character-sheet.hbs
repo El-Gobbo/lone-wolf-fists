@@ -1,92 +1,16 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
   <div class="sheet">
-  {{!-- Prana sidebar --}}
-  <div class="sidebar-small">
-    <ol class='items-list full-size'>
-      <li class="prana resources">
-        <div class="resource flex-group-center">
-          {{#if inCombat}}
-          <div>
-            <button type="button" id="prana-flare">Prana Flare</button>
-          </div>
-          {{/if}}
-          <label for="system.prana.current" class="resource-label">Prana</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input {{#unless inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
-            <input type="text" class="flex-2" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
-            <input {{#if inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/if}} type="text" name="system.prana.gen.inCombat" value="{{system.prana.gen.inCombat}}" data-dtype="Number" disabled/>
-          </div>
-        </div>
-        <div class="grid grid-2col grid-close">
-          <div class="resource flex-group-center">
-            <label for="system.pool.value" class="pool-label">Pool</label>
-            <input type="text" name="system.pool.value" value="{{system.pool.value}}" readonly disabled data-dtype="Number"/>
-          </div>
-          <div class="resource flex-group-center">
-            <label for="system.pool.recovery" class="pool-label">Recover</label>
-            <input type="text" name="system.pool.recovery" value="{{system.pool.recovery}}" readonly disabled data-dtype="Number"/>
-          </div>
-        </div>
-      </li>
+  {{!-- Chakra sidebar --}}
+    {{> "systems/lone-wolf-fists/templates/actor/parts/actor-chakras.hbs"}}
 
-      <li class="resource flex-group-center flex-column">
-        <label for="system.chakras.active" class="resource-label">Chakras</label>
-        <div class="active-chakras small-box">
-          <input id="chakra-display" type="number" class="full-size" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number" readonly/>
-          {{#if inCombat}}
-          {{#unless (comparison system.chakras.active 7)}}
-          <img
-            class="chakra-increase"
-            src="systems/lone-wolf-fists/assets/arrup.png"
-            title='Open Chakra'
-            width='5'
-            height='5'
-          />
-          {{/unless}}
-          {{#unless (comparison system.chakras.active system.chakras.value)}}
-          <img
-            class="chakra-decrease"
-            src="systems/lone-wolf-fists/assets/arrdown.png"
-            title='Close Chakra'
-            width='5'
-            height='5'
-          />
-          {{/unless}}
-          {{/if}}
-        </div>
-      </li>
-    {{#each chakras as | skill | }}
-    <li class='item flex-group-center'>
-      <div class='item-image' data-imbtype="{{skill}}">
-          <img
-            class="chakra-image"
-            {{#if (lookup ../system.chakras.awakened skill)}}
-            src='systems/lone-wolf-fists/assets/Chakras/{{skill}} Awakened.png'
-            {{else}}
-            src='systems/lone-wolf-fists/assets/Chakras/{{skill}}.png'
-            {{/if}}
-            title='{{skill}}'
-            width='40'
-            height='40'
-          />
-      </div>
-      <h4 class="skill">
-        {{#if (lookup ../system.chakras.awakened skill)}}<strong>{{skill}}</strong>
-        {{else}}{{skill}}
-        {{/if}}
-      </h4>
-    </li>
-    {{/each}}
-
-  </div> 
   {{!-- Main section of the sheet --}}
   <div class="body">
   <header class="sheet-top">
     <div class="sidebar flex-group-center">
       <img class="profile-img flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120"/>
       <div class="resources">
-        <div id="degree" class="resource flex-group-center">
+        <div id="degree" class="resource flex-group-center font-size-20">
           <label for="system.degree.value" class="resource-label">Degree</label>
           <div class="">
             <input id="degree-input" class="small-box" type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>

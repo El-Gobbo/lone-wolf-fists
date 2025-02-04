@@ -1,27 +1,54 @@
-<div class="item flexrow items-header grid grid-13col">
-  <div class="grid-span-8">Capabilities</div>
+<div class="items-list full-size">
+<div class="item flexrow items-header grid grid-13col small-table-header">
+  <div class="grid-span-5 flex-group-center">Ability</div>
   <div class="flex-group-center grid-span-2">Ranks</div>
+  <div class="flex-group-center grid-span-3">Target</div>
   <div class="flex-group-center grid-span-2">Frequency</div>
-  <div class="flex-group-center"></div>
+  <div class='item-controls flex-group-center'>
+      <a
+        class='item-control item-create'
+        title='Create item'
+        data-type='ability'
+      >
+        <i class='fas fa-plus'></i>
+      </a>
+  </div>
 </div>
 
-<div id="abilities" class="full-size techniqueTable items-list">
+<div id="abilities" class="items-list full-size technique-table">
 {{#each ability as |item id|}}
-  <div class='item flexrow grid grid-13col grid-table' data-item-id='{{item._id}}'>
+  <div class='item flexrow grid grid-13col grid-table list-item' data-item-id='{{item._id}}'>
+    <div class='item-name grid-span-5'>
     <a
       class='item-control item-edit'
       title='{{localize "DOCUMENT.Update" type='Item'}}'
     >
-    <div class='item-name grid-span-8'>
+      <img
+        src='{{item.img}}'
+        title='{{item.name}}'
+        width='24'
+        height='24'
+      />
       <h4>{{item.name}}</h4>
+    </a>
     </div>
     <div class="item-ranks item-requirements grid-span-2 flex-group-center">
-      <h4>{{item.system.ranks}}</h4>
+      {{#if (comparison item.system.effect.type 'Boost')}}
+      <h4>+{{item.system.effect.ranks}}</h4>
+      {{else}}
+      <h4>Rank {{item.system.effect.ranks}}</h4>
+      {{/if}}
+    </div>
+    <div class="item-ranks item-requirements grid-span-3 flex-group-center">
+      <h4>{{item.system.effect.target}}</h4>
     </div>
     <div class="item-frequency grid-span-2 flex-group-center">
-      <h4><strong>{{item.system.frequency}}</strong></h4>
+      {{#if (comparison system.effect.type 'Capability')}}
+      <h4><strong> - </strong></h4>
+      {{else}}
+      <h4><strong>{{item.system.effect.frequency}}/round</strong></h4>
+      {{/if}}
     </div>
-    </a>
     <div class="item-controls">
       <a
         class='item-control item-delete'
@@ -32,4 +59,5 @@
     </div>
   </div>
 {{/each}}
+</div>
 </div>

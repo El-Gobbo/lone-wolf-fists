@@ -476,7 +476,6 @@ export class lwfActorSheet extends ActorSheet {
     })
 
     html.on('change', '.techniqueDisplay', (ev) => {
-      let tables = $('.techniqueTable');
       let update = $(ev.currentTarget)[0].value;
       this.actor.update({[ 'system.techTableFocus' ]: update});
     })

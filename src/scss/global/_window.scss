@@ -2,6 +2,24 @@
   font-family: $font-primary;
 }
 
+.sheet-header {
+  h1 {
+    input {
+      &#ability-name {
+        height: 35px;
+        font-size: 25px;
+      }
+    }
+  }
+  img {
+    &#ability-image {
+    flex: 0 0 90px;
+    height: 90px;
+    margin-right: 6px;
+    }
+  }
+}
+
 .rollable {
   &:hover,
   &:focus {

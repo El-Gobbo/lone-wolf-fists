@@ -1,0 +1,73 @@
+<div class="sidebar-small">
+<ol class='items-list full-size'>
+    <li class="prana resources">
+    <div class="resource flex-group-center">
+        <div>
+        <button type="button" id="prana-flare">Prana Flare</button>
+        </div>
+        <label for="system.prana.current" class="resource-label">Prana</label>
+        <div class="resource-content flexrow flex-center flex-between">
+        <input {{#unless inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
+        <input type="text" class="flex-2" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
+        <input {{#if inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/if}} type="text" name="system.prana.gen.inCombat" value="{{system.prana.gen.inCombat}}" data-dtype="Number" disabled/>
+        </div>
+    </div>
+    <div class="grid grid-2col grid-close">
+        <div class="resource flex-group-center">
+        <label for="system.pool.value" class="pool-label">Pool</label>
+        <input type="text" name="system.pool.value" value="{{system.pool.value}}" data-dtype="Number"/>
+        </div>
+        <div class="resource flex-group-center">
+        <label for="system.pool.recovery" class="pool-label">Recover</label>
+        <input type="text" name="system.pool.recovery" value="{{system.pool.recovery}}" data-dtype="Number"/>
+        </div>
+    </div>
+    </li>
+
+    <li class="resource flex-group-center flex-column">
+    <label for="system.chakras.active" class="resource-label">Chakras</label>
+    <div class="active-chakras small-box">
+        <input id="chakra-display" type="number" class="full-size" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number" readonly/>
+        {{#unless (comparison system.chakras.active 7)}}
+        <img
+        class="chakra-increase"
+        src="systems/lone-wolf-fists/assets/arrup.png"
+        title='Open Chakra'
+        width='10'
+        height='10'
+        />
+        {{/unless}}
+        {{#unless (comparison system.chakras.active 1)}}
+        <img
+        class="chakra-decrease"
+        src="systems/lone-wolf-fists/assets/arrdown.png"
+        title='Close Chakra'
+        width='10'
+        height='10'
+        />
+        {{/unless}}
+    </div>
+    </li>
+{{#each chakras as | skill | }}
+<li class='item flex-group-center'>
+    <div class='item-image' data-imbtype="{{skill}}">
+        <img
+        class="chakra-image"
+        {{#if (lookup ../system.chakras.awakened skill)}}
+        src='systems/lone-wolf-fists/assets/Chakras/{{skill}} Awakened.png'
+        {{else}}
+        src='systems/lone-wolf-fists/assets/Chakras/{{skill}}.png'
+        {{/if}}
+        title='{{skill}}'
+        width='40'
+        height='40'
+        />
+    </div>
+    <h4 class="skill">
+    {{#if (lookup ../system.chakras.awakened skill)}}<strong>{{skill}}</strong>
+    {{else}}{{skill}}
+    {{/if}}
+    </h4>
+</li>
+{{/each}}
+</div> 
