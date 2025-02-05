@@ -11,6 +11,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/lone-wolf-fists/templates/actor/parts/actor-chakras.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-abilities.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs',
+    'systems/lone-wolf-fists/templates/actor/parts/actor-equipment.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-dharma.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-effects.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs',

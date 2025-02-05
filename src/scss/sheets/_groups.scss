@@ -1,0 +1,17 @@
+.membership {
+    &.squad {
+        background-image: url("../assets/icons/person-transparent.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        height: 36px;
+        width: auto;
+        &.strong-member {
+            background-image: url("../assets/icons/strong-transparent.svg");
+        }
+    }
+}
+
+#squad-forms {
+    margin: 20px auto;
+}

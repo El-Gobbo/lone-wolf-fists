@@ -131,16 +131,8 @@ position: relative;
   font-size: 16px;
 }
 
-.imbalance {
-  
-  input,
-  select {
-    font-size: 11px;
-  }
-}
-
-.small-table-header {
-  margin: 0 0 2px 0;
+.technique-header {
+  margin: 0;
   div {
     font-size: 10px;
   }
@@ -187,6 +179,13 @@ position: relative;
 
 .monster-body-box {
   margin: 20px 30px;
+  #techniqueDisplay {
+    display: none;
+  }
+}
+
+#actor-type {
+  color:  rgba(119, 119, 119, 0.801);
 }
 
 .sidebar,
@@ -246,6 +245,18 @@ position: relative;
   border-style: groove;
   border-width: 2px;
   border-color: yellow;
+}
+
+.quarter-size {
+  width: 25%;
+}
+
+.half-size {
+  width: 50%;
+}
+
+.three-quarter-size {
+  width: 75%;
 }
 
 .full-size {

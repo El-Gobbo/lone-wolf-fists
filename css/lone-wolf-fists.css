@@ -364,6 +364,9 @@
 }
 
 /* Styles limited to lone-wolf-fists sheets */
+.lone-wolf-fists {
+  /* Styles limited to specific sheets */
+}
 .lone-wolf-fists table {
   table-layout: fixed;
 }
@@ -471,14 +474,10 @@
 .lone-wolf-fists #cultural-landmark {
   font-size: 16px;
 }
-.lone-wolf-fists .imbalance input,
-.lone-wolf-fists .imbalance select {
-  font-size: 11px;
+.lone-wolf-fists .technique-header {
+  margin: 0;
 }
-.lone-wolf-fists .small-table-header {
-  margin: 0 0 2px 0;
-}
-.lone-wolf-fists .small-table-header div {
+.lone-wolf-fists .technique-header div {
   font-size: 10px;
 }
 .lone-wolf-fists .indented-element {
@@ -516,6 +515,12 @@
 }
 .lone-wolf-fists .monster-body-box {
   margin: 20px 30px;
+}
+.lone-wolf-fists .monster-body-box #techniqueDisplay {
+  display: none;
+}
+.lone-wolf-fists #actor-type {
+  color: rgba(119, 119, 119, 0.801);
 }
 .lone-wolf-fists .sidebar,
 .lone-wolf-fists .sidebar-small {
@@ -565,6 +570,15 @@
   border-style: groove;
   border-width: 2px;
   border-color: yellow;
+}
+.lone-wolf-fists .quarter-size {
+  width: 25%;
+}
+.lone-wolf-fists .half-size {
+  width: 50%;
+}
+.lone-wolf-fists .three-quarter-size {
+  width: 75%;
 }
 .lone-wolf-fists .full-size {
   width: 100%;
@@ -828,6 +842,20 @@
 }
 .lone-wolf-fists .effects .item .effect-controls {
   border: none;
+}
+.lone-wolf-fists .membership.squad {
+  background-image: url("../assets/icons/person-transparent.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 36px;
+  width: auto;
+}
+.lone-wolf-fists .membership.squad.strong-member {
+  background-image: url("../assets/icons/strong-transparent.svg");
+}
+.lone-wolf-fists #squad-forms {
+  margin: 20px auto;
 }
 
 /*# sourceMappingURL=lone-wolf-fists.css.map */

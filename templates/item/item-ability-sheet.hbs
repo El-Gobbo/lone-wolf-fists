@@ -35,6 +35,7 @@
         </h4></i>
       </div>
       <div class="flexrow">
+        {{#unless (comparison system.effect.type 'Capability')}}
         <div id="ranks" class="flex-column flex-group-center npc-sidebar">
           {{#if system.editMode}}
           <label for="ranks-input" class="resource-label">Ranks</label>
@@ -45,6 +46,7 @@
             <h4 id="ranks-input" class="font-size-20">{{bonus}}</h4>
           {{/if}}
         </div>
+        {{/unless}}
         <div id="target" class="flex-column flex-group-center npc-sidebar">
           {{#if (comparison system.effect.type 'Charge Attack')}}
             {{#if system.editMode}}
@@ -53,41 +55,30 @@
               <input id="sets-input" class="smallish-box font-size-20" type="text" name="system.effect.sets" value="{{system.effect.sets}}" data-dtype="String">
             </div>
             {{else}}
-              <h4 id="sets-input" class="font-size-20">{{target}}</h4>
+              <h4 id="sets-input" class="font-size-20">{{system.effect.sets}}</h4>
             {{/if}}
           {{else}}
             {{#if system.editMode}}
             <label for="target-input" class="resource-label">Effect</label>
             <div id="target-input-container" class=" flex-group-center flexshrink">
-              <select class="font-size-20" name='system.effect.target' data-techstat="effect.target">
-              {{#each possibleTargets}}
-                <option 
-                  {{#if (comparison ../system.effect.target this)}}
-                    selected="selected"
-                  {{/if}} 
-                  value="{{this}}">{{this}}
-                </option>
-              {{/each}}
-              </select>
+              <input id="sets-input" {{#if (comparison system.effect.type 'Capability')}} class="large-box font-size-20" {{else}}class="medium-box font-size-20" {{/if}} type="text" name="system.effect.target" value="{{system.effect.target}}" data-dtype="String">
             </div>
             {{else}}
-              <h4 id="target-input" class="font-size-20">{{target}}</h4>
+              <h4 id="target-input" class="font-size-20">{{system.effect.target}}</h4>
             {{/if}}
           {{/if}}
         </div>
-        {{#unless (comparison system.effect.type 'Capability')}}
-          {{#unless (comparison system.effect.type 'Charge Attack')}}
-            <div id="frequency" class="flex-column flex-group-center npc-sidebar">
-              {{#if system.editMode}}
-              <label for="frequency-input" class="resource-label">Frequency</label>
-              <div id="frequency-input-container" class=" flex-group-center flexshrink">
-                <input id="frequency-input" class="smallish-box font-size-20" type="text" name="system.effect.frequency" value="{{system.effect.frequency}}" data-dtype="Number">
-              </div>
-              {{else}}
-                <h4 id="frequency-input" class="font-size-20">{{system.effect.frequency}}/round</h4>
-              {{/if}}
+        {{#unless (comparisonOr system.effect.type 'Capability' 'Charge Attack')}}
+          <div id="frequency" class="flex-column flex-group-center npc-sidebar">
+            {{#if system.editMode}}
+            <label for="frequency-input" class="resource-label">Frequency</label>
+            <div id="frequency-input-container" class=" flex-group-center flexshrink">
+              <input id="frequency-input" class="smallish-box font-size-20" type="text" name="system.effect.frequency" value="{{system.effect.frequency}}" data-dtype="Number">
             </div>
-          {{/unless}}
+            {{else}}
+              <h4 id="frequency-input" class="font-size-20">{{system.effect.frequency}}/round</h4>
+            {{/if}}
+          </div>
         {{/unless}}
       </div>
     </div>

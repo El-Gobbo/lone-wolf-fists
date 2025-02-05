@@ -20,4 +20,7 @@
   @import 'components/resource';
   @import 'components/items';
   @import 'components/effects';
+
+  /* Styles limited to specific sheets */
+  @import 'sheets/groups'
 }

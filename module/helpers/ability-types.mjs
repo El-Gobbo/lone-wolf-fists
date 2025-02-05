@@ -1,6 +1,6 @@
 export const LWFABILITYTYPES = [
     "Boost",
-    "Move",
+    "Ability",
     "Capability",
     "Charge Attack"
 ];

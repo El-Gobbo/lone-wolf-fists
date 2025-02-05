@@ -66,7 +66,7 @@ export class lwfActorSheet extends ActorSheet {
     }
 
     // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
+    if (actorData.type == 'npc' || actorData.type == 'squad') {
       this._prepareItems(context);
     }
 
@@ -152,7 +152,12 @@ export class lwfActorSheet extends ActorSheet {
     const archetype = [];
     const clan = [];
     const skills = [];
-    const ability = [];
+    const ability = {
+      "Capability": [],
+      "Boost": [],
+      "Ability": []
+    };
+    const chargeAttack = [];
 
 
     // Iterate through items, allocating to containers
@@ -192,7 +197,12 @@ export class lwfActorSheet extends ActorSheet {
           break;
 
         case 'ability':
-          ability.push(i);
+          if(i.system.effect.type === 'Charge Attack')
+            chargeAttack.push(i);
+          else {
+            let type = i.system.effect.type;
+            ability[type].push(i);
+          }
           break;
 
       // Append to techniques.
@@ -249,6 +259,8 @@ export class lwfActorSheet extends ActorSheet {
     context.form = form;
     context.skill = skills;
     context.ability = ability;
+    if(chargeAttack.length > 0)
+      context.chargeAttack = chargeAttack;
 
     if(this.actor.type == 'character')
       this._prepareSkills(context);
@@ -294,16 +306,27 @@ export class lwfActorSheet extends ActorSheet {
     return context;
   }
 
-    /**
-   * Organise and find data for individual squad members.
-   *
-   * @param {object} context The context object to mutate
-   */
+  /**
+ * Organise and find data for individual squad members.
+ *
+ * @param {object} context The context object to mutate
+ */
   _prepareMembers(context) {
     const members = [];
     for(let m of context.system.namedMembers) {
       const member = game.actors?.get(m);
+      let duplicate = false;
+      for(let i = 0; i < members.length; i++) {
+        if(members[i].creature === member.name) {
+          members[i].quantity += 1;
+          duplicate = true;
+          break;
+        }
+      }
+      if(duplicate)
+        continue;
       const memberData = {
+        "img": member.img,
         "creature": member.name,
         "effort": member.system.power.value,
         "health": member.system.health.value,
@@ -314,12 +337,11 @@ export class lwfActorSheet extends ActorSheet {
       members.push(memberData);
     }
     for(let m in context.system.members) {
-      let current = context.system.members[m]
+      let current = context.system.members[m];
       current["editable"] = true;
       current["id"] = m;
       members.push(current);
     }
-
     context.members = members;
     return context;
   }
@@ -513,7 +535,7 @@ export class lwfActorSheet extends ActorSheet {
       const target = ev.currentTarget.parentElement.dataset.imbtype;
 
       // Get the array index of the member
-      const index = ev.currentTarget.parentElement.parentElement.dataset.index;
+      const index = ev.currentTarget.parentElement.parentElement.dataset.id;
 
       // Change the relvant index
       members[index][target] = newValue;

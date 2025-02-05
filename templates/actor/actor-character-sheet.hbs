@@ -26,7 +26,7 @@
           <div id="effortless" class="resource flex-group-center">
             <label for="system.effortless.value" class="resource-label">E-less</label>
             <div class="">
-              <input type="text" name="effortless" value="Rank {{system.effortless.value}}" data-dtype="String" readonly/>
+              <h4>Rank {{system.effortless.value}}</h4>
             </div>
           </div>
         </div>
@@ -124,6 +124,7 @@
     {{!-- Biography Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
       {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-equipment.hbs"}}
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
     </div>
 

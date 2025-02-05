@@ -99,38 +99,20 @@ export class lwfItemSheet extends ItemSheet {
     if(itemData.type === "ability") {
       context.abilityType = LWFABILITYTYPES;
       let bonus = "";
-      let target = "";
-      const possibleTargets = ['Attack', 'Defense'];
       switch(context.system.effect.type) {
         case 'Boost':
           bonus = `+${context.system.effect.ranks} Rank`
           if(context.system.effect.ranks != 1) {
             bonus += 's'
           }
-          target = context.system.effect.target;
-          possibleTargets.push(...LWFSKILLS);
           break;
         
-        case 'Capability':
-          bonus = `Rank ${context.system.effect.ranks}`;
-          target = context.system.effect.target;
-          possibleTargets.push(...LWFSKILLS);
-          break;
-
-        case 'Move':
-          bonus = `Rank ${context.system.effect.ranks}`;
-          target = context.system.effect.target;
-          possibleTargets.push(...LWFSKILLS);
-          break;
-
+        case 'Ability':
         case 'Charge Attack':
           bonus = `Rank ${context.system.effect.ranks}`;
-          target = `${context.system.effect.sets} sets`;
           break;
       }
       context.bonus = bonus;
-      context.target = target;
-      context.possibleTargets = possibleTargets;
     }
     context.isGM = game.user.isGM;
 

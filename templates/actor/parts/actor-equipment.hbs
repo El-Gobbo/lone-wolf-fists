@@ -1,0 +1,92 @@
+<div class="items-list full-size grid grid-2col grid-close">
+  {{!-- Weapon table--}}
+  <div class="items-list full-size">
+    <div class='flexrow items-header grid grid-11col'>
+      <div class='item-name grid-span-4'>Weapon</div>
+      <div class='flex-group-center item-formula grid-span-4'>Tags</div>
+      <div class='flex-group-center item-formula grid-span-2'>Held</div>
+      <div></div>
+    </div>
+    {{#each weapon as |item id |}}
+    <div class='item flexrow grid grid-11col grid-table' data-item-id='{{item._id}}'>
+      <div class="item-name grid-span-4">
+        <a
+          class='item-control item-edit item-name'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <img
+          class="item-image"
+          src='{{item.img}}'
+          title='{{item.name}}'
+          width='24'
+          height='24'
+        />
+        <h4>{{item.name}}</h4>
+        </a>
+      </div>
+      {{#if item.system.unique}}
+      <div class="flex-group-center grid-span-4">
+        <h4>{{item.system.tag1}} and {{item.system.tag2}}</h4>
+      </div>
+      {{else}}
+      <div class="flex-group-center grid-span-4">
+        <h4>{{item.system.tag1}}</h4>
+      </div>
+      {{/if}}
+      <div class='resource flexrow flex-group-center grid-span-2' data-imbtype="held">
+        <input type="checkbox" class="flex item-choice" name="isHeld"  {{#if item.system.held}}checked{{/if}} value=true>
+      </div>
+      <div class="item-controls">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='Item'}}'
+        >
+        <i class='fas fa-trash'></i>
+        </a>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{!-- Armor table--}}
+  <div class="items-list full-size grid-table">
+    <div class='flexrow items-header grid grid-8col'>
+      <div class='item-name grid-span-4'>Armor</div>
+      <div class='flex-group-center item-formula grid-span-2'>Rating</div>
+      <div class="flex-group-center">Worn</div>
+      <div></div>
+    </div>
+    {{#each armor as |item id |}}
+    <div class='item flexrow grid grid-8col grid-table' data-item-id='{{item._id}}'>
+      <div class="item-name grid-span-4">
+        <a
+          class='item-control item-edit item-name'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <img
+          class="item-image"
+          src='{{item.img}}'
+          title='{{item.name}}'
+          width='24'
+          height='24'
+        />
+        <h4>{{item.name}}</h4>
+        </a>
+      </div>
+      <div class="flex-group-center item-name grid-span-2">
+        <h4>{{item.system.armorValue}}</h4>
+      </div>
+      <div class='resource flexrow flex-group-center' data-imbtype="worn">
+        <input type="checkbox" class="flex item-choice" name="isWorn"  {{#if item.system.worn}}checked{{/if}} value=true>
+      </div>
+      <div class="item-controls">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='Item'}}'
+        >
+        <i class='fas fa-trash'></i>
+        </a>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
