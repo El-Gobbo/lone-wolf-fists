@@ -2,7 +2,7 @@ import lwfWeaponUser from "./base-weaponuser.mjs";
 import { LWFARCH } from "../helpers/archetypes.mjs";
 import { LWFCLAN } from "../helpers/clans.mjs";
 
-export default class lwfCharacter extends lwfWeaponUser {
+export class lwfCharacter extends lwfWeaponUser {
   async _preCreate(data,options,user){
     await super._preCreate(data, options, user);
 

@@ -65,10 +65,15 @@ export class lwfActorSheet extends ActorSheet {
       this._prepareMembers(context);
     }
 
+    if(actorData.type === 'platoon') {
+      this._preparePlatoon(context);
+    }
+
     // Prepare NPC data and items.
-    if (actorData.type == 'npc' || actorData.type == 'squad') {
+    if (actorData.type == 'npc' || actorData.type == 'squad' || actorData.type == 'platoon') {
       this._prepareItems(context);
     }
+    context.isGM = game.user.isGM;
 
     // Enrich biography info for display
     // Enrichment turns text like `[[/r 1d20]]` into buttons
@@ -110,7 +115,6 @@ export class lwfActorSheet extends ActorSheet {
     if (context.clan.length > 0) {
       context.system.deed = context.clan[0].system.deed;
     }
-    context.isGM = game.user.isGM;
     context.skills = LWFSKILLS;
     context.techType = LWFTECHNIQUES.techType;
     context.techLvl = LWFTECHNIQUES.techLvl;
@@ -147,6 +151,7 @@ export class lwfActorSheet extends ActorSheet {
       "mudra": [],
       "balance": []
     };
+    let hasTechniques = false;
     const form = [];
     const imbalances = [];
     const archetype = [];
@@ -191,9 +196,10 @@ export class lwfActorSheet extends ActorSheet {
             armor.push(i);
           else
             artifactItems.push(i);
-          if(i.system.hasTechnique)
-            pushToTechnique(i, techniques)
-          
+          if(i.system.hasTechnique) {
+            pushToTechnique(i, techniques);
+            hasTechniques = true;
+          }
           break;
 
         case 'ability':
@@ -207,11 +213,13 @@ export class lwfActorSheet extends ActorSheet {
 
       // Append to techniques.
         case 'technique':
-          pushToTechnique(i, techniques)
+          pushToTechnique(i, techniques);
+          hasTechniques = true;
           break;
 
         case 'form':
           form.push(i);
+          hasTechniques = true;
           break;
 
         case 'imbalance':
@@ -221,6 +229,7 @@ export class lwfActorSheet extends ActorSheet {
         // Append to gupt kala.
         case 'gupt-kala':
           guptKala.push(i);
+          hasTechniques = true;
           break;
         // Check if the player already has an archetype or clan, if they do, delete any new ones added
         case 'archetype':
@@ -254,6 +263,7 @@ export class lwfActorSheet extends ActorSheet {
     context.artifacts = artifactItems;
     context.guptKala = guptKala;
     context.techniques = techniques;
+    context.hasTechniques = hasTechniques;
     context.imbalances = imbalances;
     context.clan = clan;
     context.form = form;
@@ -311,10 +321,10 @@ export class lwfActorSheet extends ActorSheet {
  *
  * @param {object} context The context object to mutate
  */
-  _prepareMembers(context) {
+  async _prepareMembers(context) {
     const members = [];
     for(let m of context.system.namedMembers) {
-      const member = game.actors?.get(m);
+      const member = await fromUuid(m);
       let duplicate = false;
       for(let i = 0; i < members.length; i++) {
         if(members[i].creature === member.name) {
@@ -332,7 +342,7 @@ export class lwfActorSheet extends ActorSheet {
         "health": member.system.health.value,
         "quantity": 1,
         "editable": false,
-        "id": `actor-${m}`
+        "id": `${m}`
       }
       members.push(memberData);
     }
@@ -343,6 +353,15 @@ export class lwfActorSheet extends ActorSheet {
       members.push(current);
     }
     context.members = members;
+    return context;
+  }
+
+  _preparePlatoon(context) {
+    const platoonLiving = new Array(context.system.membership.current).fill("");
+    const dead = context.system.membership.max - context.system.membership.current;
+    const platoonDead = new Array(dead).fill("");
+    context.living = platoonLiving;
+    context.dead = platoonDead;
     return context;
   }
 
@@ -557,6 +576,15 @@ export class lwfActorSheet extends ActorSheet {
       }
     })
 
+    html.on('change', '#membership-set', (ev) => {
+      const value = ev.currentTarget.value;
+      if (value > 100)
+        value = 100;
+      else if (value < 0)
+        value = 0;
+      this.actor.update({[ 'system.membership.max' ]: value, [ 'system.membership.current' ]: value, [ 'system.health.current' ]: value * 10})
+    })
+
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
 
@@ -658,9 +686,7 @@ export class lwfActorSheet extends ActorSheet {
     const members = this.actor.system.namedMembers;
 
     // Get the id of the dropped creature
-    const id = data.uuid.split(".")[1];
-    if(id in members)
-      return false;
+    const id = data.uuid;
     members.push(id);
 
     // Update the current Squad member array with the new values

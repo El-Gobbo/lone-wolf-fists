@@ -8,6 +8,7 @@
   {{! Main Body }}
   <div class="sidebar flex-group-center">
     <img class="profile-img monster flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <h4 id="actor-type" class="full-size"><i>{{actor.type}}</i></h4>
     <div class="resources">
       <div id="effort" class="resource flex-group-center flex-column npc-sidebar">
         <label for="power-input" class="resource-label">Ferocity</label>
@@ -30,7 +31,7 @@
       <div id="health" class="resource flex-group-center inner-margin npc-sidebar">
         <div>
           <label for="health-current" class="resource-label">Health</label>
-          <div id="health" class="resource-content max-min flexrow flex-group-center">
+          <div id="health-container" class="resource-content max-min flexrow flex-group-center">
             <input id="health-current" class="stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
             <input id="health-max" class="stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
           </div>
@@ -68,10 +69,6 @@
       </div>
       {{#if system.editMode}}
       <div class="npc-sidebar">
-        <div class="flexrow flex-group-center">
-          <input type="checkbox" class="flex" name="system.hasTechniques"  {{#if system.hasTechniques}}checked{{/if}} value=true>
-          <label class="rightside flex">Monster has techniques</label>
-        </div>
         <div class="flexrow flex-group-center">
           <input type="checkbox" class="flex" name="system.chakras.hasChakra"  {{#if system.chakras.hasChakra}}checked{{/if}} value=true>
           <label class="rightside flex">Monster has chakra</label>
@@ -120,7 +117,7 @@
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
       </div>
       <div class="flex-group-center monster-body-box">
-        {{#if system.hasTechniques}}
+        {{#if hasTechniques}}
         <h4 id="techniques-heading" class="full-size section-header">Techniques</h4>
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-techniques.hbs"}}
         {{/if}}

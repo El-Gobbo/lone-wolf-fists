@@ -21,7 +21,7 @@ export default class lwfActorBase extends lwfDataModel {
       advantage: new fields.BooleanField({ required: true, initial: false }),
       modifiers: new fields.StringField({ required: true, initial: "" }),
     });
-    schema.editMode = new fields.BooleanField({initial: false})
+    schema.editMode = new fields.BooleanField({initial: true})
     return schema;
   }
 

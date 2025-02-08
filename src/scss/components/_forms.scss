@@ -178,7 +178,8 @@ position: relative;
 }
 
 .monster-body-box {
-  margin: 20px 30px;
+  margin: 20px auto;
+  width: 85%;
   #techniqueDisplay {
     display: none;
   }
@@ -199,7 +200,7 @@ position: relative;
   position: relative;
 
   .npc-sidebar {
-    margin: 5px 0;
+    margin: 10px 0;
   }
 }
 
