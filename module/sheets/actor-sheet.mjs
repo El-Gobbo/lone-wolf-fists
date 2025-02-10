@@ -208,10 +208,10 @@ export class lwfActorSheet extends ActorSheet {
           break;
 
         case 'ability':
-          if(i.system.effect.type === 'Charge Attack')
+          if(i.system.subtype === 'Charge Attack')
             chargeAttack.push(i);
           else {
-            let type = i.system.effect.type;
+            let type = i.system.subtype;
             ability[type].push(i);
           }
           break;
@@ -372,7 +372,7 @@ export class lwfActorSheet extends ActorSheet {
 
   _prepareOnslaughtAndAnatomy(context) {
     const anatomy = context.actor.items.filter(i => (i.type === 'anatomy'));
-    const onslaughts = context.actor.items.filter(i => (i.type === 'onslaught'));
+    const onslaughts = context.actor.items.filter(i => (i.type === 'ability'));
     const calamity = context.actor.items.get(context.actor.system.calamity);
     const onslaughtIds = onslaughts.map(o => o._id);
     // Checks to see if there is a linked onslaught, and if there is inserts it's name into the linked onslaught box
@@ -386,7 +386,7 @@ export class lwfActorSheet extends ActorSheet {
       }
       else {
         a.onslaughtName = onslaughts[index].name;
-        a.onslaughtFrequency = onslaughts[index].system.frequency.number.toString().concat("/",onslaughts[index].system.frequency.interval)
+        a.onslaughtFrequency = onslaughts[index].system.effect.frequency.toString().concat("/",onslaughts[index].system.effect.duration)
       }
     }
     if(calamity === undefined)

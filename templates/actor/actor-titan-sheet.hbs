@@ -108,7 +108,7 @@
     {{#unless system.type}}
     <a class="item" data-tab="core">Anatomy</a>
     {{/unless}}
-    <a class="item" data-tab="onslaught">Onslaught</a>
+    <a class="item" data-tab="onslaught">Onslaughts</a>
         <a class="item" data-tab="description">Description</a>
     <a class="item" data-tab="effects">Effects</a>
   </nav>
@@ -265,7 +265,6 @@
     {{!-- Onslaught Tab --}}
     <div class="tab items" data-group="primary" data-tab="onslaught">
       <div class="flex-column flex-group-center monster-body-box">
-        <h4 id="onslaught-heading">Onslaughts</h4>
         <div class="items-list full-size">
           <div class="item flexrow items-header grid grid-8col small-table-header">
             <div class=" flex-group-center grid-span-5">Onslaught</div>
@@ -274,7 +273,8 @@
                 <a
                   class='item-control item-create'
                   title='Create item'
-                  data-type='onslaught'
+                  data-type='ability'
+                  data-subtype='Onslaught'
                 >
                   <i class='fas fa-plus'></i>
                 </a>
@@ -299,7 +299,7 @@
                 </a>
               </div>
               <div class="item-frequency grid-span-2 flex-group-center">
-                <h4><strong>{{item.system.frequency.number}}/{{item.system.frequency.interval}}</strong></h4>
+                <h4><strong>{{item.system.effect.frequencys}}/{{item.system.effect.duration}}</strong></h4>
               </div>
               <div class="item-controls">
                 <a

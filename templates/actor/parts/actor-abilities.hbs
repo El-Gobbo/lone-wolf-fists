@@ -37,10 +37,10 @@
       </a>
       </div>
       <div class="item-ranks grid-span-2 flex-group-center">
-        {{#if (comparison item.system.effect.type 'Capability')}}
+        {{#if (comparison item.system.subtype 'Capability')}}
           <h4><strong> - </strong></h4>
         {{else}}
-          {{#if (comparison item.system.effect.type 'Boost')}}
+          {{#if (comparison item.system.subtype 'Boost')}}
           <h4>+{{item.system.effect.ranks}}</h4>
           {{else}}
           <h4>Rank {{item.system.effect.ranks}}</h4>
@@ -51,7 +51,7 @@
         <h4>{{item.system.effect.target}}</h4>
       </div>
       <div class="item-frequency grid-span-2 flex-group-center">
-        {{#if (comparison system.effect.type 'Capability')}}
+        {{#if (comparison system.subtype 'Capability')}}
         <h4><strong> - </strong></h4>
         {{else}}
         <h4><strong>{{item.system.effect.frequency}}/round</strong></h4>

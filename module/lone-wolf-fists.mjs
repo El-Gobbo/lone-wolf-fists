@@ -68,7 +68,6 @@ Hooks.once('init', function () {
     weapon: models.lwfWeapon,
     artifact: models.lwfArtifact,
     ability: models.lwfAbility,
-    onslaught: models.lwfOnslaught,
     anatomy: models.lwfAnatomy
   }
 

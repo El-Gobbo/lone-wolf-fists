@@ -98,21 +98,6 @@ export class lwfItemSheet extends ItemSheet {
 
     if(itemData.type === "ability") {
       context.abilityType = LWFABILITIES.types;
-      let bonus = "";
-      switch(context.system.effect.type) {
-        case 'Boost':
-          bonus = `+${context.system.effect.ranks} Rank`
-          if(context.system.effect.ranks != 1) {
-            bonus += 's'
-          }
-          break;
-        
-        case 'Ability':
-        case 'Charge Attack':
-          bonus = `Rank ${context.system.effect.ranks}`;
-          break;
-      }
-      context.bonus = bonus;
     }
 
     if(itemData.type === 'anatomy') {

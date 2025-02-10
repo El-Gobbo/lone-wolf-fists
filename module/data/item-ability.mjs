@@ -7,12 +7,13 @@ export default class lwfAbility extends lwfItemBase {
     const { SchemaField, NumberField, StringField, ArrayField, HTMLField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
-
+    schema.subtype = new StringField({ initial: 'Power' });
     schema.effect = new SchemaField({
-      type: new StringField({ initial: 'Boost' }),
+
       target: new StringField({ initial: 'Attack' }),
-      ranks: new NumberField({ nullable: false, integer: true, initial: 1, min: 0 }),
+      intensity: new StringField(),
       frequency: new NumberField({ nullable: false, integer: true, initial: 1, min: 1 }),
+      duration: new StringField({ initial: 'Round'}),
       sets: new NumberField({ nullable: false, integer: true, initial: 2, min: 1 })
     });
 
@@ -20,7 +21,6 @@ export default class lwfAbility extends lwfItemBase {
   }
   prepareDerivedData() {
     if(!(this.type in LWFABILITIES.types))
-      this.type = 'Boost';
+      this.subtype = 'Power';
   }
-
 }

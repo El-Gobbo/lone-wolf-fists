@@ -19,10 +19,10 @@
       <div class="flex flex-group-center">
         <i><h4 class="full-size flex-group-center">
         {{#if system.editMode}}
-          <select name='system.effect.type' data-techstat="effect.type">
+          <select name='system.subtype' data-techstat="effect.type">
           {{#each abilityType}}
           <option 
-            {{#if (comparison ../system.effect.type this)}}
+            {{#if (comparison ../system.subtype this)}}
               selected="selected"
             {{/if}} 
             value="{{this}}">{{this}}
@@ -30,25 +30,25 @@
           {{/each}}
           </select>
         {{else}}
-          {{system.effect.type}}
+          {{system.subtype}}
         {{/if}}
         </h4></i>
       </div>
       <div class="flexrow">
-        {{#unless (comparison system.effect.type 'Capability')}}
-        <div id="ranks" class="flex-column flex-group-center npc-sidebar">
+        {{#unless (comparison system.subtype 'Capability')}}
+        <div id="intensity" class="flex-column flex-group-center npc-sidebar">
           {{#if system.editMode}}
-          <label for="ranks-input" class="resource-label">Ranks</label>
-          <div id="ranks-input-container" class=" flex-group-center flexshrink">
-            <input id="ranks-input" class="smallish-box font-size-20" type="text" name="system.effect.ranks" value="{{system.effect.ranks}}" data-dtype="Number">
+          <label for="intensity-input" class="resource-label">Intensity</label>
+          <div id="intensity-input-container" class=" flex-group-center flexshrink">
+            <input id="intensity-input" class="font-size-20" type="text" name="system.effect.intensity" value="{{system.effect.intensity}}" data-dtype="String">
           </div>
           {{else}}
-            <h4 id="ranks-input" class="font-size-20">{{bonus}}</h4>
+            <h4 id="intensity-input" class="font-size-20">{{system.effect.intensity}}</h4>
           {{/if}}
         </div>
         {{/unless}}
         <div id="target" class="flex-column flex-group-center npc-sidebar">
-          {{#if (comparison system.effect.type 'Charge Attack')}}
+          {{#if (comparison system.subtype 'Charge Attack')}}
             {{#if system.editMode}}
             <label for="sets-input" class="resource-label">Sets</label>
             <div id="sets-input-container" class=" flex-group-center flexshrink">
@@ -59,27 +59,38 @@
             {{/if}}
           {{else}}
             {{#if system.editMode}}
-            <label for="target-input" class="resource-label">Effect</label>
+            <label for="target-input" class="resource-label">Affects</label>
             <div id="target-input-container" class=" flex-group-center flexshrink">
-              <input id="sets-input" {{#if (comparison system.effect.type 'Capability')}} class="large-box font-size-20" {{else}}class="medium-box font-size-20" {{/if}} type="text" name="system.effect.target" value="{{system.effect.target}}" data-dtype="String">
+              <input id="sets-input" {{#if (comparison system.subtype 'Capability')}} class="large-box font-size-20" {{else}}class="medium-box font-size-20" {{/if}} type="text" name="system.effect.target" value="{{system.effect.target}}" data-dtype="String">
             </div>
             {{else}}
               <h4 id="target-input" class="font-size-20">{{system.effect.target}}</h4>
             {{/if}}
           {{/if}}
         </div>
-        {{#unless (comparisonOr system.effect.type 'Capability' 'Charge Attack')}}
+        {{#if (comparison system.subtype 'Power')}}
           <div id="frequency" class="flex-column flex-group-center npc-sidebar">
             {{#if system.editMode}}
             <label for="frequency-input" class="resource-label">Frequency</label>
             <div id="frequency-input-container" class=" flex-group-center flexshrink">
               <input id="frequency-input" class="smallish-box font-size-20" type="text" name="system.effect.frequency" value="{{system.effect.frequency}}" data-dtype="Number">
+              <span>/</span>
+              <select name='system.effect.duration' data-techstat="effect.duration">
+              {{#each duration}}
+              <option 
+                {{#if (comparison ../system.effect.duration this)}}
+                  selected="selected"
+                {{/if}} 
+                value="{{this}}">{{this}}
+                </option>
+              {{/each}}
+              </select>
             </div>
             {{else}}
-              <h4 id="frequency-input" class="font-size-20">{{system.effect.frequency}}/round</h4>
+              <h4 id="frequency-input" class="font-size-20">{{system.effect.frequency}}/{{system.effect.duration}}</h4>
             {{/if}}
           </div>
-        {{/unless}}
+        {{/if}}
       </div>
     </div>
   </header>

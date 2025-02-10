@@ -1,7 +1,6 @@
 export const LWFABILITIES = {}
 LWFABILITIES.types = [
-    "Boost",
-    "Ability",
+    "Power",
     "Capability",
     "Charge Attack"
 ];
