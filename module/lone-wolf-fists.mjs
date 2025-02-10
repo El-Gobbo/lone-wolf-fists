@@ -45,7 +45,9 @@ Hooks.once('init', function () {
   CONFIG.Actor.dataModels = {
     character: models.lwfCharacter,
     monster: models.lwfMonster,
-    squad: models.lwfSquad
+    squad: models.lwfSquad,
+    platoon: models.lwfPlatoon,
+    titan: models.lwfTitan
   }
 
   CONFIG.Combat.documentClass = lwfCombat;
@@ -66,6 +68,8 @@ Hooks.once('init', function () {
     weapon: models.lwfWeapon,
     artifact: models.lwfArtifact,
     ability: models.lwfAbility,
+    onslaught: models.lwfOnslaught,
+    anatomy: models.lwfAnatomy
   }
 
   // Active Effects are never copied to the Actor,
@@ -101,6 +105,10 @@ Handlebars.registerHelper('comparison', function(var1, var2) {
 Handlebars.registerHelper('comparisonOr', function(base, opt1, opt2) {
   return (base === opt1 || base === opt2);
 });
+
+Handlebars.registerHelper('identifyId', function(array, index, id) {
+  return (array[index].linkedOnslaught === id);
+})
 
 Handlebars.registerHelper('lessThan', function(index, limit) {
   return index < limit;

@@ -2,6 +2,7 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
+import { sanitiseAndBreak } from '../helpers/strings.mjs';
 
 import { LWFIMBALANCES } from '../helpers/imbalance-config.mjs';
 import { LWFSKILLS } from '../helpers/skills.mjs';
@@ -63,6 +64,10 @@ export class lwfActorSheet extends ActorSheet {
 
     if(actorData.type == 'squad') {
       this._prepareMembers(context);
+    }
+
+    if(actorData.type == 'titan') {
+      this._prepareOnslaughtAndAnatomy(context);
     }
 
     if(actorData.type === 'platoon') {
@@ -365,6 +370,35 @@ export class lwfActorSheet extends ActorSheet {
     return context;
   }
 
+  _prepareOnslaughtAndAnatomy(context) {
+    const anatomy = context.actor.items.filter(i => (i.type === 'anatomy'));
+    const onslaughts = context.actor.items.filter(i => (i.type === 'onslaught'));
+    const calamity = context.actor.items.get(context.actor.system.calamity);
+    const onslaughtIds = onslaughts.map(o => o._id);
+    // Checks to see if there is a linked onslaught, and if there is inserts it's name into the linked onslaught box
+    // Also toggles it being free so it can be displayed only on the anatomy section
+    for(let i in anatomy) {
+      let a = anatomy[i];
+      const index = onslaughtIds.indexOf(a.system.linkedOnslaught);
+      if(index < 0) {
+        a.onslaughtName = "None";
+        a.onslaughtFrequency = "";
+      }
+      else {
+        a.onslaughtName = onslaughts[index].name;
+        a.onslaughtFrequency = onslaughts[index].system.frequency.number.toString().concat("/",onslaughts[index].system.frequency.interval)
+      }
+    }
+    if(calamity === undefined)
+      context.calamityDescription = "";
+    else
+      context.calamityDescription = sanitiseAndBreak(calamity.system.description);
+    context.onslaughts = onslaughts;
+    context.calamity = calamity;
+    context.anatomy = anatomy;
+    return context;
+  }
+
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
@@ -533,7 +567,7 @@ export class lwfActorSheet extends ActorSheet {
 
       // Add a blank SquadField to the copy
       const newMember = {
-        "creature": "",
+        "creature": "New Soldier",
         "effort": 1,
         "health": 1,
         "quantity": 1
@@ -583,6 +617,21 @@ export class lwfActorSheet extends ActorSheet {
       else if (value < 0)
         value = 0;
       this.actor.update({[ 'system.membership.max' ]: value, [ 'system.membership.current' ]: value, [ 'system.health.current' ]: value * 10})
+    })
+
+    html.on('change', '.anatomy-choice', async (ev) => {
+      const anatomyId = $(ev.currentTarget).closest('.body-part')[0].dataset.itemId;
+      const anatomy = this.actor.items.get(anatomyId);
+      let newValue;
+      if(ev.currentTarget.nodeName == 'SELECT') {
+        newValue = $(ev.currentTarget).find(':selected')[0].value;
+      }
+      else {
+        newValue = ev.currentTarget.value;
+      }
+      const target = ev.currentTarget.parentElement.dataset.imbtype;
+      const index = $(ev.currentTarget).closest('.body-part')[0].dataset.id;
+      return await anatomy.update({[ `system.${target}` ]: newValue })
     })
 
     // Add Inventory Item

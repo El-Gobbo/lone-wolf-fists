@@ -433,10 +433,10 @@
   text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
   font-size: 20px;
 }
-.lone-wolf-fists #health-max {
+.lone-wolf-fists .health-max {
   background-color: rgba(255, 0, 0, 0.226);
 }
-.lone-wolf-fists #health-current {
+.lone-wolf-fists .health-current {
   background-color: rgba(255, 0, 0, 0.404);
 }
 .lone-wolf-fists #aura-max {
@@ -539,6 +539,13 @@
 }
 .lone-wolf-fists .sidebar-small {
   flex: 0 0 105px;
+}
+.lone-wolf-fists .sidebar-large {
+  flex: 0 0 150px;
+}
+.lone-wolf-fists .sidebar-large .profile-img {
+  height: 140px;
+  width: auto;
 }
 .lone-wolf-fists .short-box {
   height: 40px;
@@ -667,6 +674,22 @@
 .lone-wolf-fists .armor-icon.monster-sheet {
   width: 40px;
   height: 40px;
+}
+.lone-wolf-fists .armor-icon.monster-sheet .armor-value {
+  position: absolute;
+  top: 12px;
+  left: 0px;
+  text-align: center;
+}
+.lone-wolf-fists .armor-icon.anatomy-small {
+  width: 30px;
+  height: 30px;
+}
+.lone-wolf-fists .armor-icon.anatomy-small .armor-value {
+  position: absolute;
+  top: 8px;
+  left: 0px;
+  text-align: center;
 }
 .lone-wolf-fists .armor-icon img {
   border: none;
@@ -864,6 +887,43 @@
   grid-template-rows: repeat(5, 1fr);
   grid-auto-columns: 5%;
   grid-auto-flow: column;
+}
+.lone-wolf-fists .anatomy {
+  align-items: center;
+}
+.lone-wolf-fists .anatomy .anatomy-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.lone-wolf-fists .anatomy .anatomy-flex input,
+.lone-wolf-fists .anatomy .anatomy-flex div {
+  font-size: 13px;
+}
+.lone-wolf-fists .anatomy .anatomy-flex .body-part {
+  width: 100px;
+  height: auto;
+  padding: 5px;
+  flex: 0 0 100px;
+  margin: 0px auto;
+}
+.lone-wolf-fists .anatomy .anatomy-flex .body-part > div {
+  margin: 2px 0;
+}
+.lone-wolf-fists .anatomy h3 {
+  margin-bottom: 5px;
+}
+.lone-wolf-fists .anatomy h4 {
+  font-size: 15px;
+}
+.lone-wolf-fists .anatomy > div {
+  margin: 10px 0;
+}
+.lone-wolf-fists .anatomy #main-body {
+  width: 200px;
+  margin-bottom: 10px;
+}
+.lone-wolf-fists .anatomy.flex-column {
+  margin: 0 auto;
 }
 
 /*# sourceMappingURL=lone-wolf-fists.css.map */

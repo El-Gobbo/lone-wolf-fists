@@ -20,4 +20,6 @@ export {default as lwfArmor} from "./item-armor.mjs";
 export {default as lwfWeapon} from "./item-weapon.mjs";
 export {default as lwfArtifact} from "./item-artifact.mjs";
 export {default as lwfAbility} from "./item-ability.mjs";
+export {default as lwfOnslaught} from "./item-onslaught.mjs";
+export {default as lwfAnatomy} from "./item-anatomy.mjs";
 

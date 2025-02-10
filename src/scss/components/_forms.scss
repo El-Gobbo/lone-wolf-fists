@@ -80,11 +80,11 @@ input#power-input {
     font-size: $effort-font-size;
 }
 
-#health-max {
+.health-max {
   background-color: rgba(255, 0, 0, 0.226);
 }
 
-#health-current {
+.health-current {
   background-color: rgba(255, 0, 0, 0.404);
 }
 
@@ -206,6 +206,14 @@ position: relative;
 
 .sidebar-small {
   flex: 0 0 105px;
+}
+
+.sidebar-large {
+  flex: 0 0 150px;
+  .profile-img {
+    height: 140px;
+    width: auto;
+  }
 }
 
 .short-box {
@@ -361,6 +369,23 @@ position: relative;
   &.monster-sheet {
     width: 40px;
     height: 40px;
+    .armor-value {
+      position: absolute;
+      top: 12px;
+      left: 0px;
+      text-align: center;
+    }
+  }
+
+  &.anatomy-small {
+    width: 30px;
+    height: 30px;
+    .armor-value {
+      position: absolute;
+      top: 8px;
+      left: 0px;
+      text-align: center;
+    }
   }
 
   img {

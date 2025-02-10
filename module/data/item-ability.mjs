@@ -1,5 +1,5 @@
 import lwfItemBase from "./base-item.mjs";
-import { LWFABILITYTYPES } from "../helpers/ability-types.mjs";
+import { LWFABILITIES } from "../helpers/abilities.mjs";
 
 export default class lwfAbility extends lwfItemBase {
 
@@ -19,7 +19,7 @@ export default class lwfAbility extends lwfItemBase {
     return schema;
   }
   prepareDerivedData() {
-    if(!(this.type in LWFABILITYTYPES))
+    if(!(this.type in LWFABILITIES.types))
       this.type = 'Boost';
   }
 

@@ -1,0 +1,93 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <div class='header-fields'>
+      <h1 class='charname'><input
+          name='name'
+          type='text'
+          value='{{item.name}}'
+          placeholder='Name'
+        /></h1>
+    </div>
+  </header>
+
+  {{! Sheet Tab Navigation }}
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <div class='tab flex-column anatomy three-quarter-size'>
+      <div class="flexrow flex-group-center">
+        <div class="anatomy-image flex-3">
+          <img
+            class='profile-img'
+            src='{{item.img}}'
+            data-edit='img'
+            title='{{item.name}}'
+          />
+        </div>
+        <div class="resource-content flex-group-center flex-between inner-margin npc-sidebar">
+          <label for="armor-input" class="resource-label">Armor</label>
+          <div class="flex-group-center flex">
+            {{#if system.editMode}}
+            <input id="armor-input" class="small-box" type="text" name="system.armor" value="{{system.armor}}" data-dtype="Number">
+            {{else}}
+            <div class="armor-icon npc monster-sheet flex flex-group-center">
+              <img
+                class="full-size"
+                src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
+                title='Armor symbol'
+                width='40'
+                height='40'
+              />
+              <h4 class="armor-value full-size">{{system.armor}}</h4>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <div id="health" class="resource flex-group-center half-size">
+        <div>
+          <label for="health-current" class="resource-label">Health Levels</label>
+          <div id="health" class="resource-content max-min flexrow flex-group-center" data-imbtype="system.health.value">
+            <input type="text" class="anatomy-choice" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
+          </div>
+        </div>
+      </div>
+      <div class="item" data-item-id="{{system.linkedOnslaught}}">
+        <div class="flex-group-center" data-imbtype="linkedOnslaught">
+          <select class="anatomy-choice full-size" name='system.linkedOnslaught'>
+            <option value="None">None</option>
+            {{#each onslaughts as |item id| }}
+            <option 
+            {{#if (comparison ../system.linkedOnslaught item._id)}}
+              selected="selected"
+            {{/if}} 
+            value="{{item._id}}">{{item.name}}
+            </option>
+            {{/each}}
+          </select>
+        </div>
+        <a
+          class='item-control item-edit flex-column flex-group-center'
+          title='{{localize "DOCUMENT.Update" type='Item'}}'
+        >
+        <h4>{{onslaughtName}}</h4>
+        </a>
+      </div>
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      <div class="full-size tab flex-group-center">
+        <h3 class="flex-group-center">Description</h3>
+        <div class="full-size prosemirror tab">
+        {{editor
+          enrichedDescription
+          target='system.description'
+          engine='prosemirror'
+          button=true
+          editable=editable
+        }}
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

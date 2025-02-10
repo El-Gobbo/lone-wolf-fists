@@ -7,7 +7,7 @@ import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
 import { LWFSKILLS } from '../helpers/skills.mjs';
 import { LWFWEAPONTAGS } from '../helpers/weapon-tags.mjs';
 import { LWFARTIFACTS } from '../helpers/artifact-config.mjs';
-import { LWFABILITYTYPES } from '../helpers/ability-types.mjs';
+import { LWFABILITIES } from '../helpers/abilities.mjs';
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
@@ -97,7 +97,7 @@ export class lwfItemSheet extends ItemSheet {
     }
 
     if(itemData.type === "ability") {
-      context.abilityType = LWFABILITYTYPES;
+      context.abilityType = LWFABILITIES.types;
       let bonus = "";
       switch(context.system.effect.type) {
         case 'Boost':
@@ -114,7 +114,21 @@ export class lwfItemSheet extends ItemSheet {
       }
       context.bonus = bonus;
     }
+
+    if(itemData.type === 'anatomy') {
+      let onslaughtName;
+      const onslaughts = this.item.parent?.items?.filter(i => (i.type === 'onslaught'));
+      const linkedOnslaught = onslaughts?.filter(o => (o._id === context.system.linkedOnslaught));
+      if(linkedOnslaught === undefined)
+        onslaughtName = "None";
+      else {
+        onslaughtName = linkedOnslaught.name;
+      }
+      context.onslaughtName = onslaughtName;
+      context.onslaughts = onslaughts;
+    }
     context.isGM = game.user.isGM;
+    context.duration = LWFABILITIES.durations;
 
     return context;
   }

@@ -1,0 +1,341 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+<div class="sheet">
+  <div class="sidebar-large flex-group-center">
+    <img class="profile-img squad flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="flex flex-group-center">
+      <i><h4 class="full-size flex-group-center">
+      {{#if system.editMode}}
+        <input type="radio" id="titan" name="system.type" {{#unless system.type}} checked {{/unless}} value=false data-techstat="type">
+        <label for="titan">Titan</label><br>
+        <input type="radio" id="disaster" name="system.type" {{#if system.type}} checked {{/if}} value=true data-techstat="type">
+        <label for="disaster">Disaster</label><br>
+      {{else}}
+        {{#if system.type}}
+          Disaster
+        {{else}}
+          Titan
+        {{/if}}
+      {{/if}}
+      </h4></i>
+    </div> 
+    <div class="resources">
+      <div id="effort" class="resource flex-group-center flex-column npc-sidebar">
+        <label for="power-input" class="resource-label">CATACLYSM</label>
+        {{#if system.editMode}}
+        <input id="power-input" class="smallish-box short-box" type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number">
+        {{else}}
+        <div id="effort-display" class="flex-group-center flex">
+          <h4 id="power-input"><strong>{{system.power.value}}</strong></h4>
+        </div>
+        {{/if}}
+        <div id="cataclysms-display" class="flex-group-center flex">
+          {{#if system.editMode}}
+          <textarea name="system.cataclysms" rows="5">{{system.cataclysms}}</textarea>
+          {{else}}
+          <span>{{system.cataclysms}}</span>
+          {{/if}}
+        </div>
+      </div>
+      <div id="scope" class="resource flex-group-center inner-margin npc-sidebar">
+        <label for="scope-display" class="resource-label">Scope</label>
+        <div id="scope-container" class="resource-content max-min flexrow flex-group-center">
+          {{#if system.editMode}}
+          <input type="text" name="system.scope" value="{{system.scope}}">
+          {{else}}
+          <h4 id="scope-input">{{system.scope}}</h4>
+          {{/if}}
+        </div>
+      </div>
+      <div id="duration" class="resource flex-group-center inner-margin npc-sidebar">
+        <label for="duration-display" class="resource-label">Duration</label>
+        <div id="duration-container" class="resource-content max-min flexrow flex-group-center">
+          {{#if system.editMode}}
+          <input type="text" name="system.duration" value="{{system.duration}}">
+          {{else}}
+          <h4 id="duration-input">{{system.duration}}</h4>
+          {{/if}}
+        </div>
+      </div>
+      <div id="calamity" class="resource flex-group-center inner-margin npc-sidebar">
+        {{#if system.editMode}}
+        <label for="calamity-display" class="resource-label">Calamity</label>
+        <div id="calamity-container" class="resource-content max-min flexrow flex-group-center">
+          <div class="flex-group-center" data-imbtype="calamity">
+            <select class="full-size" name='system.calamity'>
+              <option value="None">None</option>
+            {{#each onslaughts as |item id| }}
+            <option 
+              {{#if (comparison ../system.calamity item._id)}}
+                selected="selected"
+              {{/if}} 
+              value="{{item._id}}">{{item.name}}
+              </option>
+            {{/each}}
+            </select>
+          </div>
+        </div>
+        {{else}}
+        <h3>{{calamity.name}}</h3>
+        <h4>{{calamity.system.frequency.number}}/{{calamity.system.frequency.interval}}</h4>
+        <div id="calamity-container" class="resource-content max-min flexrow flex-group-center">
+          {{{calamityDescription}}}
+        </div>
+      {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="body">
+  <header class="sheet-top">
+    <div class="header-fields position-relative flex-column">
+      <div class="title">
+        <h1 id="name" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+        {{#if isGM}}
+        <div class="full-size edit-container">
+          {{#if system.editMode}}
+          <i id="edit-mode" class="fa-solid fa-gear edit-mode-on">Play</i>
+          {{else}}
+          <i id="edit-mode" class="fa-solid fa-gear edit-mode-off">Edit</i>
+          {{/if}}
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
+    {{#unless system.type}}
+    <a class="item" data-tab="core">Anatomy</a>
+    {{/unless}}
+    <a class="item" data-tab="onslaught">Onslaught</a>
+        <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="effects">Effects</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{#unless system.type}}
+    {{!-- Anatomy Tab --}}
+    <div class="tab core" data-group="primary" data-tab="core">
+      {{! Body part box }}
+      <div class="flex-column flex-group-center monster-body-box anatomy">
+        {{! Main body box }}
+        <div id="main-body" class="flex-column flex-group-center">
+          <h3>Body</h3>
+          <div class="flexrow flex-group-center">
+            <div class="anatomy-image anatomy flex-5">
+              <img class="profile-img squad flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+            </div>
+            <div class="resource-content flex-group-center flex-between inner-margin npc-sidebar">
+              {{#if system.editMode}}
+              <input id="armor-input" class="small-box" type="text" name="system.armor" value="{{system.armor}}" data-dtype="Number">
+              {{else}}
+              <div class="armor-icon npc monster-sheet flex flex-group-center">
+                <img
+                  class="full-size"
+                  src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
+                  title='Armor symbol'
+                  width='40'
+                  height='40'
+                />
+                <h4 class="armor-value full-size">{{system.armor}}</h4>
+              </div>
+              {{/if}}
+            </div>
+          </div>
+          <div class="flex-column flex-group-right">
+            <div id="health" class="resource flex-group-center inner-margin npc-sidebar">
+              <div>
+                <label for="health-current" class="resource-label">Health</label>
+                <div id="health" class="resource-content max-min flexrow flex-group-center">
+                  <input class="health-current stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+                  <input class="health-max stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h4><strong>{{system.onslaught.core}}</strong></h4>
+        </div>
+
+        {{! Sub-part box }}
+        <div class=" flexrow flex-group-center anatomy-flex">
+          {{#each anatomy as | anatomy | }}
+          <div class="flex-column flex-group-center body-part item" data-item-id="{{anatomy._id}}">
+            <div class="flex-column flex-group-center" data-imbtype="name">
+              {{#if ../system.editMode}}
+              <div class="flexrow full-size">
+                <input id="name-input" class="anatomy-choice flex-5" type="text" name="anatomy.name" value="{{anatomy.name}}" data-dtype="String">
+                <div class="item-controls">
+                  <a
+                    class='item-control item-delete'
+                    title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                  >
+                    <i class="fa-solid fa-x" style="color: #ff1c2d;"></i>
+                  </a>
+                </div>
+              </div>
+              {{else}}
+              <a
+                class='item-control item-edit flex-column flex-group-center'
+                title='{{localize "DOCUMENT.Update" type='Item'}}'
+              >
+              <h4>{{anatomy.name}}</h4>
+              </a>
+              {{/if}}
+            </div>
+            <div class="flexrow flex-group-center">
+              <div class="anatomy-image anatomy flex-3">
+                <img class="monster flex-group-center" src="{{anatomy.img}}" data-edit="img" title="{{anatomy.name}}" height="50" width="50"/>
+              </div>
+              <div class="resource-content flex-group-center flex-between inner-margin npc-sidebar">
+                {{#if system.editMode}}
+                <input id="armor-input" class="small-box" type="text" name="system.armor" value="{{system.armor}}" data-dtype="Number">
+                {{else}}
+                <div class="armor-icon npc anatomy-small flex flex-group-center">
+                  <img
+                    class="full-size"
+                    src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
+                    title='Armor symbol'
+                    width='30'
+                    height='30'
+                  />
+                  <h4 class="armor-value full-size">{{system.armor}}</h4>
+                </div>
+                {{/if}}
+              </div>
+            </div>
+            <div class="flex-column flex-group-right">
+              <div id="health-container-{{@index}}" class="resource flex-group-center inner-margin npc-sidebar">
+                {{#if ../system.editMode}}
+                <label for="health-current" class="resource-label">Health Levels</label>
+                <div class="health-current resource-content max-min flexrow flex-group-center" data-imbtype="health.value">
+                  <input type="text" class="anatomy-choice" name="anatomy.system.health.value" value="{{anatomy.system.health.value}}" data-dtype="Number"/>
+                </div>
+                {{else}}
+                <div id="health-{{@index}}" class="resource-content max-min flexrow flex-group-center" data-imbtype="health.current">
+                  <input class="health-current stat-current anatomy-choice" type="text" name="anatomy.system.health.current" value="{{anatomy.system.health.current}}" data-dtype="Number"/>
+                  <input class="health-max stat-max" type="text" name="anatomy.system.health.max" value="{{anatomy.system.health.max}}" readonly disabled data-dtype="Number"/>
+                </div>
+                {{/if}}
+              </div>
+            </div>
+            {{#if ../system.editMode}}
+            <div class="flex-group-center" data-imbtype="linkedOnslaught">
+              <select class="anatomy-choice full-size" name='anatomy.system.linkedOnslaught'>
+                <option value="None">None</option>
+              {{#each ../onslaughts as |item id| }}
+              <option 
+                {{#if (comparison anatomy.system.linkedOnslaught item._id)}}
+                  selected="selected"
+                {{/if}} 
+                value="{{item._id}}">{{item.name}}
+                </option>
+              {{/each}}
+              </select>
+            </div>
+            {{else}}
+            <div class="item" data-item-id="{{anatomy.system.linkedOnslaught}}">
+              <a
+                class='item-control item-edit item-name'
+                title='{{localize "DOCUMENT.Update" type='Item'}}'
+              >
+              <h4>{{anatomy.onslaughtName}}</h4>
+              <span>{{anatomy.onslaughtFrequency}}</span>
+              </a>
+            </div>
+            {{/if}}
+          </div>
+          {{/each}}
+          <div class="flex-column flex-group-center body-part">
+            <a
+              class='item-control item-create'
+              title='Create item'
+              data-type='anatomy'
+            >
+              <i class='fas fa-plus fa-2xl'></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/unless}}
+
+    {{!-- Onslaught Tab --}}
+    <div class="tab items" data-group="primary" data-tab="onslaught">
+      <div class="flex-column flex-group-center monster-body-box">
+        <h4 id="onslaught-heading">Onslaughts</h4>
+        <div class="items-list full-size">
+          <div class="item flexrow items-header grid grid-8col small-table-header">
+            <div class=" flex-group-center grid-span-5">Onslaught</div>
+            <div class="flex-group-center grid-span-2">Frequency</div>
+            <div class='item-controls flex-group-center'>
+                <a
+                  class='item-control item-create'
+                  title='Create item'
+                  data-type='onslaught'
+                >
+                  <i class='fas fa-plus'></i>
+                </a>
+            </div>
+          </div>
+          <div id="abilities" class="items-list full-size technique-table">
+          {{#each onslaughts as |item id|}}
+            <div class='item flexrow grid grid-8col grid-table list-item' data-item-id='{{item._id}}'>
+              <div class='item-name grid-span-5 flexrow'>
+                <img
+                class="item-image"
+                  src='{{item.img}}'
+                  title='{{item.name}}'
+                  width='24'
+                  height='24'
+                />
+                <a
+                  class='item-control item-edit'
+                  title='{{localize "DOCUMENT.Update" type='Item'}}'
+                >
+                <h4>{{item.name}}</h4>
+                </a>
+              </div>
+              <div class="item-frequency grid-span-2 flex-group-center">
+                <h4><strong>{{item.system.frequency.number}}/{{item.system.frequency.interval}}</strong></h4>
+              </div>
+              <div class="item-controls">
+                <a
+                  class='item-control item-delete'
+                  title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                >
+                  <i class='fas fa-trash'></i>
+                </a>
+              </div>
+            </div>
+          {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{! Description Tab }}
+    <div class="tab description flexcol" data-group="primary" data-tab="description">
+      <div class="full-size prosemirror tab">
+      {{editor
+        enrichedDescription
+        target='system.description'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+      </div>
+    </div>
+
+    {{!-- Active Effects Tab --}}
+    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-effects.hbs"}}
+    </div>
+
+  </section>
+  </div>
+</div>
+</form>
+
