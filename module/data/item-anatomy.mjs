@@ -21,7 +21,8 @@ export default class lwfAnatomy extends lwfItemBase {
     return schema;
   }
   prepareDerivedData() {
-    this.armor = Math.floor(this.parent.parent.system.armor / 2);
+    if((!this.parent?.parent?.system === undefined))
+      this.armor = Math.floor(this.parent.parent.system.armor / 2);
   }
 
 }
