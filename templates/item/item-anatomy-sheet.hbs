@@ -26,6 +26,7 @@
             title='{{item.name}}'
           />
         </div>
+        {{#unless system.systemToggle}}
         <div class="resource-content flex-group-center flex-between inner-margin npc-sidebar">
           <label for="armor-input" class="resource-label">Armor</label>
           <div class="flex-group-center flex">
@@ -75,18 +76,13 @@
         <h4>{{onslaughtName}}</h4>
         </a>
       </div>
+      {{else}}
+      </div>
+      {{/unless}}
       {{! Editors must receive enriched text data from getData to properly handle rolls }}
       <div class="full-size tab flex-group-center">
         <h3 class="flex-group-center">Description</h3>
-        <div class="full-size prosemirror tab">
-        {{editor
-          enrichedDescription
-          target='system.description'
-          engine='prosemirror'
-          button=true
-          editable=editable
-        }}
-        </div>
+        <textarea name="system.description" rows="5">{{system.description}}</textarea>
       </div>
     </div>
   </section>

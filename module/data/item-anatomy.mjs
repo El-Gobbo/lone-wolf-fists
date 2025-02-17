@@ -5,7 +5,7 @@ export default class lwfAnatomy extends lwfItemBase {
 
 
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, ArrayField, HTMLField } = foundry.data.fields;
+    const { SchemaField, NumberField, StringField, BooleanField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
@@ -15,6 +15,8 @@ export default class lwfAnatomy extends lwfItemBase {
       max: new NumberField({ ...requiredInteger, initial: 10, min: 0 }),
     })
     schema.armor = new NumberField({ ...requiredInteger, initial: 0, min: 0 });
+    // Toggles if being used as a system or as anatomy
+    schema.systemToggle = new BooleanField({ initial: false })
     // Stores the id of the onslaught linked to this body part
     schema.linkedOnslaught = new StringField();
 
@@ -23,6 +25,8 @@ export default class lwfAnatomy extends lwfItemBase {
   prepareDerivedData() {
     if((!this.parent?.parent?.system === undefined))
       this.armor = Math.floor(this.parent.parent.system.armor / 2);
+    if(this.parent?.parent?.type === 'vehicle')
+      this.systemToggle = true;
   }
 
 }

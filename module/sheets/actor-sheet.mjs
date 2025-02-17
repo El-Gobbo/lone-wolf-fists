@@ -7,7 +7,7 @@ import { sanitiseAndBreak } from '../helpers/strings.mjs';
 import { LWFIMBALANCES } from '../helpers/imbalance-config.mjs';
 import { LWFSKILLS } from '../helpers/skills.mjs';
 import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
-
+import { LWFABILITIES } from '../helpers/abilities.mjs';
 import { effortRoll } from '../helpers/dice-roll.mjs';
 
 /**
@@ -55,28 +55,24 @@ export class lwfActorSheet extends ActorSheet {
 
     // Adding a pointer to CONFIG.LWF
     context.config = CONFIG.LWFIMBALANCES;
-
+    context.duration = LWFABILITIES.durations;
     // Prepare character data and items.
+    this._prepareItems(context)
+
     if (actorData.type == 'character' || actorData.type == 'monster') {
-      this._prepareItems(context);
       this._prepareCharacterData(context);
     }
 
     if(actorData.type == 'squad') {
-      this._prepareMembers(context);
+      this._prepareSquad(context);
     }
 
     if(actorData.type == 'titan') {
-      this._prepareOnslaughtAndAnatomy(context);
+      this._prepareTitan(context);
     }
 
     if(actorData.type === 'platoon') {
       this._preparePlatoon(context);
-    }
-
-    // Prepare NPC data and items.
-    if (actorData.type == 'npc' || actorData.type == 'squad' || actorData.type == 'platoon') {
-      this._prepareItems(context);
     }
     context.isGM = game.user.isGM;
 
@@ -168,6 +164,7 @@ export class lwfActorSheet extends ActorSheet {
       "Ability": []
     };
     const chargeAttack = [];
+    const anatomy = [];
 
 
     // Iterate through items, allocating to containers
@@ -206,7 +203,6 @@ export class lwfActorSheet extends ActorSheet {
             hasTechniques = true;
           }
           break;
-
         case 'ability':
           if(i.system.subtype === 'Charge Attack')
             chargeAttack.push(i);
@@ -215,28 +211,21 @@ export class lwfActorSheet extends ActorSheet {
             ability[type].push(i);
           }
           break;
-
-      // Append to techniques.
         case 'technique':
           pushToTechnique(i, techniques);
           hasTechniques = true;
           break;
-
         case 'form':
           form.push(i);
           hasTechniques = true;
           break;
-
         case 'imbalance':
           imbalances.push(i);
           break;
-
-        // Append to gupt kala.
         case 'gupt-kala':
           guptKala.push(i);
           hasTechniques = true;
           break;
-        // Check if the player already has an archetype or clan, if they do, delete any new ones added
         case 'archetype':
           if (archetype.length < 1){
             archetype.push(i);
@@ -257,7 +246,10 @@ export class lwfActorSheet extends ActorSheet {
           break;
         case 'skill':
           skills.push(i);
-        
+          break;
+        case 'anatomy':
+          anatomy.push(i);
+          break;      
       }
     }
     // Assign and return
@@ -274,6 +266,7 @@ export class lwfActorSheet extends ActorSheet {
     context.form = form;
     context.skill = skills;
     context.ability = ability;
+    context.anatomy = anatomy;
     if(chargeAttack.length > 0)
       context.chargeAttack = chargeAttack;
 
@@ -326,7 +319,7 @@ export class lwfActorSheet extends ActorSheet {
  *
  * @param {object} context The context object to mutate
  */
-  async _prepareMembers(context) {
+  async _prepareSquad(context) {
     const members = [];
     for(let m of context.system.namedMembers) {
       const member = await fromUuid(m);
@@ -370,9 +363,9 @@ export class lwfActorSheet extends ActorSheet {
     return context;
   }
 
-  _prepareOnslaughtAndAnatomy(context) {
-    const anatomy = context.actor.items.filter(i => (i.type === 'anatomy'));
-    const onslaughts = context.actor.items.filter(i => (i.type === 'ability'));
+  _prepareTitan(context) {
+    const anatomy = context.anatomy;
+    const onslaughts = context.ability;
     const calamity = context.actor.items.get(context.actor.system.calamity);
     const onslaughtIds = onslaughts.map(o => o._id);
     // Checks to see if there is a linked onslaught, and if there is inserts it's name into the linked onslaught box

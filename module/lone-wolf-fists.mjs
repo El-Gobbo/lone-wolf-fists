@@ -47,7 +47,8 @@ Hooks.once('init', function () {
     monster: models.lwfMonster,
     squad: models.lwfSquad,
     platoon: models.lwfPlatoon,
-    titan: models.lwfTitan
+    titan: models.lwfTitan,
+    vehicle: models.lwfVehicle
   }
 
   CONFIG.Combat.documentClass = lwfCombat;

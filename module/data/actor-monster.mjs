@@ -40,10 +40,7 @@ export default class lwfMonster extends lwfActorBase {
       recovery: new NumberField({ ...requiredInteger, initial: 0, min: 0 })
     });
 
-
     schema.hasTechniques = new BooleanField({initial: false});
-    schema.description = new HTMLField();
-
     schema.size = new NumberField({ ...requiredInteger, initial: 1});
     schema.abilities = new HTMLField();
     

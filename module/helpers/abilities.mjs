@@ -8,6 +8,7 @@ LWFABILITIES.types = [
 LWFABILITIES.durations = [
     "Round",
     "Scene",
+    "Session",
     "Hour",
     "Day",
     "Week",

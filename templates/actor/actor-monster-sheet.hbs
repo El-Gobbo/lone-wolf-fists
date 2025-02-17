@@ -1,11 +1,11 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 <div class="sheet">
+{{! Sidebars }}
   {{! Chakras sidebar}}
   {{#if system.chakras.hasChakra}}
     {{> "systems/lone-wolf-fists/templates/actor/parts/actor-chakras.hbs"}}
   {{/if}}
-
-  {{! Main Body }}
+  {{! Stats sidebar }}
   <div class="sidebar flex-group-center">
     <img class="profile-img monster flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
     <h4 id="actor-type" class="full-size"><i>{{actor.type}}</i></h4>
@@ -20,6 +20,7 @@
         </div>
         {{/if}}
       </div>
+      {{! Editable Health Widget}}
       {{#if system.editMode}}
       <div id="health-levels" class="health-levels flex-column flex-group-center npc-sidebar">
         <label class="resource-label">Health levels</label>
@@ -38,6 +39,7 @@
         </div>
       </div>
       {{/if}}
+      {{! Editable armor widget}}
       <div class="resource-content flex-group-center flex-between inner-margin npc-sidebar">
         <label for="armor-input" class="resource-label">Armor</label>
         <div class="flex-group-center flex">
@@ -57,6 +59,7 @@
           {{/if}}
         </div>
       </div>
+      {{! Size widget }}
       <div id="size" class="flex-column flex-group-center npc-sidebar">
         <label for="size-input" class="resource-label">Size</label>
         <div id="size-input-container" class=" flex-group-center flexshrink">
@@ -67,6 +70,7 @@
           {{/if}}
         </div>
       </div>
+      {{! Show chakras widget }}
       {{#if system.editMode}}
       <div class="npc-sidebar">
         <div class="flexrow flex-group-center">
@@ -77,6 +81,8 @@
       {{/if}}
     </div>
   </div>
+
+  {{! Main Body }}
   <div class="body">
   <header class="sheet-top">
     <div class="header-fields position-relative flex-column">
@@ -108,14 +114,17 @@
 
     {{! Core tab }}
     <div class="tab core" data-group="primary" data-tab="core">
+      {{! Abilities box }}
       <div class="flex-column flex-group-center monster-body-box">
         <h4 id="ability-heading" class="full-size section-header">Capabilities</h4>
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-abilities.hbs"}}
       </div>
+      {{! Imbalances box }}
       <div class="flex-column flex-group-center monster-body-box">
         <h4 id="imbalance-heading" class="full-size section-header">Imbalances</h4>
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
       </div>
+      {{! Techniques box - only visible if the monster has techniques}}
       <div class="flex-group-center monster-body-box">
         {{#if hasTechniques}}
         <h4 id="techniques-heading" class="full-size section-header">Techniques</h4>

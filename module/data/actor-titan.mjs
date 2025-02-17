@@ -7,8 +7,6 @@ export default class lwfTitan extends lwfActorBase {
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
-
-    schema.description = new HTMLField();
     schema.cataclysms = new StringField();
 
     // True means cataclysm, false means titan
@@ -25,9 +23,5 @@ export default class lwfTitan extends lwfActorBase {
 
   prepareDerivedData() {
     this.health.max = this.health.value * 10;
-    if(this.type === false) {
-      this.scope = "Field";
-    }
-  
   }
 }

@@ -11,7 +11,6 @@ export default class lwfPlatoon extends lwfWeaponUser {
     const schema = super.defineSchema();
 
     schema.platoonType = new StringField();
-    schema.description = new HTMLField();
     schema.tactics = new HTMLField();
     schema.capabilities = new HTMLField();
     schema.membership = new SchemaField({

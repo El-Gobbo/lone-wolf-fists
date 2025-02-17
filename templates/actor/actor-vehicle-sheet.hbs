@@ -1,0 +1,255 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+<div class="sheet">
+  <div class="sidebar flex-group-center">
+    <img class="profile-img squad flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="flex flex-group-center">
+      <i><h4 class="full-size flex-group-center">{{actor.type}}</h4></i>
+    </div> 
+    <div class="resources">
+      {{! Editable armor widget }}
+      <div class="resource-content flex-group-center flex-between inner-margin npc-sidebar">
+        <label for="armor-input" class="resource-label">Armor</label>
+        <div class="flex-group-center flex">
+          {{#if system.editMode}}
+          <input id="armor-input" class="small-box" type="text" name="system.armor" value="{{system.armor}}" data-dtype="Number">
+          {{else}}
+          <div class="armor-icon npc monster-sheet flex flex-group-center">
+            <img
+              class="full-size"
+              src='systems/lone-wolf-fists/assets/Armor-symbol.svg'
+              title='Armor symbol'
+              width='40'
+              height='40'
+            />
+            <h4 class="armor-value full-size">{{system.armor}}</h4>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+      {{! Editable Health Widget}}
+      {{#if system.editMode}}
+      <div id="health-levels" class="health-levels flex-column flex-group-center npc-sidebar">
+        <label class="resource-label">Health levels</label>
+        <div id="health-level-input" class=" flex-group-center flexshrink">
+          <input id="health-levels" type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number">
+        </div>
+      </div>
+      {{else}}
+      <div id="health" class="resource flex-group-center inner-margin npc-sidebar">
+        <div>
+          <label for="health-current" class="resource-label">Health</label>
+          <div id="health-container" class="resource-content max-min flexrow flex-group-center">
+            <input class="health-current stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+            <input class="health-max stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
+          </div>
+        </div>
+      </div>
+      {{/if}}
+      {{! Mass Widget}}
+      <div id="mass" class="resource flex-group-center inner-margin npc-sidebar ">
+        <label for="mass-container" class="resource-label">Size/Weight</label>
+        <div id="mass-container" class="resource-content max-min flexrow flex-group-center">
+          {{#if system.editMode}}
+          <input type="text" name="system.mass.size" value="{{system.mass.size}}" data-dtype="Number">
+          <span>/</span>
+          <input type="text" name="system.mass.weight" value="{{system.mass.weight}}" data-dtype="Number">
+          {{else}}
+          <h4 id="mass-input">{{system.mass.size}}/{{system.mass.weight}}</h4>
+          {{/if}}
+        </div>
+      </div>
+      {{! Towing Widget}}
+      <div id="towing" class="resource flex-group-center inner-margin npc-sidebar ">
+        <label for="towing-container" class="resource-label">Towing</label>
+        <div id="towing-container" class="resource-content max-min flexrow flex-group-center">
+          {{#if system.editMode}}
+          <input type="text" name="system.towing" value="{{system.towing}}" data-dtype="Number">
+          {{else}}
+          <h4 id="towing-input">{{system.towing}}</h4>
+          {{/if}}
+        </div>
+      </div>
+      {{! Crew Widget}}
+      <div id="occupancy" class="resource flex-group-center inner-margin npc-sidebar ">
+        <label for="occupancy-container" class="resource-label">Crew</label>
+        <div id="occupancy-container" class="resource-content max-min flexrow flex-group-center">
+          {{#if system.editMode}}
+          <input type="text" name="system.occupancy.crew" value="{{system.occupancy.crew}}" data-dtype="String">
+          {{else}}
+          <h4 id="occupancy-input">{{system.occupancy.crew}}</h4>
+          {{/if}}
+        </div>
+      </div>
+      {{! Cargo Widget}}
+      <div id="occupancy" class="resource flex-group-center inner-margin npc-sidebar ">
+        <label for="occupancy-container" class="resource-label">Cargo</label>
+        <div id="occupancy-container" class="resource-content max-min flexrow flex-group-center">
+          {{#if system.editMode}}
+          <input type="text" name="system.occupancy.cargo" value="{{system.occupancy.cargo}}" data-dtype="String">
+          {{else}}
+          <h4 id="occupancy-input">{{system.occupancy.cargo}}</h4>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{! Main sheet body }}
+  <div class="body">
+  {{! Sheet header }}
+  <header class="sheet-top">
+    <div class="header-fields position-relative flex-column">
+      {{! Name }}
+      <div class="title">
+        <h1 id="name" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+      </div>
+      <div class="flexrow flex-group-center">
+        {{! Fuel Widget}}
+        <div id="fuel" class="resource flex-group-center inner-margin npc-sidebar ">
+          <label for="fuel-display" class="resource-label">Fuel</label>
+          <div id="fuel-container" class="resource-content max-min flexrow flex-group-center">
+            {{#if system.editMode}}
+            <input type="text" name="system.fuel.quantity" value="{{system.fuel.quantity}}" data-dtype="Number">
+            <span>/</span>
+            <select name='system.fuel.duration' data-techstat="fuel.duration">
+            {{#each duration}}
+            <option 
+              {{#if (comparison ../system.fuel.duration this)}}
+                selected="selected"
+              {{/if}} 
+              value="{{this}}">{{this}}
+              </option>
+            {{/each}}
+            </select>
+            {{else}}
+            <h4 id="fuel-input">{{system.fuel.quantity}}/{{system.fuel.duration}}</h4>
+            {{/if}}
+          </div>
+        </div>
+        {{! Speed Widget }}
+        <div id="speed" class="resource flex-group-center inner-margin npc-sidebar">
+          <label for="speed-display" class="resource-label">Top Speed</label>
+          <div id="speed-container" class="resource-content max-min flexrow flex-group-center">
+            {{#if system.editMode}}
+            <input type="text" name="system.movement.speed" value="{{system.movement.speed}}" data-dtype="Number">
+            {{else}}
+            <h4 id="speed-input">{{system.movement.speed}}</h4>
+            {{/if}}
+          </div>
+        </div>
+        {{! Handling Widget }}
+        <div id="handling" class="resource flex-group-center inner-margin npc-sidebar">
+          <label for="handling-display" class="resource-label">Handling</label>
+          <div id="handling-container" class="resource-content max-min flexrow flex-group-center">
+            {{#if system.editMode}}
+            <input type="text" name="system.movement.handling" value="{{system.movement.handling}}" data-dtype="Number">
+            {{else}}
+            <h4 id="handling-input">{{system.movement.handling}}</h4>
+            {{/if}}
+          </div>
+        </div>
+        {{! Terrain type widget }}
+        <div id="terrain" class="resource flex-group-center inner-margin npc-sidebar">
+          <label for="terrain-display" class="resource-label">Terrain Types</label>
+          <div id="terrain-container" class="resource-content max-min flexrow flex-group-center">
+            {{#if system.editMode}}
+            <input type="text" name="system.terrainTypes" value="{{system.terrainTypes}}">
+            {{else}}
+            <h4 id="terrain-input">{{system.terrainTypes}}</h4>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      {{! Edit mode toggle }}
+      {{#if isGM}}
+      <div class="full-size edit-container">
+        {{#if system.editMode}}
+        <i id="edit-mode" class="fa-solid fa-gear edit-mode-on">Play</i>
+        {{else}}
+        <i id="edit-mode" class="fa-solid fa-gear edit-mode-off">Edit</i>
+        {{/if}}
+      </div>
+      {{/if}}
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item" data-tab="core">Weapons/systems</a>
+    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="effects">Effects</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Systems Tab --}}
+    <div class="tab items" data-group="primary" data-tab="core">
+      <div class="flex-column flex-group-center monster-body-box">
+        <div class="items-list full-size">
+          <div class="item flexrow items-header grid grid-11col small-table-header">
+            <div class=" flex-group-center grid-span-3">System</div>
+            <div class="flex-group-center grid-span-7"></div>
+            <div class='item-controls flex-group-center'>
+                <a
+                  class='item-control item-create'
+                  title='Create item'
+                  data-type='anatomy'
+                  data-systemToggle= true
+                >
+                  <i class='fas fa-plus'></i>
+                </a>
+            </div>
+          </div>
+          <div id="anatomy" class="items-list full-size technique-table">
+          {{#each anatomy as |item id|}}
+            <div class='item flexrow grid grid-11col grid-table list-item' data-item-id='{{item._id}}'>
+              <div class='item-name grid-span-3 flexrow'>
+                <a
+                  class='item-control item-edit'
+                  title='{{localize "DOCUMENT.Update" type='Item'}}'
+                >
+                <h4>{{item.name}}</h4>
+                </a>
+              </div>
+              <div class="item-frequency grid-span-7 flex-group-center">
+                <h4>{{item.system.description}}</h4>
+              </div>
+              <div class="item-controls">
+                <a
+                  class='item-control item-delete'
+                  title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                >
+                  <i class='fas fa-trash'></i>
+                </a>
+              </div>
+            </div>
+          {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{! Description Tab }}
+    <div class="tab description flexcol" data-group="primary" data-tab="description">
+      <div class="full-size prosemirror tab">
+      {{editor
+        enrichedDescription
+        target='system.description'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+      </div>
+    </div>
+
+    {{!-- Active Effects Tab --}}
+    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-effects.hbs"}}
+    </div>
+
+  </section>
+  </div>
+</div>
+</form>
+
