@@ -3,7 +3,7 @@
     "types": [
       "character", 
       "monster",
-      "mortal",
+      "disciple",
       "squad",
       "platoon",
       "vehicle",

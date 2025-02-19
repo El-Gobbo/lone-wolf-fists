@@ -1,0 +1,75 @@
+<div class="items-list full-size flex-column">
+    <div id="member-header" class="item flexrow items-header full-size">
+        <div class="flex-group-left item-name">
+            <h4>Creature</h4>
+        </div>
+        <div class="flex-group-center">Effort</div>
+        <div class="flex-group-center">Health</div>
+        {{#unless isSquad}}
+        <div class="flex-group-center">Loyalty</div>
+        {{/unless}}
+        <div class="flex-group-center">Numbers</div>
+        <div class='flex-group-center flex-half'>
+            <a
+            class='member-create'
+            title='Create member'
+            data-type='member'
+            >
+            <i class='fas fa-plus'></i>
+            </a>
+        </div>
+    </div>
+    {{#each members}}
+    <div class='item flexrow squad-members full-size' data-id='{{this.id}}'>
+        <div class='flex-group-center flex-3 item-name' data-imbtype="creature">
+            {{#if this.editable}}
+            <img
+            class="item-image"
+            src='{{this.img}}'
+            title='{{this.creature}}'
+            width='24'
+            height='24'
+            />
+            <input class="member-choice" type="text" name="this.creature" value="{{this.creature}}">
+            {{else}}
+            <a class="item-name member-edit">
+            <img
+            class="item-image"
+            src='{{this.img}}'
+            title='{{this.creature}}'
+            width='24'
+            height='24'
+            />
+            <h4><strong>{{this.creature}}</strong></h4>
+            </a>
+            {{/if}}
+        </div> 
+        <div class='flex-group-center' data-imbtype="power">
+            <input class="member-choice" type="text" name="this.power" value="{{this.power}}">
+        </div>
+        <div class='flex-group-center' data-imbtype="health">
+            <input class="member-choice" type="text" name="this.health" value="{{this.health}}">
+        </div>
+        {{#unless ../isSquad}}
+        <div class='flex-group-center' data-imbtype="master.loyalty">
+            <input class="member-choice" type="text" name="this.loyalty" value="{{this.loyalty}}">
+        </div>
+        {{/unless}}
+        <div class='flex-group-center' data-imbtype="quantity">
+            {{#if this.editable}}
+            <input class="member-choice" type="text" name="this.quantity" value="{{this.quantity}}">
+            {{else}}
+            <h4>{{this.quantity}}</h4>
+            {{/if}}
+        </div>
+        <div class="member-controls flex-group-center flex-half">
+            <a
+            class='member-delete'
+            title='{{localize "DOCUMENT.Delete" type='Item'}}'
+            >
+            <i class='fas fa-trash'></i>
+            </a>
+        </div>
+     </div>
+    {{/each}}
+</div>

@@ -2,9 +2,9 @@ const BONUS = 10;
 const POWER = 10;
 const HEALTH = 10;
 const DEFENSE = 25;
-import lwfWeaponUser from "./base-weaponuser.mjs";
+import lwfActorBase from "./base-actor.mjs";
 
-export default class lwfPlatoon extends lwfWeaponUser {
+export default class lwfPlatoon extends lwfActorBase {
   static defineSchema() {
     const { BooleanField, NumberField, StringField, SchemaField, HTMLField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };

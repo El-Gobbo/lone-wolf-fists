@@ -61,10 +61,15 @@ export class lwfActorSheet extends ActorSheet {
 
     if (actorData.type == 'character' || actorData.type == 'monster') {
       this._prepareCharacterData(context);
+      this._prepareMembers(context);
+    }
+
+    if(actorData.type == 'disciple') {
+      this._prepareDisciple(context);
     }
 
     if(actorData.type == 'squad') {
-      this._prepareSquad(context);
+      this._prepareMembers(context);
     }
 
     if(actorData.type == 'titan') {
@@ -319,7 +324,7 @@ export class lwfActorSheet extends ActorSheet {
  *
  * @param {object} context The context object to mutate
  */
-  async _prepareSquad(context) {
+  async _prepareMembers(context) {
     const members = [];
     for(let m of context.system.namedMembers) {
       const member = await fromUuid(m);
@@ -336,10 +341,11 @@ export class lwfActorSheet extends ActorSheet {
       const memberData = {
         "img": member.img,
         "creature": member.name,
-        "effort": member.system.power.value,
+        "power": member.system.power.value,
         "health": member.system.health.value,
         "quantity": 1,
         "editable": false,
+        "loyalty": member.system.master.loyalty.value,
         "id": `${m}`
       }
       members.push(memberData);
@@ -350,6 +356,8 @@ export class lwfActorSheet extends ActorSheet {
       current["id"] = m;
       members.push(current);
     }
+    if(context.actor.type === 'squad')
+      context.isSquad = true;
     context.members = members;
     return context;
   }
@@ -365,7 +373,7 @@ export class lwfActorSheet extends ActorSheet {
 
   _prepareTitan(context) {
     const anatomy = context.anatomy;
-    const onslaughts = context.ability;
+    const onslaughts = context.actor.items.filter(i => (i.type === 'ability'));
     const calamity = context.actor.items.get(context.actor.system.calamity);
     const onslaughtIds = onslaughts.map(o => o._id);
     // Checks to see if there is a linked onslaught, and if there is inserts it's name into the linked onslaught box
@@ -571,21 +579,26 @@ export class lwfActorSheet extends ActorSheet {
       this.actor.update({[ `system.members` ]: members})
     })
 
-    html.on('change', '.member-choice', (ev) => {
-      // Get a copy of the squad member array
-      const members = this.actor.system.members;
-      // Get the new value
-      const newValue = ev.currentTarget.value;
-
-      // Get the stat being modified
-      const target = ev.currentTarget.parentElement.dataset.imbtype;
-
+    html.on('change', '.member-choice', async (ev) => {
       // Get the array index of the member
       const index = ev.currentTarget.parentElement.parentElement.dataset.id;
-
-      // Change the relvant index
-      members[index][target] = newValue;
-      this.actor.update({[ `system.members` ]: members });
+      // Get the new value
+      const newValue = ev.currentTarget.value;
+      // Get the stat being modified
+      const target = ev.currentTarget.parentElement.dataset.imbtype;
+      //Check to see if the id is a uuid - if it is, update the source and the current sheet
+      if(index.includes('.')) {
+        const namedMember = await fromUuid(index);
+        namedMember.update({[ `system.${target}.value` ]: newValue });
+        this.actor.update({[ `system.updateToggle` ]: !(this.actor.system.updateToggle)})
+      }
+      else {
+        // Get a copy of the squad member array
+        const members = this.actor.system.members;
+        // Change the relvant index
+        members[index][target] = newValue;
+        this.actor.update({[ `system.members` ]: members });
+      }
     })
 
     html.on('click', '.member-delete', (ev) => {
@@ -601,6 +614,14 @@ export class lwfActorSheet extends ActorSheet {
         newMembers.splice(location, 1);
         this.actor.update({[ `system.members`]: newMembers});
       }
+    })
+
+    html.on('click', '.member-edit', async (ev) => {
+      //Find the id of the member being edited
+      const li = $(ev.currentTarget).closest('.item');
+      const member = await fromUuid(li.data('id'));
+      //render the sheet
+      member.sheet.render(true);
     })
 
     html.on('change', '#membership-set', (ev) => {
@@ -722,15 +743,27 @@ export class lwfActorSheet extends ActorSheet {
   }
 
   async _onDropActor(event, data) {
-    if (!this.actor.isOwner || (this.actor.isOwner && this.actor.type !=='squad'))
+    if (!this.actor.isOwner || (this.actor.isOwner && !(this.actor.type ==='squad' || this.actor.type === 'character' || this.actor.type === 'monster')))
       return false;
-    // Get a copy of the squad member array
-    const members = this.actor.system.namedMembers;
-
     // Get the id of the dropped creature
     const id = data.uuid;
+    const disciple = await fromUuid(id);
+    // Only monsters or characters can be disciples
+    if(!(disciple.type === "monster" || disciple.type === "character" || disciple.type === 'squad'))
+      return false;
+    if(this.actor.type != 'squad') {
+      const newFollower = await foundry.applications.api.DialogV2.confirm({
+        window: { title: "Disciple Check" },
+        content: `<p>Make ${disciple.name} one of ${this.actor.name}'s disciples?</p>`,
+        modal: true
+      })
+      if(!newFollower)
+        return false;
+      disciple.update({[ `system.master.id` ]: this.actor.uuid})
+    }
+    // Get a copy of the squad member array
+    const members = this.actor.system.namedMembers;
     members.push(id);
-
     // Update the current Squad member array with the new values
     this.actor.update({[ `system.namedMembers` ]: members})
   }

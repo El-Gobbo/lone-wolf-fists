@@ -8,25 +8,10 @@
   {{! Stats sidebar }}
   <div class="sidebar flex-group-center">
     <img class="profile-img monster flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-    <div class="flex flex-group-center">
-      <i><h4 class="full-size flex-group-center">
-      {{#if system.editMode}}
-        <input type="radio" id="monster" name="system.isHero" {{#unless system.isHero}} checked {{/unless}} value=false data-techstat="isHero">
-        <label for="monster">Monster</label><br>
-        <input type="radio" id="hero" name="system.isHero" {{#if system.isHero}} checked {{/if}} value=true data-techstat="isHero">
-        <label for="hero">Minor Hero</label><br>
-      {{else}}
-        {{#if system.isHero}}
-          Minor Hero
-        {{else}}
-          Monster
-        {{/if}}
-      {{/if}}
-      </h4></i>
-    </div> 
+    <h4 id="actor-type" class="full-size"><i>{{actor.type}}</i></h4>
     <div class="resources">
       <div id="effort" class="resource flex-group-center flex-column npc-sidebar">
-        <label for="power-input" class="resource-label">{{#if system.isHero}}Effort{{else}}Ferocity{{/if}}</label>
+        <label for="power-input" class="resource-label">Ferocity</label>
         {{#if system.editMode}}
         <input id="power-input" class="smallish-box short-box" type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number">
         {{else}}
@@ -85,19 +70,6 @@
           {{/if}}
         </div>
       </div>
-      {{! Loyalty widget }}
-      {{#if system.master.id}} {{!TODO: replace this with what the actual value will be}}
-      <div id="loyalty" class="flex-column flex-group-center npc-sidebar">
-        <label for="loyalty-input" class="resource-label">Size</label>
-        <div id="loyalty-input-container" class=" flex-group-center flexshrink">
-          {{#if system.editMode}}
-          <input id="loyalty-input" class="smallish-box" type="text" name="system.master.loyalty" value="{{system.master.loyalty}}" data-dtype="Number">
-          {{else}}
-          <h4 id="loyalty-input">{{system.master.loyalty}}</h4>
-          {{/if}}
-        </div>
-      </div>
-      {{/if}}
       {{! Show chakras widget }}
       {{#if system.editMode}}
       <div class="npc-sidebar">
@@ -151,11 +123,6 @@
       <div class="flex-column flex-group-center monster-body-box">
         <h4 id="imbalance-heading" class="full-size section-header">Imbalances</h4>
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
-      </div>
-      <div class="flex-column flex-group-center monster-body-box">
-        <h4 id="equipment-heading" class="full-size section-header">Equipment</h4>
-        {{> "systems/lone-wolf-fists/templates/actor/parts/actor-equipment.hbs"}}
-        {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
       </div>
       {{! Techniques box - only visible if the monster has techniques}}
       <div class="flex-group-center monster-body-box">

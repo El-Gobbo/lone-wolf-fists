@@ -15,6 +15,8 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/lone-wolf-fists/templates/actor/parts/actor-dharma.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-effects.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs',
+    'systems/lone-wolf-fists/templates/actor/parts/actor-followers.hbs',
+
     // Item partials
     'systems/lone-wolf-fists/templates/item/parts/item-effects.hbs',
     'systems/lone-wolf-fists/templates/item/parts/item-dharma.hbs',
