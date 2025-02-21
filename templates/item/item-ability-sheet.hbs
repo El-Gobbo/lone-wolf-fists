@@ -19,7 +19,7 @@
       <div class="flex flex-group-center">
         <i><h4 class="full-size flex-group-center">
         {{#if system.editMode}}
-          <select name='system.subtype' data-techstat="effect.type">
+          <select class="item-choice" name='system.subtype' data-techstat="subtype">
           {{#each abilityType}}
           <option 
             {{#if (comparison ../system.subtype this)}}

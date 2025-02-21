@@ -2,7 +2,7 @@
 <div class="sheet">
 {{! Sidebars }}
   {{! Chakras sidebar}}
-  {{#if system.chakras.hasChakra}}
+  {{#if system.hasChakra}}
     {{> "systems/lone-wolf-fists/templates/actor/parts/actor-chakras.hbs"}}
   {{/if}}
   {{! Stats sidebar }}
@@ -13,11 +13,11 @@
       {{#if system.editMode}}
         <input type="radio" id="monster" name="system.isHero" {{#unless system.isHero}} checked {{/unless}} value=false data-techstat="isHero">
         <label for="monster">Monster</label><br>
-        <input type="radio" id="hero" name="system.isHero" {{#if system.isHero}} checked {{/if}} value=true data-techstat="isHero">
-        <label for="hero">Minor Hero</label><br>
+        <input type="radio" id="mortal" name="system.isHero" {{#if system.isHero}} checked {{/if}} value=true data-techstat="isHero">
+        <label for="mortal">Mortal</label><br>
       {{else}}
         {{#if system.isHero}}
-          Minor Hero
+          Mortal
         {{else}}
           Monster
         {{/if}}
@@ -88,12 +88,12 @@
       {{! Loyalty widget }}
       {{#if system.master.id}} {{!TODO: replace this with what the actual value will be}}
       <div id="loyalty" class="flex-column flex-group-center npc-sidebar">
-        <label for="loyalty-input" class="resource-label">Size</label>
+        <label for="loyalty-input" class="resource-label">Loyalty</label>
         <div id="loyalty-input-container" class=" flex-group-center flexshrink">
           {{#if system.editMode}}
-          <input id="loyalty-input" class="smallish-box" type="text" name="system.master.loyalty" value="{{system.master.loyalty}}" data-dtype="Number">
+          <input id="loyalty-input" class="smallish-box" type="text" name="system.master.loyalty.value" value="{{system.master.loyalty.value}}" data-dtype="Number">
           {{else}}
-          <h4 id="loyalty-input">{{system.master.loyalty}}</h4>
+          <h4 id="loyalty-input">{{system.master.loyalty.value}}</h4>
           {{/if}}
         </div>
       </div>
@@ -102,8 +102,8 @@
       {{#if system.editMode}}
       <div class="npc-sidebar">
         <div class="flexrow flex-group-center">
-          <input type="checkbox" class="flex" name="system.chakras.hasChakra"  {{#if system.chakras.hasChakra}}checked{{/if}} value=true>
-          <label class="rightside flex">Monster has chakra</label>
+          <input type="checkbox" class="flex" name="system.hasChakra"  {{#if system.hasChakra}}checked{{/if}} value=true>
+          <label class="rightside flex">NPC has chakra</label>
         </div>
       </div>
       {{/if}}
@@ -135,6 +135,9 @@
     <a class="item" data-tab="core">Core</a>
     <a class="item" data-tab="description">Description</a>
     <a class="item" data-tab="effects">Effects</a>
+    {{#if isGM}}
+    <a class="item" data-tab="config">Config</a>
+    {{/if}}
   </nav>
 
   {{!-- Sheet Body --}}
@@ -157,7 +160,7 @@
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-equipment.hbs"}}
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
       </div>
-      {{! Techniques box - only visible if the monster has techniques}}
+      {{! Techniques box - only visible if the npc has techniques}}
       <div class="flex-group-center monster-body-box">
         {{#if hasTechniques}}
         <h4 id="techniques-heading" class="full-size section-header">Techniques</h4>
@@ -176,6 +179,13 @@
     <div class="tab effects flexcol" data-group="primary" data-tab="effects">
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-effects.hbs"}}
     </div>
+
+    {{! Config tab }}
+    {{#if isGM}}
+    <div class="tab config" data-group="primary" data-tab="config">
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs"}}
+    </div>
+    {{/if}}
 
   </section>
   </div>

@@ -81,7 +81,7 @@
 
         <div class="resources grid grid-9col grid-close">
           {{! display focus slots up to the value determined by level, hide all subsequent slots}}
-          <label for="system.foci.value" class="resource-label grid-span-2">Focus Slots</label>
+          <label for="system.foci.value" class="resource-label grid-span-2 flexrow flex-group-center">Focus Slots</label>
           {{#each system.foci.slots}}
             <div {{#unless (lessThan @index ../system.foci.value )}} hidden {{/unless}} class="resource flex-group-center">
               <input type="text" id="focus-{{@index}}" class="focusSlot" data-findex="{{@index}}" name="system.foci.slots.{{@index}}" value="{{this}}" data-dtype="Number">
@@ -107,8 +107,8 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="core">Imbalances</a>
-    <a class="item" data-tab="techniques">Techniques</a>
+    <a class="item" data-tab="core">Techniques</a>
+    <a class="item" data-tab="imbalances">Imbalances</a>
     <a class="item" data-tab="items">Items</a>
     <a class="item" data-tab="followers">Followers</a>
     <a class="item" data-tab="dharma">Dharma</a>
@@ -120,14 +120,14 @@
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
-    {{! Imbalances tab }}
-    <div class="tab core" data-group="primary" data-tab="core">
-      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
+    {{!-- Techniques Tab --}}
+    <div class="tab techniques" data-group="primary" data-tab="core">   
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-techniques.hbs"}}
     </div>
 
-    {{!-- Techniques Tab --}}
-    <div class="tab techniques" data-group="primary" data-tab="techniques">   
-      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-techniques.hbs"}}
+    {{! Imbalances tab }}
+    <div class="tab core" data-group="primary" data-tab="imbalances">
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
     </div>
 
     {{!-- Equipment Tab --}}
@@ -147,9 +147,12 @@
        {{> "systems/lone-wolf-fists/templates/actor/parts/actor-dharma.hbs"}}
     </div>
 
+    {{! Config tab }}
+    {{#if isGM}}
     <div class="tab config" data-group="primary" data-tab="config">
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs"}}
     </div>
+    {{/if}}
 
   </section>
   {{/if}}

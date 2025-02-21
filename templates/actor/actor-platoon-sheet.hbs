@@ -89,6 +89,9 @@
     {{!-- Default tab is specified in actor-sheet.mjs --}}
       <a class="item" data-tab="core">Core</a>
       <a class="item" data-tab="description">Description</a>
+      {{#if isGM}}
+      <a class="item" data-tab="config">Config</a>
+      {{/if}}
     </nav>
     <section class="sheet-body">
       <div class="tab core" data-group="primary" data-tab="core">
@@ -124,6 +127,13 @@
         {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
           {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
       </div>
+
+      {{! Config tab }}
+      {{#if isGM}}
+      <div class="tab config" data-group="primary" data-tab="config">
+        {{> "systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs"}}
+      </div>
+      {{/if}}
     </section>
     {{/if}}
   </div>

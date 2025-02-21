@@ -136,8 +136,10 @@ export class lwfItemSheet extends ItemSheet {
 
     // Change imbalance data when the data is altered on the sheet
     html.on('change', '.item-choice', async (ev) =>{      
-      const tr = $(ev.currentTarget).parents('.sheet')[0].id.split("-")[2];
-      const item = game.items.get(tr);
+      const tr = $(ev.currentTarget).parents('.sheet')[0].id;
+      const id = tr.substring(tr.indexOf('-') + 1).replaceAll('-', '.');
+      
+      const item = fromUuidSync(id);
       
       // The following if statement is used to detect if the chosen element is selected or not
       // If there is a better way to do this, lmk
@@ -147,9 +149,9 @@ export class lwfItemSheet extends ItemSheet {
       else if (ev.currentTarget.nodeName !== "SELECT")
         update = ev.currentTarget.value;
       else
-        update = $(ev.currentTarget).find(":selected").text();
+        update = $(ev.currentTarget).find(":selected")[0].value;
       const target = ev.currentTarget.dataset.techstat;
-      item.update({ [`system.${target}`]: update});
+      await item.update({ [`system.${target}`]: update});
     });
 
     html.on('click', '#edit-mode', (ev) => {

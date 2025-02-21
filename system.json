@@ -16,14 +16,14 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/lone-wolf-fists/assets/anvil-impact.png",
-      "thumbnail": "systems/lone-wolf-fists/assets/anvil-impact.png"
+      "url": "systems/lone-wolf-fists/assets/logo.jpg",
+      "thumbnail": "systems/lone-wolf-fists/assets/logo.jpg"
     }
   ],
   "version": "0.1",
   "compatibility": {
-    "minimum": 11,
-    "verified": "11.315"
+    "minimum": 12,
+    "verified": "12.331"
   },
   "esmodules": ["module/lone-wolf-fists.mjs"],
   "styles": ["css/lone-wolf-fists.css"],
@@ -85,7 +85,7 @@
   "socket": false,
   "manifest": "https://github.com/El-Gobbo/lone-wolf-fists/blob/main/system.json",
   "download": "This must link to a .zip file of the current version",
-  "background": "systems/lone-wolf-fists/assets/anvil-impact.png",
+  "background": "systems/lone-wolf-fists/assets/logo.jpg",
   "gridDistance": 5,
   "gridUnits": "ft",
   "primaryTokenAttribute": "health",

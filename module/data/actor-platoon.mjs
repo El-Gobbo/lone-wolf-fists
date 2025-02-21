@@ -6,7 +6,7 @@ import lwfActorBase from "./base-actor.mjs";
 
 export default class lwfPlatoon extends lwfActorBase {
   static defineSchema() {
-    const { BooleanField, NumberField, StringField, SchemaField, HTMLField } = foundry.data.fields;
+    const { NumberField, StringField, SchemaField, HTMLField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
@@ -19,8 +19,7 @@ export default class lwfPlatoon extends lwfActorBase {
     });
     schema.defense = new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 5 });
     schema.bonus = new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 10 });
-    
-    return schema
+    return schema;
   }
 
   prepareDerivedData() {

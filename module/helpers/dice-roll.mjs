@@ -1,3 +1,5 @@
+// Inspired by "One roll Engine" by Shemetz
+// Source: https://github.com/shemetz/one-roll-engine
 const SETLENGTH = 10;
 
 export async function effortRoll(diceNumber, data) {

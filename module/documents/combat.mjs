@@ -20,9 +20,11 @@ export class lwfCombat extends Combat {
         const combatantList = this.combatants.map(c => c.actorId);
         for(let c in combatantList) {
           const combatant = await game.actors.get(combatantList[c]);
-          const maxAura = combatant.system?.aura.max;
-          if(!(maxAura === undefined))
-            combatant.update({["system.aura.current"]: maxAura})
+          const maxAura = combatant.system?.aura?.max;
+          const minChakra = combatant.system?.chakras?.value;
+          const basePranaGen = combatant.system?.pool?.value * minChakra;
+          if(!(maxAura === undefined || minChakra === undefined))
+            combatant.update({ ["system.aura.current"]: maxAura, [ 'system.prana.current']: basePranaGen, [ 'system.chakras.active' ]: minChakra })
         }
         this.delete();
       }

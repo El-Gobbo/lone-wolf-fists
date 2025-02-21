@@ -1,12 +1,11 @@
 // Export Actors
 export {default as lwfActorBase} from "./base-actor.mjs";
 export { lwfCharacter } from "./actor-character.mjs";
-export {default as lwfMonster} from "./actor-monster.mjs";
+export {default as lwfNpc} from "./actor-npc.mjs";
 export {default as lwfSquad} from "./actor-squad.mjs";
 export {default as lwfPlatoon} from "./actor-platoon.mjs";
 export {default as lwfTitan} from "./actor-titan.mjs";
 export {default as lwfVehicle} from "./actor-vehicle.mjs";
-export {default as lwfDisciple} from "./actor-disciple.mjs";
 
 // Export Items
 export {default as lwfItemBase} from "./base-item.mjs";

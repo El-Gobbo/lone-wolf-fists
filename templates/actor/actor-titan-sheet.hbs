@@ -109,8 +109,10 @@
     <a class="item" data-tab="core">Anatomy</a>
     {{/unless}}
     <a class="item" data-tab="onslaught">Onslaughts</a>
-        <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="effects">Effects</a>
+    <a class="item" data-tab="description">Description</a>
+    {{#if isGM}}
+    <a class="item" data-tab="config">Config</a>
+    {{/if}}
   </nav>
 
   {{!-- Sheet Body --}}
@@ -329,10 +331,12 @@
       </div>
     </div>
 
-    {{!-- Active Effects Tab --}}
-    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
-      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-effects.hbs"}}
+    {{! Config tab }}
+    {{#if isGM}}
+    <div class="tab config" data-group="primary" data-tab="config">
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs"}}
     </div>
+    {{/if}}
 
   </section>
   </div>

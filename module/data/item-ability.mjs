@@ -9,9 +9,8 @@ export default class lwfAbility extends lwfItemBase {
     const schema = super.defineSchema();
     schema.subtype = new StringField({ initial: 'Power' });
     schema.effect = new SchemaField({
-
       target: new StringField({ initial: 'Attack' }),
-      intensity: new StringField(),
+      intensity: new StringField({ initial: 'Rank 1'}),
       frequency: new NumberField({ nullable: false, integer: true, initial: 1, min: 1 }),
       duration: new StringField({ initial: 'Round'}),
       sets: new NumberField({ nullable: false, integer: true, initial: 2, min: 1 })
@@ -20,7 +19,6 @@ export default class lwfAbility extends lwfItemBase {
     return schema;
   }
   prepareDerivedData() {
-    if(!(this.type in LWFABILITIES.types))
-      this.subtype = 'Power';
+
   }
 }

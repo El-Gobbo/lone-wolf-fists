@@ -3,23 +3,26 @@
     <li class="prana resources">
     <div class="resource flex-group-center">
         <div>
-        <button type="button" id="prana-flare">Prana Flare</button>
+            <button class="technique-header" type="button" id="prana-flare">Prana Flare</button>
+        </div>
+        <div>
+            <button class="technique-header" type="button" id="recover-prana">Recover</button>
         </div>
         <label for="system.prana.current" class="resource-label">Prana</label>
         <div class="resource-content flexrow flex-center flex-between">
-        <input {{#unless inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
-        <input type="text" class="flex-2" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
-        <input {{#if inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/if}} type="text" name="system.prana.gen.inCombat" value="{{system.prana.gen.inCombat}}" data-dtype="Number" disabled/>
+            <input {{#unless inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
+            <input type="text" class="flex-2" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
+            <input {{#if inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/if}} type="text" name="system.prana.gen.inCombat" value="{{system.prana.gen.inCombat}}" data-dtype="Number" disabled/>
         </div>
     </div>
     <div class="grid grid-2col grid-close">
         <div class="resource flex-group-center">
-        <label for="system.pool.value" class="pool-label">Pool</label>
-        <input type="text" name="system.pool.value" value="{{system.pool.value}}" data-dtype="Number"/>
+            <label for="system.pool.value" class="pool-label">Pool</label>
+            <input type="text" name="system.pool.value" value="{{system.pool.value}}" data-dtype="Number"/>
         </div>
         <div class="resource flex-group-center">
-        <label for="system.pool.recovery" class="pool-label">Recover</label>
-        <input type="text" name="system.pool.recovery" value="{{system.pool.recovery}}" data-dtype="Number"/>
+            <label for="system.pool.recovery" class="pool-label">Recover</label>
+            <input type="text" name="system.pool.recovery" value="{{system.pool.recovery}}" data-dtype="Number"/>
         </div>
     </div>
     </li>
@@ -37,7 +40,7 @@
         height='10'
         />
         {{/unless}}
-        {{#unless (comparison system.chakras.active 1)}}
+        {{#unless (comparison system.chakras.active minChakras)}}
         <img
         class="chakra-decrease"
         src="systems/lone-wolf-fists/assets/arrdown.png"

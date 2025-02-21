@@ -20,7 +20,7 @@ export class lwfActorSheet extends ActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['lone-wolf-fists', 'sheet', 'actor'],
       width: 770,
-      height: 600,
+      height: 800,
       tabs: [
         {
           navSelector: '.sheet-tabs',
@@ -59,17 +59,18 @@ export class lwfActorSheet extends ActorSheet {
     // Prepare character data and items.
     this._prepareItems(context)
 
-    if (actorData.type == 'character' || actorData.type == 'monster') {
+    if (actorData.type == 'character' || actorData.type == 'npc') {
       this._prepareCharacterData(context);
-      this._prepareMembers(context);
-    }
+      await this._prepareMembers(context);
+      context.minChakras = context.system.chakras.value
+      }
 
     if(actorData.type == 'disciple') {
       this._prepareDisciple(context);
     }
 
     if(actorData.type == 'squad') {
-      this._prepareMembers(context);
+      await this._prepareMembers(context);
     }
 
     if(actorData.type == 'titan') {
@@ -164,9 +165,8 @@ export class lwfActorSheet extends ActorSheet {
     const clan = [];
     const skills = [];
     const ability = {
-      "Capability": [],
-      "Boost": [],
-      "Ability": []
+      "Power": [],
+      "Capability": []
     };
     const chargeAttack = [];
     const anatomy = [];
@@ -178,6 +178,12 @@ export class lwfActorSheet extends ActorSheet {
         let type = item.system.techType.toLowerCase();
         techArray[type].push(item);
       }
+      function addArmorValue(item, currentArmor){
+        if(item.system.worn === true){
+          currentArmor += i.system.armorValue;
+        }
+        return currentArmor;
+      }
       i.img = i.img || Item.DEFAULT_ICON;
       // Append to gear.
       switch (i.type) {
@@ -186,9 +192,7 @@ export class lwfActorSheet extends ActorSheet {
           break;
         
         case 'armor':
-          if(i.system.worn === true){
-            armorValue += i.system.armorValue;
-          }
+          armorValue = addArmorValue(i, armorValue);
           armor.push(i);
           break;
 
@@ -199,8 +203,10 @@ export class lwfActorSheet extends ActorSheet {
         case 'artifact':
           if(i.system.type === "Weapon")
             weapon.push(i);
-          else if(i.system.type === "Armor")
+          else if(i.system.type === "Armor") {
+            armorValue = addArmorValue(i, armorValue);
             armor.push(i);
+          }
           else
             artifactItems.push(i);
           if(i.system.hasTechnique) {
@@ -258,7 +264,8 @@ export class lwfActorSheet extends ActorSheet {
       }
     }
     // Assign and return
-    context.gear = gear;
+    //TODO: have skills display correctly when using artifact techniques
+    context.gear = artifactItems.concat(gear);
     context.weapon = weapon;
     context.armor = armor;
     context.armorValue = armorValue;
@@ -465,7 +472,8 @@ export class lwfActorSheet extends ActorSheet {
       });
 
       if(restData["full-rest"] === "true"){
-        this.actor.update({[ `system.health.current` ]: this.actor.system.health.max })
+        this.actor.update({[ `system.health.current` ]: this.actor.system.health.max
+         })
         return;
       }
       else {
@@ -478,7 +486,11 @@ export class lwfActorSheet extends ActorSheet {
         const newHealth = rolls._total + this.actor.system.health.current;
         this.actor.update({[ `system.health.current` ]: newHealth})
       }
-    })
+    });
+
+    html.on('click', '#recover-prana', async (ev) => {
+
+    });
 
     // Choose masteries to add on level up TODO: pass the data back to the original character sheet
     html.on('click', '#newMasteries', async (ev) => {
@@ -743,13 +755,13 @@ export class lwfActorSheet extends ActorSheet {
   }
 
   async _onDropActor(event, data) {
-    if (!this.actor.isOwner || (this.actor.isOwner && !(this.actor.type ==='squad' || this.actor.type === 'character' || this.actor.type === 'monster')))
+    if (!this.actor.isOwner || (this.actor.isOwner && !(this.actor.type ==='squad' || this.actor.type === 'character' || this.actor.type === 'npc')))
       return false;
     // Get the id of the dropped creature
     const id = data.uuid;
     const disciple = await fromUuid(id);
-    // Only monsters or characters can be disciples
-    if(!(disciple.type === "monster" || disciple.type === "character" || disciple.type === 'squad'))
+    // Only npcs or characters can be disciples
+    if(!(disciple.type === "npc" || disciple.type === "character" || disciple.type === 'squad'))
       return false;
     if(this.actor.type != 'squad') {
       const newFollower = await foundry.applications.api.DialogV2.confirm({

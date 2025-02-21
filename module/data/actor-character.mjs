@@ -38,13 +38,13 @@ export class lwfCharacter extends lwfActorChakras {
       value: new NumberField({ ...requiredInteger, initial: 0 }),
       // Visibility of focus slots is controlled at the character sheet level
       slots: new SchemaField({
-        0: new NumberField({ integer: true, initial: 0 }),
-        1: new NumberField({ integer: true, initial: 0 }),
-        2: new NumberField({ integer: true, initial: 0 }),
-        3: new NumberField({ integer: true, initial: 0 }),
-        4: new NumberField({ integer: true, initial: 0 }),
-        5: new NumberField({ integer: true, initial: 0 }),
-        6: new NumberField({ integer: true, initial: 0 }),
+        0: new NumberField({ integer: true, min: 0 }),
+        1: new NumberField({ integer: true, min: 0 }),
+        2: new NumberField({ integer: true, min: 0 }),
+        3: new NumberField({ integer: true, min: 0 }),
+        4: new NumberField({ integer: true, min: 0 }),
+        5: new NumberField({ integer: true, min: 0 }),
+        6: new NumberField({ integer: true, min: 0 }),
       })
     });
     // TODO Try to change the capital letters to lower case by using .tolowercase()
@@ -100,15 +100,7 @@ export class lwfCharacter extends lwfActorChakras {
     if(this.aura.max < this.aura.current)
       this.aura.current = this.aura.max;
     this.pool.recovery = this.pool.value * 2;
-
-    if(!this.parent.inCombat){
-      this.chakras.active = this.chakras.value;
-      this.prana.gen.outOfCombat = this.pool.value * this.chakras.active;
-      this.prana.current = this.prana.gen.outOfCombat;
-    }
-    else
-      this.prana.gen.outOfCombat = this.pool.value * this.chakras.active;
-
+    this.prana.gen.outOfCombat = this.pool.value * this.chakras.active;
     this.prana.gen.inCombat = this.pool.recovery * this.chakras.active;
     let clan = this.clan;
     if (!(clan in LWFCLAN))

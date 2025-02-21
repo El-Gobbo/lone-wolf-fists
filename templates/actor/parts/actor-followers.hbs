@@ -51,7 +51,7 @@
             <input class="member-choice" type="text" name="this.health" value="{{this.health}}">
         </div>
         {{#unless ../isSquad}}
-        <div class='flex-group-center' data-imbtype="master.loyalty">
+        <div class='flex-group-center' {{#if this.editable}} data-imbtype="loyalty" {{else}} data-imbtype="master.loyalty"{{/if}}>
             <input class="member-choice" type="text" name="this.loyalty" value="{{this.loyalty}}">
         </div>
         {{/unless}}

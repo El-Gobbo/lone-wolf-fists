@@ -1,17 +1,21 @@
 # LWF System
 
-![Foundry v11](https://img.shields.io/badge/foundry-v11-green)
+![Foundry v12](https://img.shields.io/badge/foundry-v12-green)
 
-This is a system to play the post-apocalyptic anime inspired ttrpg Lone Wolf Fists using Foundry vtt. It has been built starting from the boilerplate system, and is currently not ready for wider use.
+This is a system to play the post-apocalyptic anime inspired ttrpg Lone Wolf Fists using Foundry VTT version 12+. It has been built starting from the [Boilerplate system](https://github.com/asacolips-projects/boilerplate), and is just about ready for wider use. It is my first real coding project, and I learned a lot while doing it - as a result, some design decisions may be suboptimal, and some features are WIP.
 
 ## To do
-My current goal is to get a fully functional sheet for player characters. From there, I intend to put together sheets for all other actor classes (seriously, theres a lot of them), at which point this system should be at an alpha stage, and able to be used. I have not thought much beyond that, but I have a few initial ideas i'd like to explore
+Finish off sheets for all actor and item types. Currently, domains are missing from the actors types, and imbalances and nodes are missing from the items types. Creating imbalances works on character sheets, but they do not have their own sheet.
 
-## List of intended changes before alpha
-- Create basic character sheets for all actor classes
-- Squads
--- Effort and health based on number of members - max 10 effort!
--- Effort and max heath go down as health decreases and members die
--- Most commonly used for squads of 10 health individuals
-- Note tab for player characters
-- Prana flare out of combat
+## List of intended changes before beta
+- Create sheets for domains and nodes
+- Create sheets for imbalances
+- Add a tab to delete unneeded items to all character sheets
+- Make clans actually do something
+- Create packs for techniques
+- Design summary page for player character sheets
+- Redesign edit mode to make it more consistent
+
+## Known issues
+- Effort and health max cannot be increased for player characters - as a workaround for techniques that change these things, create an npc with the relevant stats.
+

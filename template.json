@@ -2,8 +2,7 @@
   "Actor": {
     "types": [
       "character", 
-      "monster",
-      "disciple",
+      "npc",
       "squad",
       "platoon",
       "vehicle",

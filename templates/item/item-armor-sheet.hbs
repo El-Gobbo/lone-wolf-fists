@@ -15,13 +15,18 @@
         /></h1>
     </div>
   </header>
-
+  {{#if isGM}}
+  <div class="full-size edit-container">
+  {{#if system.editMode}}
+  <i id="edit-mode" class="fa-solid fa-gear edit-mode-on">Play</i>
+  {{else}}
+  <i id="edit-mode" class="fa-solid fa-gear edit-mode-off">Edit</i>
+  {{/if}}
+  </div>
+  {{/if}}
   {{! Sheet Tab Navigation }}
   <nav class='sheet-tabs tabs' data-group='primary'>
     <a class='item' data-tab='description'>Description</a>
-    {{#if isGM}}
-    <a class='item' data-tab='attributes'>Attributes</a>
-    {{/if}}
   </nav>
 
   {{! Sheet Body }}
@@ -30,10 +35,16 @@
     {{! Description Tab }}
     <div class='tab' data-group='primary' data-tab='description'>
       <div class='resource'>
-        <h3><strong>Armor Value: </strong><i>{{system.armorValue}}</i></h3>
+        <h3><strong>Armor Value: </strong>
+        {{#if system.editMode}}
+        <input id="armorValue" type="number" class="inline-input small-box" name='system.armorValue' value="{{system.armorValue}}" data-dtype="Number">
+        {{else}}
+        <i>{{system.armorValue}}</i>
+        {{/if}}
+        </h3>
       </div>
       {{! Editors must receive enriched text data from getData to properly handle rolls }}
-      <div class="full-size prosemirror">
+      <div class="tab" data-group="primary">
       {{editor
         enrichedDescription
         target='system.description'
@@ -41,14 +52,6 @@
         button=true
         editable=editable
       }}
-      </div>
-    </div>
-
-    {{! Attributes Tab }}
-    <div class='tab attributes' data-group='primary' data-tab='attributes'>
-      <div class='resource'>
-        <label>Armor rating:</label>
-        <input id="armorValue" type="number" class="inline-input small-box" name='system.armorValue' value="{{system.armorValue}}" data-dtype="Number">
       </div>
     </div>
   </section>

@@ -17,14 +17,13 @@ LWFARTIFACTS.tier = [
 ]
 
 LWFARTIFACTS.tag = [
-    "Unarmed+",
-    "Reflexive+",
-    "Balanced+",
-    "Reach+",
-    "Heavy+",
-    "Ranged+",
-    "Flexible+",
-    "Subtle+",
-    "Warfighter+",
+    "Unarmed",
+    "Reflexive",
+    "Balanced",
+    "Reach",
+    "Heavy",
+    "Ranged",
+    "Flexible",
+    "Subtle",
     "Special"
 ];

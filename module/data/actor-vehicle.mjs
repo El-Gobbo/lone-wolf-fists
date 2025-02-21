@@ -28,6 +28,7 @@ export default class lwfVehicle extends lwfActorBase {
     return schema
   }
 
-  prepareDerivedData() {  
+  prepareDerivedData() {
+    this.health.max = this.health.value * 10;
   }
 }

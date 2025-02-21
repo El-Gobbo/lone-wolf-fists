@@ -12,9 +12,9 @@ export default class lwfArtifact extends lwfTechnique {
 
     // These tags are here to allow artifacts to display in the weapon table
     schema.tag1 = new StringField({initial: "Balanced+"});
-    schema.tag1Effect = new StringField();
+    schema.tag1Effect = new StringField({ initial: '' });
     schema.tag2 = new StringField({initial: "Balanced+"});
-    schema.tag2Effect = new StringField();
+    schema.tag2Effect = new StringField({ initial: '' });
     schema.unique = new BooleanField({initial: false});
     schema.size = new NumberField({ ...requiredInteger, initial: 0});
 

@@ -725,7 +725,7 @@
 .lone-wolf-fists .section-header {
   margin: 0 0 3px 0;
 }
-.lone-wolf-fists .resource-label {
+.lone-wolf-fists rce-label {
   font-weight: bold;
   text-align: center;
   padding-right: auto;
@@ -791,7 +791,6 @@
 }
 .lone-wolf-fists .items-list .item-name h3, .lone-wolf-fists .items-list .item-name h4 {
   margin: 0;
-  white-space: nowrap;
   overflow-x: hidden;
 }
 .lone-wolf-fists .items-list .item-controls {

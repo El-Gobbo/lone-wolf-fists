@@ -11,10 +11,10 @@
     <a class="item" data-tab="core">Core</a>
     {{#if isGM}}
     <a class="item" data-tab="edit">1. Set core stats</a>
-    <a class="item" data-tab="shakti">2. Additional effects</a>
-      {{#if system.hasTechnique}}
-      <a class="item" data-tab="technique">3. Set technique</a>
-      {{/if}}
+    <a class="item" data-tab="shakti">2. Set Shakti</a>
+    {{#if system.hasTechnique}}
+    <a class="item" data-tab="technique">3. Set technique</a>
+    {{/if}}
     <a class="item" data-tab="effects">Effects</a>
     {{/if}}
   </nav>
@@ -35,8 +35,8 @@
       </div>
       <div class="item-sheet-line">
         <span>
-          <strong>Shakti: </strong>            
-          <span>{{system.shakti}}</span>
+          <strong>Shakti: </strong>
+          <span>{{{system.shakti}}}</span>
         </span>
       </div>
       {{#if system.hasTechnique}}
@@ -101,51 +101,44 @@
       </div>
       <div class="indented-element">
         <label>Description: </label>
-        <textarea name="system.artifactDescription" rows="5">{{system.artifactDescription}}</textarea>
+        <textarea name="system.artifactDescription" rows="4">{{system.artifactDescription}}</textarea>
       </div>
 
       {{!-- Only show if weapon-type artifact --}}
       {{#if (comparison system.type "Weapon")}}
-        <div class="indented-element">
-          <div class='resource'>
-            <label>{{#if system.unique}}Artifact Tag 1: {{else}}Artifact Tag: {{/if}}</label>
-            <select name='system.tag1' data-techstat="tag1">
-            {{#each artifactTags}}
+      <div class="indented-element">
+        <div class='resource'>
+          <label for="system.tag1">This weapon counts as </label>
+          <select id="system.tag1" name='system.tag1' data-techstat="tag1">
+          {{#each artifactTags}}
             <option 
               {{#if (comparison ../system.tag1 this)}} selected="selected" {{/if}} 
-              value="{{this}}">{{this}}</option>
-            {{/each}}
-            </select>
-            <div>
-              <label>Tag Effect: </label>
-              <input type="text" class="very-large-box left" name='system.tag1Effect' value="{{system.tag1Effect}}" data-dtype="String">
-            </div>
-          </div>
-          <div class='resource flexrow flex-group-center'>
-            <input type="checkbox" class="flex" name="system.unique"  {{#if system.unique}}checked{{/if}} value=true>
-            <label class="rightside flex">Weapon has two tags</label>
-          </div>
+              value="{{this}}">
+              {{this}}
+            </option>
+          {{/each}}
+          </select>
           {{#if system.unique}}
-          <div class='resource indented-element'>
-            <label>Artifact Tag 2: </label>
-            <select class="" name='system.tag2' data-techstat="tag2">
-            {{#each artifactTags}}
+          <label for="system.tag2"> and </label>
+          <select id="system.tag2" name='system.tag2' data-techstat="tag2">
+          {{#each artifactTags}}
             <option 
               {{#if (comparison ../system.tag2 this)}} selected="selected" {{/if}} 
               value="{{this}}">{{this}}</option>
-            {{/each}}
-            </select>
-            <div>
-              <label>Tag Effect: </label>
-              <input type="text" class="very-large-box left" name='system.tag2Effect' value="{{system.tag2Effect}}" data-dtype="String">
-            </div>
-          </div>
+          {{/each}}
+          </select>
           {{/if}}
-          <div class='resource'>
-            <label>Size:</label>
-            <input type="text" class="inline-input small-box" name='system.size' value="{{system.size}}" data-dtype="Number">
+          <span>for the purpose of techniques.</span>
+          <div class='resource flexrow flex-group-center'>
+            <input type="checkbox" class="flex" name="system.unique"  {{#if system.unique}}checked{{/if}} value=true>
+            <label class="rightside flex">Weapon counts as two weapon types</label>
           </div>
         </div>
+        <div class='resource'>
+          <label>Size:</label>
+          <input type="text" class="inline-input small-box" name='system.size' value="{{system.size}}" data-dtype="Number">
+        </div>
+      </div>
       {{/if}}
 
         {{!-- Armor-type artifact --}}
