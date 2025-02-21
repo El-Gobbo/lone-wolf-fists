@@ -9,6 +9,7 @@ import { LWFSKILLS } from '../helpers/skills.mjs';
 import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
 import { LWFABILITIES } from '../helpers/abilities.mjs';
 import { effortRoll } from '../helpers/dice-roll.mjs';
+import { chakraReset } from '../helpers/chakra-reset.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -223,7 +224,10 @@ export class lwfActorSheet extends ActorSheet {
           }
           break;
         case 'technique':
-          pushToTechnique(i, techniques);
+          if(i.system.techLvl === 'form')
+            form.push(i);
+          else
+            pushToTechnique(i, techniques);
           hasTechniques = true;
           break;
         case 'form':
@@ -424,7 +428,14 @@ export class lwfActorSheet extends ActorSheet {
 
     // Roll effort when effort clicked
     html.on('click', '#effort', (ev) => {
-      const data = { "speaker": { "actor": this.actor.id } };
+      let data = {"speaker": { "actor": this.actor._id }};
+      if(this.token?._id){
+        data = {"speaker": { 
+          "alias": this.token.name,
+          "scene": this.token.parent._id,
+          "token": this.token._id,
+        }};
+      }
       const diceNumber = this.actor.system.power.value;
       effortRoll(diceNumber, data)
     });
@@ -489,7 +500,7 @@ export class lwfActorSheet extends ActorSheet {
     });
 
     html.on('click', '#recover-prana', async (ev) => {
-
+      chakraReset(this.actor);
     });
 
     // Choose masteries to add on level up TODO: pass the data back to the original character sheet

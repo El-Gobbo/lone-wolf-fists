@@ -4,8 +4,7 @@ import { LWFABILITIES } from "../helpers/abilities.mjs";
 export default class lwfAbility extends lwfItemBase {
 
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, ArrayField, HTMLField } = foundry.data.fields;
-    const requiredInteger = { required: true, nullable: false, integer: true };
+    const { SchemaField, NumberField, StringField } = foundry.data.fields;
     const schema = super.defineSchema();
     schema.subtype = new StringField({ initial: 'Power' });
     schema.effect = new SchemaField({

@@ -76,7 +76,7 @@
       </div>
       {{! Size widget }}
       <div id="size" class="flex-column flex-group-center npc-sidebar">
-        <label for="size-input" class="resource-label">Size</label>
+        <label for="size-input" class="resource-label">{{#if system.isHero}}Focus{{else}}Size{{/if}}</label>
         <div id="size-input-container" class=" flex-group-center flexshrink">
           {{#if system.editMode}}
           <input id="size-input" class="smallish-box" type="text" name="system.size" value="{{system.size}}" data-dtype="Number">

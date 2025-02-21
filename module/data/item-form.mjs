@@ -3,7 +3,7 @@ import lwfYuddhakala from "./base-yuddhakala.mjs";
 export default class lwfForm extends lwfYuddhakala {
 
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, BooleanField, HTMLField } = foundry.data.fields;
+    const { SchemaField, NumberField, StringField, BooleanField } = foundry.data.fields;
     const schema = super.defineSchema();
 
     schema.attackBoost = new SchemaField({

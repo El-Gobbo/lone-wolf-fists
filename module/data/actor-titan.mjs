@@ -3,8 +3,7 @@ import lwfActorBase from "./base-actor.mjs";
 export default class lwfTitan extends lwfActorBase {
 
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, ArrayField, HTMLField, BooleanField } = foundry.data.fields;
-    const requiredInteger = { required: true, nullable: false, integer: true };
+    const { SchemaField, StringField, HTMLField, BooleanField } = foundry.data.fields;
     const schema = super.defineSchema();
 
     schema.cataclysms = new StringField();

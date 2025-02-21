@@ -20,7 +20,7 @@
       "thumbnail": "systems/lone-wolf-fists/assets/logo.jpg"
     }
   ],
-  "version": "0.1",
+  "version": "1.0.0-beta",
   "compatibility": {
     "minimum": 12,
     "verified": "12.331"

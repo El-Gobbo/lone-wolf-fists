@@ -17,7 +17,7 @@ export class lwfCharacter extends lwfActorChakras {
   }
 
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, ArrayField, BooleanField, HTMLField } = foundry.data.fields;
+    const { SchemaField, NumberField, StringField, BooleanField, HTMLField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 

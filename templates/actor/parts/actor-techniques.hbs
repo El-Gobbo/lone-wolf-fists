@@ -2,8 +2,8 @@
 <div>
   <select name="techniqueDisplay" id="techniqueDisplay" class="techniqueDisplay">
     <option value="all" {{#if (comparison system.techTableFocus "all")}} selected {{/if}}>All</option>
-    <option value="attack" {{#if (comparison system.techTableFocus "attacks")}} selected {{/if}}>Attack</option>
-    <option value="defense" {{#if (comparison system.techTableFocus "defenses")}} selected {{/if}}>Defense</option>
+    <option value="attack" {{#if (comparison system.techTableFocus "attack")}} selected {{/if}}>Attack</option>
+    <option value="defense" {{#if (comparison system.techTableFocus "defense")}} selected {{/if}}>Defense</option>
     <option value="mudra" {{#if (comparison system.techTableFocus "mudra")}} selected {{/if}}>Mudra</option>
     <option value="balance" {{#if (comparison system.techTableFocus "balance")}} selected {{/if}}>Balance</option>
     <option value="forms" {{#if (comparison system.techTableFocus "forms")}} selected {{/if}}>Forms</option>

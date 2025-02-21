@@ -2,7 +2,7 @@ import lwfYuddhakala from "./base-yuddhakala.mjs";
 
 export default class lwfTechnique extends lwfYuddhakala {
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, BooleanField, HTMLField } = foundry.data.fields;
+    const { SchemaField, NumberField, StringField, BooleanField } = foundry.data.fields;
     const schema = super.defineSchema();
 
     //Choose if the technique is attack, defense, balance, or mudra

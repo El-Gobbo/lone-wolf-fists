@@ -3,7 +3,7 @@ import lwfItemBase from "./base-item.mjs";
 export default class lwfImbalance extends lwfItemBase {
 
   static defineSchema() {
-    const { SchemaField, BooleanField, NumberField, StringField, ArrayField, HTMLField } = foundry.data.fields;
+    const { BooleanField, NumberField, StringField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 

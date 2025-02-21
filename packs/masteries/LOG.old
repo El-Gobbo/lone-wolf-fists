@@ -1,3 +1,8 @@
-2025/02/21-08:38:28.429 801c Recovering log #323
-2025/02/21-08:38:28.471 801c Delete type=0 #323
-2025/02/21-08:38:28.472 801c Delete type=3 #322
+2025/02/21-09:14:28.344 7eac Recovering log #325
+2025/02/21-09:14:28.495 7eac Delete type=0 #325
+2025/02/21-09:14:28.507 7eac Delete type=3 #324
+2025/02/21-10:31:17.638 959c Level-0 table #329: started
+2025/02/21-10:31:17.639 959c Level-0 table #329: 0 bytes OK
+2025/02/21-10:31:17.652 959c Delete type=0 #327
+2025/02/21-10:31:17.690 959c Manual compaction at level-0 from '!items!85zutp9B7QQLte3P' @ 72057594037927935 : 1 .. '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 0 : 0; will stop at (end)
+2025/02/21-10:31:17.719 959c Manual compaction at level-1 from '!items!85zutp9B7QQLte3P' @ 72057594037927935 : 1 .. '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 0 : 0; will stop at (end)

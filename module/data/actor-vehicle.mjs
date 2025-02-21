@@ -3,7 +3,7 @@ import lwfActorBase from "./base-actor.mjs";
 export default class lwfVehicle extends lwfActorBase {
 
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, ArrayField, HTMLField, BooleanField } = foundry.data.fields;
+    const { SchemaField, NumberField, StringField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
