@@ -84,7 +84,7 @@
   "packFolders": [],
   "socket": false,
   "manifest": "https://github.com/El-Gobbo/lone-wolf-fists/blob/main/system.json",
-  "download": "This must link to a .zip file of the current version",
+  "download": "https://github.com/El-Gobbo/lone-wolf-fists/archive/refs/tags/v1.0.0.beta.zip",
   "background": "systems/lone-wolf-fists/assets/logo.jpg",
   "gridDistance": 5,
   "gridUnits": "ft",
