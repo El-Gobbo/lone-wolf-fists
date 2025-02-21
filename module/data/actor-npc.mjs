@@ -9,7 +9,7 @@ export default class lwfNpc extends lwfActorChakras {
     schema.isHero = new BooleanField({ initial: false })
     schema.hasChakra = new BooleanField({ initial: false });
     schema.hasTechniques = new BooleanField({ initial: false });
-    schema.size = new NumberField({ ...requiredInteger, min: 0 });
+    schema.size = new NumberField({ ...requiredInteger, initial: 0, min: 0 });
     schema.abilities = new HTMLField();
     
     return schema
