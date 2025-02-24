@@ -10,12 +10,12 @@ Finish off sheets for all actor and item types. Currently, domains are missing f
 ## List of intended changes before beta
 - Create sheets for domains and nodes
 - Create sheets for imbalances
-- Add a tab to delete unneeded items to all character sheets
 - Make clans actually do something
 - Create packs for techniques
 - Design summary page for player character sheets
 - Redesign edit mode to make it more consistent
 
 ## Known issues
+- The module dice so nice does not work with the dice rolling mechanic - no dice are rolled.
 - Effort and health max cannot be increased for player characters - as a workaround for techniques that change these things, create an npc with the relevant stats.
 
