@@ -376,6 +376,9 @@
 .lone-wolf-fists button#prana-flare {
   font-size: 12px;
 }
+.lone-wolf-fists .flex-wrap {
+  flex-wrap: wrap;
+}
 .lone-wolf-fists .item-form {
   font-family: "Alley-Oop", "Roboto", sans-serif;
 }

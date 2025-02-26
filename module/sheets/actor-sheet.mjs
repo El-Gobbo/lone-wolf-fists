@@ -10,6 +10,7 @@ import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
 import { LWFABILITIES } from '../helpers/abilities.mjs';
 import { effortRoll } from '../helpers/dice-roll.mjs';
 import { chakraReset } from '../helpers/chakra-reset.mjs';
+import { LWFNODES } from '../helpers/nodes.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -80,6 +81,10 @@ export class lwfActorSheet extends ActorSheet {
 
     if(actorData.type === 'platoon') {
       this._preparePlatoon(context);
+    }
+
+    if(actorData.type === 'domain') {
+      this._prepareDomain(context);
     }
     context.isGM = game.user.isGM;
 
@@ -171,6 +176,7 @@ export class lwfActorSheet extends ActorSheet {
     };
     const chargeAttack = [];
     const anatomy = [];
+    const node = [];
 
 
     // Iterate through items, allocating to containers
@@ -264,7 +270,10 @@ export class lwfActorSheet extends ActorSheet {
           break;
         case 'anatomy':
           anatomy.push(i);
-          break;      
+          break;  
+        case 'node':
+          node.push(i);
+          break;    
       }
     }
     // Assign and return
@@ -283,6 +292,7 @@ export class lwfActorSheet extends ActorSheet {
     context.skill = skills;
     context.ability = ability;
     context.anatomy = anatomy;
+    context.node = node;
     if(chargeAttack.length > 0)
       context.chargeAttack = chargeAttack;
 
@@ -408,6 +418,27 @@ export class lwfActorSheet extends ActorSheet {
     context.onslaughts = onslaughts;
     context.calamity = calamity;
     context.anatomy = anatomy;
+    return context;
+  }
+
+  _prepareDomain(context) {
+    // Go over the node items
+    for(let n in context.node) {
+      const potentialProduct = [];
+      // Determine their development level
+      const devLevel = context.node[n].system.development.level.name
+      // Scan through the list of development products
+      const products = LWFNODES.developmentProduct;
+      for(let p in products) {
+        // Create a list consisting of all those that have a modifier of greater than one for the given development level
+        if(products[p][devLevel] == 0) {
+          continue;
+        }
+        products[p].index = parseInt(p);
+        potentialProduct.push(products[p])
+      }
+      context.node[n].potentialProduct = potentialProduct;
+    }
     return context;
   }
 

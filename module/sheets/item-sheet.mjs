@@ -8,6 +8,7 @@ import { LWFSKILLS } from '../helpers/skills.mjs';
 import { LWFWEAPONTAGS } from '../helpers/weapon-tags.mjs';
 import { LWFARTIFACTS } from '../helpers/artifact-config.mjs';
 import { LWFABILITIES } from '../helpers/abilities.mjs';
+import { LWFNODES } from '../helpers/nodes.mjs';
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
@@ -111,6 +112,13 @@ export class lwfItemSheet extends ItemSheet {
       }
       context.onslaughtName = onslaughtName;
       context.onslaughts = onslaughts;
+    }
+
+    if(itemData.type === 'node') {
+      context.nodeType = LWFNODES.nodeType;
+      context.richness = LWFNODES.richness;
+      context.developmentLevel = LWFNODES.developmentLevel;
+      context.developmentProduct = LWFNODES.developmentProduct;
     }
     context.isGM = game.user.isGM;
     context.duration = LWFABILITIES.durations;

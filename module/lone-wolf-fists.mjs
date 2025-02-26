@@ -49,6 +49,7 @@ Hooks.once('init', function () {
     platoon: models.lwfPlatoon,
     titan: models.lwfTitan,
     vehicle: models.lwfVehicle,
+    domain: models.lwfDomain
   }
 
   CONFIG.Combat.documentClass = lwfCombat;
@@ -69,7 +70,8 @@ Hooks.once('init', function () {
     weapon: models.lwfWeapon,
     artifact: models.lwfArtifact,
     ability: models.lwfAbility,
-    anatomy: models.lwfAnatomy
+    anatomy: models.lwfAnatomy,
+    node: models.lwfNode
   }
 
   // Active Effects are never copied to the Actor,

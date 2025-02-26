@@ -6,6 +6,7 @@ export {default as lwfSquad} from "./actor-squad.mjs";
 export {default as lwfPlatoon} from "./actor-platoon.mjs";
 export {default as lwfTitan} from "./actor-titan.mjs";
 export {default as lwfVehicle} from "./actor-vehicle.mjs";
+export {default as lwfDomain} from "./actor-domain.mjs";
 
 // Export Items
 export {default as lwfItemBase} from "./base-item.mjs";
@@ -22,3 +23,4 @@ export {default as lwfWeapon} from "./item-weapon.mjs";
 export {default as lwfArtifact} from "./item-artifact.mjs";
 export {default as lwfAbility} from "./item-ability.mjs";
 export {default as lwfAnatomy} from "./item-anatomy.mjs";
+export {default as lwfNode} from "./item-node.mjs"

@@ -1,9 +1,11 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 <div class="sheet">
+  {{!-- Stats sidebar --}}
   <div class="sidebar flex-group-center">
     <img class="profile-img squad flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
     <h4 id="actor-type" class="full-size"><i>{{actor.type}}</i></h4>
     <div class="resources">
+      {{! Members widget }}
       <div id="size" class="flex-column flex-group-center npc-sidebar">
         <label for="size-input" class="resource-label">Members</label>
         <div id="size-input-container" class="grid grid-5col grid-table three-quarter-size">
@@ -12,12 +14,14 @@
           {{/each}}
         </div>
       </div>
+      {{! Effort Widget}}
       <div id="effort" class="resource flex-group-center flex-column npc-sidebar">
         <label for="power-input" class="resource-label">Effort</label>
         <div id="effort-display" class="flex-group-center flex">
           <h4 id="power-input"><strong>{{system.power.value}}</strong></h4>
         </div>
       </div>
+      {{! Health Widget }}
       <div id="health" class="resource flex-group-center inner-margin npc-sidebar">
         <div>
           <label for="health-current" class="resource-label">Health</label>
@@ -27,6 +31,7 @@
           </div>
         </div>
       </div>
+      {{! Armor widget }}
       <div class="resource-content flex-group-center flex-between inner-margin npc-sidebar">
         <label for="armor-input" class="resource-label">Armor</label>
         <div class="flex-group-center flex">
@@ -44,64 +49,66 @@
       </div>
     </div>
   </div>
+
   <div class="body">
-  <header class="sheet-top">
-    <div class="header-fields position-relative flex-column">
-      <div class="title">
-        <h1 id="name" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+    {{! Name }}
+    <header class="sheet-top">
+      <div class="header-fields position-relative flex-column">
+        <div class="title">
+          <h1 id="name" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="core">Core</a>
-    <a class="item" data-tab="items">Items</a>
-    {{#if isGM}}
-    <a class="item" data-tab="config">Config</a>
-    {{/if}}
-  </nav>
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+      {{!-- Default tab is specified in actor-sheet.mjs --}}
+      <a class="item" data-tab="core">Core</a>
+      <a class="item" data-tab="items">Items</a>
+      {{#if isGM}}
+      <a class="item" data-tab="config">Config</a>
+      {{/if}}
+    </nav>
 
-  {{!-- Sheet Body --}}
-  <section class="sheet-body">
-    {{!--  Tab --}}
-    <div class="tab core" data-group="primary" data-tab="core">
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+      {{!--  Tab --}}
+      <div class="tab core" data-group="primary" data-tab="core">
 
-      {{! Squad Members }}
-      <div class="flex-column flex-group-center monster-body-box">
-        <h4 id="member-heading" class="full-size section-header">Membership</h4>
-          {{> "systems/lone-wolf-fists/templates/actor/parts/actor-followers.hbs"}}
+        {{! Squad Members }}
+        <div class="flex-column flex-group-center monster-body-box">
+          <h4 id="member-heading" class="full-size section-header">Membership</h4>
+            {{> "systems/lone-wolf-fists/templates/actor/parts/actor-followers.hbs"}}
+        </div>
+
+        {{! Equipment }}
+        <div class="flex-column flex-group-center monster-body-box">
+          <h4 id="equipment-heading" class="full-size section-header">Equipment</h4>
+            {{> "systems/lone-wolf-fists/templates/actor/parts/actor-equipment.hbs"}}
+        </div>
+
+        {{#if (arrayNotEmpty form)}}
+        <div id="squad-forms" class="flex-column flex-group-center monster-body-box half-size">
+          <h4 id="equipment-heading" class="full-size section-header">Forms</h4>
+            {{> "systems/lone-wolf-fists/templates/actor/parts/actor-techniques.hbs"}}
+        </div>
+        {{/if}}
+
       </div>
 
-      {{! Equipment }}
-      <div class="flex-column flex-group-center monster-body-box">
-        <h4 id="equipment-heading" class="full-size section-header">Equipment</h4>
-          {{> "systems/lone-wolf-fists/templates/actor/parts/actor-equipment.hbs"}}
+      {{!-- Owned Items Tab --}}
+      <div class="tab items" data-group="primary" data-tab="items">
+        {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
       </div>
 
-      {{#if (arrayNotEmpty form)}}
-      <div id="squad-forms" class="flex-column flex-group-center monster-body-box half-size">
-        <h4 id="equipment-heading" class="full-size section-header">Forms</h4>
-          {{> "systems/lone-wolf-fists/templates/actor/parts/actor-techniques.hbs"}}
+      {{! Config tab }}
+      {{#if isGM}}
+      <div class="tab config" data-group="primary" data-tab="config">
+        {{> "systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs"}}
       </div>
       {{/if}}
 
-    </div>
-
-    {{!-- Owned Items Tab --}}
-    <div class="tab items" data-group="primary" data-tab="items">
-       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
-    </div>
-
-    {{! Config tab }}
-    {{#if isGM}}
-    <div class="tab config" data-group="primary" data-tab="config">
-      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs"}}
-    </div>
-    {{/if}}
-
-  </section>
+    </section>
   </div>
 </div>
 </form>

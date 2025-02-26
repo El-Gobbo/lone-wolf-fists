@@ -1,0 +1,130 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-top'>
+    <div class="flexrow">
+      <div class="sidebar">
+        <img
+          id='ability-image'
+          src='{{item.img}}'
+          data-edit='img'
+          height="90"
+          width="90"
+          title='{{item.name}}'
+        />
+      </div>
+      <div class='header-fields flex-column'>
+      <h1 class='charname'><input
+          name='name'
+          id="node-name"
+          type='text'
+          value='{{item.name}}'
+          placeholder='Name'
+        /></h1>
+      <h4><input name="system.location" id="node-location" type="text" value="{{item.system.location}}" placeholder="Location"></h4>
+    </div>
+    </div>
+    <div class='header-fields flex-column'>
+      <div class="flexrow flex-group-left">
+        {{! Node Type }}
+        <div id="element" class="flex-column flex-group-center npc-sidebar">
+          <label for="element-input" class="resource-label">Type</label>
+          <div class="flex-group-center" data-imbtype="nodeType.value">
+            <select class="item-choice full-size" name='system.nodeType.value'>
+              {{#each nodeType}}
+              <option 
+                {{#if (comparison ../item.system.nodeType.value @index)}} selected="selected" {{/if}} 
+              value={{@index}}>{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        {{! Node Richness }}
+        <div id="richness" class="flex-column flex-group-center npc-sidebar">
+          <label for="richness-input" class="resource-label">Richness</label>
+          <div class="flex-group-center" data-imbtype="richness.value">
+            <select class="item-choice full-size" name='system.richness.value'>
+              {{#each richness}}
+              <option 
+                {{#if (comparison ../system.richness.value @index)}} selected="selected" {{/if}} 
+              value={{@index}}>{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        {{! Node Development }}
+        <div id="development" class="flex-column flex-group-center npc-sidebar">
+          <label for="development-input" class="resource-label">Factory</label>
+          <div class="flex-group-center" data-imbtype="development.level.value">
+            <select class="item-choice full-size" name='system.development.level.value'>
+              {{#each developmentLevel}}
+              <option 
+                {{#if (comparison ../system.development.level.value @index)}} selected="selected" {{/if}} 
+              value={{@index}}>{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        {{! Only show if a factory has been built }}
+        {{#unless (comparison item.system.development.level.value 0)}}
+        {{! Node Product }}
+        <div id="product" class="flex-column flex-group-center npc-sidebar">
+          <label for="product-input" class="resource-label">Product</label>
+          <div class="flex-group-center" data-imbtype="development.product.value">
+            <select class="item-choice full-size" name='system.development.product.value'>
+              {{#each developmentProduct}}
+              <option 
+                {{#if (comparison ../system.development.product.value @index)}} selected="selected" {{/if}} 
+              value={{@index}}>{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        {{/unless}}
+      </div>
+      
+      <div class="flexrow flex-group-left">
+      {{! Node Multiplier }}
+        <div id="multiplier" class="flex-column flex-group-center npc-sidebar">
+          <label for="multiplier-input" class="resource-label">Multiplier</label>
+          <div class="flex-group-center">
+            <h4 id="multiplier-input">x{{item.system.productMultiplier}}</h4>
+          </div>
+        </div>
+        {{! Node Workers }}
+        <div id="laborers" class="flex-column flex-group-center npc-sidebar">
+          <label for="laborers-input" class="resource-label">Workers</label>
+          <div class="flex-group-center" data-imbtype="laborers">
+            <input id="laborers-input" type="number" name="system.laborers" value={{item.system.laborers}}>
+          </div>
+        </div>
+        {{! Node output}}
+        <div id="output" class="flex-column flex-group-center npc-sidebar">
+          <label for="output-input" class="resource-label">Output</label>
+          <div class="flex-group-center" data-imbtype="output">
+            <input id="output-input" type="number" name="system.output" value={{item.system.output}} disabled readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>  
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <a class='item' data-tab='description'>Description</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <div class='tab' data-group='primary' data-tab='description'>
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      {{editor
+        enrichedDescription
+        target='system.description'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+    </div>
+  </section>
+</form>
