@@ -9,7 +9,7 @@
   <div class="sidebar flex-group-center">
     <img class="profile-img monster flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
     <div class="flex flex-group-center">
-      <i><h4 class="full-size flex-group-center">
+      <i><h4 id="actor-type" class="full-size flex-group-center">
       {{#if system.editMode}}
         <input type="radio" id="monster" name="system.isHero" {{#unless system.isHero}} checked {{/unless}} value=false data-techstat="isHero">
         <label for="monster">Monster</label><br>

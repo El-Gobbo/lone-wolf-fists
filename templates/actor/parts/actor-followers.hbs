@@ -13,14 +13,14 @@
             <a
             class='member-create'
             title='Create member'
-            data-type='member'
+            data-type='members'
             >
             <i class='fas fa-plus'></i>
             </a>
         </div>
     </div>
     {{#each members}}
-    <div class='item flexrow squad-members full-size' data-id='{{this.id}}'>
+    <div class='item flexrow squad-members full-size' data-id='{{this.id}}' data-array-of="members">
         <div class='flex-group-center flex-3 item-name' data-imbtype="creature">
             {{#if this.editable}}
             <img

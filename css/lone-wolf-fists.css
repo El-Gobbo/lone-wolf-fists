@@ -8,6 +8,14 @@
   font-family: "Alley-Oop", "Roboto", sans-serif;
 }
 
+.active-effect-sheet input {
+  font-family: "Lato", "Roboto", sans-serif;
+}
+
+span {
+  font-family: "Lato", "Roboto", sans-serif;
+}
+
 .sheet-header h1 input#ability-name {
   height: 35px;
   font-size: 25px;
@@ -383,7 +391,7 @@
   font-family: "Alley-Oop", "Roboto", sans-serif;
 }
 .lone-wolf-fists .editor {
-  font-family: "Lato", sans-serif;
+  font-family: "Lato", "Roboto", sans-serif;
 }
 .lone-wolf-fists .edit-container {
   flex: 1;
@@ -518,7 +526,7 @@
 }
 .lone-wolf-fists .monster-body-box {
   margin: 20px auto;
-  width: 85%;
+  width: 90%;
 }
 .lone-wolf-fists .monster-body-box #techniqueDisplay {
   display: none;
@@ -527,7 +535,8 @@
   color: rgba(119, 119, 119, 0.801);
 }
 .lone-wolf-fists .sidebar,
-.lone-wolf-fists .sidebar-small {
+.lone-wolf-fists .sidebar-small,
+.lone-wolf-fists .sidebar-large {
   flex: 0 0 130px;
   display: flex;
   flex-direction: column;
@@ -537,7 +546,8 @@
   position: relative;
 }
 .lone-wolf-fists .sidebar .npc-sidebar,
-.lone-wolf-fists .sidebar-small .npc-sidebar {
+.lone-wolf-fists .sidebar-small .npc-sidebar,
+.lone-wolf-fists .sidebar-large .npc-sidebar {
   margin: 10px 0;
 }
 .lone-wolf-fists .sidebar-small {
@@ -926,6 +936,11 @@
 }
 .lone-wolf-fists .anatomy.flex-column {
   margin: 0 auto;
+}
+.lone-wolf-fists .territory-input {
+  height: 20px;
+  font-size: 13px;
+  font-family: "Lato", "Roboto", sans-serif;
 }
 
 /*# sourceMappingURL=lone-wolf-fists.css.map */

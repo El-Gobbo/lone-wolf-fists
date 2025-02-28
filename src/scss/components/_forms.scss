@@ -183,7 +183,7 @@ position: relative;
 
 .monster-body-box {
   margin: 20px auto;
-  width: 85%;
+  width: 90%;
   #techniqueDisplay {
     display: none;
   }
@@ -194,7 +194,8 @@ position: relative;
 }
 
 .sidebar,
-.sidebar-small {
+.sidebar-small,
+.sidebar-large {
   flex: 0 0 130px;
   display: flex;
   flex-direction: column;

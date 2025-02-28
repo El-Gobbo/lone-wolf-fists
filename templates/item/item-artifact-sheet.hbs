@@ -74,6 +74,19 @@
         </div>
       </div>
       {{/if}}
+      {{#if system.chakra.hasChakra}}
+      <div class="item-sheet-line">
+        <strong>Chakra: </strong><span>{{system.chakra.description}}</span>
+      </div>
+      {{/if}}
+      {{#if system.soul.hasSoul}}
+      <div class="item-sheet-line">
+        <strong>Soul: </strong><span>{{system.soul.description}}</span>
+      </div>
+      <div class="item-sheet-line">
+        <strong>Dharma: </strong><span>{{system.soul.dharma}}</span>
+      </div>
+      {{/if}}
     </div>
 
     {{#if isGM}}
@@ -108,7 +121,7 @@
       {{#if (comparison system.type "Weapon")}}
       <div class="indented-element">
         <div class='resource'>
-          <label for="system.tag1">This weapon counts as </label>
+          <span>This weapon counts as </span>
           <select id="system.tag1" name='system.tag1' data-techstat="tag1">
           {{#each artifactTags}}
             <option 

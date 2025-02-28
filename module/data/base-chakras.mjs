@@ -12,6 +12,7 @@ export default class lwfActorChakras extends lwfActorFollower {
       gen: new SchemaField({
         outOfCombat: new NumberField({...requiredInteger, initial: 0}),
         inCombat: new NumberField({...requiredInteger, initial: 0 }),
+        bonus: new NumberField({ ...requiredInteger, initial: 0})
       }),
     });
 

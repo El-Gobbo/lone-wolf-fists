@@ -16,9 +16,9 @@
     </div>
     {{#each gear as |item id|}}
     <div class='item flexrow grid grid-7col' data-item-id='{{item._id}}'>
-      <div class='item-name grid-span-4'>
+      <div class='item-name grid-span-4 flexrow'>
         <a
-          class='item-control item-edit'
+          class='item-control item-edit flexrow'
           title='{{localize "DOCUMENT.Update" type='Item'}}'
         >
         <div class='item-image'>

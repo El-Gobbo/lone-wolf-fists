@@ -3,11 +3,12 @@ import lwfActorBase from "./base-actor.mjs";
 // To allow for squads to have variable members, and to show disciples on character sheets
 export default class lwfActorFollower extends lwfActorBase {
   static defineSchema() {
-    const { NumberField, SchemaField, StringField, ArrayField } = foundry.data.fields;
+    const { NumberField, SchemaField, StringField, ArrayField, BooleanField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
     schema.master = new SchemaField({
       id: new StringField({initial: ""}),
+      isRuler: new BooleanField({ initial: false }),
       loyalty: new SchemaField({
         value: new NumberField({ integer: true, initial: 0, min: 0, max: 10 })
       })

@@ -59,16 +59,16 @@
         {{/if}}
       </div>
       <div class="item-sheet-line">
-        <strong>Requires: </strong><span>{{#if system.editMode}}<input type="text" class="inline-input" name='system.techReqs' value="{{system.techReqs}}" data-dtype="String">{{else}}{{system.techReqs}}{{/if}}</span>
+        <label>Requires: </label><span>{{#if system.editMode}}<input type="text" name='system.techReqs' value="{{system.techReqs}}" data-dtype="String">{{else}}{{system.techReqs}}{{/if}}</span>
       </div>
       <div class="item-sheet-line">
-        <strong>Cost: </strong><span>{{#if system.editMode}}<input type="text" class="inline-input smallish-box" name='system.techCost' value="{{system.techCost}}" data-dtype="String">{{else}}{{system.techCost}}{{/if}}</span>
+        <label>Cost: </label><span>{{#if system.editMode}}<input type="text" class="inline-input smallish-box" name='system.techCost' value="{{system.techCost}}" data-dtype="String">{{else}}{{system.techCost}}{{/if}}</span>
       </div>
       <div class="item-sheet-line">
-        <strong>Rank: </strong><span>{{#if system.editMode}}<input type="text" class="inline-input small-box" name='system.techRank' value="{{system.techRank}}" data-dtype="String">{{else}}{{system.techRank}}{{/if}}</span>
+        <label>Rank: </label><span>{{#if system.editMode}}<input type="text" class="inline-input small-box" name='system.techRank' value="{{system.techRank}}" data-dtype="String">{{else}}{{system.techRank}}{{/if}}</span>
       </div>
-      <div <div class="item-sheet-line flex-inline flex-group-center">
-        <strong class="margin-3-right">Facing: </strong>
+      <div class="item-sheet-line flex-inline flex-group-center">
+        <label class="margin-3-right">Facing: </label>
         <span class="flexrow flex-group-left">
           {{#if system.editMode}}
             {{#unless system.techFacing.none}}
@@ -86,7 +86,7 @@
         </span>
       </div>
       <div class="item-sheet-line">
-        <strong>Effect: </strong>
+        <label>Effect: </label>
         {{#if system.editMode}}
           <div class="full-size" data-group="primary">
             <textarea name="system.techEffect" rows="5">{{system.techEffect}}</textarea>
@@ -96,10 +96,13 @@
         {{/if}}
       </div>
       <div class="item-sheet-line">
-        <strong>Skill: </strong>
+        <label>Skill: </label>
         <span>
           {{#if system.editMode}}
             <select class="item-choice" name='techSkill' data-techstat="techSkill">
+              <option 
+              {{#if (comparison ../system.techSkill this)}} selected="selected" {{/if}} 
+              value="-">-</option>
             {{#each skills}}
             <option 
               {{#if (comparison ../system.techSkill this)}} selected="selected" {{/if}} 
@@ -112,10 +115,10 @@
         </span>
       </div>
       <div class="item-sheet-line">
-        <strong>Keywords: </strong>
+        <label>Keywords: </label>
         <span>
           {{#if system.editMode}}
-            <input type="text" class="inline-input" name="system.techTags" value="{{system.techTags}}" data-dtype="String">
+            <input type="text" name="system.techTags" value="{{system.techTags}}" data-dtype="String">
           {{else}}
             {{system.techTags}}
           {{/if}}

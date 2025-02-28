@@ -2,22 +2,59 @@
 <div class="sheet">
 {{! Sidebars }}
   {{! Stats sidebar }}
-  <div class="sidebar flex-group-center">
+  <div class="sidebar-large flex-group-center">
     <img class="profile-img monster flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
     <div class="flex flex-group-center">
-      <i><h4 class="full-size flex-group-center">Domain</h4></i>
+      <i><h4 id="actor-type" class="full-size flex-group-center">Domain</h4></i>
     </div> 
     <div class="resources">
       <div id="ruler" class="flex-column flex-group-center npc-sidebar">
         <label for="ruler-input" class="resource-label">Ruler</label>
-        <div id="ruler-input-container" class=" flex-group-center flexshrink">
-          <h4 id="ruler-input">{{rulerName}}</h4>
+        <div id="ruler-input-container" class=" flex-group-center flexshrink item" data-id="{{ruler.uuid}}">
+          <a
+            class='item-name member-edit'
+            title='{{localize "DOCUMENT.Update" type='Item'}}'
+          >
+             <img class="monster flex-group-center" src="{{ruler.img}}" title="{{ruler.name}}" height="50" width="50"/>
+            <h4 id="ruler-input">{{ruler.name}}</h4>
+          </a>
         </div>
       </div>
       <div id="effort" class="resource flex-group-center flex-column npc-sidebar">
         <label for="power-input" class="resource-label">Ruler Effort</label>
         <div id="effort-display" class="flex-group-center flex">
-          <h4 id="power-input"><strong>{{rulerPower}}</strong></h4>
+          <h4 id="power-input"><strong>{{ruler.system.power.value}}</strong></h4>
+        </div>
+      </div>
+      <div class="flex-group-center">
+        <div class="items-list full-size">
+          <div id="territory-header" class="item flexrow items-header grid grid-9col small-table-header grid-table">
+            <div class="flex-group-center grid-span-8">Territory</div>
+            <div class='item-controls flex-group-center'>
+                <a
+                  class='member-create'
+                  title='Create member'
+                  data-type='territory'
+                >
+                  <i class='fas fa-plus'></i>
+                </a>
+            </div>
+          </div>
+          {{#each actor.system.territory as | item id |}}
+          <div class='item flexrow grid grid-9col grid-table list-item' data-id='{{@index}}' data-array-of="territory">
+            <div class="flex-group-center grid-span-8" data-imbtype="name">
+              <input class="member-choice territory-input" type="text" name="item.name" value="{{item.name}}" data-dtype="String"/>
+            </div>
+            <div class="item-controls flex-group-center">
+                <a
+                  class='member-delete'
+                  title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                >
+                  <i class='fas fa-trash'></i>
+                </a>
+            </div>
+          </div>
+          {{/each}}
         </div>
       </div>
     </div>
@@ -30,35 +67,23 @@
       <div class="title">
         <h1 id="name" class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
       </div>
-      {{#if isGM}}
-      <div class="full-size edit-container">
-      {{#if system.editMode}}
-      <i id="edit-mode" class="fa-solid fa-gear edit-mode-on">Play</i>
-      {{else}}
-      <i id="edit-mode" class="fa-solid fa-gear edit-mode-off">Edit</i>
-      {{/if}}
-      </div>
-      {{/if}}
     </div>
   </header>
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="core">Economy</a>
-    <a class="item" data-tab="military">Military</a>
-    <a class="item" data-tab="territory">Territory</a>
-    <a class="item" data-tab="laws">Laws</a>
+    <a class="item" data-tab="core">Core</a>
     <a class="item" data-tab="description">Description</a>
     {{#if isGM}}
+    <a class="item" data-tab="effects">Effects</a>
     <a class="item" data-tab="config">Config</a>
     {{/if}}
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
-
-    {{! Economy tab }}
+    {{!-- Core tab --}}
     <div class="tab core" data-group="primary" data-tab="core">
       {{! Nodes box }}
       <div class="flex-column flex-group-center monster-body-box">
@@ -67,7 +92,7 @@
           <div id="imbalance-header" class="item flexrow items-header grid grid-14col small-table-header grid-table">
             <div class="flex-group-center grid-span-3">Node</div>
             <div class="flex-group-center grid-span-2">Location</div>
-            <div class="flex-group-center grid-span-2">Development</div>
+            <div class="flex-group-center grid-span-2">Dev.</div>
             <div class="flex-group-center grid-span-2">Product</div>
             <div class="flex-group-center grid-span-2">Workers</div>
             <div class="flex-group-center grid-span-2">Output</div>
@@ -92,11 +117,19 @@
                   <h4>{{item.system.richness.name}} {{item.system.nodeType.name}} Node</h4>
                 </a>
               </div> 
-              <div class="item-source flex-group-center grid-span-2" data-imbtype="location">
-                <h4>{{item.system.location}}</h4>
+              <div class="flex-group-center grid-span-2" data-imbtype="location">
+                <select class="item-choice full-size" name='item.system.location'>
+                  <option {{#if (comparison item.system.location '-')}} selected="selected" {{/if}}
+                  value="-">-</option>
+                  {{#each ../actor.system.territory}}
+                  <option 
+                    {{#if (comparison item.system.location this.name)}} selected="selected" {{/if}} 
+                    value="{{this.name}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
               </div>
-              <div class="item-bodyPart flex-group-center grid-span-2" data-imbtype="development.name">
-                <h4>{{item.system.development.name}}</h4>
+              <div class="flex-group-center grid-span-2" data-imbtype="development.name">
+                <h4>{{item.system.development.level.name}}</h4>
               </div>
               <div class="flex-group-center grid-span-2" data-imbtype="development.product.value">
                 <select class="item-choice full-size" name='item.system.development.product.value'>
@@ -108,10 +141,10 @@
                   {{/each}}
                 </select>
               </div>
-              <div class="item-rank rank flex-group-center grid-span-2" data-imbtype="laborers">
+              <div class="flex-group-center grid-span-2" data-imbtype="laborers">
                 <input class="item-choice" type="text" name="item.system.laborers" value="{{item.system.laborers}}" data-dtype="Number"/>
               </div>
-              <div class="item-agg flex-group-center grid-span-2" data-imbtype="output">
+              <div class="flex-group-center grid-span-2" data-imbtype="output">
                 <input class="item-choice" type="text" name="item.system.output" value="{{item.system.output}}" data-dtype="Number" disabled readonly/>
               </div>
               <div class="item-controls flex-group-center">
@@ -121,16 +154,161 @@
                   >
                     <i class='fas fa-trash'></i>
                   </a>
-                </div>
+              </div>
             </div>
             {{/each}}
           </div>
         </div>
       </div>
-      {{! Techniques box - only visible if the npc has techniques}}
+      {{! Treasury box }}
       <div class="flex-group-center monster-body-box">
         <h4 id="techniques-heading" class="full-size section-header">Treasury</h4>
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
+      </div>
+      {{! Military box }}
+      <div class="flex-group-center monster-body-box">
+        <h4 id="military-heading" class="full-size section-header">Military</h4>
+        <div class="items-list full-size">
+          <div id="military-header" class="item flexrow items-header grid grid-10col small-table-header grid-table">
+            <div class="flex-group-center grid-span-3">Force</div>
+            <div class="flex-group-center grid-span-2">Location</div>
+            <div class="flex-group-center grid-span-2">Type</div>
+            <div class="flex-group-center grid-span-2">Strength</div>
+            <div class='item-controls flex-group-center'>
+                <a
+                  class='member-create'
+                  title='Create member'
+                  data-type='forces'
+                >
+                  <i class='fas fa-plus'></i>
+                </a>
+            </div>
+          </div>
+          {{#each actor.system.forces as | item id |}}
+          <div class='item flexrow grid grid-10col grid-table list-item' data-id='{{@index}}' data-array-of="forces">
+            <div class="flex-group-center grid-span-3" data-imbtype="name">
+              <input class="member-choice" type="text" name="item.name" value="{{item.name}}" data-dtype="String"/>
+            </div>
+            <div class="flex-group-center grid-span-2" data-imbtype="location">
+              <select class="member-choice full-size" name='item.location'>
+                <option {{#if (comparison item.location '-')}} selected="selected" {{/if}}
+                value="-">-</option>
+                <option {{#if (comparison item.location 'Invading')}} selected="selected" {{/if}}
+                value="Invading">Invading</option>  
+                {{#each ../actor.system.territory}}
+                <option 
+                  {{#if (comparison item.location this.name)}} selected="selected" {{/if}} 
+                  value="{{this.name}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="flex-group-center grid-span-2" data-imbtype="type">
+              <select class="member-choice full-size" name='item.type'>
+                <option {{#if (comparison item.type '-')}} selected="selected" {{/if}}
+                value="-">-</option> 
+                {{#each ../forceTypes}}
+                <option 
+                  {{#if (comparison item.type this)}} selected="selected" {{/if}} 
+                  value="{{this}}">{{this}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="flex-group-center grid-span-2" data-imbtype="strength">
+              <input class="member-choice" type="number" name="item.strength" value="{{item.strength}}" data-dtype="Number"/>
+            </div>
+            <div class="item-controls flex-group-center">
+                <a
+                  class='member-delete'
+                  title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                >
+                  <i class='fas fa-trash'></i>
+                </a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{! Subjects box }}
+      <div class="flex-group-center monster-body-box">
+        <h4 id="subjects-heading" class="full-size section-header">Subjects</h4>
+        <div class="items-list full-size">
+          <div id="subjects-header" class="item flexrow items-header grid grid-13col small-table-header grid-table">
+            <div class="flex-group-center grid-span-5">Population</div>
+            <div class="flex-group-center grid-span-5">Location</div>
+            <div class="flex-group-center grid-span-2">Pop</div>
+            <div class='item-controls flex-group-center'>
+                <a
+                  class='member-create'
+                  title='Create member'
+                  data-type='subjects'
+                >
+                  <i class='fas fa-plus'></i>
+                </a>
+            </div>
+          </div>
+          {{#each actor.system.subjects as | item id |}}
+          <div class='item flexrow grid grid-13col grid-table list-item' data-id='{{@index}}' data-array-of="subjects">
+            <div class="flex-group-center grid-span-5" data-imbtype="name">
+              <input class="member-choice" type="text" name="item.name" value="{{item.name}}" data-dtype="String"/>
+            </div>
+            <div class="flex-group-center grid-span-5" data-imbtype="location">
+              <select class="member-choice full-size" name='item.location'>
+                <option {{#if (comparison item.location '-')}} selected="selected" {{/if}}
+                value="-">-</option>
+                {{#each ../actor.system.territory}}
+                <option 
+                  {{#if (comparison item.location this.name)}} selected="selected" {{/if}} 
+                  value="{{this.name}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="flex-group-center grid-span-2" data-imbtype="population">
+              <input class="member-choice" type="number" name="item.population" value="{{item.population}}" data-dtype="Number"/>
+            </div>
+            <div class="item-controls flex-group-center">
+                <a
+                  class='member-delete'
+                  title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                >
+                  <i class='fas fa-trash'></i>
+                </a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{! Laws box }}
+      <div class="flex-group-center monster-body-box flexrow">
+        <div class="items-list full-size">
+          <h4 id="laws-heading" class="full-size section-header">Laws</h4>
+          <div id="laws-header" class="item flexrow items-header grid grid-13col small-table-header grid-table">
+            <div class="flex-group-center grid-span-12"></div>
+            <div class='item-controls flex-group-center'>
+                <a
+                  class='member-create'
+                  title='Create member'
+                  data-type='laws'
+                >
+                  <i class='fas fa-plus'></i>
+                </a>
+            </div>
+          </div>
+          {{#each actor.system.laws as | item id |}}
+          <div class='item flexrow grid grid-13col grid-table list-item' data-id='{{@index}}' data-array-of="laws">
+            <div class="flex-group-center grid-span-12" data-imbtype="details">
+              <input class="member-choice territory-input" type="text" name="item.details" value="{{item.details}}" data-dtype="String"/>
+            </div>
+            <div class="item-controls flex-group-center">
+                <a
+                  class='member-delete'
+                  title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                >
+                  <i class='fas fa-trash'></i>
+                </a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
       </div>
     </div>
 
@@ -140,13 +318,13 @@
         {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
     </div>
 
+    {{#if isGM}}
     {{!-- Effects tab --}}
     <div class="tab effects flexcol" data-group="primary" data-tab="effects">
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-effects.hbs"}}
     </div>
 
     {{! Config tab }}
-    {{#if isGM}}
     <div class="tab config" data-group="primary" data-tab="config">
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-config.hbs"}}
     </div>

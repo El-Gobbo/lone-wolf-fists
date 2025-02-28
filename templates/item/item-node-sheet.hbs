@@ -19,7 +19,17 @@
           value='{{item.name}}'
           placeholder='Name'
         /></h1>
-      <h4><input name="system.location" id="node-location" type="text" value="{{item.system.location}}" placeholder="Location"></h4>
+    <div class="flex-group-center" data-imbtype="location">
+      <select class="item-choice full-size" name='item.system.location' data-techstat="location">
+        <option {{#if (comparison item.system.location '-')}} selected="selected" {{/if}}
+        value="-">-</option>
+        {{#each territory}}
+        <option 
+          {{#if (comparison ../item.system.location this.name)}} selected="selected" {{/if}} 
+          value="{{this.name}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
     </div>
     </div>
     <div class='header-fields flex-column'>
@@ -70,7 +80,7 @@
           <label for="product-input" class="resource-label">Product</label>
           <div class="flex-group-center" data-imbtype="development.product.value">
             <select class="item-choice full-size" name='system.development.product.value'>
-              {{#each developmentProduct}}
+              {{#each potentialProduct}}
               <option 
                 {{#if (comparison ../system.development.product.value @index)}} selected="selected" {{/if}} 
               value={{@index}}>{{this.name}}</option>

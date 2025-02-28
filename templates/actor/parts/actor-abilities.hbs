@@ -40,11 +40,7 @@
         {{#if (comparison item.system.subtype 'Capability')}}
           <h4><strong> - </strong></h4>
         {{else}}
-          {{#if (comparison item.system.subtype 'Boost')}}
-          <h4>+{{item.system.effect.ranks}}</h4>
-          {{else}}
-          <h4>Rank {{item.system.effect.ranks}}</h4>
-          {{/if}}
+          <h4>{{item.system.effect.intensity}}</h4>
         {{/if}}
       </div>
       <div class="item-target grid-span-3 flex-group-center">
@@ -105,7 +101,7 @@
       </a>
       </div>
       <div class="item-ranks grid-span-2 flex-group-center">
-          <h4>Rank {{item.system.effect.ranks}}</h4>
+          <h4>{{item.system.effect.intensity}}</h4>
       </div>
       <div class="item-sets grid-span-2 flex-group-center">
         <h4>{{item.system.effect.sets}} sets</h4>

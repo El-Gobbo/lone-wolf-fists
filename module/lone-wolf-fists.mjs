@@ -108,6 +108,10 @@ Handlebars.registerHelper('comparisonOr', function(base, opt1, opt2) {
   return (base === opt1 || base === opt2);
 });
 
+Handlebars.registerHelper('comparisonTwo', function(var1, comp1, var2, comp2) {
+  return (var1 === comp1 && var2 === comp2);
+})
+
 Handlebars.registerHelper('identifyId', function(array, index, id) {
   return (array[index].linkedOnslaught === id);
 })

@@ -10,7 +10,8 @@ import { LWFTECHNIQUES } from '../helpers/technique-config.mjs';
 import { LWFABILITIES } from '../helpers/abilities.mjs';
 import { effortRoll } from '../helpers/dice-roll.mjs';
 import { chakraReset } from '../helpers/chakra-reset.mjs';
-import { LWFNODES } from '../helpers/nodes.mjs';
+import { productList } from '../helpers/nodes.mjs';
+import { LWFDOMAINS } from '../helpers/domains.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -421,24 +422,14 @@ export class lwfActorSheet extends ActorSheet {
     return context;
   }
 
-  _prepareDomain(context) {
+  async _prepareDomain(context) {
     // Go over the node items
     for(let n in context.node) {
-      const potentialProduct = [];
-      // Determine their development level
-      const devLevel = context.node[n].system.development.level.name
-      // Scan through the list of development products
-      const products = LWFNODES.developmentProduct;
-      for(let p in products) {
-        // Create a list consisting of all those that have a modifier of greater than one for the given development level
-        if(products[p][devLevel] == 0) {
-          continue;
-        }
-        products[p].index = parseInt(p);
-        potentialProduct.push(products[p])
-      }
-      context.node[n].potentialProduct = potentialProduct;
+      productList(context.node[n])
     }
+    const ruler = await fromUuid(context.system.ruler);
+    context.ruler = ruler;
+    context.forceTypes = LWFDOMAINS.forceTypes;
     return context;
   }
 
@@ -484,7 +475,7 @@ export class lwfActorSheet extends ActorSheet {
       else if (ev.currentTarget.nodeName !== "SELECT")
         update = ev.currentTarget.value;
       else
-        update = $(ev.currentTarget).find(":selected").text();
+        update = $(ev.currentTarget).find(":selected")[0].value;
       const target = ev.currentTarget.parentElement.dataset.imbtype;
       
       //Check to see if the target is newly de-selected checkbox. If it is, set  update to false
@@ -616,26 +607,20 @@ export class lwfActorSheet extends ActorSheet {
     })
 
     // Add squad member
-    html.on('click', '.member-create', () => {
+    html.on('click', '.member-create', (ev) => {
+      const arrayOf = ev.currentTarget.dataset.type;
       // Get a copy of the squad member array
-      const members = this.actor.system.members;
-
-      // Add a blank SquadField to the copy
-      const newMember = {
-        "creature": "New Soldier",
-        "effort": 1,
-        "health": 1,
-        "quantity": 1
-      };
+      const members = this.actor.system[arrayOf];
+      let newMember = {};
       members.push(newMember);
-
       // Update the current Squad member array with the new values
-      this.actor.update({[ `system.members` ]: members})
+      this.actor.update({[ `system.${arrayOf}` ]: members})
     })
 
     html.on('change', '.member-choice', async (ev) => {
+      const li = ev.currentTarget.parentElement.parentElement;
       // Get the array index of the member
-      const index = ev.currentTarget.parentElement.parentElement.dataset.id;
+      const index = li.dataset.id;
       // Get the new value
       const newValue = ev.currentTarget.value;
       // Get the stat being modified
@@ -647,16 +632,18 @@ export class lwfActorSheet extends ActorSheet {
         this.actor.update({[ `system.updateToggle` ]: !(this.actor.system.updateToggle)})
       }
       else {
+        const arrayOf = li.dataset.arrayOf;
         // Get a copy of the squad member array
-        const members = this.actor.system.members;
+        const members = this.actor.system[arrayOf];
         // Change the relvant index
         members[index][target] = newValue;
-        this.actor.update({[ `system.members` ]: members });
+        this.actor.update({[ `system.${arrayOf}` ]: members });
       }
     })
 
     html.on('click', '.member-delete', (ev) => {
-      const location = parseInt(ev.currentTarget.parentElement.parentElement.dataset.id)
+      const li = ev.currentTarget.parentElement.parentElement;
+      const location = parseInt(li.dataset.id)
       if(isNaN(location)) {
         const newMembers = this.actor.system.namedMembers;
         const index = newMembers.indexOf(ev.currentTarget.parentElement.parentElement.dataset.id.split("-")[1]);
@@ -664,9 +651,10 @@ export class lwfActorSheet extends ActorSheet {
         this.actor.update({[ `system.namedMembers`]: newMembers});
       }
       else {
-        const newMembers = this.actor.system.members;
+        const arrayOf = li.dataset.arrayOf;
+        const newMembers = this.actor.system[arrayOf];
         newMembers.splice(location, 1);
-        this.actor.update({[ `system.members`]: newMembers});
+        this.actor.update({[ `system.${arrayOf}`]: newMembers});
       }
     })
 
@@ -797,28 +785,42 @@ export class lwfActorSheet extends ActorSheet {
   }
 
   async _onDropActor(event, data) {
-    if (!this.actor.isOwner || (this.actor.isOwner && !(this.actor.type ==='squad' || this.actor.type === 'character' || this.actor.type === 'npc')))
+    if (!this.actor.isOwner || (this.actor.isOwner && !(this.actor.type ==='squad' || this.actor.type === 'character' || this.actor.type === 'npc' || this.actor.type === 'domain' )))
       return false;
     // Get the id of the dropped creature
     const id = data.uuid;
     const disciple = await fromUuid(id);
     // Only npcs or characters can be disciples
-    if(!(disciple.type === "npc" || disciple.type === "character" || disciple.type === 'squad'))
+    if(!(disciple.type === "npc" || disciple.type === "character" || disciple.type === 'squad' || (disciple.type === 'platoon' && this.actor.type === 'domain') ))
       return false;
     if(this.actor.type != 'squad') {
+      let content;
+      let isRuler = false
+      if(this.actor.type === 'domain') {
+        content = `ruler`;
+        isRuler = true;
+      }
+      else {
+        content = `disciple`
+      }
       const newFollower = await foundry.applications.api.DialogV2.confirm({
-        window: { title: "Disciple Check" },
-        content: `<p>Make ${disciple.name} one of ${this.actor.name}'s disciples?</p>`,
+        window: { title: "Confirm" },
+        content: `<p>Make ${disciple.name} the ${content} of ${this.actor.name}?</p>`,
         modal: true
       })
       if(!newFollower)
         return false;
-      disciple.update({[ `system.master.id` ]: this.actor.uuid})
+      disciple.update({[ `system.master.id` ]: this.actor.uuid, [ `system.master.isRuler`]: isRuler })
     }
-    // Get a copy of the squad member array
-    const members = this.actor.system.namedMembers;
-    members.push(id);
-    // Update the current Squad member array with the new values
-    this.actor.update({[ `system.namedMembers` ]: members})
+    if(this.actor.type === 'domain') {
+      this.actor.update({[ `system.ruler` ]: id})
+    }
+    else {
+      // Get a copy of the squad member array
+      const members = this.actor.system.namedMembers;
+      members.push(id);
+      // Update the current Squad member array with the new values
+      this.actor.update({[ `system.namedMembers` ]: members})
+    }
   }
 }

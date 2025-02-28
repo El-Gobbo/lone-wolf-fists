@@ -102,3 +102,21 @@ LWFNODES.developmentProduct = [
         "Industrial": 10
     }
 ]
+
+export function productList(node) {
+    const potentialProduct = [];
+    // Determine their development level
+    const devLevel = node.system.development.level.name
+    // Scan through the list of development products
+    const products = LWFNODES.developmentProduct;
+    for(let p in products) {
+        // Create a list consisting of all those that have a modifier of greater than one for the given development level
+        if(products[p][devLevel] == 0) {
+            continue;
+        }
+        products[p].index = parseInt(p);
+        potentialProduct.push(products[p])
+    };
+    node.potentialProduct = potentialProduct;
+    return node;
+}

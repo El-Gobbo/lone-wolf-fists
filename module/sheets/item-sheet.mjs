@@ -8,7 +8,7 @@ import { LWFSKILLS } from '../helpers/skills.mjs';
 import { LWFWEAPONTAGS } from '../helpers/weapon-tags.mjs';
 import { LWFARTIFACTS } from '../helpers/artifact-config.mjs';
 import { LWFABILITIES } from '../helpers/abilities.mjs';
-import { LWFNODES } from '../helpers/nodes.mjs';
+import { LWFNODES, productList } from '../helpers/nodes.mjs';
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
@@ -103,7 +103,7 @@ export class lwfItemSheet extends ItemSheet {
 
     if(itemData.type === 'anatomy') {
       let onslaughtName;
-      const onslaughts = this.item.parent?.items?.filter(i => (i.type === 'onslaught'));
+      const onslaughts = this.item.parent?.items?.filter(i => (i.type === 'ability'));
       const linkedOnslaught = onslaughts?.filter(o => (o._id === context.system.linkedOnslaught));
       if(linkedOnslaught === undefined)
         onslaughtName = "None";
@@ -118,7 +118,9 @@ export class lwfItemSheet extends ItemSheet {
       context.nodeType = LWFNODES.nodeType;
       context.richness = LWFNODES.richness;
       context.developmentLevel = LWFNODES.developmentLevel;
-      context.developmentProduct = LWFNODES.developmentProduct;
+      const territory = this.item.parent?.system?.territory;
+      context.territory = territory;
+      productList(context);
     }
     context.isGM = game.user.isGM;
     context.duration = LWFABILITIES.durations;

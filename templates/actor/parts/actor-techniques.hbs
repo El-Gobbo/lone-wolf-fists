@@ -166,15 +166,33 @@
       </div>
 
       <div class="item-cost-facing grid-span-2 flex-group-center">
-        <h4>{{item.system.techCost}}</h4>
+        <h4>
+          {{#if (comparison item.system.techCost 0)}}
+          -
+          {{else}}
+          {{item.system.techCost}}
+          {{/if}}
+        </h4>
       </div>
 
       <div class="item-cost-facing grid-span-2 flex-group-center">
-        <h4>{{item.system.techRank}}</h4>
+        <h4>
+          {{#if (comparison item.system.techRank 0)}}
+          -
+          {{else}}
+          {{item.system.techRank}}
+          {{/if}}
+        </h4>
       </div>
 
       <div class="item-cost-facing grid-span-3 flex-group-center">
-        <h4>{{item.system.techFacing.min}}-{{item.system.techFacing.max}}</h4>
+        <h4>
+          {{#if (comparisonTwo item.system.techFacing.min 0 item.system.techFacing.max 9)}}
+          All
+          {{else}}
+          {{item.system.techFacing.min}}-{{item.system.techFacing.max}}
+          {{/if}}
+        </h4>
       </div>
 
       <div class="item-skill flex-group-center grid-span-3">
