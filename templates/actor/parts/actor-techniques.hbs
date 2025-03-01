@@ -44,19 +44,19 @@
           {{!-- Check the following possibilites: there is only one facing the form applies to; there are 2 facings the form applies to; there are no facings the form applies to. Set the vallue accordingly. --}}
           <input class="item-choice" type="text" name="item.system.attackBoost"
           {{#if item.system.attackBoost.none}} value="--" {{else}}
-          {{#if (comparison item.system.attackBoost.min item.system.attackBoost.max)}} value="{{item.system.attackBoost.min}}" {{else}}
+          {{#unless item.system.attackBoost.doubled}} value="{{item.system.attackBoost.min}}" {{else}}
           value="{{item.system.attackBoost.min}} - {{item.system.attackBoost.max}}"
+          {{/unless}}
           {{/if}}
-          {{/if}}
-          readonly>
+          readonly disabled>
         </div>
         <div class="flex-group-center">
           <input class="item-choice" type="text" name="item.system.defenseBoost"
           {{#if item.system.defenseBoost.none}} value="--" {{else}}
-          {{#if (comparison item.system.defenseBoost.min item.system.defenseBoost.max)}} value="{{item.system.defenseBoost.min}}" {{else}}
+          {{#unless item.system.defenseBoost.doubled}} value="{{item.system.defenseBoost.min}}" {{else}}
           value="{{item.system.defenseBoost.min}} - {{item.system.defenseBoost.max}}"
-          {{/if}}
-          {{/if}} readonly>
+          {{/unless}}
+          {{/if}} readonly disabled>
         </div>
         <div class="item-controls">
           <a

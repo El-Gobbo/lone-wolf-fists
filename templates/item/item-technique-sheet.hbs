@@ -59,7 +59,7 @@
         {{/if}}
       </div>
       <div class="item-sheet-line">
-        <label>Requires: </label><span>{{#if system.editMode}}<input type="text" name='system.techReqs' value="{{system.techReqs}}" data-dtype="String">{{else}}{{system.techReqs}}{{/if}}</span>
+        <label>Requires: </label><span>{{#if system.editMode}}<input type="text" name='system.techReqs' value="{{system.techReqs}}" data-dtype="String">{{else}}({{system.techReqs}}){{/if}}</span>
       </div>
       <div class="item-sheet-line">
         <label>Cost: </label><span>{{#if system.editMode}}<input type="text" class="inline-input smallish-box" name='system.techCost' value="{{system.techCost}}" data-dtype="String">{{else}}{{system.techCost}}{{/if}}</span>

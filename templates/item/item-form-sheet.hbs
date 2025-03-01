@@ -26,6 +26,15 @@
   <section class='sheet-body'>
     {{! Overview tab}}
     <div class="tab overview" data-group="primary" data-tab="overview">
+      {{#unless (comparison system.requirements "")}}
+      <p><strong>Requires {{system.requirements}}</strong></p>
+      {{/unless}}
+      {{#unless system.attackBoost.none}}
+      <p><strong>{{system.attackBoost.name}}: </strong>Facing {{system.attackBoost.min}}{{#if system.attackBoost.doubled}} - {{system.attackBoost.max}}{{/if}}, +1 rank to {{system.attackBoost.to}}</p>
+      {{/unless}}
+      {{#unless system.defenseBoost.none}}
+      <p><strong>{{system.defenseBoost.name}}: </strong>Facing {{system.defenseBoost.min}}{{#if system.defenseBoost.doubled}} - {{system.defenseBoost.max}}{{/if}}, +1 rank to {{system.defenseBoost.to}}</p>
+      {{/unless}}
       <div data-group="primary">
         {{! Editors must receive enriched text data from getData to properly handle rolls }}
         {{editor
@@ -41,49 +50,62 @@
     {{! Editing tab}}
     {{#if isGM}}
     <div class="tab edit" data-group="primary" data-tab="edit">
-      <div class='resource'>
-        <label class='resource-label'>Yuddhakala</label>
+      <div class='resource flexrow'>
         <input
           type='text'
-          name='system.yuddhakala'
-          value='{{system.yuddhakala}}'
+          name='system.requirements'
+          value='{{system.requirements}}'
           data-dtype='String'
+          placeholder="Requires..."
         />
       </div>
       
       {{! Facing/s that boost attacks with the form }}
-      <div class='resource flexrow flex-group-center'>
+      <div class='resource flexcolumn flex-group-center indented-element'>
         {{#unless system.attackBoost.none}}
-        <label class="flex flexshrink margin-3">Attack:</label>
-        <input type="text" class="inline-input small-box flex flexshrink" name='system.attackBoost.min' value="{{system.attackBoost.min}}" data-dtype="Number">
-        <span class="flex flexshrink margin-3"> - </span> 
-        <input type="text" class="inline-input small-box flex flexshrink" name='system.attackBoost.max' value="{{system.attackBoost.max}}" data-dtype="Number">
+        <label class="flex flexshrink margin-3">Attack Boost:</label>
+        <input type="text" name="system.attackBoost.name" value="{{system.attackBoost.name}}" data-dtype="String" placeholder="Attack Boost Name">
+        <div class="flexrow flex-group-center">
+          <input type="text" class="inline-input {{#if system.attackBoost.doubled}} smallish-box {{else}} medium-box {{/if}} flex flexshrink" name='system.attackBoost.min' value="{{system.attackBoost.min}}" data-dtype="Number" placeholder="{{#if system.attackBoost.doubled}}Min{{else}}Facing{{/if}}">
+          {{#if system.attackBoost.doubled}}
+          <span class="flex flexshrink margin-3"> - </span> 
+          <input type="text" class="inline-input smallish-box flex flexshrink" name='system.attackBoost.max' value="{{system.attackBoost.max}}" data-dtype="Number" placeholder="{{#if system.attackBoost.doubled}}Max{{/if}}">
+          {{/if}}
+          <input type="text" name="system.attackBoost.to" value="{{system.attackBoost.to}}" placeholder="Type of attack boosted">
+        </div>
+        <div class="flexrow flex-group-center">
+          <input type="checkbox" class="flex" name="system.attackBoost.doubled"  {{#if system.attackBoost.doubled}}checked{{/if}} value=true>
+          <label class="rightside flex">Boost affects two facings</label>
+        </div>
         {{/unless}}
-        <input type="checkbox" class="flex" name="system.attackBoost.none"  {{#if system.attackBoost.none}}checked{{/if}} value=true>
-        <label class="rightside flex">No attack boost</label>
+        <div class="flexrow flex-group-center">
+          <input type="checkbox" class="flex" name="system.attackBoost.none"  {{#if system.attackBoost.none}}checked{{/if}} value=true>
+          <label class="rightside flex">No attack boost</label>
+        </div>
       </div>
 
       {{! Facing/s that boost defenses with the form}}
-      <div class='resource flexrow flex-group-center'>
+      <div class='resource flexcolumn flex-group-center indented-element'>
         {{#unless system.defenseBoost.none}}
-        <label class="flex flexshrink margin-3">Defense:</label>
-        <input type="text" class="inline-input small-box flex flexshrink" name='system.defenseBoost.min' value="{{system.defenseBoost.min}}" data-dtype="Number">
-        <span class="flex flexshrink margin-3"> - </span> 
-        <input type="text" class="inline-input small-box flex flexshrink" name='system.defenseBoost.max' value="{{system.defenseBoost.max}}" data-dtype="Number">
+        <label class="flex flexshrink margin-3">Defense Boost:</label>
+        <input type="text" name="system.defenseBoost.name" value="{{system.defenseBoost.name}}" data-dtype="String" placeholder="Defense Boost Name">
+        <div class="flexrow flex-group-center">
+          <input type="text" class="inline-input {{#if system.defenseBoost.doubled}} smallish-box {{else}} medium-box {{/if}} flex flexshrink" name='system.defenseBoost.min' value="{{system.defenseBoost.min}}" data-dtype="Number" placeholder="{{#if system.defenseBoost.doubled}}Min{{else}}Facing{{/if}}">
+          {{#if system.defenseBoost.doubled}}
+          <span class="flex flexshrink margin-3"> - </span> 
+          <input type="text" class="inline-input smallish-box flex flexshrink" name='system.defenseBoost.max' value="{{system.defenseBoost.max}}" data-dtype="Number" placeholder="{{#if system.defenseBoost.doubled}}Max{{/if}}">
+          {{/if}}
+          <input type="text" name="system.defenseBoost.to" value="{{system.defenseBoost.to}}" placeholder="Type of Defense boosted">
+        </div>
+        <div class="flexrow flex-group-center">
+          <input type="checkbox" class="flex" name="system.defenseBoost.doubled"  {{#if system.defenseBoost.doubled}}checked{{/if}} value=true>
+          <label class="rightside flex">Boost affects two facings</label>
+        </div>
         {{/unless}}
-        <input type="checkbox" class="flex" name="system.defenseBoost.none"  {{#if system.defenseBoost.none}}checked{{/if}} value=true>
-        <label class="rightside flex">No defense boost</label>
-      </div>
-
-      {{! Extra thing the form can boost and the facings it needs}}
-      <div class='resource flexrow flex-group-center'>
-        {{#unless system.otherBoost.none}}
-        <label class="flex flexshrink margin-3">Additional ability:</label>
-        <input type="text" class="inline-input large-box flex flexshrink" name='system.otherBoost.description' value="{{system.otherBoost.description}}" data-dtype="String">
-        with facing <input type="text" class="inline-input small-box flex flexshrink" name='system.otherBoost.facing' value="{{system.otherBoost.facing}}" data-dtype="String">
-        {{/unless}}
-        <input type="checkbox" class="flex" name="system.otherBoost.none"  {{#if system.otherBoost.none}}checked{{/if}} value=true>
-        <label class="rightside flex">No additional ability</label>
+        <div class="flexrow flex-group-center">
+          <input type="checkbox" class="flex" name="system.defenseBoost.none"  {{#if system.defenseBoost.none}}checked{{/if}} value=true>
+          <label class="rightside flex">No Defense boost</label>
+        </div>
       </div>
 
       {{! Description of the technique's effects}}
