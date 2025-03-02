@@ -1,0 +1,1 @@
+Icons by [Lorc](https://lorcblog.blogspot.com/), [Delapouite](https://delapouite.com/), [Kier Heyl](https://game-icons.net/), [Skoll](https://game-icons.net/), [Carl Olsen](https://x.com/unstoppableCarl)

@@ -1,0 +1,1 @@
+Icons by [Delapouite](https://delapouite.com/), [Lorc](https://lorcblog.blogspot.com/), [Quoting](https://game-icons.net/), [Skoll](https://game-icons.net/)

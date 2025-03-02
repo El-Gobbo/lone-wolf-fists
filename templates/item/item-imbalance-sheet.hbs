@@ -1,0 +1,135 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-top'>
+    <div class="flexrow">
+      <div class="sidebar-small">
+        <img
+          id='ability-image'
+          src='{{item.img}}'
+          data-edit='img'
+          height="90"
+          width="90"
+          title='{{item.name}}'
+        />
+      </div>
+      <div class='header-fields flex-column'>
+        <h1 class='charname'><input
+          name='name'
+          id="node-name"
+          type='text'
+          value='{{item.name}}'
+          placeholder='Name'
+        /></h1>
+              <div class="flexrow flex-group-left">
+        {{! Imbalance Type }}
+        <div id="source" class="flex-column flex-group-center npc-sidebar">
+          <label for="source-input" class="resource-label">Type</label>
+          <div class="flex-group-center" data-imbtype="source">
+            {{#if system.editMode}}
+            <h4 id="source-input"><i>{{item.system.source}}</i></h4>
+            {{else}}
+            <select id="source-input" class="item-choice full-size" name='system.source'>
+              {{#each imbalanceSources}}
+              <option 
+                {{#if (comparison ../item.system.source this)}} selected="selected" {{/if}} 
+              value={{this}}>{{this}}</option>
+              {{/each}}
+            </select>
+            {{/if}}
+          </div>
+        </div>
+        {{! Imbalance Target }}
+        <div id="body-parts" class="flex-column flex-group-center npc-sidebar">
+          <label for="body-parts-input" class="resource-label">Target</label>
+          <div class="flex-group-center" data-imbtype="bodyPart">
+            {{#if system.editMode}}
+            <h4 id="body-parts-input"><i>{{item.system.bodyPart}}</i></h4>
+            {{else}}
+            <select id="body-parts-input" class="item-choice full-size" name='system.bodyPart'>
+              {{#unless embedded}}
+              <option {{#if (comparison ../item.system.bodyPart 'Any')}} selected="selected" {{/if}} value="Any">Any</option>
+              {{/unless}}
+              {{#each bodyParts}}
+              <option 
+                {{#if (comparison ../item.system.bodyPart this)}} selected="selected" {{/if}} 
+              value={{this}}>{{this}}</option>
+              {{/each}}
+            </select>
+            {{/if}}
+          </div>
+        </div>
+        {{! Imbalance Stat }}
+        <div id="stat" class="flex-column flex-group-center npc-sidebar">
+          <label for="stat-input" class="resource-label">Stat</label>
+          <div class="flex-group-center" data-imbtype="stat">
+            {{#if system.editMode}}
+            <h4 id="stat-input"><i>{{item.system.stat}}</i></h4>
+            {{else}}
+            <select id="stat-input" class="item-choice full-size" name='system.stat'>
+              {{#unless embedded}}
+              <option {{#if (comparison ../item.system.stat 'Any')}} selected="selected" {{/if}} value="Any">Any</option>
+              {{/unless}}
+              {{#each imbalanceStats}}
+              <option 
+                {{#if (comparison ../item.system.stat this)}} selected="selected" {{/if}} 
+              value={{this}}>{{this}}</option>
+              {{/each}}
+            </select>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class='header-fields flex-column'>      
+      {{#if embedded}}
+      <div class="flexrow flex-group-left">
+      {{! Imbalance Ranks }}
+        <div id="ranks" class="flex-column flex-group-center npc-sidebar">
+          <label for="ranks-input" class="resource-label">Rank</label>
+          <div class="flex-group-center">
+            <h4 id="ranks-input">{{item.system.rank}}</h4>
+          </div>
+        </div>
+        {{! Imbalance Aggravation }}
+        <div id="aggravation" class="flex-column flex-group-center npc-sidebar">
+          <label for="aggravation-input" class="resource-label">Agg</label>
+          <div class="flex-group-center" data-imbtype="agg">
+            <input id="aggravation-input" type="number" name="system.agg" value={{item.system.agg}}>
+          </div>
+        </div>
+      </div>
+      {{else}}
+      {{#if isGM}}
+      <div class="full-size edit-container">
+      {{#if system.editMode}}
+      <i id="edit-mode" class="fa-solid fa-gear edit-mode-on">Play</i>
+      {{else}}
+      <i id="edit-mode" class="fa-solid fa-gear edit-mode-off">Edit</i>
+      {{/if}}
+      </div>
+      {{/if}}
+      {{/if}}
+    </div>
+  </header>  
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <a class='item' data-tab='description'>Description</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <div class='tab' data-group='primary' data-tab='description'>
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      {{editor
+        enrichedDescription
+        target='system.description'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+    </div>
+  </section>
+</form>

@@ -20,7 +20,7 @@ export default class lwfTechnique extends lwfYuddhakala {
       none: new BooleanField({initial: false}),
     });
 
-    schema.techSkill = new StringField({initial: "Power"});
+    schema.techSkill = new StringField({initial: "-"});
 
     schema.techRank = new NumberField({integer: true, initial: 1, min: 0, max: 7});
 

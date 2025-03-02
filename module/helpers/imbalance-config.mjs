@@ -13,11 +13,12 @@ LWFIMBALANCES.source = [
 LWFIMBALANCES.bodyPart = [
   "Head",
   "Torso",
-  "Arm: left",
-  "Arm: right",
-  "Leg: left",
-  "Leg: right",
-  "Internal"
+  "Arm:Left",
+  "Arm:Right",
+  "Leg:Left",
+  "Leg:Right",
+  "Internal",
+  "Special"
 ];
 
 LWFIMBALANCES.stat = [

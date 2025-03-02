@@ -9,6 +9,7 @@ import { LWFWEAPONTAGS } from '../helpers/weapon-tags.mjs';
 import { LWFARTIFACTS } from '../helpers/artifact-config.mjs';
 import { LWFABILITIES } from '../helpers/abilities.mjs';
 import { LWFNODES, productList } from '../helpers/nodes.mjs';
+import { LWFIMBALANCES } from '../helpers/imbalance-config.mjs';
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
@@ -122,6 +123,15 @@ export class lwfItemSheet extends ItemSheet {
       context.territory = territory;
       productList(context);
     }
+    
+    if(itemData.type === 'imbalance') {
+      context.imbalanceSources = LWFIMBALANCES.source;
+      context.bodyParts = LWFIMBALANCES.bodyPart;
+      context.imbalanceStats = LWFIMBALANCES.stat;
+      if(context.item.isEmbedded)
+        context.embedded = true;
+    }
+
     context.isGM = game.user.isGM;
     context.duration = LWFABILITIES.durations;
 

@@ -1,16 +1,16 @@
 .member {
     &.squad {
-        background-image: url("../assets/icons/person-transparent.svg");
+        background-image: url("../assets/meeple/person-transparent.svg");
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
         height: 25px;
         width: auto;
         &.strong-member {
-            background-image: url("../assets/icons/strong-transparent.svg");
+            background-image: url("../assets/meeple/strong-transparent.svg");
         }
         &.dead {
-            background-image: url("../assets/icons/person-outline.svg");
+            background-image: url("../assets/meeple/person-outline.svg");
         }
     }
 }

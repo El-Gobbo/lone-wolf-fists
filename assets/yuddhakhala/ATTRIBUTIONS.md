@@ -1,0 +1,1 @@
+Icons by [Lorc](https://lorcblog.blogspot.com/), [sbed](https://opengameart.org/content/95-game-icons)

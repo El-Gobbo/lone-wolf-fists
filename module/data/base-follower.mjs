@@ -15,7 +15,7 @@ export default class lwfActorFollower extends lwfActorBase {
     });
     schema.members = new ArrayField(
       new SchemaField({
-        img: new StringField({ initial: "systems/lone-wolf-fists/assets/icons/person.svg" }),
+        img: new StringField({ initial: "systems/lone-wolf-fists/assets/meeple/person.svg" }),
         creature: new StringField(),
         power: new NumberField({ ...requiredInteger, initial: 1, min: 1 }),
         health: new NumberField({ ...requiredInteger, initial: 1, min: 1 }),

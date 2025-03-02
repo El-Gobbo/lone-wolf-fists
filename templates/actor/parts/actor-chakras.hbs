@@ -34,7 +34,7 @@
         {{#unless (comparison system.chakras.active 7)}}
         <img
         class="chakra-increase"
-        src="systems/lone-wolf-fists/assets/arrup.png"
+        src="systems/lone-wolf-fists/assets/resources/arrup.png"
         title='Open Chakra'
         width='10'
         height='10'
@@ -43,7 +43,7 @@
         {{#unless (comparison system.chakras.active minChakras)}}
         <img
         class="chakra-decrease"
-        src="systems/lone-wolf-fists/assets/arrdown.png"
+        src="systems/lone-wolf-fists/assets/resources/arrdown.png"
         title='Close Chakra'
         width='10'
         height='10'
@@ -57,9 +57,9 @@
         <img
         class="chakra-image"
         {{#if (lookup ../system.chakras.awakened skill)}}
-        src='systems/lone-wolf-fists/assets/Chakras/{{skill}} Awakened.png'
+        src='systems/lone-wolf-fists/assets/chakras/{{skill}} Awakened.png'
         {{else}}
-        src='systems/lone-wolf-fists/assets/Chakras/{{skill}}.png'
+        src='systems/lone-wolf-fists/assets/chakras/{{skill}}.png'
         {{/if}}
         title='{{skill}}'
         width='40'

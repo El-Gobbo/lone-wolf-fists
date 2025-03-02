@@ -885,7 +885,7 @@ p {
   border: none;
 }
 .lone-wolf-fists .member.squad {
-  background-image: url("../assets/icons/person-transparent.svg");
+  background-image: url("../assets/meeple/person-transparent.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -893,10 +893,10 @@ p {
   width: auto;
 }
 .lone-wolf-fists .member.squad.strong-member {
-  background-image: url("../assets/icons/strong-transparent.svg");
+  background-image: url("../assets/meeple/strong-transparent.svg");
 }
 .lone-wolf-fists .member.squad.dead {
-  background-image: url("../assets/icons/person-outline.svg");
+  background-image: url("../assets/meeple/person-outline.svg");
 }
 .lone-wolf-fists .platoon-membership {
   display: grid;
