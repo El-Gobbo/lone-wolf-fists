@@ -22,7 +22,7 @@ export class lwfActorSheet extends ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['lone-wolf-fists', 'sheet', 'actor'],
-      width: 770,
+      width: 830,
       height: 800,
       tabs: [
         {

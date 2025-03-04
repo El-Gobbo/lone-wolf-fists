@@ -112,6 +112,7 @@
     <a class="item" data-tab="items">Items</a>
     <a class="item" data-tab="followers">Followers</a>
     <a class="item" data-tab="dharma">Dharma</a>
+    <a class="item" data-tab="bio">Bio</a>
     {{! Hidden final tab where the GM can change around character options}}
     {{#if isGM}}
     <a class="item" data-tab="config">Config</a>
@@ -145,6 +146,18 @@
     {{!-- Dharma Tab --}}
     <div class="tab dharma" data-group="primary" data-tab="dharma">
        {{> "systems/lone-wolf-fists/templates/actor/parts/actor-dharma.hbs"}}
+    </div>
+
+    <div class="tab bio" data-group="primary" data-tab="bio">
+      <div class="full-size prosemirror tab">
+      {{editor
+        enrichedDescription
+        target='system.description'
+        engine='prosemirror'
+        button=true
+        editable=editable
+      }}
+      </div>
     </div>
 
     {{! Config tab }}
