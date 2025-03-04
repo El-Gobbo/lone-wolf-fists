@@ -16,11 +16,11 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/lone-wolf-fists/assets/logo.jpg",
-      "thumbnail": "systems/lone-wolf-fists/assets/logo.jpg"
+      "url": "systems/lone-wolf-fists/assets/logo.png",
+      "thumbnail": "systems/lone-wolf-fists/assets/logo.png"
     }
   ],
-  "version": "1.0.0-beta",
+  "version": "1.0.0",
   "compatibility": {
     "minimum": 12,
     "verified": "12.331"
@@ -94,7 +94,7 @@
   "socket": false,
   "manifest": "https://raw.githubusercontent.com/El-Gobbo/lone-wolf-fists/main/system.json",
   "download": "https://github.com/El-Gobbo/lone-wolf-fists/archive/refs/tags/v1.0.0.beta.zip",
-  "background": "systems/lone-wolf-fists/assets/logo.jpg",
+  "background": "systems/lone-wolf-fists/assets/logo.png",
   "gridDistance": 5,
   "gridUnits": "ft",
   "primaryTokenAttribute": "health",
