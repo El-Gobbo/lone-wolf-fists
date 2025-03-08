@@ -16,6 +16,7 @@ export default class lwfDomain extends lwfActorBase {
         type: new StringField(),
         location: new StringField(),
         strength: new NumberField({ ...requiredInteger, min: 0, initial: 0 }),
+        quantity: new NumberField({ ...requiredInteger, min: 0, initial: 1 }),
         strengthFixed: new BooleanField({ initial: false })
       })
     );

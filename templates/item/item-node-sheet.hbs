@@ -79,7 +79,7 @@
         <div id="product" class="flex-column flex-group-center npc-sidebar">
           <label for="product-input" class="resource-label">Product</label>
           <div class="flex-group-center" data-imbtype="development.product.value">
-            <select class="item-choice full-size" name='system.development.product.value'>
+            <select class="full-size" name='system.development.product.value'>
               {{#each potentialProduct}}
               <option 
                 {{#if (comparison ../system.development.product.value @index)}} selected="selected" {{/if}} 

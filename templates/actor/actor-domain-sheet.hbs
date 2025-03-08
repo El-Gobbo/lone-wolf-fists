@@ -11,6 +11,7 @@
       <div id="ruler" class="flex-column flex-group-center npc-sidebar">
         <label for="ruler-input" class="resource-label">Ruler</label>
         <div id="ruler-input-container" class=" flex-group-center flexshrink item" data-id="{{ruler.uuid}}">
+          {{#if ruler.img}}
           <a
             class='item-name member-edit'
             title='{{localize "DOCUMENT.Update" type='Item'}}'
@@ -18,6 +19,7 @@
              <img class="monster flex-group-center" src="{{ruler.img}}" title="{{ruler.name}}" height="50" width="50"/>
             <h4 id="ruler-input">{{ruler.name}}</h4>
           </a>
+          {{/if}}
         </div>
       </div>
       <div id="effort" class="resource flex-group-center flex-column npc-sidebar">
@@ -74,6 +76,8 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="core">Core</a>
+    <a class="item" data-tab="military">Military</a>
+    <a class="item" data-tab="subjects">Subjects</a>
     <a class="item" data-tab="description">Description</a>
     {{#if isGM}}
     <a class="item" data-tab="effects">Effects</a>
@@ -165,7 +169,44 @@
         <h4 id="techniques-heading" class="full-size section-header">Treasury</h4>
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
       </div>
-      {{! Military box }}
+
+      {{! Laws box }}
+      <div class="flex-group-center monster-body-box flexrow">
+        <div class="items-list full-size">
+          <h4 id="laws-heading" class="full-size section-header">Laws</h4>
+          <div id="laws-header" class="item flexrow items-header grid grid-13col small-table-header grid-table">
+            <div class="flex-group-center grid-span-12"></div>
+            <div class='item-controls flex-group-center'>
+                <a
+                  class='member-create'
+                  title='Create member'
+                  data-type='laws'
+                >
+                  <i class='fas fa-plus'></i>
+                </a>
+            </div>
+          </div>
+          {{#each actor.system.laws as | item id |}}
+          <div class='item flexrow grid grid-13col grid-table list-item' data-id='{{@index}}' data-array-of="laws">
+            <div class="flex-group-center grid-span-12" data-imbtype="details">
+              <input class="member-choice territory-input" type="text" name="item.details" value="{{item.details}}" data-dtype="String"/>
+            </div>
+            <div class="item-controls flex-group-center">
+                <a
+                  class='member-delete'
+                  title='{{localize "DOCUMENT.Delete" type='Item'}}'
+                >
+                  <i class='fas fa-trash'></i>
+                </a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Military Tab --}}
+    <div class="tab military" data-group="primary" data-tab="military">
       <div class="flex-group-center monster-body-box">
         <h4 id="military-heading" class="full-size section-header">Military</h4>
         <div class="items-list full-size">
@@ -173,7 +214,8 @@
             <div class="flex-group-center grid-span-3">Force</div>
             <div class="flex-group-center grid-span-2">Location</div>
             <div class="flex-group-center grid-span-2">Type</div>
-            <div class="flex-group-center grid-span-2">Strength</div>
+            <div class="flex-group-center">Str</div>
+            <div class="flex-group-center">#</div>
             <div class='item-controls flex-group-center'>
                 <a
                   class='member-create'
@@ -213,8 +255,11 @@
                 {{/each}}
               </select>
             </div>
-            <div class="flex-group-center grid-span-2" data-imbtype="strength">
+            <div class="flex-group-center" data-imbtype="strength">
               <input class="member-choice" type="number" name="item.strength" value="{{item.strength}}" data-dtype="Number"/>
+            </div>
+            <div class="flex-group-center" data-imbtype="quantity">
+              <input class="member-choice" type="number" name="item.quantity" value="{{item.quantity}}" data-dtype="Number"/>
             </div>
             <div class="item-controls flex-group-center">
                 <a
@@ -228,7 +273,10 @@
           {{/each}}
         </div>
       </div>
-      {{! Subjects box }}
+    </div>
+
+    {{!-- Subjects Tab --}}
+    <div class="tab subjects" data-group="primary" data-tab="subjects">
       <div class="flex-group-center monster-body-box">
         <h4 id="subjects-heading" class="full-size section-header">Subjects</h4>
         <div class="items-list full-size">
@@ -264,39 +312,6 @@
             </div>
             <div class="flex-group-center grid-span-2" data-imbtype="population">
               <input class="member-choice" type="number" name="item.population" value="{{item.population}}" data-dtype="Number"/>
-            </div>
-            <div class="item-controls flex-group-center">
-                <a
-                  class='member-delete'
-                  title='{{localize "DOCUMENT.Delete" type='Item'}}'
-                >
-                  <i class='fas fa-trash'></i>
-                </a>
-            </div>
-          </div>
-          {{/each}}
-        </div>
-      </div>
-      {{! Laws box }}
-      <div class="flex-group-center monster-body-box flexrow">
-        <div class="items-list full-size">
-          <h4 id="laws-heading" class="full-size section-header">Laws</h4>
-          <div id="laws-header" class="item flexrow items-header grid grid-13col small-table-header grid-table">
-            <div class="flex-group-center grid-span-12"></div>
-            <div class='item-controls flex-group-center'>
-                <a
-                  class='member-create'
-                  title='Create member'
-                  data-type='laws'
-                >
-                  <i class='fas fa-plus'></i>
-                </a>
-            </div>
-          </div>
-          {{#each actor.system.laws as | item id |}}
-          <div class='item flexrow grid grid-13col grid-table list-item' data-id='{{@index}}' data-array-of="laws">
-            <div class="flex-group-center grid-span-12" data-imbtype="details">
-              <input class="member-choice territory-input" type="text" name="item.details" value="{{item.details}}" data-dtype="String"/>
             </div>
             <div class="item-controls flex-group-center">
                 <a

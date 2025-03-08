@@ -26,7 +26,7 @@ export default class lwfNode extends lwfItemBase {
         name: new StringField()
       }),
       product: new SchemaField({
-        value: new NumberField({ required: true, integer: true, nullable: false, min: 0, max: 2, initial: 0 }),
+        value: new NumberField({ required: true, integer: true, nullable: false, min: 0, max: 5, initial: 0 }),
         name: new StringField()
       }),
       cost: new NumberField({ ...requiredInteger, min: 0, initial: 0 })
@@ -47,14 +47,24 @@ export default class lwfNode extends lwfItemBase {
     let factoryMult = 10;
     const devLevel = LWFNODES.developmentLevel[this.development.level.value];
     this.development.level.name = devLevel.name;
+    let specificToggle = false;
     if(this.development.level.value > 0){
       this.development.cost = this.laborers;
       factoryMult = (product[devLevel.name] * 10);
+      if(this.development.product.value > 0 && this.development.product.name !== 'Power'){
+        specificToggle = true;
+      }
     }
     else {
       this.development.cost = 0;
     }
-    const nodeMult = ((nodeType.multiply * 100) * (nodeRichness.multiply * 10));
+    let nodeMult;
+    if(specificToggle){
+      nodeMult = 1000;  
+    }
+    else {
+      nodeMult = ((nodeType.multiply * 100) * (nodeRichness.multiply * 10));
+    }
     const mult = nodeMult * factoryMult;
     this.productMultiplier = mult / 10000;
     this.output = Math.floor((mult * this.laborers) / 10000);

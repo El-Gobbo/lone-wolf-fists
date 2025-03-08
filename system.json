@@ -9,9 +9,9 @@
     }
   ],
   "url": "https://github.com/El-Gobbo/lone-wolf-fists",
-  "license": "LICENSE.txt",
+  "license": "LICENSE.md",
   "readme": "README.md",
-  "bugs": "Replace this with a link to file issues or tickets",
+  "bugs": "https://github.com/El-Gobbo/lone-wolf-fists/issues",
   "changelog": "CHANGELOG.md",
   "media": [
     {
