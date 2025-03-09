@@ -65,6 +65,7 @@
       {{!-- Default tab is specified in actor-sheet.mjs --}}
       <a class="item" data-tab="core">Core</a>
       <a class="item" data-tab="items">Items</a>
+      <a class="item" data-tab="bio">Bio</a>
       {{#if isGM}}
       <a class="item" data-tab="config">Config</a>
       {{/if}}
@@ -99,6 +100,19 @@
       {{!-- Owned Items Tab --}}
       <div class="tab items" data-group="primary" data-tab="items">
         {{> "systems/lone-wolf-fists/templates/actor/parts/actor-items.hbs"}}
+      </div>
+
+      {{! Description Tab }}
+      <div class="tab description flexcol" data-group="primary" data-tab="description">
+        <div class="full-size prosemirror tab">
+        {{editor
+          enrichedBiography
+          target='system.biography'
+          engine='prosemirror'
+          button=true
+          editable=editable
+        }}
+        </div>
       </div>
 
       {{! Config tab }}
