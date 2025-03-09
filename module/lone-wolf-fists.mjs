@@ -229,13 +229,16 @@ Hooks.on('renderCombatTracker', async (combatTracker, html, combatData) => {
 Hooks.on('preUpdateCombat', (combat, update, options, userID) => {
   // Check that the player in question is a gm - if they aren't, return
   const isGM = game.users.get(userID);
-  if(!isGM?.isGM)
+  if(!isGM?.isGM){
+    options.rerollInit = false;
     return;
-
+  }
   // Check that this update is creating a new round. If it isn't, return
   // Check that the update is going to a higher-numbered round. If it isn't, return
-  if(update.round <= combat.round || !update.round)
+  if(update.round <= combat.round || !update.round){
+    options.rerollInit = false;
     return;
+  }
   // If all these tests are passed, create the rerollInit property on options and set it to true
   options.rerollInit = true;
 });
@@ -243,11 +246,11 @@ Hooks.on('preUpdateCombat', (combat, update, options, userID) => {
 Hooks.on('updateCombat', async (combat, updateData, options, userID) => {
   // If rerollInit is absent or false, return
   const rerollInit = options?.rerollInit;
-  const runOnce = options?.runOnce;
-  if(!rerollInit)
-    return;  
+  if(!rerollInit || !game.user.isGM)
+    return;
   // Create an iterable object of combatant IDs
-  const combatantIDs = combat.combatants.map(c => c.id);
+  const activeCombatants = combat.combatants.filter(c => c.isDefeated === false)
+  const combatantIDs = activeCombatants.map(c => c.id);
 
   // reroll initiative
   await combat.rollInitiative(combatantIDs);
