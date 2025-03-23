@@ -22,7 +22,7 @@ export default class lwfItemBase extends lwfDataModel {
     const fields = foundry.data.fields;
     const schema = {};
 
-    schema.description = new fields.HTMLField();
+    schema.description = new fields.StringField();
     schema.editMode = new fields.BooleanField({initial: false})
     return schema;
   }

@@ -415,7 +415,7 @@ export class lwfActorSheet extends ActorSheet {
     if(calamity === undefined)
       context.calamityDescription = "";
     else
-      context.calamityDescription = sanitiseAndBreak(calamity.system.description);
+      context.calamityDescription = calamity.system.description;
     context.onslaughts = onslaughts;
     context.calamity = calamity;
     context.anatomy = anatomy;
