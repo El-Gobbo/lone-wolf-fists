@@ -88,8 +88,8 @@ export class lwfCharacter extends lwfActorChakras {
       this[key].lvl = LWFARCH[archetype][key][degree];
 
     // If too few chakras are active, activate up to the minimum
-    if(this.chakras.active < this.chakras.lvl)
-      this.chakras.active = this.chakras.lvl;
+    if(this.chakras.value < this.chakras.lvl)
+      this.chakras.value = this.chakras.lvl;
 
     // calculate max health and aura from health and aura levels respectively
     this.health.max = this.health.lvl * 10;
@@ -99,8 +99,8 @@ export class lwfCharacter extends lwfActorChakras {
     if(this.aura.max < this.aura.value)
       this.aura.value = this.aura.max;
     this.pool.recovery = this.pool.lvl * 2;
-    this.prana.gen.outOfCombat = this.pool.lvl * this.chakras.active;
-    this.prana.gen.inCombat = this.pool.recovery * this.chakras.active + this.prana.gen.bonus;
+    this.prana.gen.outOfCombat = this.pool.lvl * this.chakras.value;
+    this.prana.gen.inCombat = this.pool.recovery * this.chakras.value + this.prana.gen.bonus;
     let clan = this.clan;
     if (!(clan in LWFCLAN))
       return;

@@ -578,22 +578,22 @@ export class lwfActorSheet extends ActorSheet {
 
     // Increase number of active chakras
     html.on('click', '.chakra-increase', async () => {
-      let newActive = this.actor.system.chakras.active + 1;
-      this.actor.update({['system.chakras.active']: newActive})
+      let newActive = this.actor.system.chakras.value + 1;
+      this.actor.update({['system.chakras.value']: newActive})
     })
 
     // decrease number of active chakras
     html.on('click', '.chakra-decrease', async () => {
-      let newActive = this.actor.system.chakras.active - 1;
-      this.actor.update({['system.chakras.active']: newActive});
+      let newActive = this.actor.system.chakras.value - 1;
+      this.actor.update({['system.chakras.value']: newActive});
     })
 
     // Prana flare when click the prana flare button
     html.on('click', '#prana-flare', async () => {
-      let newActive = this.actor.system.chakras.active + 1;
+      let newActive = this.actor.system.chakras.value + 1;
       let increase = this.actor.system.pool.recovery * newActive;
       increase = increase + this.actor.system.prana.value;
-      this.actor.update({['system.chakras.active']: newActive, ['system.prana.value']: increase});
+      this.actor.update({['system.chakras.value']: newActive, ['system.prana.value']: increase});
     })
 
     html.on('change', '.techniqueDisplay', (ev) => {

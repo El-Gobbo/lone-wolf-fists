@@ -28,10 +28,10 @@
     </li>
 
     <li class="resource flex-group-center flex-column">
-    <label for="system.chakras.active" class="resource-label">Chakras</label>
+    <label for="system.chakras.value" class="resource-label">Chakras</label>
     <div class="active-chakras small-box">
-        <input id="chakra-display" type="number" class="full-size" name="system.chakras.active" value="{{system.chakras.active}}" data-dtype="Number" readonly/>
-        {{#unless (comparison system.chakras.active 7)}}
+        <input id="chakra-display" type="number" class="full-size" name="system.chakras.value" value="{{system.chakras.value}}" data-dtype="Number" readonly/>
+        {{#unless (comparison system.chakras.value 7)}}
         <img
         class="chakra-increase"
         src="systems/lone-wolf-fists/assets/resources/arrup.png"
@@ -40,7 +40,7 @@
         height='10'
         />
         {{/unless}}
-        {{#unless (comparison system.chakras.active minChakras)}}
+        {{#unless (comparison system.chakras.value minChakras)}}
         <img
         class="chakra-decrease"
         src="systems/lone-wolf-fists/assets/resources/arrdown.png"

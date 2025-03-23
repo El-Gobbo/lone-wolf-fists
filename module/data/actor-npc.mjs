@@ -20,8 +20,8 @@ export default class lwfNpc extends lwfActorChakras {
 
     if(!this.hasChakra)
       return;
-    this.prana.gen.outOfCombat = this.pool.lvl * this.chakras.active;
-    this.prana.gen.inCombat = this.pool.recovery * this.chakras.active;
+    this.prana.gen.outOfCombat = this.pool.lvl * this.chakras.value;
+    this.prana.gen.inCombat = this.pool.recovery * this.chakras.value;
     if(!this.parent.inCombat)
       this.prana.value = this.prana.gen.outOfCombat;
     
