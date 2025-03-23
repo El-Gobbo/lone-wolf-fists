@@ -23,10 +23,11 @@ export default class lwfAnatomy extends lwfItemBase {
     return schema;
   }
   prepareDerivedData() {
-    if((!this.parent?.parent?.system === undefined))
+    if((this.parent?.parent?.system !== undefined))
       this.armor = Math.floor(this.parent.parent.system.armor / 2);
     if(this.parent?.parent?.type === 'vehicle')
       this.systemToggle = true;
+    this.health.max = this.health.value * 10;
   }
 
 }

@@ -449,7 +449,7 @@ export class lwfActorSheet extends ActorSheet {
     if (!this.isEditable) return;
 
     // Roll effort when effort clicked
-    html.on('click', '#effort', (ev) => {
+    html.on('click', '#effort #effort-display', (ev) => {
       let data = {"speaker": { "actor": this.actor._id }};
       if(this.token?._id){
         data = {"speaker": { 
@@ -686,8 +686,11 @@ export class lwfActorSheet extends ActorSheet {
         newValue = ev.currentTarget.value;
       }
       const target = ev.currentTarget.parentElement.dataset.imbtype;
-      const index = $(ev.currentTarget).closest('.body-part')[0].dataset.id;
-      return await anatomy.update({[ `system.${target}` ]: newValue })
+      if (target === 'name') {
+        return await anatomy.update({[ `name` ]: newValue })
+      }
+      else
+        return await anatomy.update({[ `system.${target}` ]: newValue })
     })
 
     // Add Inventory Item

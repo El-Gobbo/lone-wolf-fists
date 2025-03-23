@@ -25,6 +25,7 @@ This is a system to play the post-apocalyptic anime inspired ttrpg [Lone Wolf Fi
 ## Known issues
 - The module dice so nice does not work with the dice rolling mechanic - no dice are rolled.
 - Effort and health max cannot be increased for player characters - as a workaround for techniques that change these things, create an npc with the relevant stats.
+- Health bars do not display properly on players
 
 ## Licenses
 The majority of this system is distributed under the MIT license, but the assets and packs folders are not. See 'assets/LICENSE-ASSETS.md' and 'packs/LICENSE-PACKS.md' for more information

@@ -3,7 +3,7 @@ import lwfActorFollower from "./base-follower.mjs";
 export default class lwfActorChakras extends lwfActorFollower {
 // For all the actor types that wield weapons
   static defineSchema() {
-    const { NumberField, SchemaField, BooleanField } = foundry.data.fields;
+    const { NumberField, SchemaField, BooleanField, StringField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
     // All the relevant datafields relating to chakras and Prana generation
@@ -38,6 +38,7 @@ export default class lwfActorChakras extends lwfActorFollower {
         Earth: new BooleanField({initial: false}),
       })
     });
+    schema.techTableFocus = new StringField({initial: 'all'});
     
     return schema;
   }

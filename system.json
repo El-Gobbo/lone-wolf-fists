@@ -20,7 +20,7 @@
       "thumbnail": "systems/lone-wolf-fists/assets/logo.png"
     }
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "compatibility": {
     "minimum": 12,
     "verified": "12.331"
@@ -92,11 +92,11 @@
   ],
   "packFolders": [],
   "socket": false,
-  "manifest": "https://raw.githubusercontent.com/El-Gobbo/lone-wolf-fists/refs/tags/v1.0.1/system.json",
-  "download": "https://github.com/El-Gobbo/lone-wolf-fists/archive/refs/tags/v1.0.1.zip",
+  "manifest": "https://raw.githubusercontent.com/El-Gobbo/lone-wolf-fists/refs/tags/v1.0.2/system.json",
+  "download": "https://github.com/El-Gobbo/lone-wolf-fists/archive/refs/tags/v1.0.2.zip",
   "background": "systems/lone-wolf-fists/assets/logo.png",
   "gridDistance": 5,
   "gridUnits": "ft",
-  "primaryTokenAttribute": "health",
-  "secondaryTokenAttribute": "power"
+  "primaryTokenAttribute": "health.current",
+  "secondaryTokenAttribute": "power.value"
 }

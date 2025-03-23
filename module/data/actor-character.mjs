@@ -73,7 +73,6 @@ export class lwfCharacter extends lwfActorChakras {
     schema.landmark = new HTMLField();
     schema.vice = new HTMLField();
     schema.rep = new HTMLField();
-    schema.techTableFocus = new StringField({initial: 'all'});
     return schema;
   }
 
