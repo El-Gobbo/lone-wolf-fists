@@ -37,11 +37,11 @@
         {{! Node Type }}
         <div id="element" class="flex-column flex-group-center npc-sidebar">
           <label for="element-input" class="resource-label">Type</label>
-          <div class="flex-group-center" data-imbtype="nodeType.value">
-            <select class="item-choice full-size" name='system.nodeType.value'>
+          <div class="flex-group-center" data-imbtype="nodeType.lvl">
+            <select class="item-choice full-size" name='system.nodeType.lvl'>
               {{#each nodeType}}
               <option 
-                {{#if (comparison ../item.system.nodeType.value @index)}} selected="selected" {{/if}} 
+                {{#if (comparison ../item.system.nodeType.lvl @index)}} selected="selected" {{/if}} 
               value={{@index}}>{{this.name}}</option>
               {{/each}}
             </select>
@@ -50,11 +50,11 @@
         {{! Node Richness }}
         <div id="richness" class="flex-column flex-group-center npc-sidebar">
           <label for="richness-input" class="resource-label">Richness</label>
-          <div class="flex-group-center" data-imbtype="richness.value">
-            <select class="item-choice full-size" name='system.richness.value'>
+          <div class="flex-group-center" data-imbtype="richness.lvl">
+            <select class="item-choice full-size" name='system.richness.lvl'>
               {{#each richness}}
               <option 
-                {{#if (comparison ../system.richness.value @index)}} selected="selected" {{/if}} 
+                {{#if (comparison ../system.richness.lvl @index)}} selected="selected" {{/if}} 
               value={{@index}}>{{this.name}}</option>
               {{/each}}
             </select>
@@ -63,26 +63,26 @@
         {{! Node Development }}
         <div id="development" class="flex-column flex-group-center npc-sidebar">
           <label for="development-input" class="resource-label">Factory</label>
-          <div class="flex-group-center" data-imbtype="development.level.value">
-            <select class="item-choice full-size" name='system.development.level.value'>
+          <div class="flex-group-center" data-imbtype="development.level.lvl">
+            <select class="item-choice full-size" name='system.development.level.lvl'>
               {{#each developmentLevel}}
               <option 
-                {{#if (comparison ../system.development.level.value @index)}} selected="selected" {{/if}} 
+                {{#if (comparison ../system.development.level.lvl @index)}} selected="selected" {{/if}} 
               value={{@index}}>{{this.name}}</option>
               {{/each}}
             </select>
           </div>
         </div>
         {{! Only show if a factory has been built }}
-        {{#unless (comparison item.system.development.level.value 0)}}
+        {{#unless (comparison item.system.development.level.lvl 0)}}
         {{! Node Product }}
         <div id="product" class="flex-column flex-group-center npc-sidebar">
           <label for="product-input" class="resource-label">Product</label>
-          <div class="flex-group-center" data-imbtype="development.product.value">
-            <select class="full-size" name='system.development.product.value'>
+          <div class="flex-group-center" data-imbtype="development.product.lvl">
+            <select class="full-size" name='system.development.product.lvl'>
               {{#each potentialProduct}}
               <option 
-                {{#if (comparison ../system.development.product.value @index)}} selected="selected" {{/if}} 
+                {{#if (comparison ../system.development.product.lvl @index)}} selected="selected" {{/if}} 
               value={{@index}}>{{this.name}}</option>
               {{/each}}
             </select>

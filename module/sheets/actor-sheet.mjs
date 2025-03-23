@@ -65,7 +65,7 @@ export class lwfActorSheet extends ActorSheet {
     if (actorData.type == 'character' || actorData.type == 'npc') {
       this._prepareCharacterData(context);
       await this._prepareMembers(context);
-      context.minChakras = context.system.chakras.value
+      context.minChakras = context.system.chakras.lvl
       }
 
     if(actorData.type == 'disciple') {
@@ -334,7 +334,7 @@ export class lwfActorSheet extends ActorSheet {
     context.skill.unmastered = absent; 
     // Work out the difference between the number of masteries they should have, and the number of masteries they do have.
     // If they have fewer masteries than they should, check the masteries compendium, and see which the player doesn't have
-    context.skill.difference = this.actor.system.masteries.value - present.length;
+    context.skill.difference = this.actor.system.masteries.lvl - present.length;
     if(context.skill.difference > 0){
       context.skill.missing = true;
     }
@@ -363,11 +363,11 @@ export class lwfActorSheet extends ActorSheet {
       const memberData = {
         "img": member.img,
         "creature": member.name,
-        "power": member.system.power.value,
-        "health": member.system.health.value,
+        "power": member.system.power.lvl,
+        "health": member.system.health.lvl,
         "quantity": 1,
         "editable": false,
-        "loyalty": member.system.master.loyalty.value,
+        "loyalty": member.system.master.loyalty.lvl,
         "id": `${m}`
       }
       members.push(memberData);
@@ -385,8 +385,8 @@ export class lwfActorSheet extends ActorSheet {
   }
 
   _preparePlatoon(context) {
-    const platoonLiving = new Array(context.system.membership.current).fill("");
-    const dead = context.system.membership.max - context.system.membership.current;
+    const platoonLiving = new Array(context.system.membership.value).fill("");
+    const dead = context.system.membership.max - context.system.membership.value;
     const platoonDead = new Array(dead).fill("");
     context.living = platoonLiving;
     context.dead = platoonDead;
@@ -458,7 +458,7 @@ export class lwfActorSheet extends ActorSheet {
           "token": this.token._id,
         }};
       }
-      const diceNumber = this.actor.system.power.value;
+      const diceNumber = this.actor.system.power.lvl;
       effortRoll(diceNumber, data)
     });
 
@@ -505,7 +505,7 @@ export class lwfActorSheet extends ActorSheet {
       });
 
       if(restData["full-rest"] === "true"){
-        this.actor.update({[ `system.health.current` ]: this.actor.system.health.max
+        this.actor.update({[ `system.health.value` ]: this.actor.system.health.max
          })
         return;
       }
@@ -516,8 +516,8 @@ export class lwfActorSheet extends ActorSheet {
           return;
         }
         const rolls = await new Roll(`${restData["hours-rested"]}d10`).evaluate();
-        const newHealth = rolls._total + this.actor.system.health.current;
-        this.actor.update({[ `system.health.current` ]: newHealth})
+        const newHealth = rolls._total + this.actor.system.health.value;
+        this.actor.update({[ `system.health.value` ]: newHealth})
       }
     });
 
@@ -592,8 +592,8 @@ export class lwfActorSheet extends ActorSheet {
     html.on('click', '#prana-flare', async () => {
       let newActive = this.actor.system.chakras.active + 1;
       let increase = this.actor.system.pool.recovery * newActive;
-      increase = increase + this.actor.system.prana.current;
-      this.actor.update({['system.chakras.active']: newActive, ['system.prana.current']: increase});
+      increase = increase + this.actor.system.prana.value;
+      this.actor.update({['system.chakras.active']: newActive, ['system.prana.value']: increase});
     })
 
     html.on('change', '.techniqueDisplay', (ev) => {
@@ -628,7 +628,7 @@ export class lwfActorSheet extends ActorSheet {
       //Check to see if the id is a uuid - if it is, update the source and the current sheet
       if(index.includes('.')) {
         const namedMember = await fromUuid(index);
-        namedMember.update({[ `system.${target}.value` ]: newValue });
+        namedMember.update({[ `system.${target}.lvl` ]: newValue });
         this.actor.update({[ `system.updateToggle` ]: !(this.actor.system.updateToggle)})
       }
       else {
@@ -672,7 +672,7 @@ export class lwfActorSheet extends ActorSheet {
         value = 100;
       else if (value < 0)
         value = 0;
-      this.actor.update({[ 'system.membership.max' ]: value, [ 'system.membership.current' ]: value, [ 'system.health.current' ]: value * 10})
+      this.actor.update({[ 'system.membership.max' ]: value, [ 'system.membership.value' ]: value, [ 'system.health.value' ]: value * 10})
     })
 
     html.on('change', '.anatomy-choice', async (ev) => {

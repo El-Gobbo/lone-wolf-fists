@@ -22,10 +22,10 @@
       <div id="effort" class="resource flex-group-center flex-column npc-sidebar">
         <label for="power-input" class="resource-label">CATACLYSM</label>
         {{#if system.editMode}}
-        <input id="power-input" class="smallish-box short-box" type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number">
+        <input id="power-input" class="smallish-box short-box" type="text" name="system.power.lvl" value="{{system.power.lvl}}" data-dtype="Number">
         {{else}}
         <div id="effort-display" class="flex-group-center flex">
-          <h4 id="power-input"><strong>{{system.power.value}}</strong></h4>
+          <h4 id="power-input"><strong>{{system.power.lvl}}</strong></h4>
         </div>
         {{/if}}
         <div id="cataclysms-display" class="flex-group-center flex">
@@ -153,7 +153,7 @@
             <div id="health-levels" class="health-levels flex-column flex-group-center npc-sidebar">
               <label class="resource-label">Health levels</label>
               <div id="health-level-input" class=" flex-group-center flexshrink">
-                <input id="health-levels" type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number">
+                <input id="health-levels" type="text" name="system.health.lvl" value="{{system.health.lvl}}" data-dtype="Number">
               </div>
             </div>
             {{else}}
@@ -161,7 +161,7 @@
               <div>
                 <label for="health-current" class="resource-label">Health</label>
                 <div id="health-container" class="resource-content max-min flexrow flex-group-center">
-                  <input class="health-current stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+                  <input class="health-current stat-current" type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
                   <input class="health-max stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
                 </div>
               </div>
@@ -222,12 +222,12 @@
               <div id="health-container-{{@index}}" class="resource flex-group-center inner-margin npc-sidebar">
                 {{#if ../system.editMode}}
                 <label for="health-current" class="resource-label">Health Levels</label>
-                <div class="health-current resource-content max-min flexrow flex-group-center" data-imbtype="health.value">
-                  <input type="text" class="anatomy-choice" name="anatomy.system.health.value" value="{{anatomy.system.health.value}}" data-dtype="Number"/>
+                <div class="health-current resource-content max-min flexrow flex-group-center" data-imbtype="health.lvl">
+                  <input type="text" class="anatomy-choice" name="anatomy.system.health.lvl" value="{{anatomy.system.health.lvl}}" data-dtype="Number"/>
                 </div>
                 {{else}}
-                <div id="health-{{@index}}" class="resource-content max-min flexrow flex-group-center" data-imbtype="health.current">
-                  <input class="health-current stat-current anatomy-choice" type="text" name="anatomy.system.health.current" value="{{anatomy.system.health.current}}" data-dtype="Number"/>
+                <div id="health-{{@index}}" class="resource-content max-min flexrow flex-group-center" data-imbtype="health.value">
+                  <input class="health-current stat-current anatomy-choice" type="text" name="anatomy.system.health.value" value="{{anatomy.system.health.value}}" data-dtype="Number"/>
                   <input class="health-max stat-max" type="text" name="anatomy.system.health.max" value="{{anatomy.system.health.max}}" readonly disabled data-dtype="Number"/>
                 </div>
                 {{/if}}

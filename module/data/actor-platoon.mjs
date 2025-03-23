@@ -15,7 +15,7 @@ export default class lwfPlatoon extends lwfActorBase {
     schema.capabilities = new HTMLField();
     schema.membership = new SchemaField({
       max: new NumberField({ ...requiredInteger, initial: 1, min: 0, max: 100 }),
-      current: new NumberField({ ...requiredInteger, initial: 1, min: 0, max: 100 }),
+      value: new NumberField({ ...requiredInteger, initial: 1, min: 0, max: 100 }),
     });
     schema.defense = new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 5 });
     schema.bonus = new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 10 });
@@ -24,15 +24,15 @@ export default class lwfPlatoon extends lwfActorBase {
 
   prepareDerivedData() {
     // Derive power, health, defense, and bonus from membership numbers
-    this.health.value = this.membership.max;
-    this.health.max = this.health.value * HEALTH;
+    this.health.lvl = this.membership.max;
+    this.health.max = this.health.lvl * HEALTH;
     if(!this.editMode) {
-      this.membership.current = Math.ceil(this.health.current / HEALTH);
+      this.membership.value = Math.ceil(this.health.value / HEALTH);
     }
-    if(this.health.current > this.health.max)
-      this.health.current = this.health.max;
-    this.bonus = Math.floor(this.membership.current / BONUS);
-    this.defense = 1 + Math.floor(this.membership.current / DEFENSE);
-    this.power.value = Math.ceil(this.membership.current / POWER);
+    if(this.health.value > this.health.max)
+      this.health.value = this.health.max;
+    this.bonus = Math.floor(this.membership.value / BONUS);
+    this.defense = 1 + Math.floor(this.membership.value / DEFENSE);
+    this.power.lvl = Math.ceil(this.membership.value / POWER);
   }
 }

@@ -8,17 +8,17 @@
         <div>
             <button class="technique-header" type="button" id="recover-prana">Reset Prana</button>
         </div>
-        <label for="system.prana.current" class="resource-label">Prana</label>
+        <label for="system.prana.value" class="resource-label">Prana</label>
         <div class="resource-content flexrow flex-center flex-between">
             <input {{#unless inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
-            <input type="text" class="flex-2" name="system.prana.current" value="{{system.prana.current}}" data-dtype="Number"/>
+            <input type="text" class="flex-2" name="system.prana.value" value="{{system.prana.value}}" data-dtype="Number"/>
             <input {{#if inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/if}} type="text" name="system.prana.gen.inCombat" value="{{system.prana.gen.inCombat}}" data-dtype="Number" disabled/>
         </div>
     </div>
     <div class="grid grid-2col grid-close">
         <div class="resource flex-group-center">
-            <label for="system.pool.value" class="pool-label">Pool</label>
-            <input type="text" name="system.pool.value" value="{{system.pool.value}}" data-dtype="Number"/>
+            <label for="system.pool.lvl" class="pool-label">Pool</label>
+            <input type="text" name="system.pool.lvl" value="{{system.pool.lvl}}" data-dtype="Number"/>
         </div>
         <div class="resource flex-group-center">
             <label for="system.pool.recovery" class="pool-label">Recover</label>

@@ -10,7 +10,7 @@ export default class lwfActorFollower extends lwfActorBase {
       id: new StringField({initial: ""}),
       isRuler: new BooleanField({ initial: false }),
       loyalty: new SchemaField({
-        value: new NumberField({ integer: true, initial: 0, min: 0, max: 10 })
+        lvl: new NumberField({ integer: true, initial: 0, min: 0, max: 10 })
       })
     });
     schema.members = new ArrayField(

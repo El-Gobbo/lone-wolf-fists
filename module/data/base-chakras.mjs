@@ -8,7 +8,7 @@ export default class lwfActorChakras extends lwfActorFollower {
     const schema = super.defineSchema();
     // All the relevant datafields relating to chakras and Prana generation
     schema.prana = new SchemaField({
-      current: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100 }),
+      value: new NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100 }),
       gen: new SchemaField({
         outOfCombat: new NumberField({...requiredInteger, initial: 0}),
         inCombat: new NumberField({...requiredInteger, initial: 0 }),
@@ -19,12 +19,12 @@ export default class lwfActorChakras extends lwfActorFollower {
     // Datafields about amount of prana generated per chakra
     // This is seperate from the prior category to make setting the default values easier
     schema.pool = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 0, min: 0 }),
+      lvl: new NumberField({ ...requiredInteger, initial: 0, min: 0 }),
       recovery: new NumberField({ ...requiredInteger, initial: 0, min: 0 })
     });
     schema.chakras = new SchemaField ({
      //value == initial chakras
-      value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
+      lvl: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
       active: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 7 }),
       hellToggle: new BooleanField({initial: false}),
       awakened: new SchemaField({

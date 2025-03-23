@@ -9,7 +9,7 @@
       <div id="membership" class="resource flex-group-center inner-margin npc-sidebar">
         <div>
           <label for="membership-current" class="resource-label">Membership</label>
-          <h4 id="membership.current" class="font-size-20">{{system.membership.current}}</h4>
+          <h4 id="membership.value" class="font-size-20">{{system.membership.value}}</h4>
         </div>
         <div class="flex flexrow">
           <div id="size" class="flex-column flex-group-center">
@@ -29,14 +29,14 @@
       <div id="effort" class="resource flex-group-center flex-column npc-sidebar">
         <label for="power-input" class="resource-label">Effort</label>
         <div id="effort-display" class="flex-group-center flex">
-          <h4 id="power-input"><strong>{{system.power.value}}</strong></h4>
+          <h4 id="power-input"><strong>{{system.power.lvl}}</strong></h4>
         </div>
       </div>
       <div id="health" class="resource flex-group-center inner-margin npc-sidebar">
         <div>
           <label for="health-current" class="resource-label">Health</label>
           <div id="health" class="resource-content max-min flexrow flex-group-center">
-            <input class="health-current stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+            <input class="health-current stat-current" type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
             <input class="health-max stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
           </div>
         </div>

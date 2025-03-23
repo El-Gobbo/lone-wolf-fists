@@ -25,7 +25,7 @@
       <div id="effort" class="resource flex-group-center flex-column npc-sidebar">
         <label for="power-input" class="resource-label">Ruler Effort</label>
         <div id="effort-display" class="flex-group-center flex">
-          <h4 id="power-input"><strong>{{ruler.system.power.value}}</strong></h4>
+          <h4 id="power-input"><strong>{{ruler.system.power.lvl}}</strong></h4>
         </div>
       </div>
       <div class="flex-group-center">
@@ -135,12 +135,12 @@
               <div class="flex-group-center grid-span-2" data-imbtype="development.name">
                 <h4>{{item.system.development.level.name}}</h4>
               </div>
-              <div class="flex-group-center grid-span-2" data-imbtype="development.product.value">
-                <select class="item-choice full-size" name='item.system.development.product.value'>
+              <div class="flex-group-center grid-span-2" data-imbtype="development.product.lvl">
+                <select class="item-choice full-size" name='item.system.development.product.lvl'>
                   {{#each potentialProduct}}
                   <option 
                     {{! Makes sure that the default stat shown is the one currently set on the imbalance}}
-                    {{#if (comparison item.system.development.product.value this.index)}} selected="selected" {{/if}} 
+                    {{#if (comparison item.system.development.product.lvl this.index)}} selected="selected" {{/if}} 
                   value={{this.index}}>{{this.name}}</option>
                   {{/each}}
                 </select>

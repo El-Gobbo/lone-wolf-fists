@@ -26,9 +26,9 @@ export default class lwfSquad extends lwfActorFollower {
     let numbers = [0, 0];
     for(let m of this.namedMembers) {
       const member = fromUuidSync(m);
-      power += member.system.power.value;
-      health += member.system.health.value;
-      if(member.system.power.value <= HIGHEFFORT)
+      power += member.system.power.lvl;
+      health += member.system.health.lvl;
+      if(member.system.power.lvl <= HIGHEFFORT)
         numbers[0] += 1;
       else
         numbers[1] += 1;
@@ -43,11 +43,11 @@ export default class lwfSquad extends lwfActorFollower {
     }
     if(power > 10)
       power = 10;
-    this.power.value = power;
-    this.health.value = health;
+    this.power.lvl = power;
+    this.health.lvl = health;
     const membershipLow = new Array(numbers[0]).fill(false);
     const membershipHigh = new Array(numbers[1]).fill(true);
     this.membership = membershipLow.concat(membershipHigh);
-    this.health.max = this.health.value * 10;
+    this.health.max = this.health.lvl * 10;
   }
 }

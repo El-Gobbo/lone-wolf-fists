@@ -10,8 +10,8 @@ export default class lwfAnatomy extends lwfItemBase {
     const schema = super.defineSchema();
 
     schema.health = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 1, min: 0 }),
-      current: new NumberField({ ...requiredInteger, initial: 10, min: 0 }),
+      lvl: new NumberField({ ...requiredInteger, initial: 1, min: 0 }),
+      value: new NumberField({ ...requiredInteger, initial: 10, min: 0 }),
       max: new NumberField({ ...requiredInteger, initial: 10, min: 0 }),
     })
     schema.armor = new NumberField({ ...requiredInteger, initial: 0, min: 0 });
@@ -27,7 +27,7 @@ export default class lwfAnatomy extends lwfItemBase {
       this.armor = Math.floor(this.parent.parent.system.armor / 2);
     if(this.parent?.parent?.type === 'vehicle')
       this.systemToggle = true;
-    this.health.max = this.health.value * 10;
+    this.health.max = this.health.lvl * 10;
   }
 
 }

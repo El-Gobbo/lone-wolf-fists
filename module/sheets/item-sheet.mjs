@@ -200,7 +200,7 @@ export class lwfItemSheet extends ItemSheet {
         changes: [{
           key: "system.armor",
           mode: 2,
-          value: ev.currentTarget.value,
+          lvl: ev.currentTarget.value,
           }]
         }]
       );

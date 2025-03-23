@@ -23,19 +23,19 @@ export class lwfCharacter extends lwfActorChakras {
 
     // All attributes specific to Lone WOlf fists, affected by levelling up, and not covered by the other categories
     schema.degree = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 9 })
+      lvl: new NumberField({ ...requiredInteger, initial: 1, min: 1, max: 9 })
     });
     schema.aura = new SchemaField({
-      // value == aura levels  
-      value: new NumberField({ ...requiredInteger, initial: 1 }),
+      // lvl == aura levels  
+      lvl: new NumberField({ ...requiredInteger, initial: 1 }),
       max: new NumberField({ ...requiredInteger, initial: 10 }),
-      current: new NumberField({ ...requiredInteger, initial: 10, min: 0 })
+      value: new NumberField({ ...requiredInteger, initial: 10, min: 0 })
     });
     schema.effortless = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 0 })
+      lvl: new NumberField({ ...requiredInteger, initial: 0 })
     });
     schema.foci = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 0 }),
+      lvl: new NumberField({ ...requiredInteger, initial: 0 }),
       // Visibility of focus slots is controlled at the character sheet level
       slots: new SchemaField({
         0: new NumberField({ integer: true, nullable: true, min: 0 }),
@@ -49,7 +49,7 @@ export class lwfCharacter extends lwfActorChakras {
     });
     // TODO Try to change the capital letters to lower case by using .tolowercase()
     schema.masteries = new SchemaField({
-      value: new NumberField({ ...requiredInteger, initial: 0 }),
+      lvl: new NumberField({ ...requiredInteger, initial: 0 }),
       types: new SchemaField({
         Power: new BooleanField({initial: false}),
         Agility: new BooleanField({initial: false}),
@@ -62,8 +62,8 @@ export class lwfCharacter extends lwfActorChakras {
     });
     // All datafields relating to kharma
     schema.kharma = new SchemaField({
-      current: new NumberField({ ...requiredInteger, initial: 0}),
-      value: new NumberField({ ...requiredInteger, initial: 200}),
+      value: new NumberField({ ...requiredInteger, initial: 0}),
+      lvl: new NumberField({ ...requiredInteger, initial: 200}),
       spent: new NumberField({ ...requiredInteger, initial: 120})
     });
     // All datafields relating to background or roleplay informmation about the character
@@ -78,28 +78,28 @@ export class lwfCharacter extends lwfActorChakras {
 
   prepareDerivedData() {
     // Initialise all derived data from the LWFARCH const
-    let degree = this.degree.value - 1;
+    let degree = this.degree.lvl - 1;
     let archetype = this.archetype;
     // exits if no archetype has yet been set
     if (!(archetype in LWFARCH))
       return;
     // iterates over LWFARCH and assigns the attributes contained within. For more info, see archetypes.mjs
     for (const key in LWFARCH[archetype])
-      this[key].value = LWFARCH[archetype][key][degree];
+      this[key].lvl = LWFARCH[archetype][key][degree];
 
     // If too few chakras are active, activate up to the minimum
-    if(this.chakras.active < this.chakras.value)
-      this.chakras.active = this.chakras.value;
+    if(this.chakras.active < this.chakras.lvl)
+      this.chakras.active = this.chakras.lvl;
 
     // calculate max health and aura from health and aura levels respectively
-    this.health.max = this.health.value * 10;
-    if(this.health.max < this.health.current)
-      this.health.current = this.health.max;
-    this.aura.max = this.aura.value * 10;
-    if(this.aura.max < this.aura.current)
-      this.aura.current = this.aura.max;
-    this.pool.recovery = this.pool.value * 2;
-    this.prana.gen.outOfCombat = this.pool.value * this.chakras.active;
+    this.health.max = this.health.lvl * 10;
+    if(this.health.max < this.health.value)
+      this.health.value = this.health.max;
+    this.aura.max = this.aura.lvl * 10;
+    if(this.aura.max < this.aura.value)
+      this.aura.value = this.aura.max;
+    this.pool.recovery = this.pool.lvl * 2;
+    this.prana.gen.outOfCombat = this.pool.lvl * this.chakras.active;
     this.prana.gen.inCombat = this.pool.recovery * this.chakras.active + this.prana.gen.bonus;
     let clan = this.clan;
     if (!(clan in LWFCLAN))
@@ -110,7 +110,7 @@ export class lwfCharacter extends lwfActorChakras {
     const data = {};
 
     // Copy effort to the top level, so it can be used by the standard rolls.
-    data.effort = this.power.value;
+    data.effort = this.power.lvl;
     return data;
   }
 }

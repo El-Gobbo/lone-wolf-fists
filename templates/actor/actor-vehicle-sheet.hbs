@@ -31,7 +31,7 @@
       <div id="health-levels" class="health-levels flex-column flex-group-center npc-sidebar">
         <label class="resource-label">Health levels</label>
         <div id="health-level-input" class=" flex-group-center flexshrink">
-          <input id="health-levels" type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number">
+          <input id="health-levels" type="text" name="system.health.lvl" value="{{system.health.lvl}}" data-dtype="Number">
         </div>
       </div>
       {{else}}
@@ -39,7 +39,7 @@
         <div>
           <label for="health-current" class="resource-label">Health</label>
           <div id="health-container" class="resource-content max-min flexrow flex-group-center">
-            <input class="health-current stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+            <input class="health-current stat-current" type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
             <input class="health-max stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
           </div>
         </div>

@@ -11,22 +11,22 @@
       <img class="profile-img flex-group-center" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="120" width="120"/>
       <div class="resources">
         <div id="degree" class="resource flex-group-center font-size-20">
-          <label for="system.degree.value" class="resource-label">Degree</label>
+          <label for="system.degree.lvl" class="resource-label">Degree</label>
           <div class="">
-            <input id="degree-input" class="small-box" type="text" name="system.degree.value" value="{{system.degree.value}}" data-dtype="String"/>
+            <input id="degree-input" class="small-box" type="text" name="system.degree.lvl" value="{{system.degree.lvl}}" data-dtype="String"/>
           </div>
         </div>
         <div class="grid grid-2col">
           <div id="effort" class="resource flex-group-center flex-column">
-            <label for="system.power.value" class="resource-label">Effort</label>
+            <label for="system.power.lvl" class="resource-label">Effort</label>
             <div id="effort-display" class="flex-group-center flex">
-              <h4><strong>{{system.power.value}}</strong></h4>
+              <h4><strong>{{system.power.lvl}}</strong></h4>
             </div>
           </div>
           <div id="effortless" class="resource flex-group-center">
-            <label for="system.effortless.value" class="resource-label">E-less</label>
+            <label for="system.effortless.lvl" class="resource-label">E-less</label>
             <div class="">
-              <h4>Rank {{system.effortless.value}}</h4>
+              <h4>Rank {{system.effortless.lvl}}</h4>
             </div>
           </div>
         </div>
@@ -42,9 +42,9 @@
         <div class="damage resources flexrow">
           <div id="health" class="flex-4 resource flex-group-center inner-margin">
             <div class="flex-4">
-              <label for="system.health.current" class="resource-label">Health</label>
+              <label for="system.health.value" class="resource-label">Health</label>
               <div id="health" class="resource-content max-min flexrow flex-group-center">
-                <input class="health-current stat-current" type="text" name="system.health.current" value="{{system.health.current}}" data-dtype="Number"/>
+                <input class="health-current stat-current" type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
                 <input class="health-max stat-max" type="text" name="system.health.max" value="{{system.health.max}}" readonly disabled data-dtype="Number"/>
               </div>
             </div>
@@ -55,9 +55,9 @@
           </div>
           <div class="flex-4 resource flex-group-center inner-margin">
             <div>
-            <label for="system.aura.current" class="resource-label">Aura</label>
+            <label for="system.aura.value" class="resource-label">Aura</label>
               <div id="aura" class="resource-content max-min flexrow flex-group-center">
-                <input id="aura-current" class="stat-current" type="text" name="system.aura.current" value="{{system.aura.current}}" data-dtype="Number"/>
+                <input id="aura-current" class="stat-current" type="text" name="system.aura.value" value="{{system.aura.value}}" data-dtype="Number"/>
                 <input id="aura-max" class="stat-max" type="text" name="system.aura.max" value="{{system.aura.max}}" readonly disabled data-dtype="Number"/>
               </div>
             </div>
@@ -81,9 +81,9 @@
 
         <div class="resources grid grid-9col grid-close">
           {{! display focus slots up to the value determined by level, hide all subsequent slots}}
-          <label for="system.foci.value" class="resource-label grid-span-2 flexrow flex-group-center">Focus Slots</label>
+          <label for="system.foci.lvl" class="resource-label grid-span-2 flexrow flex-group-center">Focus Slots</label>
           {{#each system.foci.slots}}
-            <div {{#unless (lessThan @index ../system.foci.value )}} hidden {{/unless}} class="resource flex-group-center">
+            <div {{#unless (lessThan @index ../system.foci.lvl )}} hidden {{/unless}} class="resource flex-group-center">
               <input type="text" id="focus-{{@index}}" class="focusSlot" data-findex="{{@index}}" name="system.foci.slots.{{@index}}" value="{{this}}" data-dtype="Number">
             </div>
           {{/each}}
