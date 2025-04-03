@@ -87,6 +87,10 @@ export class lwfActorSheet extends ActorSheet {
     if(actorData.type === 'domain') {
       this._prepareDomain(context);
     }
+
+    if(actorData.type === 'vehicle') {
+      this._prepareVehicle(context);
+    }
     context.isGM = game.user.isGM;
 
     // Enrich biography info for display
@@ -432,6 +436,43 @@ export class lwfActorSheet extends ActorSheet {
     context.forceTypes = LWFDOMAINS.forceTypes;
     return context;
   }
+
+  shortDescription(itemDesc) {
+    try {
+      let fullStop
+      fullStop = itemDesc.indexOf('.');
+      if(fullStop >= 0){
+        return `${itemDesc.slice(0, fullStop)}...`
+      }
+      return itemDesc
+    }
+    catch(err) {
+      return ""
+    }
+  };
+
+  _prepareVehicle(context) {
+    const weaponDisplay = []
+    const anatomyDisplay = []
+    for(let w of context.weapon){
+      if(w.system.tag1 != 'Ordnance' && w.system.tag1 != 'Grenade'){
+        continue
+      }
+      const strengthDesc = `Rank ${w.system.strength}`
+      w.strengthDesc = strengthDesc;
+      const shortDesc = this.shortDescription(w.system.description);
+      w.shortDesc = shortDesc;
+      weaponDisplay.push(w);
+    }
+    for(let a of context.anatomy) {
+      const shortDesc = this.shortDescription(a.system.description);
+      a.shortDesc = shortDesc;
+      anatomyDisplay.push(a);
+    }
+    context.weaponDisplay = weaponDisplay;
+    context.anatomyDisplay = anatomyDisplay;
+    return context
+  };
 
   /** @override */
   activateListeners(html) {

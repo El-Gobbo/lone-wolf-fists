@@ -45,6 +45,11 @@
         <h4><strong>Size: </strong><span>{{system.size}}</span></h4>
       </div>
       {{/unless}}
+      {{#unless (comparison system.strength 0)}}
+      <div>
+        <h4><strong>Strength: </strong><span>{{system.strength}}</span></h4>
+      </div>
+      {{/unless}}
       {{#if system.unique}}
       <div class="tab">
         {{editor
@@ -81,7 +86,7 @@
             {{#if (comparison ../system.tag1 this)}} selected="selected" {{/if}} 
             value="{{this}}">{{this}}</option>
           {{/each}}
-          {{else}}
+        {{else}}
           {{#each tagsExtra}}
           <option 
             {{#if (comparison ../system.tag1 this)}} selected="selected" {{/if}} 
@@ -90,6 +95,21 @@
         {{/unless}}
         </select>
       </div>
+
+      {{#if (comparison system.tag1 'Ordnance')}}
+      <div class='resource'>
+        <label>Strength:</label>
+        <input type="text" class="inline-input small-box" name='system.strength' value="{{system.strength}}" data-dtype="Number">
+      </div>
+      {{/if}}
+
+      
+      {{#if (comparison system.tag1 'Grenade')}}
+      <div class='resource'>
+        <label>Strength:</label>
+        <input type="text" class="inline-input small-box" name='system.strength' value="{{system.strength}}" data-dtype="Number">
+      </div>
+      {{/if}}
 
       {{!-- show extra tag selection if there is more than 1 tag --}}
       {{#unless system.unorthodox}}
