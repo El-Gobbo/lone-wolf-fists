@@ -499,7 +499,13 @@ export class lwfActorSheet extends ActorSheet {
           "token": this.token._id,
         }};
       }
-      const diceNumber = this.actor.system.power.lvl;
+      let diceNumber;
+      if (this.actor.type == "domain") {
+        const ruler = fromUuidSync(this.actor.system.ruler);
+        diceNumber = ruler.system.power.lvl;
+      } else {
+        diceNumber = this.actor.system.power.lvl;
+      }
       effortRoll(diceNumber, data)
     });
 

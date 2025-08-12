@@ -181,6 +181,13 @@ position: relative;
   }
 }
 
+.char-sidebar {
+  .item-image {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 .monster-body-box {
   margin: 20px auto;
   width: 90%;
