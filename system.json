@@ -88,6 +88,94 @@
       "type": "Item",
       "private": false,
       "flags": {}
+    },
+    {
+      "name": "gupt-kala",
+      "label": "Gupt Kala",
+      "path": "packs/gupt-kala",
+      "type": "Item",
+      "system": "lone-wolf-fists",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "vehicles",
+      "label": "Vehicles",
+      "path": "packs/vehicles",
+      "type": "Actor",
+      "system": "lone-wolf-fists",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "titans-and-gods",
+      "label": "Titans and Gods",
+      "path": "packs/titans-and-gods",
+      "type": "Actor",
+      "system": "lone-wolf-fists",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "disasters",
+      "label": "Disasters",
+      "path": "packs/disasters",
+      "type": "Actor",
+      "system": "lone-wolf-fists",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "armies",
+      "label": "Armies",
+      "path": "packs/armies",
+      "type": "Actor",
+      "system": "lone-wolf-fists",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "monsters",
+      "label": "Monsters",
+      "path": "packs/monsters",
+      "type": "Actor",
+      "system": "lone-wolf-fists",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "artifacts",
+      "label": "Artifacts",
+      "path": "packs/artifacts",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "lone-wolf-fists"
+    },
+    {
+      "name": "apocalypse-apocrypha",
+      "label": "Apocalypse Apocrypha",
+      "path": "packs/apocalypse-apocrypha",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "lone-wolf-fists"
     }
   ],
   "packFolders": [],

@@ -164,9 +164,51 @@ Hooks.on('renderChatLog', () => {
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once('ready', function () {
+Hooks.once('ready', async function ()  {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
+  
+  if (!game.user.isGM) return;
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
+
+  const compendiumFolders = await createCompendiumFolders();
+  
+  const creaturePacks = ["monsters","armies", "titans-and-gods","vehicles"];
+  const itemPacks = ["weapons", "armor", "artifacts"];
+
+  await movePacksToFolders(creaturePacks, "Creatures", compendiumFolders);
+  await movePacksToFolders(itemPacks,"Items", compendiumFolders);
+
+
+  async function createCompendiumFolders(){
+    const compendiumFolders = {
+      "Creatures": null,
+      "Items": null
+    }
+    compendiumFolders.Creatures = game.folders.find(f => f.type==="Compendium" && f.name === "Creatures");
+    compendiumFolders.Items = game.folders.find(f => f.type==="Compendium" && f.name === "Items");
+
+    // If they don't, create them
+    for (let folderName in compendiumFolders){
+      if(!compendiumFolders[folderName]){
+        compendiumFolders[folderName] = await Folder.create({
+          name: folderName,
+          type: "Compendium",
+          sorting: "a"
+        });
+      }
+    }
+    return compendiumFolders;
+  };
+
+  async function movePacksToFolders(packArray,targetFolder,compendiumFolders){
+    for (const i in packArray){
+      const pack = game.packs.get(`lone-wolf-fists.${packArray[i]}`);
+      if (pack && (pack.folder != compendiumFolders[targetFolder].id)){
+        await pack.configure({["folder"]: compendiumFolders[targetFolder].id})
+      }
+    }
+  };
+
 });
 
 
