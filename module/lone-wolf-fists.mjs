@@ -170,27 +170,37 @@ Hooks.once('ready', async function ()  {
   if (!game.user.isGM) return;
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
 
+
   // Each entry x in folderNames should have an associated xPacks array.
-  const folderNames = [
-    "Creatures",
-    "Items"
-  ]
-  const creaturePacks = [
-    "monsters",
-    "armies", 
-    "titans-and-gods",
-    "vehicles"
-  ]
-  const itemPacks = [
-    "weapons",
-    "armor",
-    "artifacts"
-  ]
+  const packs = {
+    Creatures: [
+      "monsters",
+      "armies", 
+      "titans-and-gods",
+      "disasters"
+    ],
+    Items: [
+      "weapons",
+      "armor",
+      "artifacts",
+      "vehicles"
+    ],
+    Techniques: [
+      "techniques",
+      "gupt-kala"
+    ],
+    Skills: [
+      "skills",
+      "masteries"
+    ],
+    Archetypes: [
+      "archetypes"
+    ]
+  }
 
-  const compendiumFolders = await createCompendiumFolders(folderNames);
+  const compendiumFolders = await createCompendiumFolders(Object.keys(packs));
 
-  await movePacksToFolders(creaturePacks, folderNames[0], compendiumFolders);
-  await movePacksToFolders(itemPacks,folderNames[1], compendiumFolders);
+  await movePacksToFolders(packs, compendiumFolders);
 
 
   async function createCompendiumFolders(folderNames){
@@ -212,11 +222,17 @@ Hooks.once('ready', async function ()  {
     return compendiumFolders;
   };
 
-  async function movePacksToFolders(packArray,targetFolder,compendiumFolders){
+  async function movePacksToFolders(packs, compendiumFolders){
+    for(const targetFolder in compendiumFolders){
+      await movePacks(packs[targetFolder], compendiumFolders[targetFolder]);
+    }
+  }
+
+  async function movePacks(packArray, folderData){
     for (const i in packArray){
       const pack = game.packs.get(`lone-wolf-fists.${packArray[i]}`);
-      if (pack && (pack.folder != compendiumFolders[targetFolder].id)){
-        await pack.configure({["folder"]: compendiumFolders[targetFolder].id})
+      if (pack && (pack.folder != folderData.id)){
+        await pack.configure({["folder"]: folderData.id})
       }
     }
   };
