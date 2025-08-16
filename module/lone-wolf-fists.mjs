@@ -170,33 +170,45 @@ Hooks.once('ready', async function ()  {
   if (!game.user.isGM) return;
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
 
-  const compendiumFolders = await createCompendiumFolders();
-  
-  const creaturePacks = ["monsters","armies", "titans-and-gods","vehicles"];
-  const itemPacks = ["weapons", "armor", "artifacts"];
+  // Each entry x in folderNames should have an associated xPacks array.
+  const folderNames = [
+    "Creatures",
+    "Items"
+  ]
+  const creaturePacks = [
+    "monsters",
+    "armies", 
+    "titans-and-gods",
+    "vehicles"
+  ]
+  const itemPacks = [
+    "weapons",
+    "armor",
+    "artifacts"
+  ]
 
-  await movePacksToFolders(creaturePacks, "Creatures", compendiumFolders);
-  await movePacksToFolders(itemPacks,"Items", compendiumFolders);
+  const compendiumFolders = await createCompendiumFolders(folderNames);
+
+  await movePacksToFolders(creaturePacks, folderNames[0], compendiumFolders);
+  await movePacksToFolders(itemPacks,folderNames[1], compendiumFolders);
 
 
-  async function createCompendiumFolders(){
-    const compendiumFolders = {
-      "Creatures": null,
-      "Items": null
-    }
-    compendiumFolders.Creatures = game.folders.find(f => f.type==="Compendium" && f.name === "Creatures");
-    compendiumFolders.Items = game.folders.find(f => f.type==="Compendium" && f.name === "Items");
+  async function createCompendiumFolders(folderNames){
+    let compendiumFolders = Object.fromEntries(
+      folderNames.map((key) => [key, null])
+    );
 
-    // If they don't, create them
-    for (let folderName in compendiumFolders){
-      if(!compendiumFolders[folderName]){
-        compendiumFolders[folderName] = await Folder.create({
-          name: folderName,
+    for (const key in compendiumFolders){
+      compendiumFolders[key] = game.folders.find(f => f.type==="Compendium" && f.name === key);
+      if(!compendiumFolders[key]){
+        compendiumFolders[key] = await Folder.create({
+          name: key,
           type: "Compendium",
           sorting: "a"
         });
       }
     }
+
     return compendiumFolders;
   };
 
@@ -215,55 +227,6 @@ Hooks.once('ready', async function ()  {
 /* -------------------------------------------- */
 /*  Initiative hooks                            */
 /* -------------------------------------------- */
-
-// Allow initiative to be edited
-// Inspired by "Combat tracker extensions" by Anderware
-// Source: https://github.com/Anderware/Combat-Tracker-Extensions
-Hooks.on('renderCombatTracker', async (combatTracker, html, combatData) => {
-  // Get a list of the elements that display initiative
-  const combatants = html.find('.combatant');
-
-  // For each of these elements
-  for(const fighterQuery of combatants) {
-    // Get the combatant from their userID
-    const combatantId = fighterQuery.dataset.combatantId;
-    const fighter = await game.combat.combatants.get(combatantId);
-
-    // If initiative hasn't been set, exit
-    if(fighter.initiative == null)
-      return;
-
-    // Find the initiative display
-    const initiativeDiv = fighterQuery.getElementsByClassName('token-initiative')[0];
-
-    // Remove the content of the initiative display
-    initiativeDiv.innerHTML = "";
-
-    // Create HTML for a new, editable input display
-    let input = document.createElement('input');
-    input.type = "number";
-    input.setAttribute('min', 0);
-    input.setAttribute('value', fighter.initiative);
-    input.setAttribute('class', 'initiative-input');
-    
-    // When the input is changed
-    input.addEventListener("change", async (e) => {
-      // Find the character's id
-      const playerId = e.target.closest('.combatant').dataset.combatantId;
-
-      // Get the character
-      const player = game.combat.combatants.get(playerId);
-
-      // Find the new initiative value
-      const newInit = e.target.value;
-
-      // Update the stored initiative value to match the input
-      player.update({["initiative"]: newInit});
-    })
-    // Add the html to the initiative display
-    initiativeDiv.appendChild(input);
-  }
-});
 
 // Re-roll initiative each round
 // This and the following hook inspired by "Combat utility belt" by errational
