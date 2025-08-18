@@ -17,6 +17,7 @@ export default class lwfArtifact extends lwfTechnique {
     schema.tag2Effect = new StringField({ initial: '' });
     schema.unique = new BooleanField({initial: false});
     schema.size = new NumberField({ ...requiredInteger, initial: 0});
+    schema.held = new BooleanField({initial: false});
 
     // These tags are here to allow artifacts to display in the armor table
     schema.armorValue = new NumberField({ ...requiredInteger, initial: 0});
