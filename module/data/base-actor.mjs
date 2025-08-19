@@ -14,6 +14,8 @@ export default class lwfActorBase extends lwfDataModel {
     });
     schema.power = new fields.SchemaField({
       lvl: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
+      bonus: new fields.NumberField({required: true, integer: true, initial: 0}),
+      final: new fields.NumberField({required: true, integer: true, initial: 0, min: 0})
     });
     schema.armor = new fields.NumberField({ ...requiredInteger, initial: 0});
     schema.biography = new fields.StringField({ required: true, blank: true }); // equivalent to passing ({initial: ""}) for StringFields
@@ -26,4 +28,7 @@ export default class lwfActorBase extends lwfDataModel {
     return schema;
   }
 
+  prepareDerivedData(){
+    this.power.final = this.power.lvl;
+  }
 }

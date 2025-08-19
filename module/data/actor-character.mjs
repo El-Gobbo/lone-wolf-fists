@@ -17,7 +17,7 @@ export class lwfCharacter extends lwfActorChakras {
   }
 
   static defineSchema() {
-    const { SchemaField, NumberField, StringField, BooleanField, HTMLField } = foundry.data.fields;
+    const { SchemaField, NumberField, StringField, BooleanField, HTMLField, ArrayField } = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
@@ -66,6 +66,16 @@ export class lwfCharacter extends lwfActorChakras {
       lvl: new NumberField({ ...requiredInteger, initial: 200}),
       spent: new NumberField({ ...requiredInteger, initial: 120})
     });
+
+    // All datafields relating to the new optional imbalance system
+    schema.optImbalances = new SchemaField({
+      enabled: new BooleanField({required: true, initial: false}),
+      // As lvl is used to represent fields derived from ../helpers/archetypes, I used level for this.
+      level: new NumberField({integer: true, required: true, initial: 0}),
+      effortBoost: new NumberField({integer: true, required: true, initial: 0}),
+      pranaBoost: new NumberField({integer: true, required: true, initial: 0})
+    });
+
     // All datafields relating to background or roleplay informmation about the character
     schema.archetype = new StringField({initial: ""});
     schema.clan = new StringField({initial: ""});
@@ -77,6 +87,8 @@ export class lwfCharacter extends lwfActorChakras {
   }
 
   prepareDerivedData() {
+    const optionalRuleEnabled = game.settings.get("lone-wolf-fists", "optImbalances");
+
     // Initialise all derived data from the LWFARCH const
     let degree = this.degree.lvl - 1;
     let archetype = this.archetype;
@@ -91,6 +103,23 @@ export class lwfCharacter extends lwfActorChakras {
     if(this.chakras.value < this.chakras.lvl)
       this.chakras.value = this.chakras.lvl;
 
+
+    if(optionalRuleEnabled){
+      this.optImbalances.enabled = true;
+      this.optImbalances.effortBoost = this.optImbalances.level;
+      if (this.optImbalances.effortBoost > this.degree.lvl){
+        this.optImbalances.effortBoost = this.degree.lvl;
+      }
+      this.power.bonus = this.optImbalances.effortBoost;
+
+      this.optImbalances.pranaBoost = this.optImbalances.level * this.pool.lvl;
+      const maxBoost = this.pool.lvl * this.degree.lvl;
+      if (this.optImbalances.pranaBoost > maxBoost){
+        this.optImbalances.pranaBoost = maxBoost;
+      }
+      this.prana.gen.bonus = this.optImbalances.pranaBoost;
+    }
+    this.power.final = this.power.lvl + this.power.bonus;
     // calculate max health and aura from health and aura levels respectively
     this.health.max = this.health.lvl * 10;
     if(this.health.max < this.health.value)

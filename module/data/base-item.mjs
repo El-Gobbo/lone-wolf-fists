@@ -8,7 +8,13 @@ export default class lwfItemBase extends lwfDataModel {
     const items = this.parent.parent?.items;
 
     // If the item is not embedded, exit precreate and create
-    if(items === undefined || data.type === 'ability' || data.type === 'imbalance' || data.type === 'anatomy' || data.type === 'node' || data.type === 'item' || data.type === 'weapon')
+    if(items === undefined || 
+      data.type === 'ability' || 
+      data.type === 'imbalance' || 
+      data.type === 'anatomy' || 
+      data.type === 'node' || 
+      data.type === 'item' || 
+      data.type === 'weapon')
       return;
 
     // if it is, check if an item of the same name already exists on the charater sheet

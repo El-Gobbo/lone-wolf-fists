@@ -204,7 +204,7 @@ Hooks.once('ready', async function ()  {
     Archetypes: [
       "archetypes"
     ],
-    "Optional Rules": [
+    "Optional Techniques": [
       "apocalypse-apocrypha"
     ]
   }

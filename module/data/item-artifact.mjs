@@ -25,6 +25,7 @@ export default class lwfArtifact extends lwfTechnique {
 
     schema.chakra = new SchemaField({
       hasChakra: new BooleanField({initial: false}),
+      recovery: new NumberField({required: true, integer:true, min: 0, initial: 0 }),
       description: new HTMLField(),
     })
 
@@ -45,6 +46,12 @@ export default class lwfArtifact extends lwfTechnique {
 
   prepareDerivedData() {
     this.techReqs = this.parent.name;
-
+    // This is set to avoid both held and worn (somehow) being true at the same time.
+    if(this.type === "Weapon"){
+      this.worn = false;
+    }
+    if (this.type === "Armor"){
+      this.held = false;
+    }
   }
 }

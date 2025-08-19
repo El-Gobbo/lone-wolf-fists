@@ -162,6 +162,7 @@ export class lwfActorSheet extends ActorSheet {
     const armor = [];
     const artifactItems = [];
     let armorValue = 0;
+    let bonusPrana = (this.actor.system.prana?.gen.inCombat ? this.actor.system.prana.gen.inCombat: 0);
     const guptKala = [];
     const techniques = {
       "attack": [],
@@ -182,6 +183,7 @@ export class lwfActorSheet extends ActorSheet {
     const chargeAttack = [];
     const anatomy = [];
     const node = [];
+  
 
 
     // Iterate through items, allocating to containers
@@ -225,7 +227,13 @@ export class lwfActorSheet extends ActorSheet {
             pushToTechnique(i, techniques);
             hasTechniques = true;
           }
+          if(i.system.chakra.hasChakra || 
+            i.system.chakra.recovery > 0 ||
+            (i.system.worn || i.system.held)) {
+              bonusPrana += i.system.chakra.recovery;
+          }
           break;
+
         case 'ability':
           if(i.system.subtype === 'Charge Attack')
             chargeAttack.push(i);
@@ -234,6 +242,7 @@ export class lwfActorSheet extends ActorSheet {
             ability[type].push(i);
           }
           break;
+
         case 'technique':
           if(i.system.techLvl === 'form')
             form.push(i);
@@ -241,17 +250,21 @@ export class lwfActorSheet extends ActorSheet {
             pushToTechnique(i, techniques);
           hasTechniques = true;
           break;
+
         case 'form':
           form.push(i);
           hasTechniques = true;
           break;
+
         case 'imbalance':
           imbalances.push(i);
           break;
+
         case 'gupt-kala':
           guptKala.push(i);
           hasTechniques = true;
           break;
+
         case 'archetype':
           if (archetype.length < 1){
             archetype.push(i);
@@ -261,6 +274,7 @@ export class lwfActorSheet extends ActorSheet {
             target.delete();
           }
           break;
+
         case 'clan':
           if (clan.length < 1){
             clan.push(i);
@@ -270,12 +284,15 @@ export class lwfActorSheet extends ActorSheet {
             target.delete();
           }
           break;
+
         case 'skill':
           skills.push(i);
           break;
+
         case 'anatomy':
           anatomy.push(i);
           break;  
+
         case 'node':
           node.push(i);
           break;    
@@ -287,6 +304,7 @@ export class lwfActorSheet extends ActorSheet {
     context.weapon = weapon;
     context.armor = armor;
     context.armorValue = armorValue;
+    context.bonusPrana = bonusPrana;
     context.artifacts = artifactItems;
     context.guptKala = guptKala;
     context.techniques = techniques;
@@ -487,7 +505,6 @@ export class lwfActorSheet extends ActorSheet {
 
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
-    if (!this.isEditable) return;
 
     // Roll effort when effort clicked
     html.on('click', '#effort #effort-display', (ev) => {
@@ -502,12 +519,20 @@ export class lwfActorSheet extends ActorSheet {
       let diceNumber;
       if (this.actor.type == "domain") {
         const ruler = fromUuidSync(this.actor.system.ruler);
-        diceNumber = ruler.system.power.lvl;
+        if(ruler.type === "character"){
+          diceNumber = ruler.system.power.final;
+        } else{
+          diceNumber = ruler.system.power.lvl;
+        }
+      } else if (this.actor.type == "character") {
+        diceNumber = this.actor.system.power.final;
       } else {
         diceNumber = this.actor.system.power.lvl;
       }
       effortRoll(diceNumber, data)
     });
+
+    if (!this.isEditable) return;
 
     // Change imbalance data when the data is altered on the sheet
     html.on('change', '.item-choice', (ev) =>{
@@ -637,9 +662,21 @@ export class lwfActorSheet extends ActorSheet {
 
     // Prana flare when click the prana flare button
     html.on('click', '#prana-flare', async () => {
+      const artifacts = this.actor.items.filter(i => i.type === "artifact")
+      let extraPrana = 0;
+      if(artifacts.length > 0){
+        for (const artifact in artifacts){
+          if(!artifact.system.chakra.hasChakra || 
+            artifact.system.chakra.recovery <= 0 ||
+            (!artifact.system.worn && !artifact.system.held)){
+            continue
+          }
+          extraPrana += artifact.system.chakra.recovery;
+        }
+      }
       let newActive = this.actor.system.chakras.value + 1;
       let increase = this.actor.system.pool.recovery * newActive;
-      increase = increase + this.actor.system.prana.value;
+      increase = increase + this.actor.system.prana.value + extraPrana;
       this.actor.update({['system.chakras.value']: newActive, ['system.prana.value']: increase});
     })
 

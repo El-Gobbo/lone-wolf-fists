@@ -76,7 +76,10 @@
       {{/if}}
       {{#if system.chakra.hasChakra}}
       <div class="item-sheet-line">
-        <strong>Chakra: </strong><span>{{system.chakra.description}}</span>
+        <strong>Chakra: </strong>{{#unless (lessThan system.chakra.recovery 1)}}Recovery {{system.chakra.recovery}} {{/unless}}
+        <div>
+          <span>{{system.chakra.description}}</span>
+        </div>
       </div>
       {{/if}}
       {{#if system.soul.hasSoul}}
@@ -175,8 +178,11 @@
           <label class="rightside flex">Artifact has chakra</label>
         </div>
         {{#if system.chakra.hasChakra}}
-        <div>
-          <label>Chakra: </label>
+        <div class="indented-element">
+          <div class='resource'>
+            <label>Recovery </label>
+            <input type="text" class="inline-input small-box" name='system.chakra.recovery' value="{{system.chakra.recovery}}" data-dtype="Number">
+          </div>
           <textarea name="system.chakra.description" rows="5">{{system.chakra.description}}</textarea>
         </div>
         {{/if}}
@@ -186,7 +192,7 @@
         </div>
         {{#if system.soul.hasSoul}}
         <div class="indented-element">
-          <label>Soul: </label>
+          <label>Personality: </label>
           <textarea name="system.soul.description" rows="2">{{system.soul.description}}</textarea>
           <label>Dharma: </label>
           <input type="text" class="inline-input very-large-box flex flexshrink" name="system.soul.dharma" value="{{system.soul.dharma}}" data-dtype="String">

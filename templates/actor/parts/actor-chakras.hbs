@@ -12,7 +12,7 @@
         <div class="resource-content flexrow flex-center flex-between">
             <input {{#unless inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/unless}} type="text" name="system.prana.gen.outOfCombat" value="{{system.prana.gen.outOfCombat}}" data-dtype="Number" disabled/>
             <input type="text" class="flex-2" name="system.prana.value" value="{{system.prana.value}}" data-dtype="Number"/>
-            <input {{#if inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/if}} type="text" name="system.prana.gen.inCombat" value="{{system.prana.gen.inCombat}}" data-dtype="Number" disabled/>
+            <input {{#if inCombat}} class="active-prana-gen" {{else}} class="prana-gen" {{/if}} type="text" name="bonusPrana" value="{{bonusPrana}}" data-dtype="Number" disabled/>
         </div>
     </div>
     <div class="grid grid-2col grid-close">
