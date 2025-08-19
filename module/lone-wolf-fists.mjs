@@ -19,7 +19,7 @@ import { extractDiceNumber, effortRoll } from './helpers/dice-roll.mjs';
 Hooks.once('init', function () {
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
-  game.settings.register("lone-wolf-fists", "optionalImbalances", {
+  game.settings.register("lone-wolf-fists", "optImbalances", {
     name: "Enable homebrew imbalance system",
     hint: "This is to toggle on an imbalance system used in my home game - use at your own risk",
     scope: "world",

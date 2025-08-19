@@ -1,0 +1,85 @@
+<div class="items-list full-size">
+
+  <div id="imbalance-header" class="item flexrow items-header grid grid-12col small-table-header">
+    <div class="flex-group-center grid-span-3">Imbalance</div>
+    <div class="flex-group-center grid-span-2">Type</div>
+    <div class="flex-group-center grid-span-2">Target</div>
+    <div class="flex-group-center grid-span-2">Stat</div>
+    <div class="flex-group-center">Rank</div>
+    <div class="flex-group-center">Agg</div>
+    <div class='item-controls flex-group-center'>
+        <a
+          class='item-control item-create'
+          title='Create item'
+          data-type='imbalance'
+        >
+          <i class='fas fa-plus'></i>
+        </a>
+    </div>
+  </div>
+  <div class="items-list full-size technique-table">
+  {{#each imbalances as |item id|}}
+  <div class='item flexrow grid grid-12col grid-table imbalance list-item' data-item-id='{{item._id}}'>
+    <div class='item-name flex-group-center grid-span-3' data-imbtype="name">
+      <input class="item-choice" type="text" name="item.name" value="{{item.name}}">
+    </div> 
+    <div class="item-source flex-group-center grid-span-2" data-imbtype="source">
+      <select class="item-choice full-size" name='item.system.source'>
+      
+      {{! Iterates over the list of stats that imbalances can target to produce a select menu.}} 
+      {{! List can be edited at lone-wolf-fists\module\helpers\imbalance-config.mjs}}
+        {{#each ../imbalanceSources}}
+        <option 
+          {{! Makes sure that the default source shown is the one currently set on the imbalance}}
+          {{#if (comparison item.system.source this)}} selected="selected" {{/if}} 
+          value="{{this}}">{{this}}</option>
+        {{/each}}
+
+      </select>
+    </div>
+    <div class="item-bodyPart flex-group-center grid-span-2" data-imbtype="bodyPart">
+      <select class="item-choice full-size" name="item.system.bodyPart">
+        
+        {{! Iterates over the list of body parts that imbalances can target to produce a select menu.}} 
+        {{! List can be edited at lone-wolf-fists\module\helpers\imbalance-config.mjs}}
+        {{#each ../bodyParts}}
+        <option 
+          {{! Makes sure that the default source shown is the one currently set on the imbalance}}
+          {{#if (comparison item.system.bodyPart this)}} selected="selected" {{/if}} 
+          value="{{this}}">{{this}}</option>
+        {{/each}}
+
+      </select>
+    </div>
+    <div class="flex-group-center grid-span-2" data-imbtype="stat">
+      <select class="item-choice full-size" name='item.system.stat'>
+      
+      {{! Iterates over the list of stats that imbalances can target to produce a select menu.}} 
+      {{! List can be edited at lone-wolf-fists\module\helpers\imbalance-config.mjs}}
+        {{#each ../imbalanceStats}}
+        <option 
+          {{! Makes sure that the default stat shown is the one currently set on the imbalance}}
+          {{#if (comparison item.system.stat this)}} selected="selected" {{/if}} 
+        value="{{this}}">{{this}}</option>
+        {{/each}}
+
+      </select>
+    </div>
+    <div class="item-rank rank flex-group-center">
+      <input class="item-choice" type="text" name="item.system.rank" value="{{item.system.rank}}" data-dtype="Number" readonly disabled/>
+    </div>
+    <div class="item-agg flex-group-center" data-imbtype="agg">
+      <input class="item-choice" type="text" name="item.system.agg" value="{{item.system.agg}}" data-dtype="Number"/>
+    </div>
+    <div class="item-controls flex-group-center">
+        <a
+          class='item-control item-delete'
+          title='{{localize "DOCUMENT.Delete" type='imbalance'}}'
+        >
+          <i class='fas fa-trash'></i>
+        </a>
+      </div>
+  </div>
+  {{/each}}
+</div>
+</div>

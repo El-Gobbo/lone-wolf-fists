@@ -40,8 +40,12 @@ button {
   display: flex;
   flex-direction: row;
   height: 100%;
+  width: 100%;
 }
 
+.body {
+  flex: auto;
+}
 .font-small {
   font-size: 8px;
 }

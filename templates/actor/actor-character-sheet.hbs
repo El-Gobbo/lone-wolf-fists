@@ -78,6 +78,16 @@
               </div>
           </div>
         </div>
+        {{#if system.optImbalances.enabled}}
+        <div id="optImbalances.level" class="resource flex-group-left flex">
+          <div class="resource flex-group-center flexrow">
+            <label for="system.optImbalances.level" class="resource-label">Imbalance Level</label>
+            <div class="font-size-20">
+              <input id="optImbalance-level-input" class="small-box" type="text" name="system.optImbalances.level" value="{{system.optImbalances.level}}" data-dtype="String"/>
+            </div>
+          </div>
+        </div>
+        {{/if}}
 
         <div class="resources grid grid-9col grid-close">
           {{! display focus slots up to the value determined by level, hide all subsequent slots}}
@@ -108,7 +118,11 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="core">Techniques</a>
-    <a class="item" data-tab="imbalances">Imbalances</a>
+    <a class="item" data-tab="imbalances">
+      {{#if system.optImbalances.enabled}}Injuries
+      {{else}}Imbalances
+      {{/if}}
+    </a>
     <a class="item" data-tab="items">Items</a>
     <a class="item" data-tab="followers">Followers</a>
     <a class="item" data-tab="dharma">Dharma</a>
@@ -128,7 +142,11 @@
 
     {{! Imbalances tab }}
     <div class="tab core" data-group="primary" data-tab="imbalances">
+    {{#if system.optImbalances.enabled}}
+      {{> "systems/lone-wolf-fists/templates/actor/parts/actor-optImbalances.hbs"}}
+    {{else}}
       {{> "systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs"}}
+    {{/if}}
     </div>
 
     {{!-- Equipment Tab --}}
