@@ -20,11 +20,21 @@
       "thumbnail": "systems/lone-wolf-fists/assets/logo.png"
     }
   ],
-  "version": "1.2.0",
+  "version": "1.2.1",
   "compatibility": {
-    "minimum": 12,
+    "minimum": 13,
     "verified": "13.347"
   },
+  "optionalDependencies": [
+    {
+      "id": "game-icons-net",
+      "type": "module",
+      "compatibility": {
+        "minimum": "0.0.35",
+        "verified": "0.0.39"
+      }
+    }
+  ],
   "esmodules": ["module/lone-wolf-fists.mjs"],
   "styles": ["css/lone-wolf-fists.css"],
   "languages": [
