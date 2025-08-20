@@ -15,7 +15,7 @@ import { LWFIMBALANCES } from '../helpers/imbalance-config.mjs';
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
-export class lwfItemSheet extends ItemSheet {
+export class lwfItemSheet extends foundry.appv1.sheets.ItemSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {

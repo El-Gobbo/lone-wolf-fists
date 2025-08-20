@@ -17,7 +17,7 @@ import { LWFDOMAINS } from '../helpers/domains.mjs';
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class lwfActorSheet extends ActorSheet {
+export class lwfActorSheet extends foundry.appv1.sheets.ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {

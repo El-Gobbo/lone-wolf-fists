@@ -88,13 +88,13 @@ Hooks.once('init', function () {
   CONFIG.ActiveEffect.legacyTransferral = false;
 
   // Register sheet application classes
-  Actors.unregisterSheet('core', ActorSheet);
-  Actors.registerSheet('lone-wolf-fists', lwfActorSheet, {
+  foundry.documents.collections.Actors.unregisterSheet('core', foundry.appv1.sheets.ActorSheet);
+  foundry.documents.collections.Actors.registerSheet('lone-wolf-fists', lwfActorSheet, {
     makeDefault: true,
     label: 'LWF.SheetLabels.Actor',
   });
-  Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('lone-wolf-fists', lwfItemSheet, {
+  foundry.documents.collections.Items.unregisterSheet('core', foundry.appv1.sheets.ItemSheet);
+  foundry.documents.collections.Items.registerSheet('lone-wolf-fists', lwfItemSheet, {
     makeDefault: true,
     label: 'LWF.SheetLabels.Item',
   });

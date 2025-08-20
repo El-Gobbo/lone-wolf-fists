@@ -1,21 +1,3 @@
-2025/08/19-13:04:27.860 4740 Recovering log #471
-2025/08/19-13:04:27.871 4740 Delete type=0 #471
-2025/08/19-13:04:27.871 4740 Delete type=3 #470
-2025/08/19-18:42:29.551 2354 Level-0 table #475: started
-2025/08/19-18:42:29.552 2354 Level-0 table #475: 0 bytes OK
-2025/08/19-18:42:29.589 2354 Delete type=0 #473
-2025/08/19-18:42:29.618 2354 Manual compaction at level-0 from '!items!85zutp9B7QQLte3P' @ 72057594037927935 : 1 .. '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 0 : 0; will stop at '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 202 : 1
-2025/08/19-18:42:29.618 2354 Compacting 1@0 + 0@1 files
-2025/08/19-18:42:29.659 2354 Generated table #476@0: 14 keys, 8048 bytes
-2025/08/19-18:42:29.659 2354 Compacted 1@0 + 0@1 files => 8048 bytes
-2025/08/19-18:42:29.667 2354 compacted to: files[ 0 1 1 0 0 0 0 ]
-2025/08/19-18:42:29.669 2354 Delete type=2 #454
-2025/08/19-18:42:29.698 2354 Manual compaction at level-0 from '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 202 : 1 .. '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 0 : 0; will stop at (end)
-2025/08/19-18:42:29.724 2354 Manual compaction at level-1 from '!items!85zutp9B7QQLte3P' @ 72057594037927935 : 1 .. '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 0 : 0; will stop at '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 202 : 1
-2025/08/19-18:42:29.724 2354 Compacting 1@1 + 1@2 files
-2025/08/19-18:42:29.735 2354 Generated table #477@1: 14 keys, 8048 bytes
-2025/08/19-18:42:29.735 2354 Compacted 1@1 + 1@2 files => 8048 bytes
-2025/08/19-18:42:29.737 2354 compacted to: files[ 0 0 1 0 0 0 0 ]
-2025/08/19-18:42:29.737 2354 Delete type=2 #376
-2025/08/19-18:42:29.738 2354 Delete type=2 #476
-2025/08/19-18:42:29.818 2354 Manual compaction at level-1 from '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 202 : 1 .. '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 0 : 0; will stop at (end)
+2025/08/19-18:42:45.611 4744 Recovering log #474
+2025/08/19-18:42:45.631 4744 Delete type=0 #474
+2025/08/19-18:42:45.632 4744 Delete type=3 #472

@@ -4,7 +4,7 @@
  * @return {Promise}
  */
 export const preloadHandlebarsTemplates = async function () {
-  return loadTemplates([
+  return foundry.applications.handlebars.loadTemplates([
     // Actor partials.
     'systems/lone-wolf-fists/templates/actor/parts/actor-imbalances.hbs',
     'systems/lone-wolf-fists/templates/actor/parts/actor-optImbalances.hbs',
