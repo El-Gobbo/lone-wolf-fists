@@ -190,7 +190,7 @@
   ],
   "packFolders": [],
   "socket": false,
-  "manifest": "https://raw.githubusercontent.com/El-Gobbo/lone-wolf-fists/main/system.json",
+  "manifest": "https://raw.githubusercontent.com/El-Gobbo/lone-wolf-fists/refs/tags/v1.2.0/system.json",
   "download": "https://github.com/El-Gobbo/lone-wolf-fists/releases/download/v1.2.0/lone-wolf-fists.zip",
   "background": "systems/lone-wolf-fists/assets/logo.png",
   "gridDistance": 5,
