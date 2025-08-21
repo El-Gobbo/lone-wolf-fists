@@ -1,0 +1,8 @@
+2025/08/20-18:31:20.255 9784 Recovering log #481
+2025/08/20-18:31:20.274 9784 Delete type=0 #481
+2025/08/20-18:31:20.274 9784 Delete type=3 #480
+2025/08/20-18:47:38.176 9888 Level-0 table #485: started
+2025/08/20-18:47:38.176 9888 Level-0 table #485: 0 bytes OK
+2025/08/20-18:47:38.187 9888 Delete type=0 #483
+2025/08/20-18:47:38.197 9888 Manual compaction at level-0 from '!items!85zutp9B7QQLte3P' @ 72057594037927935 : 1 .. '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 0 : 0; will stop at (end)
+2025/08/20-18:47:38.197 9888 Manual compaction at level-1 from '!items!85zutp9B7QQLte3P' @ 72057594037927935 : 1 .. '!items.effects!sx0mGmHBwSy0hbK2.gT4AzIRsrSHcfll6' @ 0 : 0; will stop at (end)

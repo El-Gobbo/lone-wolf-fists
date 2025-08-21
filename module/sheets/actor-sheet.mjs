@@ -516,19 +516,7 @@ export class lwfActorSheet extends foundry.appv1.sheets.ActorSheet {
           "token": this.token._id,
         }};
       }
-      let diceNumber;
-      if (this.actor.type == "domain") {
-        const ruler = fromUuidSync(this.actor.system.ruler);
-        if(ruler.type === "character"){
-          diceNumber = ruler.system.power.final;
-        } else{
-          diceNumber = ruler.system.power.lvl;
-        }
-      } else if (this.actor.type == "character") {
-        diceNumber = this.actor.system.power.final;
-      } else {
-        diceNumber = this.actor.system.power.lvl;
-      }
+      const diceNumber = Number.parseInt(ev.currentTarget.outerText);
       effortRoll(diceNumber, data)
     });
 
