@@ -27,7 +27,7 @@ export async function effortRoll(diceNumber, data) {
   });
   // Display these groups as a chat message
 
-  data.content = await renderTemplate(`systems/lone-wolf-fists/templates/chat-messages/effort-roll.hbs`, { sets })
+  data.content = await foundry.applications.handlebars.renderTemplate(`systems/lone-wolf-fists/templates/chat-messages/effort-roll.hbs`, { sets })
   data.rolls = rolls;
   data.flags = { core: { canPopout: true } };
   return ChatMessage.create(data, {})
