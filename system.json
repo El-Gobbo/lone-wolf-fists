@@ -20,21 +20,11 @@
       "thumbnail": "systems/lone-wolf-fists/assets/logo.png"
     }
   ],
-  "version": "1.2.0",
+  "version": "1.2.1",
   "compatibility": {
     "minimum": 13,
     "verified": "13.347"
   },
-  "optionalDependencies": [
-    {
-      "id": "game-icons-net",
-      "type": "module",
-      "compatibility": {
-        "minimum": "0.0.35",
-        "verified": "0.0.39"
-      }
-    }
-  ],
   "esmodules": ["module/lone-wolf-fists.mjs"],
   "styles": ["css/lone-wolf-fists.css"],
   "languages": [
@@ -188,10 +178,76 @@
       "system": "lone-wolf-fists"
     }
   ],
-  "packFolders": [],
+  "packFolders": [
+    {
+      "name": "Creatures",
+      "sorting": "m",
+      "packs": [
+        "monsters",
+        "armies", 
+        "titans-and-gods",
+        "disasters"
+      ],
+      "color": "#38761d"
+    },
+    {
+      "name": "Items",
+      "sorting": "m",
+      "packs": [
+        "weapons",
+        "armor",
+        "artifacts",
+        "vehicles"
+      ],
+      "color": "#999999"
+    },
+    {
+      "name": "Techniques",
+      "sorting": "m",
+      "packs": [
+        "techniques",
+        "gupt-kala"
+      ],
+      "color": "#d40000"
+    },
+        {
+      "name": "Skills",
+      "sorting": "m",
+      "packs": [
+        "skills",
+        "masteries"
+      ],
+      "color": "#bf9000"
+    },
+    {
+      "name": "Archetypes",
+      "sorting": "a",
+      "packs": [
+        "archetypes"
+      ],
+      "color": "#8131d1"
+    },
+        {
+      "name": "Optional Techniques",
+      "sorting": "m",
+      "packs": [
+        "apocalypse-apocrypha"
+      ]
+    }
+  ],
+  "relationships": {
+    "requires": [{
+      "id": "game-icons-net",
+      "type": "module",
+      "manifest": "https://raw.githubusercontent.com/datdamnzotz/icons/master/module.json",
+      "compatibility": {
+        "verified": "0.0.39"
+      }
+    }]
+  },
   "socket": false,
-  "manifest": "https://raw.githubusercontent.com/El-Gobbo/lone-wolf-fists/refs/tags/v1.2.0/system.json",
-  "download": "https://github.com/El-Gobbo/lone-wolf-fists/releases/download/v1.2.0/lone-wolf-fists.zip",
+  "manifest": "https://raw.githubusercontent.com/El-Gobbo/lone-wolf-fists/refs/tags/v1.2.1/system.json",
+  "download": "https://github.com/El-Gobbo/lone-wolf-fists/releases/download/v1.2.1/lone-wolf-fists.zip",
   "background": "systems/lone-wolf-fists/assets/logo.png",
   "gridDistance": 5,
   "gridUnits": "ft",
