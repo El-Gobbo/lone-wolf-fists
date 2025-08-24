@@ -13,6 +13,7 @@ import { chakraReset } from '../helpers/chakra-reset.mjs';
 import { productList } from '../helpers/nodes.mjs';
 import { LWFDOMAINS } from '../helpers/domains.mjs';
 
+
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -162,6 +163,7 @@ export class lwfActorSheet extends foundry.appv1.sheets.ActorSheet {
     const armor = [];
     const artifactItems = [];
     let armorValue = 0;
+    let injuryRank = 0;
     let bonusPrana = (this.actor.system.prana?.gen.inCombat ? this.actor.system.prana.gen.inCombat: 0);
     const guptKala = [];
     const techniques = {

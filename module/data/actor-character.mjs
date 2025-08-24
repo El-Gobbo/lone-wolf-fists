@@ -28,6 +28,7 @@ export class lwfCharacter extends lwfActorChakras {
     schema.aura = new SchemaField({
       // lvl == aura levels  
       lvl: new NumberField({ ...requiredInteger, initial: 1 }),
+      final: new NumberField({integer: true, required: true, initial: 1, min : 0}),
       max: new NumberField({ ...requiredInteger, initial: 10 }),
       value: new NumberField({ ...requiredInteger, initial: 10, min: 0 })
     });
@@ -73,7 +74,16 @@ export class lwfCharacter extends lwfActorChakras {
       // As lvl is used to represent fields derived from ../helpers/archetypes, I used level for this.
       level: new NumberField({integer: true, required: true, initial: 0}),
       effortBoost: new NumberField({integer: true, required: true, initial: 0}),
-      pranaBoost: new NumberField({integer: true, required: true, initial: 0})
+      pranaBoost: new NumberField({integer: true, required: true, initial: 0}),
+      auraBoost: new NumberField({integer: true, required: true, initial: 0}),
+      injuries: new ArrayField(
+        new SchemaField({
+          name: new StringField(),
+          bodyPart: new StringField({initial: "Internal"}),
+          rank: new NumberField({integer: true, required: true, initial: 0, min: 0}),
+          agg: new NumberField({integer: true, required: true, initial: 0, min: 0}),
+        })
+      )
     });
 
     // All datafields relating to background or roleplay informmation about the character
@@ -87,9 +97,8 @@ export class lwfCharacter extends lwfActorChakras {
   }
 
   prepareDerivedData() {
-    const optionalRuleEnabled = game.settings.get("lone-wolf-fists", "optImbalances");
-
     // Initialise all derived data from the LWFARCH const
+    const OPTIONALRULES = game.settings.get("lone-wolf-fists", "optImbalances");
     let degree = this.degree.lvl - 1;
     let archetype = this.archetype;
     // exits if no archetype has yet been set
@@ -103,34 +112,56 @@ export class lwfCharacter extends lwfActorChakras {
     if(this.chakras.value < this.chakras.lvl)
       this.chakras.value = this.chakras.lvl;
 
+    
+    this.optImbalances.injuries.push({
+      name: "test Imbalance",
+      bodyPart: "Internal",
+      rank: 1,
+      agg: 10
+    })
 
-    if(optionalRuleEnabled){
+    if(OPTIONALRULES){
       this.optImbalances.enabled = true;
-      this.optImbalances.effortBoost = this.optImbalances.level;
+
+      let totalRank = 0;
+      for(const injury of this.optImbalances.injuries){
+        injury.rank = Math.floor(injury.agg / 10);
+        if(injury.bodyPart === "Internal") {
+          totalRank += injury.rank;
+        }
+      }
+
+      this.optImbalances.effortBoost = this.optImbalances.level - totalRank;
       if (this.optImbalances.effortBoost > this.degree.lvl){
         this.optImbalances.effortBoost = this.degree.lvl;
-      }
+      } 
       this.power.bonus = this.optImbalances.effortBoost;
 
-      this.optImbalances.pranaBoost = this.optImbalances.level * this.pool.lvl;
+      this.optImbalances.pranaBoost = (this.optImbalances.level - totalRank) * this.pool.lvl;
       const maxBoost = this.pool.lvl * this.degree.lvl;
       if (this.optImbalances.pranaBoost > maxBoost){
         this.optImbalances.pranaBoost = maxBoost;
       }
       this.prana.gen.bonus = this.optImbalances.pranaBoost;
+      if(totalRank > this.aura.lvl) {
+        totalRank = this.aura.lvl;
+      }
+      this.optImbalances.auraBoost = totalRank;
     }
     this.power.final = this.power.lvl + this.power.bonus;
     // calculate max health and aura from health and aura levels respectively
     this.health.max = this.health.lvl * 10;
     if(this.health.max < this.health.value)
       this.health.value = this.health.max;
-    this.aura.max = this.aura.lvl * 10;
+    this.aura.max = (this.aura.lvl - this.optImbalances.auraBoost) * 10;
     if(this.aura.max < this.aura.value)
       this.aura.value = this.aura.max;
     this.pool.recovery = this.pool.lvl * 2;
-    this.prana.gen.outOfCombat = this.pool.lvl * this.chakras.value;
+    this.prana.gen.outOfCombat = this.pool.lvl * this.chakras.value + this.prana.gen.bonus;
     this.prana.gen.inCombat = this.pool.recovery * this.chakras.value + this.prana.gen.bonus;
     let clan = this.clan;
+
+
     if (!(clan in LWFCLAN))
       return;
   }

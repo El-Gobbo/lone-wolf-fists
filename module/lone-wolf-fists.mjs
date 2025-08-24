@@ -23,6 +23,7 @@ Hooks.once('init', function () {
     name: "Enable homebrew imbalance system",
     hint: "This is to toggle on an imbalance system used in my home game - use at your own risk",
     scope: "world",
+    config: true,
     type: Boolean,
     default: false
   })
