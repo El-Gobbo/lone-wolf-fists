@@ -29,7 +29,7 @@ export class lwfCharacter extends lwfActorChakras {
       // lvl == aura levels  
       lvl: new NumberField({ ...requiredInteger, initial: 1 }),
       final: new NumberField({integer: true, required: true, initial: 1, min : 0}),
-      max: new NumberField({ ...requiredInteger, initial: 10 }),
+      max: new NumberField({ ...requiredInteger, initial: 10, min: 0 }),
       value: new NumberField({ ...requiredInteger, initial: 10, min: 0 })
     });
     schema.effortless = new SchemaField({
@@ -76,15 +76,16 @@ export class lwfCharacter extends lwfActorChakras {
       effortBoost: new NumberField({integer: true, required: true, initial: 0}),
       pranaBoost: new NumberField({integer: true, required: true, initial: 0}),
       auraBoost: new NumberField({integer: true, required: true, initial: 0}),
-      injuries: new ArrayField(
-        new SchemaField({
-          name: new StringField(),
-          bodyPart: new StringField({initial: "Internal"}),
-          rank: new NumberField({integer: true, required: true, initial: 0, min: 0}),
-          agg: new NumberField({integer: true, required: true, initial: 0, min: 0}),
-        })
-      )
     });
+
+    schema.injuries = new ArrayField(
+      new SchemaField({
+        name: new StringField(),
+        bodyPart: new StringField({initial: "Internal"}),
+        rank: new NumberField({integer: true, required: true, initial: 0, min: 0}),
+        agg: new NumberField({integer: true, required: true, initial: 0, min: 0}),
+      })
+    )
 
     // All datafields relating to background or roleplay informmation about the character
     schema.archetype = new StringField({initial: ""});
@@ -112,19 +113,11 @@ export class lwfCharacter extends lwfActorChakras {
     if(this.chakras.value < this.chakras.lvl)
       this.chakras.value = this.chakras.lvl;
 
-    
-    this.optImbalances.injuries.push({
-      name: "test Imbalance",
-      bodyPart: "Internal",
-      rank: 1,
-      agg: 10
-    })
-
     if(OPTIONALRULES){
       this.optImbalances.enabled = true;
 
       let totalRank = 0;
-      for(const injury of this.optImbalances.injuries){
+      for(const injury of this.injuries){
         injury.rank = Math.floor(injury.agg / 10);
         if(injury.bodyPart === "Internal") {
           totalRank += injury.rank;
@@ -134,14 +127,16 @@ export class lwfCharacter extends lwfActorChakras {
       this.optImbalances.effortBoost = this.optImbalances.level - totalRank;
       if (this.optImbalances.effortBoost > this.degree.lvl){
         this.optImbalances.effortBoost = this.degree.lvl;
-      } 
+      } else if(this.optImbalances.effortBoost < -this.power.lvl){
+        this.optImbalances.effortBoost = -this.power.lvl;
+      }
       this.power.bonus = this.optImbalances.effortBoost;
 
       this.optImbalances.pranaBoost = (this.optImbalances.level - totalRank) * this.pool.lvl;
       const maxBoost = this.pool.lvl * this.degree.lvl;
       if (this.optImbalances.pranaBoost > maxBoost){
         this.optImbalances.pranaBoost = maxBoost;
-      }
+      } 
       this.prana.gen.bonus = this.optImbalances.pranaBoost;
       if(totalRank > this.aura.lvl) {
         totalRank = this.aura.lvl;
@@ -158,7 +153,22 @@ export class lwfCharacter extends lwfActorChakras {
       this.aura.value = this.aura.max;
     this.pool.recovery = this.pool.lvl * 2;
     this.prana.gen.outOfCombat = this.pool.lvl * this.chakras.value + this.prana.gen.bonus;
+
     this.prana.gen.inCombat = this.pool.recovery * this.chakras.value + this.prana.gen.bonus;
+
+    // Check that injuries have not reduced prana, effort, or aura below 0
+    // Correct if they have
+    if (this.prana.gen.outOfCombat < 0 ){
+      this.prana.gen.outOfCombat = 0;
+    }
+    if (this.prana.gen.inCombat < 0){
+      this.prana.gen.inCombat = 0;
+    }
+    if (this.power.final < 0){
+      this.power.final = 0;
+    }
+
+
     let clan = this.clan;
 
 

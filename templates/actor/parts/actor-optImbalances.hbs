@@ -7,7 +7,7 @@
     <div class="flex-group-center">Agg</div>
     <div class='item-controls flex-group-center'>
         <a
-          class='injury-create'
+          class='member-create'
           title='Create injury'
           data-type='imbalance'
         >
@@ -16,13 +16,13 @@
     </div>
   </div>
   <div class="items-list full-size technique-table">
-  {{#each system.optImbalances.injuries}}
-  <div class='item flexrow grid grid-8col grid-table imbalance list-item'>
+  {{#each system.injuries}}
+  <div class='item flexrow grid grid-8col grid-table imbalance list-item' data-id="{{@index}}" data-array-of="injuries">
     <div class='flex-group-center grid-span-3' data-imbtype="name">
-      <input class="injury-choice" type="text" name="this.name" value="{{this.name}}">
+      <input class="member-choice" type="text" name="this.name" value="{{this.name}}">
     </div> 
-    <div class="flex-group-center grid-span-2" data-imbtype="source">
-      <select class="injury-choice full-size" name='this.bodyPart'>
+    <div class="flex-group-center grid-span-2" data-imbtype="bodyPart">
+      <select class="member-choice full-size" name='this.bodyPart'>
       {{! Iterates over the list of stats that imbalances can target to produce a select menu.}} 
       {{! List can be edited at lone-wolf-fists\module\helpers\imbalance-config.mjs}}
 
@@ -35,15 +35,15 @@
 
       </select>
     </div>
-    <div class="rank flex-group-center">
-      <input class="injury-choice" type="text" name="this.rank" value="{{this.rank}}" data-dtype="Number" readonly disabled/>
+    <div class="rank flex-group-center" data-imbtype="rank">
+      <input class="member-choice" type="text" name="this.rank" value="{{this.rank}}" data-dtype="Number" readonly disabled/>
     </div>
     <div class="flex-group-center" data-imbtype="agg">
-      <input class="injury-choice" type="text" name="this.agg" value="{{this.agg}}" data-dtype="Number"/>
+      <input class="member-choice" type="text" name="this.agg" value="{{this.agg}}" data-dtype="Number"/>
     </div>
     <div class="item-controls flex-group-center">
         <a
-          class='injury-control injury-delete'
+          class='injury-control member-delete'
           title='{{localize "DOCUMENT.Delete" type='injury'}}'
         >
           <i class='fas fa-trash'></i>

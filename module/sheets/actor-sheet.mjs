@@ -665,7 +665,7 @@ export class lwfActorSheet extends foundry.appv1.sheets.ActorSheet {
         }
       }
       let newActive = this.actor.system.chakras.value + 1;
-      let increase = this.actor.system.pool.recovery * newActive;
+      let increase = (this.actor.system.pool.recovery * newActive) + this.actor.system.prana.gen.bonus;
       increase = increase + this.actor.system.prana.value + extraPrana;
       this.actor.update({['system.chakras.value']: newActive, ['system.prana.value']: increase});
     })
