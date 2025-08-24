@@ -587,6 +587,20 @@ export class lwfActorSheet extends foundry.appv1.sheets.ActorSheet {
       chakraReset(this.actor);
     });
 
+    html.on('click', '#createInjuries', async (ev) => {
+      const rank = this.actor.system.optImbalances.level;
+      const agg = rank * 10;
+      const newInjury = {
+        name: "New Injury",
+        bodyPart: "Internal",
+        rank: rank,
+        agg: agg
+      }
+      let injuries = this.actor.system.injuries;
+      injuries.push(newInjury);
+      this.actor.update({[ 'system.optImbalances.level']: 0, [ 'system.injuries'] : injuries })
+    })
+
     // Choose masteries to add on level up TODO: pass the data back to the original character sheet
     html.on('click', '#newMasteries', async (ev) => {
       const names = [];

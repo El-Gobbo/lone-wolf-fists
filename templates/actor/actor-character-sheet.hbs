@@ -80,12 +80,19 @@
         </div>
         {{#if system.optImbalances.enabled}}
         <div id="optImbalances.level" class="resource flex-group-left flex">
-          <div class="resource flex-group-center flexrow">
+          <div class="resource flex-group-left flexrow">
             <label for="system.optImbalances.level" class="resource-label">Imbalance Level</label>
             <div class="font-size-20">
               <input id="optImbalance-level-input" class="small-box" type="text" name="system.optImbalances.level" value="{{system.optImbalances.level}}" data-dtype="String"/>
             </div>
           </div>
+          {{#unless inCombat}}
+          {{#unless (lessThan system.optImbalances.level 1)}}
+          <div>
+            <button class="technique-header" type="button" id="createInjuries">Create Injuries</button>
+          </div>
+          {{/unless}}
+          {{/unless}}
         </div>
         {{/if}}
 
