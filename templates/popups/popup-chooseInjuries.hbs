@@ -1,0 +1,14 @@
+<form>
+    {{#each uninjuredParts}}
+    <input type="checkbox" id="{{this}}" class="bodyPart" name="{{this}}" value="{{this}}">
+    <label for="{{this}}">{{this}}</label>
+    {{/each}}
+    <script>
+        // Prevent choosing more body parts than there are injury ranks
+        // Identify the number of boxes that have been ticked
+        //let boxes = document.querySelectorAll('.bodyPart');
+        //for (const box in boxes){}
+        // If that number is equal to the number of ranks of imbalance, show a message confirming that
+        // If they  try to select any other boxes, untick automatically.
+    </script>
+</form>

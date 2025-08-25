@@ -588,17 +588,55 @@ export class lwfActorSheet extends foundry.appv1.sheets.ActorSheet {
     });
 
     html.on('click', '#createInjuries', async (ev) => {
-      const rank = this.actor.system.optImbalances.level;
-      const agg = rank * 10;
-      const newInjury = {
-        name: "New Injury",
-        bodyPart: "Internal",
-        rank: rank,
-        agg: agg
+      let allParts = LWFIMBALANCES.bodyPart.filter(b => b != "Special" && b != "Internal");
+      let injuredParts = [];
+      let currentInjuries = this.actor.system.injuries;
+      for(const i in currentInjuries){
+        if(!injuredParts.includes(currentInjuries[i]["bodyPart"])){
+          injuredParts.push(currentInjuries[i]["bodyPart"]);
+        }
       }
-      let injuries = this.actor.system.injuries;
-      injuries.push(newInjury);
-      this.actor.update({[ 'system.optImbalances.level']: 0, [ 'system.injuries'] : injuries })
+      let uninjuredParts = allParts.filter(b => !injuredParts.includes(b));
+      let injuryData = {"uninjuredParts": uninjuredParts, "imbalanceRank": this.actor.system.optImbalances.level};
+      const injuryHTML = await renderTemplate('systems/lone-wolf-fists/templates/popups/popup-chooseInjuries.hbs', injuryData);
+      const choices = await Dialog.wait({
+        title: "Choose limb imbalances",
+        content: injuryHTML,
+        buttons: {
+          submit: {
+            label: "Submit",
+            callback: (html) => {
+              const formElement = html[0].querySelector('form');
+              const formData = new FormDataExtended(formElement);
+              return formData.object;
+            }
+          }
+        }
+      })
+      const newInjuries = [];
+      let extraInjuries = 0;
+      for(const b in choices){
+        if(choices[b] !== null){
+          newInjuries.push({
+            name: `${choices[b]} injury`,
+            bodyPart: `${choices[b]}`,
+            rank: 1,
+            agg: 10
+          })
+          extraInjuries += 1;
+        }
+      }
+      let rank = this.actor.system.optImbalances.level - extraInjuries;
+      if(rank > 0){
+        const agg = rank * 10;
+        newInjuries.push({
+          name: "Internal Injury",
+          bodyPart: "Internal",
+          rank: rank,
+          agg: agg
+        })
+      }
+      this.actor.update({[ 'system.optImbalances.level']: 0, [ 'system.injuries'] : newInjuries })
     })
 
     // Choose masteries to add on level up TODO: pass the data back to the original character sheet
