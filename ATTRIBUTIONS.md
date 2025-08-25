@@ -12,3 +12,6 @@
 - **Source:** [https://game-icons.net/](https://game-icons.net/)
 - **License:** [CC BY 3.0] (https://creativecommons.org/licenses/by/3.0/)
 - **Modifications:** the contents of "assets/dice/" were based on the [Dice 10 icon](https://game-icons.net/1x1/skoll/d10.html) from this source, and have bee modified
+
+## Packs
+- Put together by github user [cdrit](https://github.com/cdrit)
