@@ -20,7 +20,7 @@
       "thumbnail": "systems/lone-wolf-fists/assets/logo.png"
     }
   ],
-  "version": "1.2.2h",
+  "version": "1.2.2",
   "compatibility": {
     "minimum": 13,
     "verified": "13.347"
@@ -246,8 +246,8 @@
     }]
   },
   "socket": false,
-  "manifest": "https://raw.githubusercontent.com/El-Gobbo/lone-wolf-fists/refs/tags/v1.2.2h/system.json",
-  "download": "https://github.com/El-Gobbo/lone-wolf-fists/releases/download/v1.2.2h/lone-wolf-fists.zip",
+  "manifest": "https://raw.githubusercontent.com/El-Gobbo/lone-wolf-fists/refs/tags/v1.2.2/system.json",
+  "download": "https://github.com/El-Gobbo/lone-wolf-fists/releases/download/v1.2.2/lone-wolf-fists.zip",
   "background": "systems/lone-wolf-fists/assets/logo.png",
   "gridDistance": 5,
   "gridUnits": "ft",
